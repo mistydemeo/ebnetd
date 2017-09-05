@@ -14,7 +14,7 @@
 @end direntry
 
 @ifinfo
-EBNETD: CD-ROM ���ҥ����з����޸���Ƿ
+EBNETD: CD-ROM 書籍サーバ群、笠原基之
 
 Copyright @copyright{} 1997, 98, 99, 2000, 01, 03  Motoyuki Kasahara
 
@@ -42,10 +42,10 @@ by Free Software Foundation, Inc.
 
 @titlepage
 @title ebNETD/NDTPD/ebHTTPD
-@subtitle CD-ROM ���ҥ����з�
-@subtitle �� @value{EDITION} �� (EBNETD �С������ @value{VERSION} ���б�)
+@subtitle CD-ROM 書籍サーバ群
+@subtitle 第 @value{EDITION} 版 (EBNETD バージョン @value{VERSION} に対応)
 @subtitle @value{UPDATED}
-@author �޸� ��Ƿ
+@author 笠原 基之
 
 @page
 @vskip 0pt plus 1filll
@@ -68,675 +68,675 @@ by Free Software Foundation, Inc.
 
 @node Top, Introduction, (dir), (dir)
 @ifinfo
-����ʸ����� @value{EDITION} �ǤǤ���EBNETD �С������ @value{VERSION}
-���б����Ƥ��ޤ���
+この文書は第 @value{EDITION} 版です。EBNETD バージョン @value{VERSION}
+に対応しています。
 @end ifinfo
 
 @menu
-* Introduction::                �Ϥ����
-* Installation::                EBNETD �Υ��󥹥ȡ���
-* Configuration File::          ����ե�����ν���
-* Configuration Checker::       ����ե�����γ�ǧ
-* Setup Your Environment::      �Ķ�����
-* Start ebnetd::                @code{ebnetd} �ε�ư
-* Start ndtpd::                 @code{ndtpd} �ε�ư
-* Start ebhttpd::               @code{ebhttpd} �ε�ư
-* Terminate and Restart::       @code{ndtpd} �ν�λ����Ӻƻ�ư
-* Daily Works::                 �����δ������
-* Network License::             �ͥåȥ���饤����
+* Introduction::                はじめに
+* Installation::                EBNETD のインストール
+* Configuration File::          設定ファイルの書き方
+* Configuration Checker::       設定ファイルの確認
+* Setup Your Environment::      環境設定
+* Start ebnetd::                @code{ebnetd} の起動
+* Start ndtpd::                 @code{ndtpd} の起動
+* Start ebhttpd::               @code{ebhttpd} の起動
+* Terminate and Restart::       @code{ndtpd} の終了および再始動
+* Daily Works::                 毎日の管理作業
+* Network License::             ネットワークライセンス
 
 @detailmenu
  --- The Detailed Node Listing ---
 
-EBNETD �Υ��󥹥ȡ���
+EBNETD のインストール
 
-* Basic Installation::          ����Ū�ʥ��󥹥ȡ�����ˡ
-* Compilers and Options::       ����ѥ���ȥ���ѥ��륪�ץ���������
-* Multiple Architectures::      ʣ���Υ������ƥ�����ǥ���ѥ���
-* Installation Names::          ���󥹥ȡ���̾���ѹ�
-* Optional Features::           �������β�ǽ�ʵ�ǽ
-* System Type::                 �����ƥ�μ���
-* Sharing Defaults::            @code{configure} ������ץȤΥǥե����
-                                ���̤��ͤ����ꤹ��ˤ�
-* Operation Controls::          @code{configure} ��ư�������
-* Optional Feature List::       �������β�ǽ�ʵ�ǽ�ΰ���
+* Basic Installation::          基本的なインストール方法
+* Compilers and Options::       コンパイラとコンパイルオプションの選択
+* Multiple Architectures::      複数のアーキテクチャでコンパイル
+* Installation Names::          インストール名の変更
+* Optional Features::           取捨選択の可能な機能
+* System Type::                 システムの種類
+* Sharing Defaults::            @code{configure} スクリプトのデフォルト
+                                を共通の値に設定するには
+* Operation Controls::          @code{configure} の動作の制御
+* Optional Feature List::       取捨選択の可能な機能の一覧
 
-����ե�����
+設定ファイル
 
-* Single Directive::            ñ�Ȼؼ��Ҥΰ��̷�
-* Single Directive List::       ñ�Ȼؼ��Ҥΰ���
-* Group Directive::             ʣ��ؼ��Ҥΰ��̷�
-* Book Group Directive::        ʣ��ؼ��Ҥΰ���
-* Sample Configuration::        ����ե��������
+* Single Directive::            単独指示子の一般形
+* Single Directive List::       単独指示子の一覧
+* Group Directive::             複合指示子の一般形
+* Book Group Directive::        複合指示子の一覧
+* Sample Configuration::        設定ファイルの例
 
-����ե�����Υ����å����ޥ��
+設定ファイルのチェックコマンド
 
-* Invoking ebncheck::           @code{ebncheck} �μ¹�
-* ebncheck Options::            @code{ebncheck} �Υ��ץ����
+* Invoking ebncheck::           @code{ebncheck} の実行
+* ebncheck Options::            @code{ebncheck} のオプション
 
-�Ķ�����
+環境設定
 
-* Services::                    @file{services} �ե����������
-* Syslog::                      @file{syslog.conf} �ե����������
-* Working Directory::           EBNETD �κ���ѥǥ��쥯�ȥ�
-* Mount CD-ROM Books::          CD-ROM ���ҤΥޥ����
-* Appendix Package::            appendix �ѥå��������Ѱ�
+* Services::                    @file{services} ファイルの設定
+* Syslog::                      @file{syslog.conf} ファイルの設定
+* Working Directory::           EBNETD の作業用ディレクトリ
+* Mount CD-ROM Books::          CD-ROM 書籍のマウント
+* Appendix Package::            appendix パッケージの用意
 
-@code{ebnetd} �ε�ư
+@code{ebnetd} の起動
 
-* ebnetd Standalone::           @code{ebnetd} �򥹥���ɥ�����ǵ�ư
-* ebnetd Child of inetd::       @code{ebnetd} �� @code{inetd} ��ͳ�ǵ�ư
-* ebnetd Child of xinetd::      @code{ebnetd} �� @code{xinetd} ��ͳ�ǵ�ư
-* ebnetd Test with telnet::     @code{telnet} �ˤ�� @code{ebnetd} �γ�ǧ
-* ebnetd Options::              @code{ebnetd} �Υ��ץ����
+* ebnetd Standalone::           @code{ebnetd} をスタンドアロンで起動
+* ebnetd Child of inetd::       @code{ebnetd} を @code{inetd} 経由で起動
+* ebnetd Child of xinetd::      @code{ebnetd} を @code{xinetd} 経由で起動
+* ebnetd Test with telnet::     @code{telnet} による @code{ebnetd} の確認
+* ebnetd Options::              @code{ebnetd} のオプション
 
-@code{ndtpd} �ε�ư
+@code{ndtpd} の起動
 
-* ndtpd Standalone::            @code{ndtpd} �򥹥���ɥ�����ǵ�ư
-* ndtpd Child of inetd::        @code{ndtpd} �� @code{inetd} ��ͳ�ǵ�ư
-* ndtpd Child of xinetd::       @code{ndtpd} �� @code{xinetd} ��ͳ�ǵ�ư
-* ndtpd Test with telnet::      @code{telnet} �ˤ�� @code{ndtpd} �γ�ǧ
-* ndtpd Options::               @code{ndtpd} �Υ��ץ����
+* ndtpd Standalone::            @code{ndtpd} をスタンドアロンで起動
+* ndtpd Child of inetd::        @code{ndtpd} を @code{inetd} 経由で起動
+* ndtpd Child of xinetd::       @code{ndtpd} を @code{xinetd} 経由で起動
+* ndtpd Test with telnet::      @code{telnet} による @code{ndtpd} の確認
+* ndtpd Options::               @code{ndtpd} のオプション
 
-@code{ebhttpd} �ε�ư
+@code{ebhttpd} の起動
 
-* ebhttpd Standalone::          @code{ebhttpd} �򥹥���ɥ�����ǵ�ư
-* ebhttpd Child of inetd::      @code{ebhttpd} �� @code{inetd} ��ͳ�ǵ�ư
-* ebhttpd Child of xinetd::     @code{ebhttpd} �� @code{xinetd} ��ͳ�ǵ�ư
-* ebhttpd Test with telnet::    @code{telnet} �ˤ�� @code{ebhttpd} �γ�ǧ
-* ebhttpd Options::             @code{ebhttpd} �Υ��ץ����
+* ebhttpd Standalone::          @code{ebhttpd} をスタンドアロンで起動
+* ebhttpd Child of inetd::      @code{ebhttpd} を @code{inetd} 経由で起動
+* ebhttpd Child of xinetd::     @code{ebhttpd} を @code{xinetd} 経由で起動
+* ebhttpd Test with telnet::    @code{telnet} による @code{ebhttpd} の確認
+* ebhttpd Options::             @code{ebhttpd} のオプション
 
-�����Фν�λ����Ӻƻ�ư
+サーバの終了および再始動
 
-* Invoke Server Controler::     ���������楳�ޥ�ɤμ¹�
-* ebncontrol Options::          ���������楳�ޥ�ɤΥ��ץ����
+* Invoke Server Controler::     サーバ制御コマンドの実行
+* ebncontrol Options::          サーバ制御コマンドのオプション
 
-�����δ������
+毎日の管理作業
 
-* ebndaily Options::            @code{ebndaily} �Υ��ץ����
+* ebndaily Options::            @code{ebndaily} のオプション
 
 @end detailmenu
 @end menu
 
 @c ===================================================================
 @node Introduction, Installation, Top, Top
-@chapter �Ϥ����
+@chapter はじめに
 
-�� EBNETD ���ۥѥå������ˤϡ�@code{ebnetd}, @code{ndtpd}, @code{ebhttpd}
-�Ȥ��� 3 �ĤΥ����Х��ޥ�ɤ��Ͽ���Ƥ��ޤ���
-�����Ϥ�����⡢TCP/IP ���Ѥ��Ʊ�֥ۥ��Ȥ� CD-ROM ���Ҥ˥�����������
-����Υ����ФǤ���
-UNIX �� OS �Υ����ƥ���ư����뤳�Ȥ��Ǥ��ޤ���
+本 EBNETD 配布パッケージには、@code{ebnetd}, @code{ndtpd}, @code{ebhttpd}
+という 3 つのサーバコマンドを収録しています。
+これらはいずれも、TCP/IP を用いて遠隔ホストの CD-ROM 書籍にアクセスする
+ためのサーバです。
+UNIX 系 OS のシステム上で動作させることができます。
 
 @table @code
 @item ebnetd
-@code{ebnetd} �� EBNET �ץ��ȥ���Υ����Фǡ�EBNET �� @dfn{EB �饤�֥��}
-���̿���Ԥ�������߷פ��줿�ץ��ȥ���Ǥ���
+@code{ebnetd} は EBNET プロトコルのサーバで、EBNET は @dfn{EB ライブラリ}
+と通信を行うために設計されたプロトコルです。
 
-EB �饤�֥��ϡ�CD-ROM ���ҤΥ���������Ԥ���C ����Υ饤�֥��Ǥ���
-@code{ndtpd}, @code{ebhttpd} �� EB �饤�֥�����Ѥ��Ƥ��ޤ���
-@code{ebnetd} ����Ѥ���ȡ�EB �饤�֥��Υ��ץꥱ�������ϡ���֥ۥ���
-�� CD-ROM ���Ҥ˥��������Ǥ���褦�ˤʤ�ޤ���
-EB �饤�֥��ˤĤ��Ƥξܺ٤ϡ�@url{http://www.mistys-internet.website/eb/}
-�򻲾Ȥ��Ʋ�������
+EB ライブラリは、CD-ROM 書籍のアクセスを行う、C 言語のライブラリです。
+@code{ndtpd}, @code{ebhttpd} も EB ライブラリを使用しています。
+@code{ebnetd} を使用すると、EB ライブラリのアプリケーションは、遠隔ホスト
+の CD-ROM 書籍にアクセスできるようになります。
+EB ライブラリについての詳細は、@url{http://www.mistys-internet.website/eb/}
+を参照して下さい。
 
 @item ndtpd
-@code{ndtpd} �� NDTP (Network Dictionary Transfer Protocol) �����ФǤ���
-NDTP ��ǽ�˼������������Ф� @dfn{dserver} �ǡ�@code{ndtpd} ��
-dserver-2.2 �Ⱦ�̸ߴ���������ޤ���
+@code{ndtpd} は NDTP (Network Dictionary Transfer Protocol) サーバです。
+NDTP を最初に実装したサーバは @dfn{dserver} で、@code{ndtpd} は
+dserver-2.2 と上位互換性があります。
 
-Web �ڡ���
+Web ページ
 @url{http://www.sra.co.jp/m-kasahr/ndtpd/related.html}
-�� @code{ndtpd} ���̿���ǽ�� NDTP ���饤����Ȥΰ������ܤäƤ��ޤ���
+に @code{ndtpd} と通信可能な NDTP クライアントの一覧が載っています。
 
 @item ebhttpd
-@code{ebhttpd} �� WWW (World Wide Web) �����ФǤ���
-HTTP/1.0 ����� HTTP/1.1 (Hypertext Transfer Protocol version 1.0 
-����� 1.1) ���б����Ƥ��ޤ���
+@code{ebhttpd} は WWW (World Wide Web) サーバです。
+HTTP/1.0 および HTTP/1.1 (Hypertext Transfer Protocol version 1.0 
+および 1.1) に対応しています。
 @end table
 
-����饵���з��ϡ�EB, EBG, EBXA, EBXA-C, S-EBXA ����� EPWING ������
-CD-ROM ���Ҥ��б����Ƥ��ޤ���
-�����η����� CD-ROM ���Ҥϡ����ܤǰ���Ū�˻Ȥ��Ƥ��ޤ���
-CD-ROM ���Ҽ��Τ� ISO 9660 �����ˤʤäƤ��ޤ��Τǡ�¾�� ISO 9660 ����
-��Ʊ�����Τǥޥ���Ȥ��뤳�Ȥ��Ǥ��ޤ���
-�����Фϡ��ǥե���ȤǤϥ�����ɥ������ư��ޤ�����@code{inetd} 
-��ͳ�ǵ�ư����褦�ˤ��뤳�Ȥ��ǽ�Ǥ���
+これらサーバ群は、EB, EBG, EBXA, EBXA-C, S-EBXA および EPWING 形式の
+CD-ROM 書籍に対応しています。
+これらの形式の CD-ROM 書籍は、日本で一般的に使われています。
+CD-ROM 書籍自体は ISO 9660 形式になっていますので、他の ISO 9660 形式
+と同じ要領でマウントすることができます。
+サーバは、デフォルトではスタンドアロンで動作しますが、@code{inetd} 
+経由で起動するようにすることも可能です。
 
-EBNETD �ϥե꡼���եȥ������Ǥ������ʤ��ϡ�Free Software Foundation ��
-��ɽ���� GNU General Public License (GNU ���̸�ͭ���ѵ���) �С������ 
-2 ���뤤�Ϥ���ʹߤγƥС��������椫�餤���줫�����򤷡����ΥС�����
-��������˽��ä��ܥץ�����������ۤޤ����ѹ����뤳�Ȥ��Ǥ��ޤ���
+EBNETD はフリーソフトウェアです。あなたは、Free Software Foundation が
+公表した GNU General Public License (GNU 一般公有使用許諾) バージョン 
+2 あるいはそれ以降の各バージョンの中からいずれかを選択し、そのバージョ
+ンが定める条項に従って本プログラムを再頒布または変更することができます。
 
-EBNETD ��ͭ�ѤȤϻפ��ޤ��������ۤˤ����äƤϡ��Ծ����ڤ�������ŪŬ����
-�ˤĤ��Ƥΰ��ۤ��ݾڤ�ޤ�ơ������ʤ��ݾڤ�Ԥʤ��ޤ��󡣾ܺ٤ˤĤ���
-�� GNU General Public License ���ɤ߲�������
+EBNETD は有用とは思いますが、頒布にあたっては、市場性及び特定目的適合性
+についての暗黙の保証を含めて、いかなる保証も行ないません。詳細について
+は GNU General Public License をお読み下さい。
 
-�ä��ơ����ʤ��ϼ�ʬ�ν�ͭ���� CD-ROM ���Ҥλ��ѵ�������ʤ��ƤϤ���
-�ޤ���
-EBNETD �ϥե꡼���եȥ������Ǥ��������ʤ��ν��Ҥ���ͳ�˻Ȥ����ΤǤ���
-�Ȥϸ¤�ޤ���
-���Ѥ������Ƥ��ʤ��ۥ��Ȥ�桼�����Ф��ơ����ʤ��ν��Ҥ�������ʤ���
-��������
+加えて、あなたは自分の所有する CD-ROM 書籍の使用許諾も守らなくてはいけ
+ません。
+EBNETD はフリーソフトウェアですが、あなたの書籍が自由に使えるものである
+とは限りません。
+使用を許されていないホストやユーザに対して、あなたの書籍を公開しないで
+下さい。
 
-����ʸ��� EBNETD �С������ @value{VERSION} ���б����Ƥ��ޤ���
+この文書は EBNETD バージョン @value{VERSION} に対応しています。
 
-�ǿ��� EBNETD ��
-@url{https://github.com/mistydemeo/ebnetd/releases} ��������Ǥ��ޤ���
+最新の EBNETD は
+@url{https://github.com/mistydemeo/ebnetd/releases} から入手できます。
 
-EBNETD �˴ؤ�������
-@url{http://www.mistys-internet.website/ebnetd/} �������뤳�Ȥ��Ǥ��ޤ���
+EBNETD に関する情報は
+@url{http://www.mistys-internet.website/ebnetd/} から得ることができます。
 
-�����Ȥ�Х�������
-@email{m-kasahr@@sra.co.jp} ���ˡ����ܸ줫�Ѹ�Ǥ����겼������
+コメントやバグの報告は
+@email{m-kasahr@@sra.co.jp} 宛に、日本語か英語でお送り下さい。
 
 @c ===================================================================
 @node Installation, Configuration File, Introduction, Top
-@chapter EBNETD �Υ��󥹥ȡ���
+@chapter EBNETD のインストール
 
-EBNETD �� CD-ROM ���Ҥ˥����������뤿��ˡ�EB �饤�֥�����Ѥ��Ƥ��ޤ���
-EBNETD �򥤥󥹥ȡ��뤹�����ˡ�EB �饤�֥�� 3.3 �⤷���Ϥ���ʹߤ�
-�С������򥤥󥹥ȡ��뤹��ɬ�פ�����ޤ���
+EBNETD は CD-ROM 書籍にアクセスするために、EB ライブラリを使用しています。
+EBNETD をインストールする前に、EB ライブラリ 3.3 もしくはそれ以降の
+バージョンをインストールする必要があります。
 
-�ǿ��� EB �饤�֥���
+最新の EB ライブラリは
 @url{https://github.com/mistydemeo/eb/releases}
-��������Ǥ��ޤ���
+から入手できます。
 
-EB �饤�֥��˴ؤ�������
+EB ライブラリに関する情報は
 @url{http://www.mistys-internet.website/eb/}
-�������뤳�Ȥ��Ǥ��ޤ���
+から得ることができます。
 
 @menu
-* Basic Installation::          ����Ū�ʥ��󥹥ȡ�����ˡ
-* Compilers and Options::       ����ѥ���ȥ���ѥ��륪�ץ���������
-* Multiple Architectures::      ʣ���Υ������ƥ�����ǥ���ѥ���
-* Installation Names::          ���󥹥ȡ���̾���ѹ�
-* Optional Features::           �������β�ǽ�ʵ�ǽ
-* System Type::                 �����ƥ�μ���
-* Sharing Defaults::            @code{configure} ������ץȤΥǥե����
-                                ���̤��ͤ����ꤹ��ˤ�
-* Operation Controls::          @code{configure} ��ư�������
-* Optional Feature List::       �������β�ǽ�ʵ�ǽ�ΰ���
+* Basic Installation::          基本的なインストール方法
+* Compilers and Options::       コンパイラとコンパイルオプションの選択
+* Multiple Architectures::      複数のアーキテクチャでコンパイル
+* Installation Names::          インストール名の変更
+* Optional Features::           取捨選択の可能な機能
+* System Type::                 システムの種類
+* Sharing Defaults::            @code{configure} スクリプトのデフォルト
+                                を共通の値に設定するには
+* Operation Controls::          @code{configure} の動作の制御
+* Optional Feature List::       取捨選択の可能な機能の一覧
 @end menu
 
 @c -------------------------------------------------------------------
 @node Basic Installation, Compilers and Options, Installation, Installation
-@section ����Ū�ʥ��󥹥ȡ�����ˡ
+@section 基本的なインストール方法
 
-�ʲ��˵������Τϡ�����Ū�ʥ��󥹥ȡ������ˡ�Ǥ���
+以下に記したのは、一般的なインストールの方法です。
 
-@code{configure} �����륹����ץȤϡ�����ѥ�����˻��Ѥ���롢�����ƥ�
-��¸�Υ����å����ܤ��ͤ����������ꤷ�褦���ؤ�ޤ���
-@code{configure}�ϡ�Ƚ�ꤷ���ͤ����Ѥ��ƥѥå�������γƥǥ��쥯�ȥ�� 
-@file{Makefile}���������ޤ���
-�ä��ơ������ƥ�˰�¸����������Ƥ򵭤��� @file{.h} �ե��������
-�⤷���Ϥ����Ĥ��������뤳�Ȥ⤢��ޤ���
-�Ǹ�ˡ�@code{configure} �� @code{config.status} �Ȥ��������륹����ץ�
-@file{config.cache}��@file{config.log} �Ȥ����ե�������������ޤ���
-@code{config.status} �ϡ����ߤΥ���ե����졼�������Ǻ������������
-�����Ѥ��ޤ���
-@file{config.cache} �ϡ����٥���ե����졼������Ԥ��Ȥ��˥��ԡ��ɥ��å�
-��ޤ뤿��ˡ��ƥ��Ȥη�̤���¸���Ƥ���ޤ���
-@file{config.log} �ˤϡ�(��� @code{configure} �ΥǥХå�����Ω�Ĥ褦��)
-����ԥ塼���ν��Ϥ���Ͽ����Ƥ��ޤ���
+@code{configure} シェルスクリプトは、コンパイル中に使用される、システム
+依存のチェック項目の値を正しく推定しようと努めます。
+@code{configure}は、判定した値を利用してパッケージ中の各ディレクトリの 
+@file{Makefile}を生成します。
+加えて、システムに依存する定義内容を記した @file{.h} ファイルを一つ
+もしくはいくつか生成することもあります。
+最後に、@code{configure} は @code{config.status} というシェルスクリプト
+@file{config.cache}、@file{config.log} というファイルを生成します。
+@code{config.status} は、現在のコンフィグレーションを後で再度生成すると
+きに用います。
+@file{config.cache} は、再度コンフィグレーションを行うときにスピードアップ
+を図るために、テストの結果を保存してあります。
+@file{config.log} には、(主に @code{configure} のデバッグに役立つような)
+コンピュータの出力が記録されています。
 
-���ʤ����ѥå������򥳥�ѥ��뤹��ˤ����äơ����̤ʤ��Ȥ򤷤ʤ����
-�ʤ�ʤ��ä��Ȥ��ϡ�@code{configure} ���ɤΤ褦��Ƚ��򤷤Ƥ����Τ���
-Ĵ�٤Ƥߤơ�@file{README} �˵����줿���ɥ쥹�˰��Ƥơ���������Ŧ��
-�᡼������äƲ�������
-��������С�����Υ�꡼���˸����Ƹ�Ƥ�����Ȼפ��ޤ���
-�⤷��@file{config.cache} �˸���줿���ʤ���̤���Ͽ����Ƥ�����ϡ�
-������ʬ�����������Խ������ꤷ�Ƥ⹽���ޤ���
+あなたがパッケージをコンパイルするにあたって、特別なことをしなければ
+ならなかったときは、@code{configure} がどのような判定をしていたのかを
+調べてみて、@file{README} に記されたアドレスに宛てて、相違点や指摘を
+メールで送って下さい。
+そうすれば、次回のリリースに向けて検討されると思います。
+もし、@file{config.cache} に見られたくない結果が記録されている場合は、
+その部分を削除したり編集したりしても構いません。
 
-@file{configure.in} �Ȥ����ե�����ϡ�@code{autoconf} �Ȥ����ץ�����ब 
-@file{configure} ����������Ȥ��˻��Ȥ��ޤ���
-���ʤ��ˤȤä� @file{configure.in} �Ȥ����ե����뤬ɬ�פˤʤ�Τϡ�
-@file{configure.in} �����Ƥ��ѹ���������礫��@code{autoconf} �Τ�ä�
-�������С������� @file{configure} ���������������Ρ������줫�����Ǥ���
+@file{configure.in} というファイルは、@code{autoconf} というプログラムが 
+@file{configure} を生成するときに参照します。
+あなたにとって @file{configure.in} というファイルが必要になるのは、
+@file{configure.in} の内容を変更したい場合か、@code{autoconf} のもっと
+新しいバージョンで @file{configure} を生成したい場合の、いずれかだけです。
 
 @noindent
-�ѥå������κǤ�ñ��ʥ���ѥ�����ˡ�ϼ����̤�Ǥ���
+パッケージの最も単純なコンパイル方法は次の通りです。
 
 @enumerate
 @item
-�ѥå������Υ����������ɤ��֤���Ƥ���ǥ��쥯�ȥ�˰�ư (@code{cd}) ����
-���ʤ��Υ����ƥ�����Υ���ե����졼������Ԥ������ @samp{./configure}
-��¹Ԥ��ޤ���
-���ʤ����Ť��С������� System V �� @code{csh} ����Ѥ��Ƥ�����ϡ�
-@code{csh} ���Ȥ�������ץȤ�¹Ԥ��Ƥ��ޤ�ʤ��褦�ˡ�
-@samp{sh. /configure} �Ȥ���ɬ�פ����뤫���Τ�ޤ���
+パッケージのソースコードが置かれているディレクトリに移動 (@code{cd}) し、
+あなたのシステム向けのコンフィグレーションを行うために @samp{./configure}
+を実行します。
+あなたが古いバージョンの System V で @code{csh} を使用している場合は、
+@code{csh} 自身がスクリプトを実行してしまわないように、
+@samp{sh. /configure} とする必要があるかも知れません。
 
 
-@code{configure} �μ¹ԤˤϾ������֤�������ޤ���
-�¹Ԥ��Ƥ���֤ϡ��ɤΤ褦�ʹ��ܤ�����å����Ƥ���Τ��򵭤�����å�����
-�����Ϥ���ޤ���
-
-@item
-@samp{make} ��¹Ԥ��ƥѥå������򥳥�ѥ��뤷�ޤ���
+@code{configure} の実行には少々時間がかかります。
+実行している間は、どのような項目をチェックしているのかを記したメッセージ
+が出力されます。
 
 @item
-Ǥ�դǡ��ѥå���������°���Ƥ��륻��եƥ��Ȥ�¹Ԥ�����ϡ�
-@samp{make check} ��¹Ԥ��ޤ���
+@samp{make} を実行してパッケージをコンパイルします。
 
 @item
-@samp{make install} ��¹Ԥ��ơ��ץ�����प��ӥǡ����ե����롢
-�ɥ�����Ȥ򥤥󥹥ȡ��뤷�ޤ���
+任意で、パッケージに付属しているセルフテストを実行する場合は、
+@samp{make check} を実行します。
 
 @item
-@samp{make clean} ��¹Ԥ���ȡ��������줿�ץ������ΥХ��ʥ�ե������
-���֥������ȥե�����򡢥����������ɤ��֤��줿�ǥ��쥯�ȥ꤫��ä����Ȥ�
-�Ǥ��ޤ���
-���� @code{configure} �����������ե������ä��ˤ� (�������뤳�Ȥǡ�
-�̤μ���Υ���ԥ塼���ǥѥå������򥳥�ѥ���Ǥ��ޤ�)��
-@samp{make distclean} ��¹Ԥ��ޤ���
-@samp{make maintainer-clean} �Ȥ����������åȤ��Ѱդ���Ƥ��ޤ�����
-����ϼ�ˤ��Υѥå������γ�ȯ�ԤΤ���Τ�ΤǤ���
-@samp{make maintainer-clean} ��¹Ԥ��Ƥ��ޤ��ȡ��ѥå������˸���
-�ޤޤ�Ƥ����ե��������������뤿��ˡ�¾�Τ��������ʥץ�������
-���ꤷ�ʤ��ƤϤ����ʤ��ʤ뤫���Τ�ޤ���
+@samp{make install} を実行して、プログラムおよびデータファイル、
+ドキュメントをインストールします。
+
+@item
+@samp{make clean} を実行すると、生成されたプログラムのバイナリファイルや
+オブジェクトファイルを、ソースコードの置かれたディレクトリから消すことが
+できます。
+一緒に @code{configure} が生成したファイルも消すには (こうすることで、
+別の種類のコンピュータでパッケージをコンパイルできます)、
+@samp{make distclean} を実行します。
+@samp{make maintainer-clean} というターゲットも用意されていますが、
+これは主にそのパッケージの開発者のためのものです。
+@samp{make maintainer-clean} を実行してしまうと、パッケージに元々
+含まれていたファイルを再生成するために、他のいろいろなプログラムを
+入手しなくてはいけなくなるかも知れません。
 @end enumerate
 
 @c -------------------------------------------------------------------
 @node Compilers and Options, Multiple Architectures, Basic Installation, Installation
-@section ����ѥ���ȥ���ѥ��륪�ץ����
+@section コンパイラとコンパイルオプション
 
-�����ƥ�ˤ�äƤϡ�@code{configure} ������ץȤ����򤷤Ƥ��ʤ���
-����ѥ�����󥯤Τ�������̤ʥ��ץ�����Ϳ����ɬ�פ�����ޤ���
-�Ķ��ѿ����̤��ơ�@code{configure} ���Ф��ƽ���ͤ�Ϳ���뤳�Ȥ��Ǥ��ޤ���
-Bourne ������ȸߴ����Τ��륷�������Ѥ��Ƥ�����ϡ����Τ褦�ˤ��ޤ���
+システムによっては、@code{configure} スクリプトが理解していない、
+コンパイルやリンクのための特別なオプションを与える必要があります。
+環境変数を通して、@code{configure} に対して初期値を与えることができます。
+Bourne シェルと互換性のあるシェルを使用している場合は、次のようにします。
 @example
 CC=c89 CFLAGS=-O2 LIBS=-lposix ./configure
 @end example
 
 @noindent
-@code{env} �Ȥ������ޥ�ɤ������ƥ�ˤ���ʤ�С����Τ褦�ˤ��뤳�Ȥ�
-�Ǥ��ޤ���
+@code{env} というコマンドがシステムにあるならば、次のようにすることも
+できます。
 @example
 env CPPFLAGS=-I/usr/local/include LDFLAGS=-s ./configure
 @end example
 
 @c -------------------------------------------------------------------
 @node Multiple Architectures, Installation Names, Compilers and Options, Installation
-@section ʣ���Υ������ƥ�����ǤΥ��󥹥ȡ���
+@section 複数のアーキテクチャでのインストール
 
-���֥������ȥե�����򥢡����ƥ���������̡��Υǥ��쥯�ȥ���֤��褦��
-���뤳�Ȥˤ�ꡢ����ΰۤʤ�ʣ���Υ���ԥ塼�������ѥå�������Ʊ����
-����ѥ���Ǥ��ޤ���
-�����Ԥ��ˤϡ�GNU @code{make} �Τ褦�ˡ�@code{VPATH} �ѿ����б�����
-@code{make} ����Ѥ���ɬ�פ�����ޤ���
-���֥������ȥե������¹Է����Υե�������֤��Ƥ��������ǥ��쥯�ȥ��
-��ư (@code{cd}) ���ơ������� @code{configure} ������ץȤ�¹Ԥ��ޤ���
-@code{configure} �ϡ����Ȥ�¸�ߤ���ǥ��쥯�ȥꤪ��� @file{..} ��
-�����������ɤ����뤫�ɤ�����ưŪ��Ĵ�٤ޤ���
+オブジェクトファイルをアーキテクチャ毎に別々のディレクトリに置くように
+することにより、種類の異なる複数のコンピュータが、パッケージを同時に
+コンパイルできます。
+これを行うには、GNU @code{make} のように、@code{VPATH} 変数に対応した
+@code{make} を使用する必要があります。
+オブジェクトファイルや実行形式のファイルを置いておきたいディレクトリに
+移動 (@code{cd}) して、そこで @code{configure} スクリプトを実行します。
+@code{configure} は、自身の存在するディレクトリおよび @file{..} に
+ソースコードがあるかどうかを自動的に調べます。
 
-@code{VPATH} �ѿ����б����Ƥ��ʤ� @code{make} ����Ѥ��Ƥ�����ϡ�
-�����������ɥǥ��쥯�ȥ�β��ǡ����٤˰�ĤΥ������ƥ����㤺�ĥ���ѥ���
-���Ƥ�����������ޤ��󡣰�ĤΥ������ƥ�����Υ���ѥ��뤬����ä��顢
-�̤Υ������ƥ�����ǥ���ѥ��뤹�뤿��˺ƥ���ե����졼������Ԥ�
-���� @samp{make distclean} ��¹Ԥ��Ʋ�������
+@code{VPATH} 変数に対応していない @code{make} を使用している場合は、
+ソースコードディレクトリの下で、一度に一つのアーキテクチャずつコンパイル
+していくしかありません。一つのアーキテクチャのコンパイルが終わったら、
+別のアーキテクチャでコンパイルするために再コンフィグレーションを行う
+前に @samp{make distclean} を実行して下さい。
 
 @c -------------------------------------------------------------------
 @node Installation Names, Optional Features, Multiple Architectures, Installation
-@section ���󥹥ȡ���̾
+@section インストール名
 
-�ǥե���ȤǤϡ�@samp{make install} ��¹Ԥ���ȡ��ѥå�������Υե�����
-�� @file{/usr/local/bin}��@file{/usr/local/man} �ʤɤ˥��󥹥ȡ���
-����ޤ���
-@code{configure} ���Ф��� @samp{--prefix=@var{�ѥ�}} ���ץ��������
-���뤳�Ȥǡ�@file{/usr/local} �ʳ��Υ��󥹥ȡ��������ꤹ��Ȥ��Ǥ��ޤ���
+デフォルトでは、@samp{make install} を実行すると、パッケージ中のファイル
+が @file{/usr/local/bin}、@file{/usr/local/man} などにインストール
+されます。
+@code{configure} に対して @samp{--prefix=@var{パス}} オプションを指定
+することで、@file{/usr/local} 以外のインストール先を指定するとができます。
 
-�������ƥ�����˰�¸�����ե�����Ȥ����Ǥʤ��ե�����򡢤��줾��ۤʤä�
-���󥹥ȡ�����˥��󥹥ȡ��뤹�뤳�Ȥ��ǽ�Ǥ���
-@code{configure} ���Ф��� @samp{--exec-prefix=@var{�ѥ�}} ����ꤹ��ȡ�
-�ץ�������饤�֥��ʤɤΥ��󥹥ȡ����褬 @var{�ѥ�} ���Ѥ��ޤ���
-�ɥ�����Ȥ䡢�ǡ����ե�����ʤɤϡ��̾�Υ��󥹥ȡ�����˥��󥹥ȡ���
-����ޤ���
+アーキテクチャに依存したファイルとそうでないファイルを、それぞれ異なった
+インストール先にインストールすることも可能です。
+@code{configure} に対して @samp{--exec-prefix=@var{パス}} を指定すると、
+プログラムやライブラリなどのインストール先が @var{パス} に変わります。
+ドキュメントや、データファイルなどは、通常のインストール先にインストール
+されます。
 
-�ä��ơ����ʤ����̾�Ȥϰۤʤä��ǥ��쥯�ȥ�쥤�����Ȥ���Ѥ��Ƥ�����
-�ϡ�@samp{--bindir=@var{�ѥ�}} �Ȥ��ä����ץ�������ꤹ�뤳�Ȥǡ�����
-�μ���Υե�����Υ��󥹥ȡ�����������Ѥ��뤳�Ȥ��Ǥ��ޤ���
-@samp{configure --help} ��¹Ԥ���ȡ��ɤΤ褦�ʥǥ��쥯�ȥ���ѹ��Ǥ���
-�Τ����ɤΤ褦�ʼ���Υե����뤬�ɤΥǥ��쥯�ȥ�˥��󥹥ȡ��뤵���Τ���
-ʬ����ޤ���
+加えて、あなたが通常とは異なったディレクトリレイアウトを採用している場合
+は、@samp{--bindir=@var{パス}} といったオプションを指定することで、特定
+の種類のファイルのインストール先だけを変えることができます。
+@samp{configure --help} を実行すると、どのようなディレクトリを変更できる
+のか、どのような種類のファイルがどのディレクトリにインストールされるのかが
+分かります。
 
-�ѥå����������ݡ��Ȥ��Ƥ���ʤ�С�@code{configure} �� 
-@samp{--program-prefix=@var{��Ƭ��}} ��
-@samp{--program-suffix=@var{������}} �Ȥ������ץ�����Ϳ���뤳�Ȥǡ�
-���󥹥ȡ�����˥ץ������̾����Ƭ�������������ղä��뤳�Ȥ��Ǥ��ޤ���
+パッケージがサポートしているならば、@code{configure} に 
+@samp{--program-prefix=@var{接頭辞}} や
+@samp{--program-suffix=@var{接尾辞}} というオプションを与えることで、
+インストール時にプログラム名に接頭辞や接尾辞を付加することができます。
 
 @c -------------------------------------------------------------------
 @node Optional Features, System Type, Installation Names, Installation
-@section �������β�ǽ�ʵ�ǽ
+@section 取捨選択の可能な機能
 
-�ѥå������ˤ�äƤϡ�@code{configure} �� @samp{--enable-@var{��ǽ}} 
-���ץ�����ǧ�����뤳�Ȥ�����ޤ���
-������ @var{��ǽ} �ϡ��ѥå������ˤ����Ƽ������β�ǽ�ʵ�ǽ��ɽ���ޤ���
-�ޤ���@samp{--with-@var{�ѥå�����}} ���ץ�����ǧ�����뤳�Ȥ⤢��ޤ���
-������ @var{�ѥå�����} �ϡ�@samp{gnu-as} �� (X ������ɥ������ƥ��
-�����) @samp{x} �Ȥ��ä���ΤǤ���
-@file{README} �ե�����Ǥϡ��ɤΤ褦�� @samp{--enable-}��@samp{--with-}
-���ץ�����ѥå�������ǧ������Τ��������Ƥ����٤��Ǥ���
+パッケージによっては、@code{configure} が @samp{--enable-@var{機能}} 
+オプションを認識することがあります。
+ここで @var{機能} は、パッケージにおいて取捨選択の可能な機能を表します。
+また、@samp{--with-@var{パッケージ}} オプションを認識することもあります。
+ここで @var{パッケージ} は、@samp{gnu-as} や (X ウィンドウシステムの
+ための) @samp{x} といったものです。
+@file{README} ファイルでは、どのような @samp{--enable-}、@samp{--with-}
+オプションをパッケージが認識するのか、記しておくべきです。
 
-���̤ˡ�X ������ɥ������ƥ����Ѥ��Ƥ���ѥå������Ǥϡ�@code{configure}
-�� X �� include �ե�����ȥ饤�֥��ե������ưŪ�˸��Ĥ��Ф����Ȥ�
-�Ǥ��ޤ��������Ĥ����ʤ����ϡ�@code{configure} �Υ��ץ����
-@samp{--x-includes=@var{�ǥ��쥯�ȥ�}} ��
-@samp{--x-libraries=@var{�ǥ��쥯�ȥ�}} ���Ѥ��뤳�Ȥǥǥ��쥯�ȥ��
-���֤�����Ū�˻��ꤹ�뤳�Ȥ��Ǥ��ޤ���
+一般に、X ウィンドウシステムを使用しているパッケージでは、@code{configure}
+は X の include ファイルとライブラリファイルを自動的に見つけ出すことが
+できますが、見つけられない場合は、@code{configure} のオプション
+@samp{--x-includes=@var{ディレクトリ}} と
+@samp{--x-libraries=@var{ディレクトリ}} を用いることでディレクトリの
+位置を明示的に指定することができます。
 
 @c -------------------------------------------------------------------
 @node System Type, Sharing Defaults, Optional Features, Installation
-@section �����ƥ�μ���λ���
+@section システムの種類の指定
 
-������ܤˤ�äƤϡ�@code{configure} ����ưŪ�˼��̤Ǥ��ʤ��Ƥ⡢
-�ѥå�������ư���ۥ��Ȥμ�����˷��ꤷ�ʤ���Фʤ�ʤ��Ȥ��⤢��ޤ���
-�̾@code{configure} �Ϥ��Υۥ��Ȥμ�����̤��뤳�Ȥ��Ǥ��ޤ�����
-�⤷�� @code{configure} ���ۥ��Ȥμ�����̤Ǥ��ʤ��Ȥ����ݤΥ�å�����
-����Ϥ��Ƥ����Ȥ��ϡ�@samp{--host=@var{����}} ���ץ�����Ϳ���Ʋ�������
-@var{����} �� @samp{sun4} �Τ褦�ʥ����ƥ�μ����ɽ����û��̾������
-���뤤�ϼ��Τ褦�� 3 �Ĥιफ��ʤ�����̾�ΤΤ����줫�Ǥ���
+設定項目によっては、@code{configure} が自動的に識別できなくても、
+パッケージが動作するホストの種類を基に決定しなければならないときもあります。
+通常、@code{configure} はそのホストの種類を識別することができますが、
+もしも @code{configure} がホストの種類を識別できないという旨のメッセージ
+を出力してきたときは、@samp{--host=@var{種類}} オプションを与えて下さい。
+@var{種類} は @samp{sun4} のようなシステムの種類を表した短い名前か、
+あるいは次のように 3 つの項からなる正式名称のいずれかです。
 @example
-@var{CPU}-@var{��̾}-@var{�����ƥ�}
+@var{CPU}-@var{社名}-@var{システム}
 @end example
 @noindent
-���줾��ι�ˤɤΤ褦���ͤ������ǽ�ʤΤ��ˤĤ��Ƥϡ�@file{config.sub}
-�ե����������������
-�ѥå������� @file{config.sub} ��ޤ�Ǥ��ʤ��ΤǤ���С����Υѥå�����
-�ϥۥ��Ȥμ�����̤���ɬ�פ��ʤ����Ȥ��̣���Ƥ��ޤ���
+それぞれの項にどのような値が指定可能なのかについては、@file{config.sub}
+ファイルをご覧下さい。
+パッケージが @file{config.sub} を含んでいないのであれば、そのパッケージ
+はホストの種類を識別する必要がないことを意味しています。
 
-���ʤ�������������ѥ���Τ���Υ���ѥ���ġ���򥤥󥹥ȡ��뤷�褦��
-���Ƥ�����ϡ�@samp{--target=@var{����}} ���ץ�������Ѥ��뤳�Ȥǡ�
-�ɤΥۥ��ȸ����Υ����ɤ�����������Τ������Ǥ��ޤ��������ơ�
-@samp{--build=@var{����}} ���ץ�������Ѥ��뤳�Ȥǡ��ѥå�������
-����ѥ��뤷�褦�Ȥ��Ƥ��륷���ƥ�μ������ꤹ�뤳�Ȥ��Ǥ��ޤ���
+あなたがクロスコンパイルのためのコンパイラツールをインストールしようと
+している場合は、@samp{--target=@var{種類}} オプションを使用することで、
+どのホスト向けのコードを生成させるのかを指定できます。そして、
+@samp{--build=@var{種類}} オプションを使用することで、パッケージを
+コンパイルしようとしているシステムの種類を指定することができます。
 
 @c -------------------------------------------------------------------
 @node Sharing Defaults, Operation Controls, System Type, Installation
-@section �ǥե�����ͤζ�ͭ
+@section デフォルト値の共有
 
-ʣ���� @code{configure} ������ץȤ��Ф��ƶ��̤Υǥե�����ͤ����ꤷ����
-�Ȥ��ϡ���������� @file{config.site} �Ȥ��������륹����ץȤ��������
-������ @code{CC} �� @code{cache_file}��@code{prefix} �Ȥ��ä��ѿ���
-�ǥե�����ͤ򵭽Ҥ��Ʋ�������
-@code{configure} �� @file{@var{prefix}/share/config.site} ������С�
-�����Ĵ�١����� @file{@var{prefix}/etc/config.site} ������Ф����
-Ĵ�٤ޤ���
-���뤤�ϡ��Ķ��ѿ� @code{CONFIG_SITE} �����ꤹ�뤳�Ȥǡ������ȸ�ͭ��
-������ץȤΰ��֤���ꤹ�뤳�Ȥ�Ǥ��ޤ���
-�����������٤Ƥ� @code{configure} ������ץȤ������ȸ�ͭ�Υ�����ץȤ�
-�˹Ԥ��櫓�ǤϤ���ޤ���Τǡ������ղ�������
+複数の @code{configure} スクリプトに対して共通のデフォルト値を設定したい
+ときは、サイト毎に @file{config.site} というシェルスクリプトを作成し、
+そこに @code{CC} や @code{cache_file}、@code{prefix} といった変数の
+デフォルト値を記述して下さい。
+@code{configure} は @file{@var{prefix}/share/config.site} があれば、
+それを調べ、次に @file{@var{prefix}/etc/config.site} があればそれを
+調べます。
+あるいは、環境変数 @code{CONFIG_SITE} を設定することで、サイト固有の
+スクリプトの位置を指定することもできます。
+ただし、すべての @code{configure} スクリプトがサイト固有のスクリプトを見
+に行くわけではありませんので、ご注意下さい。
 
 @c -------------------------------------------------------------------
 @node Operation Controls, Optional Feature List, Sharing Defaults, Installation
-@section @code{configure} ��ư�������
+@section @code{configure} の動作の制御
 
-@code{configure} �ϼ��˵��������ץ�����ǧ�����ޤ���
+@code{configure} は次に記したオプションを認識します。
 
 @table @code
-@item --cache-file=@var{�ե�����}
-�ƥ��Ȥη�̤��ɤ߹��ߤ�񤭽Ф��˻��Ѥ���ե�����ϡ��̾�
-@file{./config.cache} �Ǥ���������� @var{�ե�����} ���Ѥ��ޤ���
-@code{configure} ��ǥХå�����Ȥ��ϡ�@var{�ե�����} �� @file{/dev/null}
-����ꤹ�뤳�Ȥǡ�����å�����������뤳�Ȥ��Ǥ��ޤ���
+@item --cache-file=@var{ファイル}
+テストの結果の読み込みや書き出しに使用するファイルは、通常
+@file{./config.cache} ですが、代わりに @var{ファイル} を用います。
+@code{configure} をデバッグするときは、@var{ファイル} に @file{/dev/null}
+を指定することで、キャッシュを抑制することができます。
 
 @item --help
-@code{configure} �Υ��ץ����ΰ�����ɽ�����ơ���λ���ޤ���
+@code{configure} のオプションの一覧を表示して、終了します。
 
 @item --quiet
 @itemx --silent
 @itemx -q
-�ɤΥ����å����ܤ�ԤäƤ���Τ��򼨤���å���������Ϥ��ޤ���
-�̾�Υ�å��������Ϥ򤹤٤���������ˤϡ�@file{/dev/null} ��
-������쥯�Ȥ��Ʋ����� (�����������顼��å������ˤĤ��ƤϽ��Ϥ����
-���ޤ��ޤ���)��
+どのチェック項目を行っているのかを示すメッセージを出力しません。
+通常のメッセージ出力をすべて抑制するには、@file{/dev/null} へ
+リダイレクトして下さい (ただし、エラーメッセージについては出力されて
+しまいますが)。
 
-@item --srcdir=@var{�ǥ��쥯�ȥ�}
-�ѥå������Υ����������ɤ�õ���Ф��ݤˡ�@var{�ǥ��쥯�ȥ�} ��õ���ޤ���
-�̾@code{configure} �ϼ�ưŪ�˥ǥ��쥯�ȥ����ꤷ�ޤ���
+@item --srcdir=@var{ディレクトリ}
+パッケージのソースコードを探し出す際に、@var{ディレクトリ} を探します。
+通常、@code{configure} は自動的にディレクトリを決定します。
 
 @item --version
-@code{configure} ������ץȤ��ɤΥС������� Autoconf �ˤ�ä��������줿
-�Τ���ɽ�����ơ���λ���ޤ���
+@code{configure} スクリプトがどのバージョンの Autoconf によって生成された
+のかを表示して、終了します。
 @end table
 
 @noindent
-���Ω�ľ��̤ϸ¤��ޤ�����@code{configure} �ˤ�¾�ˤ⤤���Ĥ���
-���ץ�����Ѱդ���Ƥ��ޤ���
+役に立つ場面は限られますが、@code{configure} には他にもいくつかの
+オプションが用意されています。
 
 @c -------------------------------------------------------------------
 @node Optional Feature List,  , Operation Controls, Installation
-@section �����ǽ�ʵ�ǽ�ΰ���
+@section 選択可能な機能の一覧
 
-�ܥѥå������� @code{configure} �ϰʲ��˵�����
-@samp{--enable-} ����� @samp{--with-} ���ץ�����ǧ�����ޤ���
+本パッケージの @code{configure} は以下に記した
+@samp{--enable-} および @samp{--with-} オプションを認識します。
 
 @table @code
 @item --with-logdir=@var{dir}
-@code{ebndaily} �������ơ�������Ԥ� syslog �ե�����
-���֤����ǥ��쥯�ȥ�Υǥե���ȤȤ��� @var{dir} ����ꤷ�ޤ���
-̵������ϡ�@samp{@var{localstatedir}/ebnetd/log} �Ǥ���
+@code{ebndaily} がローテーションを行う syslog ファイル
+が置かれるディレクトリのデフォルトとして @var{dir} を指定します。
+無指定時は、@samp{@var{localstatedir}/ebnetd/log} です。
 
 @item --with-eb-conf=@var{file}
-EB �饤�֥�������ե�����Ȥ��� @var{file} ���ɤ߹��ߤޤ���
-�ǥե���Ȥϡ�@samp{@var{sysconfdir}/eb.conf} �Ǥ���
+EB ライブラリの設定ファイルとして @var{file} を読み込みます。
+デフォルトは、@samp{@var{sysconfdir}/eb.conf} です。
 
 @item --with-gnu-ld
-C ����ѥ��餬 GNU ld ����Ѥ��Ƥ���Ȳ��ꤷ�ޤ���
-�ǥե���Ȥϡ�@samp{no} �Ǥ���
+C コンパイラが GNU ld を使用していると仮定します。
+デフォルトは、@samp{no} です。
 
 @item --enable-ipv6
-IPv6 ���б������ޤ���
-�����ƥब IPv6 ���б����Ƥ����硢
+IPv6 に対応させます。
+システムが IPv6 に対応している場合、
 The default value is @samp{yes} if the system supports IPv6.
 
 @end table
 
 @c ===================================================================
 @node Configuration File, Configuration Checker, Installation, Top
-@chapter ����ե�����
+@chapter 設定ファイル
 
-@code{ebnetd}, @code{ndtpd}, @code{ebhttpd} ���ư�����뤿��ˤϡ��ޤ�
-����ե�������Խ�����ɬ�פ�����ޤ���
-�����Фϡ���ư������Ӻƻ�ư���ˤ��Υե�������ɤ߹��ߤޤ���
-���Υե���������Ƥˤ�äơ������Ф��͡��ʵ�ư�����ꤵ��ޤ���
-EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ��ޥ����ͭ��
-�ɤ߹������ѤΥǡ������֤��ǥ��쥯�ȥ� (@code{sysconfdir}) �ΰ��֤�
-�ѹ����Ƥ��ʤ���С�̵��������ɤ߹��ޤ������ե������
-@file{/usr/local/etc/ebnetd.conf} �ˤʤ�ޤ���
-����ե�����ΰ��֤ϡ����ޥ�ɥ饤�󥪥ץ���� @samp{--configuration-file}
-(���뤤�� @samp{-c}) ���Ѥ��뤳�Ȥ��ѹ�����ǽ�Ǥ�
-(@pxref{ebnetd Options, , @code{ebnetd} �Υ��ץ����})��
+@code{ebnetd}, @code{ndtpd}, @code{ebhttpd} を始動させるためには、まず
+設定ファイルを編集する必要があります。
+サーバは、始動時および再始動時にこのファイルを読み込みます。
+このファイルの内容によって、サーバの様々な挙動が決定されます。
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、マシン固有の
+読み込み専用のデータを置くディレクトリ (@code{sysconfdir}) の位置を
+変更していなければ、無指定時に読み込まれる設定ファイルは
+@file{/usr/local/etc/ebnetd.conf} になります。
+設定ファイルの位置は、コマンドラインオプション @samp{--configuration-file}
+(あるいは @samp{-c}) を用いることで変更が可能です
+(@pxref{ebnetd Options, , @code{ebnetd} のオプション})。
 
-����ե��������Ǥϡ����ԡ�����Ӷ���ʳ��κǽ��ʸ�����ϥå��嵭�� 
-(@samp{#}) �Ǥ���Ԥ�̵�뤵��ޤ���
-¾�ιԤϤ��٤ơ�@dfn{ñ�Ȼؼ��� (single directive)} ��
-@dfn{ʣ��ؼ��� (group directive)} �Τ����줫�Ǥʤ��ƤϤʤ�ޤ���
-ñ�Ȼؼ��Ҥ�ʣ��ؼ��Ҥϡ��ɤΤ褦�ʽ����������Ƥ⺹���٤�����ޤ���
+設定ファイルの中では、空行、および空白以外の最初の文字がハッシュ記号 
+(@samp{#}) である行は無視されます。
+他の行はすべて、@dfn{単独指示子 (single directive)} か
+@dfn{複合指示子 (group directive)} のいずれかでなくてはなりません。
+単独指示子と複合指示子は、どのような順序で定義しても差し支えありません。
 
-�ƹԤϡ�����ʸ����ޤ� 511 ʸ����ۤ��ƤϤʤ�ޤ���
+各行は、改行文字を含め 511 文字を越えてはなりません。
 
 @menu
-* Single Directive::            ñ�Ȼؼ��Ҥΰ��̷�
-* Single Directive List::       ñ�Ȼؼ��Ҥΰ���
-* Group Directive::             ʣ��ؼ��Ҥΰ��̷�
-* Book Group Directive::        ʣ��ؼ��Ҥΰ���
-* Sample Configuration::        ����ե��������
+* Single Directive::            単独指示子の一般形
+* Single Directive List::       単独指示子の一覧
+* Group Directive::             複合指示子の一般形
+* Book Group Directive::        複合指示子の一覧
+* Sample Configuration::        設定ファイルの例
 @end menu
 
 @c -------------------------------------------------------------------
 @node Single Directive, Single Directive List, Configuration File, Configuration File
-@section ñ�Ȼؼ��Ҥΰ��̷�
+@section 単独指示子の一般形
 
-ñ�Ȼؼ��ҤȤϡ�1 �ԤǴ��뤹��ؼ��ҤǤ���
-ñ�Ȼؼ��Ҥΰ��̷��ϼ����̤�Ǥ���
+単独指示子とは、1 行で完結する指示子です。
+単独指示子の一般形は次の通りです。
 
 @example
-@var{�ؼ��Ҥ�̾��}    @var{�ؼ��Ҥ���}
+@var{指示子の名前}    @var{指示子の値}
 @end example
 
 @noindent
-�ʲ�����Ǥϡ�@code{syslog-facility} ���ؼ��Ҥ�̾����@samp{local0} ��
-�����ͤǤ���
+以下の例では、@code{syslog-facility} が指示子の名前、@samp{local0} が
+その値です。
 
 @example
 syslog-facility    local0
 @end example
 
 @noindent
-�ؼ���̾����ʸ���Ⱦ�ʸ���϶��̤���ޤ��Τǡ�@samp{syslog-facility}
-�� @samp{Syslog-Facility} �Ƚ񤯤��ȤϤǤ��ޤ���
-�ؼ��Ҥ�̾�����ͤζ��ڤ�ˤϡ����򤫥��֤��Ѥ��ޤ���
-Ϣ³��������ȥ��֤�����Ƭ����ӹ����ˤ��ä���硢������̵�뤵��ޤ���
+指示子名の大文字と小文字は区別されますので、@samp{syslog-facility}
+を @samp{Syslog-Facility} と書くことはできません。
+指示子の名前と値の区切りには、空白かタブを用います。
+連続した空白とタブが、行頭および行末にあった場合、それらは無視されます。
 
 @c -------------------------------------------------------------------
 @node Single Directive List, Group Directive, Single Directive, Configuration File
-@section ñ�Ȼؼ��Ҥΰ���
+@section 単独指示子の一覧
 
-ñ�Ȼؼ��Ҥˤϼ��Τ褦�ʤ�Τ�����ޤ���
+単独指示子には次のようなものがあります。
 
 @table @code
 @item ebnet-port
-@code{ebnet-port} �ؼ��ҤǤϡ�@code{ebnetd} ����ĥ��ݡ��Ȥ��ֹ�����
-���ޤ���
-�ؼ��Ҥ��ͤϡ�TCP �Υ����ӥ�̾ (��: @samp{EBNET}) �����ݡ����ֹ� 
-(��: @samp{22010}) �Ǥʤ��ƤϤ����ޤ���
-@code{ebnetd} �� @code{inetd} ��ͳ�ǵ�ư�������ϡ����λؼ��Ҥ�
-̵�뤵��ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵��������ͤ� @samp{EBNET} �Ǥ���
+@code{ebnet-port} 指示子では、@code{ebnetd} が見張るポートの番号を指定
+します。
+指示子の値は、TCP のサービス名 (例: @samp{EBNET}) か、ポート番号 
+(例: @samp{22010}) でなくてはいけません。
+@code{ebnetd} を @code{inetd} 経由で起動した場合は、この指示子は
+無視されます。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は @samp{EBNET} です。
 
-@code{ndtpd}, @code{ebhttpd} �Ϥ��λؼ��Ҥ���̵�뤷�ޤ���
+@code{ndtpd}, @code{ebhttpd} はこの指示子を常に無視します。
 
 @item ndtp-port
-@code{ndtp-port} �ؼ��ҤǤϡ�@code{ndtpd} ����ĥ��ݡ��Ȥ��ֹ�����
-���ޤ���
-�ؼ��Ҥ��ͤϡ�TCP �Υ����ӥ�̾ (��: @samp{NDTP}) �����ݡ����ֹ� 
-(��: @samp{2010}) �Ǥʤ��ƤϤ����ޤ���
-@code{ebnetd} �� @code{inetd} ��ͳ�ǵ�ư�������ϡ����λؼ��Ҥ�
-̵�뤵��ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵��������ͤ� @samp{NDTP} �Ǥ���
+@code{ndtp-port} 指示子では、@code{ndtpd} が見張るポートの番号を指定
+します。
+指示子の値は、TCP のサービス名 (例: @samp{NDTP}) か、ポート番号 
+(例: @samp{2010}) でなくてはいけません。
+@code{ebnetd} を @code{inetd} 経由で起動した場合は、この指示子は
+無視されます。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は @samp{NDTP} です。
 
-@code{ebnetd}, @code{ebhttpd} �Ϥ��λؼ��Ҥ���̵�뤷�ޤ���
+@code{ebnetd}, @code{ebhttpd} はこの指示子を常に無視します。
 
 @item http-port
-@code{http-port} �ؼ��ҤǤϡ�@code{ebhttpd} ����ĥ��ݡ��Ȥ��ֹ��
-���ꤷ�ޤ���
-�ؼ��Ҥ��ͤϡ�TCP �Υ����ӥ�̾ (��: @samp{HTTP}) �����ݡ����ֹ� 
-(��: @samp{80}) �Ǥʤ��ƤϤ����ޤ���
-@code{ebhttpd} �� @code{inetd} ��ͳ�ǵ�ư�������ϡ����λؼ��Ҥ�
-̵�뤵��ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵��������ͤ� @samp{HTTP} �Ǥ���
+@code{http-port} 指示子では、@code{ebhttpd} が見張るポートの番号を
+指定します。
+指示子の値は、TCP のサービス名 (例: @samp{HTTP}) か、ポート番号 
+(例: @samp{80}) でなくてはいけません。
+@code{ebhttpd} を @code{inetd} 経由で起動した場合は、この指示子は
+無視されます。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は @samp{HTTP} です。
 
-@code{ebnetd}, @code{ebhttpd} �Ϥ��λؼ��Ҥ���̵�뤷�ޤ���
+@code{ebnetd}, @code{ebhttpd} はこの指示子を常に無視します。
 
 @item user
-@code{user} �ؼ��ҤǤϡ������Хץ������μ¸��桼������ꤷ�ޤ���
-�ؼ��Ҥ��ͤϡ��桼��̾ (��: @samp{nobody}) �����桼�� ID (��: @samp{65535})
-�Ǥʤ��ƤϤ����ޤ���
-�̤Υ桼���˼¸��桼�����Ѥ�����ϡ������ѥ桼���ø���ͭ�������֤�
-�����Ф�ư���ʤ��ƤϤʤ�ޤ���
-�¸��桼�����ѹ��˼��Ԥ���ȡ������Ф����Ԥη�³����ǰ���ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-���λؼ��Ҥ�������ʤ��ä���硢�����Хץ������μ¸��桼�����Ѳ�
-���ޤ���
+@code{user} 指示子では、サーバプロセスの実効ユーザを指定します。
+指示子の値は、ユーザ名 (例: @samp{nobody}) か、ユーザ ID (例: @samp{65535})
+でなくてはいけません。
+別のユーザに実効ユーザを変える場合は、スーパユーザ特権を有した状態で
+サーバを起動しなくてはなりません。
+実効ユーザの変更に失敗すると、サーバは走行の継続を断念します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+この指示子を定義しなかった場合、サーバプロセスの実効ユーザは変化
+しません。
 
-@samp{ndtpuser} �Τ褦�ʥ��ߡ��Υ桼����������Ȥ��ĺ�äơ������
-���λؼ��Ҥǻ��ꤹ�뤳�Ȥ����ᤷ�ޤ���
+@samp{ndtpuser} のようなダミーのユーザアカウントを一つ作って、それを
+この指示子で指定することをお薦めします。
 
 @item group
-@code{group} �ؼ��ҤǤϡ������Хץ������μ¸����롼�פ���ꤷ�ޤ���
-�ؼ��Ҥ��ͤϡ��桼��̾ (��: @samp{nogroup}) �������롼�� ID
-(��: @samp{65534}) �Ǥʤ��ƤϤ����ޤ���
-�¸����롼�פ��ѹ��˼��Ԥ���ȡ������Ф����Ԥη�³����ǰ���ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�Ȥ�Ǥ��ޤ���
-���λؼ��Ҥ�������ʤ��ä���硢�����Хץ������μ¸����롼�פ��Ѳ�
-���ޤ���
+@code{group} 指示子では、サーバプロセスの実効グループを指定します。
+指示子の値は、ユーザ名 (例: @samp{nogroup}) か、グループ ID
+(例: @samp{65534}) でなくてはいけません。
+実効グループの変更に失敗すると、サーバは走行の継続を断念します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することもできません。
+この指示子を定義しなかった場合、サーバプロセスの実効グループは変化
+しません。
 
-@samp{ndtpgrp} �Τ褦�ʥ��ߡ��Υ��롼�ץ�������Ȥ��ĺ�äơ������
-���λؼ��Ҥǻ��ꤹ�뤳�Ȥ����ᤷ�ޤ���
+@samp{ndtpgrp} のようなダミーのグループアカウントを一つ作って、それを
+この指示子で指定することをお薦めします。
 
 @item max-clients
-@code{max-clients} �ؼ��ҤǤϡ�Ʊ���˥����Ф���³�Ǥ��륯�饤����Ȥ�
-���ξ�¤���ꤷ�ޤ���
-�ؼ��Ҥ��ͤϡ�0 �ʾ�������Ǥʤ��ƤϤ����ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵��������ͤ� @samp{1} �Ǥ���
-�ؼ��Ҥ��ͤ� 0 �����ꤹ��ȡ�̵���¤ˤʤ�ޤ���
+@code{max-clients} 指示子では、同時にサーバに接続できるクライアントの
+数の上限を指定します。
+指示子の値は、0 以上の整数でなくてはいけません。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は @samp{1} です。
+指示子の値を 0 に設定すると、無制限になります。
 
 @item hosts
-@code{hosts} �ؼ��ҤǤϡ��ɤΥۥ��Ȥ������Ф���³�Ǥ����ɤΥۥ��Ȥ�
-��³�Ǥ��ʤ��Τ�����ꤷ�ޤ���
-�ؼ��Ҥ��ͤ� IP ���ɥ쥹���ۥ���̾��@var{���ɥ쥹/�ͥåȥޥ���} ��
-�����줫�Ǥ���
-�ä��ơ�ľ���˴�ò�� (@samp{!}) ���դ��뤳�Ȥ��Ǥ��ޤ���
-�ؼ��Ҥ��ͤ���ò��ǻϤޤäƤ������ϡ������³�� IP ���ɥ쥹�ޤ���
-�ۥ���̾�˥ޥå�����ۥ��Ȥ������³�׵�ϵ��ݤ��ޤ���
-��ò�䤬�ʤ����ϡ��ؼ��Ҥ��ͤ˥ޥå�����ۥ��Ȥ������³�׵�ϵ���
-���ޤ���
+@code{hosts} 指示子では、どのホストがサーバに接続でき、どのホストが
+接続できないのかを指定します。
+指示子の値は IP アドレス、ホスト名、@var{アドレス/ネットマスク} の
+いずれかです。
+加えて、直前に感嘆符 (@samp{!}) を付けることができます。
+指示子の値が感嘆符で始まっていた場合は、それに続く IP アドレスまたは
+ホスト名にマッチするホストからの接続要求は拒否します。
+感嘆符がない場合は、指示子の値にマッチするホストからの接続要求は許可
+します。
 
 @sp 1
 @example
 @group
-# `host.xxx.yyy.jp' �������³����Ĥ��롣
+# `host.xxx.yyy.jp' からの接続を許可する。
 hosts host.xxx.yyy.jp
 
-# `127.0.0.1' �������³����Ĥ��롣
+# `127.0.0.1' からの接続を許可する。
 hosts 127.0.0.1
 
-# `192.24.1.0/24'.�������³����ݤ��롣
+# `192.24.1.0/24'.からの接続を拒否する。
 hosts !192.24.1.0/24
 @end group
 @end example
 
 @noindent
-�ۥ���̾�˸¤ꡢ�������ꥹ�� (@samp{*}) �ȵ����� (@samp{?}) ��Ȥ�
-���Ȥ��Ǥ��ޤ���
-�������ꥹ���ϡ���Ƭ�δ�ò��������Ǥ�դ� 0 ʸ���ʾ��ʸ����˥ޥå�
-���ޤ���
+ホスト名に限り、アスタリスク (@samp{*}) と疑問符 (@samp{?}) を使う
+ことができます。
+アスタリスクは、先頭の感嘆符を除いた任意の 0 文字以上の文字列にマッチ
+します。
 
 @sp 1
 @example
 @group
-# `xxx.yyy.jp' �ɥᥤ��Υۥ��Ȥ������³����ݤ��롣
+# `xxx.yyy.jp' ドメインのホストからの接続を拒否する。
 hosts !*.xxx.yyy.jp
 
-# �ɤΥۥ��Ȥ������³����Ĥ��롣
+# どのホストからの接続も許可する。
 hosts *
 @end group
 @end example
 
 @noindent
-������� @dfn{̤�ΤΥۥ���̾} ��ɽ���ޤ���
+疑問符は @dfn{未知のホスト名} を表します。
 
 @sp 1
 @example
 @group
-# �ۥ���̾��ʬ����ʤ��ۥ��Ȥ������³����ݤ��롣
+# ホスト名が分からないホストからの接続を拒否する。
 hosts !?
 @end group
 @end example
 
 @noindent
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ������٤Ǥ�������뤳�Ȥ���ǽ�Ǥ���
-����ե������ @code{hosts} �ؼ��Ҥ�̵���Ƥ⥨�顼�ˤϤʤ�ޤ��󤬡�
-�ɤΥ��饤����Ȥ⥵���Фˤϥ��������Ǥ��ʤ��ʤ�ޤ���
-������� @code{hosts} �ؼ��Ҥˤ�ޥå����ʤ��ۥ��Ȥ������³�׵�ϵ���
-����ޤ���
-ʣ���� @code{hosts} �˥ޥå�������ϡ�����ե��������Ƭ�˺Ǥ�ᤤ
-��Τ����Ѥ���ޤ���
+この指示子は必ずしも定義する必要はありません。
+また、何度でも定義することが可能です。
+設定ファイルに @code{hosts} 指示子が無くてもエラーにはなりませんが、
+どのクライアントもサーバにはアクセスできなくなります。
+いずれの @code{hosts} 指示子にもマッチしないホストからの接続要求は拒否
+されます。
+複数の @code{hosts} にマッチする場合は、設定ファイルの先頭に最も近い
+ものが採用されます。
 
-�ʲ�����Ǥϡ�@samp{sub1.xxx.yyy.jp} �ɥᥤ���°����ۥ��Ȥ����
-��³�׵�ϵ��ݤ��Ƥ��ޤ���������ʳ��� @samp{xxx.yyy.jp} �ɥᥤ���
-°����ۥ��Ȥ������³�׵�ϵ��Ĥ��Ƥ��ޤ���
+以下の例では、@samp{sub1.xxx.yyy.jp} ドメインに属するホストからの
+接続要求は拒否していますが、それ以外の @samp{xxx.yyy.jp} ドメインに
+属するホストからの接続要求は許可しています。
 
 @sp 1
 @example
@@ -746,139 +746,139 @@ hosts *.xxx.yyy.jp
 @end group
 @end example
 
-������Ǥϡ��ؼ��Ҥν���Ͻ��פǤ���
-�������ä����֤��Ƥ��ޤ��ȡ�@samp{sub1.xxx.yyy.jp} ��ޤᡢ
-@samp{xxx.yyy.jp} �ɥᥤ���°���뤹�٤ƤΥۥ��Ȥ������Ф���³�Ǥ���
-���ޤ��ޤ���
+この例では、指示子の順序は重要です。
+順序を引っくり返してしまうと、@samp{sub1.xxx.yyy.jp} を含め、
+@samp{xxx.yyy.jp} ドメインに属するすべてのホストがサーバに接続できて
+しまいます。
 
 @sp 1
 @example
 @group
-# �ְ㤤!!!
+# 間違い!!!
 hosts *.xxx.yyy.jp
 hosts !*.sub1.xxx.yyy.jp
 @end group
 @end example
 
-�ۥ���̾����Ӥ���ݡ������ФϾ�˥��饤����Ȥ������ۥ���̾�����
-���ޤ���
-�ۥ���̾�ϡ����饤����ȤΥ��ɥ쥹���� DNS �ʤɤ�̾�����Υ����ӥ�
-�����Ѥ��Ƽ������ޤ���
-��̾�ϻ��Ѥ���ޤ���Τǡ����դ��Ʋ�������
+ホスト名を比較する際、サーバは常にクライアントの正式ホスト名を使用
+します。
+ホスト名は、クライアントのアドレスから DNS などの名前解決のサービス
+を利用して取得します。
+別名は使用されませんので、注意して下さい。
 
-IPv6 ���ɥ쥹����� @var{IPv6 ���ɥ쥹/�ͥåȥޥ���} �ѥ���������
-���뤳�Ȥ��ǽ�Ǥ���
-IPv6 �б���ǽ��ͭ���ˤ��ƥ���ѥ��뤵��Ƥ��ʤ������Ф� IPv4
-���饤����ȤȤ����̿��Ǥ��ޤ��󤬡�����ե�����˽񤫤줿 IPv6
-���ɥ쥹���᤹�뤳�ȤϤǤ��ޤ���
+IPv6 アドレスおよび @var{IPv6 アドレス/ネットマスク} パターンを指定
+することも可能です。
+IPv6 対応機能を有効にしてコンパイルされていないサーバは IPv4
+クライアントとしか通信できませんが、設定ファイルに書かれた IPv6
+アドレスを解釈することはできます。
 
 @sp 1
 @example
 @group
-# `12ab:0:0:cd3::/60' �� `::1' �������³����Ĥ��롣
+# `12ab:0:0:cd3::/60' と `::1' からの接続を許可する。
 hosts ::1
 hosts 12ab:0:0:cd3::/60
 @end group
 @end example
 
 @noindent
-@code{hosts} �ؼ��ҤǤϡ�IPv4 ���ɥ쥹 (�� @samp{192.168.1.1}) �Ȥ���
-���б����� IPv4 �ͱ� IPv6 ���ɥ쥹 (�� @samp{::ffff:192.168.1.1}) ��
-�����ˤʤ�ޤ���
-�ĤޤꡢIPv4 ���饤����� @samp{192.168.1.1} �� @code{hosts} �ؼ���
-@samp{::ffff:192.168.1.1} �˥ޥå�����IPv6 ���饤�����
-@samp{::ffff:192.168.1.1} �� @code{hosts} �ؼ��� @samp{192.168.1.1}
-�˥ޥå����ޤ���
+@code{hosts} 指示子では、IPv4 アドレス (例 @samp{192.168.1.1}) とそれ
+に対応する IPv4 射影 IPv6 アドレス (例 @samp{::ffff:192.168.1.1}) は
+等価になります。
+つまり、IPv4 クライアント @samp{192.168.1.1} は @code{hosts} 指示子
+@samp{::ffff:192.168.1.1} にマッチし、IPv6 クライアント
+@samp{::ffff:192.168.1.1} は @code{hosts} 指示子 @samp{192.168.1.1}
+にマッチします。
 
 @item timeout
-@code{timeout} �ؼ��ҤǤϡ��򿮤����䤨�����饤����ȤȤ���³��
-�����Ф����Ǥ���ޤǤ��ÿ�����ꤷ�ޤ���
-�ؼ��Ҥ��ͤϡ�0 �ʾ�������Ǥʤ��ƤϤ����ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵��������ͤ� @samp{900} (15ʬ) �Ǥ���
-�ؼ��Ҥ��ͤ� 0 �����ꤹ��ȡ������ڤ�ˤ�����ǤϹԤ��ޤ���
+@code{timeout} 指示子では、交信が途絶えたクライアントとの接続を
+サーバが切断するまでの秒数を指定します。
+指示子の値は、0 以上の整数でなくてはいけません。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は @samp{900} (15分) です。
+指示子の値を 0 に設定すると、時間切れによる切断は行いません。
 
 @item work-path
-@code{work-path} �ؼ��ҤǤϡ������Фκ���ѥǥ��쥯�ȥ�
-�Υѥ�����ꤷ�ޤ� (@pxref{Working Directory, , ����ѥǥ��쥯�ȥ�})��
-�ؼ��Ҥ��ͤϡ����Хѥ��Ǥʤ��ƤϤ����ޤ���
-�����ФϤ��Υǥ��쥯�ȥ�β��˺���ѤΥե�����򤤤��Ĥ��������ޤ���
-�ޤ����۾ｪλ�ˤ�äƥ����ե���������פ���Ȥ��ϡ����Υǥ��쥯�ȥ�
-�˺������ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ��ޥ����ͭ��
-�������줦��ǡ������֤��ǥ��쥯�ȥ� (@code{localstatedir}) ���ѹ�����
-���ʤ���С�̵��������ͤ� @file{/usr/local/var/ebnetd/} �ˤʤ�ޤ���
+@code{work-path} 指示子では、サーバの作業用ディレクトリ
+のパスを指定します (@pxref{Working Directory, , 作業用ディレクトリ})。
+指示子の値は、絶対パスでなくてはいけません。
+サーバはこのディレクトリの下に作業用のファイルをいくつか作成します。
+また、異常終了によってコアファイルをダンプするときは、このディレクトリ
+に作成します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、マシン固有の
+更新されうるデータを置くディレクトリ (@code{localstatedir}) を変更して
+いなければ、無指定時の値は @file{/usr/local/var/ebnetd/} になります。
 
 @item max-hits
-@code{max-hits} �ؼ��ҤǤϡ����θ����ǥ����Ф��֤��ҥåȿ��ξ�¤�
-���ꤷ�ޤ���
-�����Фϡ����λؼ��Ҥǻ��ꤵ�줿�ͤ�Ʊ�������Υҥåȿ��򸫤Ĥ�������
-�ǡ��������˸�������ߤ��ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵��������ͤ� @samp{50} �Ǥ���
-�ؼ��Ҥ��ͤ� 0 �����ꤹ��ȡ�̵���¤ˤʤ�ޤ���
+@code{max-hits} 指示子では、一回の検索でサーバが返すヒット数の上限を
+指定します。
+サーバは、この指示子で指定された値と同じだけのヒット数を見つけた時点
+で、ただちに検索を中止します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は @samp{50} です。
+指示子の値を 0 に設定すると、無制限になります。
 
-@code{ebnetd} �Ϥ��λؼ��Ҥ���̵�뤷�ޤ���
+@code{ebnetd} はこの指示子を常に無視します。
 
 @item max-text-size
-@code{max-text-size} �ؼ��Ҥϡ������Ф����饤����Ȥؤα��� 1 ���
-�֤��ƥ����ȤΥХ��ȿ��ξ�¤���ꤷ�ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵��������ͤ� @samp{32768} �Ǥ���
-�ؼ��Ҥ��ͤ� 0 �����ꤹ��ȡ�̵���¤ˤʤ�ޤ���
+@code{max-text-size} 指示子は、サーバがクライアントへの応答 1 回で
+返すテキストのバイト数の上限を指定します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は @samp{32768} です。
+指示子の値を 0 に設定すると、無制限になります。
 
-@code{ebnetd} �Ϥ��λؼ��Ҥ���̵�뤷�ޤ���
+@code{ebnetd} はこの指示子を常に無視します。
 
 @item syslog-facility
-@code{syslog-facility} �ؼ��ҤǤϡ�syslog �Υե�����ƥ�����ꤷ�ޤ�
-(��: @samp{daemon}, @samp{local0} �ʤ�)��
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵������� @samp{daemon} ���Ѥ��ޤ���
-�ޤ��������Ф�����ե�������ɤ߹��߽����ޤǤϡ�@samp{daemon} ��
-�Ѥ����ޤ���
+@code{syslog-facility} 指示子では、syslog のファシリティを指定します
+(例: @samp{daemon}, @samp{local0} など)。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時は @samp{daemon} を用います。
+また、サーバが設定ファイルを読み込み終わるまでは、@samp{daemon} が
+用いられます。
 @end table
 
 @c -------------------------------------------------------------------
 @node Group Directive, Book Group Directive, Single Directive List, Configuration File
-@section ʣ��ؼ��Ҥΰ��̷�
+@section 複合指示子の一般形
 
-ʣ��ؼ��� (�ؼ�̿��) �Ȥϡ����Ҥ�����ե��������ʣ���Ԥ��Ϥ�ؼ��ҤǤ���
-ʣ��ؼ��Ҥΰ��̷��ϼ����̤�Ǥ���
+複合指示子 (指示命令) とは、記述が設定ファイル内の複数行に渡る指示子です。
+複合指示子の一般形は次の通りです。
 
 @example
 @group
-begin @var{ʣ��ؼ��Ҥ�̾��}
-    @var{���ؼ��Ҥ�̾��}    @var{���ؼ��Ҥ���}
+begin @var{複合指示子の名前}
+    @var{副指示子の名前}    @var{副指示子の値}
              : 
-             : (�����֤�)
+             : (繰り返し)
              : 
 end
 @end group
 @end example
 
 @noindent
-������� @code{begin} �ϡ�ʣ��ؼ��Ҥγ��Ϥ�ɽ���ޤ���
-@code{begin} �ϸ���� @var{ʣ��ؼ��Ҥ�̾��} ������Ȥ��Ƽ��ޤ���
-@code{begin} �� @var{ʣ��ؼ��Ҥ�̾��} �϶��򤫥��֤Ƕ��ڤꡢξ���Ȥ�
-Ʊ���Ԥ�����֤��ޤ���
-������� @code{end} �ϡ�ʣ��ؼ��Ҥν�λ��ɽ���ޤ���
-@code{end} �ϡ�ñ�Ȥ� 1 �Ԥˤ����֤��ޤ���
+キーワード @code{begin} は、複合指示子の開始を表します。
+@code{begin} は後ろに @var{複合指示子の名前} を引数として取ります。
+@code{begin} と @var{複合指示子の名前} は空白かタブで区切り、両方とも
+同じ行の中に置きます。
+キーワード @code{end} は、複合指示子の終了を表します。
+@code{end} は、単独で 1 行にして置きます。
 
-EBNETD �С������ @value{VERSION} �Ǥϡ����ѤǤ���ʣ��ؼ��Ҥ�̾����
-@code{book} �����Ǥ���
-���줾��� @dfn{���ؼ���} �ϡ�@code{begin} �� @code{end} �ιԤδ֤�
-�֤��ޤ���
-���ؼ��Ҥ˴ؤ��뵭�Ҥΰ���Ū�ʵ�§�ϡ�ñ�Ȼؼ��Ҥ��Ѥ��ޤ���
-(���Ȥ��С�@var{���ؼ��Ҥ�̾��}�� @var{���ؼ��Ҥ���} �϶��򤫥��֤�
-���ڤ뤳�Ȥʤ�)��
+EBNETD バージョン @value{VERSION} では、使用できる複合指示子の名前は
+@code{book} だけです。
+それぞれの @dfn{副指示子} は、@code{begin} と @code{end} の行の間に
+置きます。
+副指示子に関する記述の一般的な規則は、単独指示子と変わりません
+(たとえば、@var{副指示子の名前}と @var{副指示子の値} は空白かタブで
+区切ることなど)。
 
-�ʲ��ϡ� @code{book} ʣ��ؼ��Ҥε�����Ǥ���
+以下は、 @code{book} 複合指示子の記述例です。
 
 @example
 @group
@@ -894,226 +894,226 @@ end
 
 @c -------------------------------------------------------------------
 @node Book Group Directive, Sample Configuration, Group Directive, Configuration File
-@section @code{book} ʣ��ؼ���
+@section @code{book} 複合指示子
 
-��Ĥ� @code{book} ʣ��ؼ��� �ϰ���� CD-ROM ���Ҥ��б����ޤ��Τǡ�
-CD-ROM ���Ұ�����Ȥˤ���ʣ��ؼ��Ҥ�������ʤ��ƤϤ����ޤ���
-@code{book} ʣ��ؼ��Ҥ����ؼ��ҤȤ��ơ�EBNETD ��ǧ�������Τϼ����̤�
-�Ǥ���
+一つの @code{book} 複合指示子 は一冊の CD-ROM 書籍に対応しますので、
+CD-ROM 書籍一冊ごとにこの複合指示子を定義しなくてはいけません。
+@code{book} 複合指示子の副指示子として、EBNETD が認識するものは次の通り
+です。
 
 @table @code
 @item name
-@code{name} ���ؼ��ҤǤϡ����ν��Ҥ�̾������ꤷ�ޤ���
-���ؼ��Ҥ��ͤ��Ѥ��뤳�Ȥ��Ǥ���Τϡ��Ѿ�ʸ�� (@samp{a}..@samp{z})��
-���� (@samp{0}..@samp{9})������ (@samp{_})���ϥ��ե� (@samp{-}) �����ǡ�
-Ĺ���� 14 ʸ���ޤǤǤ���
-����̾���ϡ����Ҥ��̤��뤿��˻Ȥ��ޤ��Τǡ��ƽ��Ҥˤϰۤʤ�̾����
-�դ��ʤ��ƤϤ����ޤ���
-�������ؼ��Ҥϡ����줾��� @code{book} ʣ��ؼ��Ҥ�ɬ�ܤǤ���
-�ޤ���1 �Ĥ� @code{book} ʣ��ؼ��Ҥ� 2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
+@code{name} 副指示子では、その書籍の名前を指定します。
+副指示子の値に用いることができるのは、英小文字 (@samp{a}..@samp{z})、
+数字 (@samp{0}..@samp{9})、下線 (@samp{_})、ハイフン (@samp{-}) だけで、
+長さは 14 文字までです。
+この名前は、書籍を識別するために使いますので、各書籍には異なる名前を
+付けなくてはいけません。
+この副指示子は、それぞれの @code{book} 複合指示子に必須です。
+また、1 つの @code{book} 複合指示子で 2 度以上定義することはできません。
 
 @item title
-@code{title} ���ؼ��ҤǤϡ����ν��Ҥ���̾����ꤷ�ޤ���
-���ؼ��Ҥ��ͤˤϡ�����ʸ���ȥʥ�ʸ�� (@samp{\0}) �����Ǥ�դ�ʸ����
-�Ȥäƻ��ꤹ�뤳�Ȥ��Ǥ��ޤ�����Ĺ���� 80 �Х��ȤޤǤǤ���
-EUC (Extended Unix Code) ���Ѥ�������ܸ��ʸ������Ѳ�ǽ�Ǥ���
-���ؼ��Ҥ��ͤ���˶���䥿�֤��Ѥ��뤳�Ȥ��ǽ�ǡ�������¾��ʸ����
-Ʊ������ʸ���Ȥ��Ʋ�ᤵ��ޤ���
+@code{title} 副指示子では、その書籍の題名を指定します。
+副指示子の値には、改行文字とナル文字 (@samp{\0}) を除く任意の文字を
+使って指定することができますが、長さは 80 バイトまでです。
+EUC (Extended Unix Code) を用いれば日本語の文字も使用可能です。
+副指示子の値の中に空白やタブを用いることも可能で、これらは他の文字と
+同じく一文字として解釈されます。
 
-�������ؼ��Ҥϡ����줾��� @code{book} ʣ��ؼ��Ҥ�ɬ�ܤǤ���
-�ޤ���1 �Ĥ� @code{book} ʣ��ؼ��Ҥ� 2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
+この副指示子は、それぞれの @code{book} 複合指示子に必須です。
+また、1 つの @code{book} 複合指示子で 2 度以上定義することはできません。
 
 @item path
-@code{path} ���ؼ��ҤǤϡ����ν��Ҥ����Хѥ�����ꤷ�ޤ���
-�ѥ��Ϥ��ν��ҤΥȥåץǥ��쥯�ȥꡢ�Ĥޤ� @file{catalog} �ޤ���
-@file{catalogs} �ե������¸�ߤ���ǥ��쥯�ȥ��ؤ��Ƥ��ʤ��Ƥ�
-�����ޤ���
+@code{path} 副指示子では、その書籍の絶対パスを指定します。
+パスはその書籍のトップディレクトリ、つまり @file{catalog} または
+@file{catalogs} ファイルの存在するディレクトリを指してしなくては
+いけません。
 
-�������ؼ��Ҥϡ����줾��� @code{book} ʣ��ؼ��Ҥ�ɬ�ܤǤ���
-�ޤ���1 �Ĥ� @code{book} ʣ��ؼ��Ҥ� 2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
+この副指示子は、それぞれの @code{book} 複合指示子に必須です。
+また、1 つの @code{book} 複合指示子で 2 度以上定義することはできません。
 
 @item appendix-path
-@code{appendix-path} ���ؼ��ҤǤϡ����ν��Ҥ��б����� appendix (��Ͽ) 
-�ѥå����������Хѥ�����ꤷ�ޤ���
-�ѥ��� appendix �ѥå������Υȥåץǥ��쥯�ȥꡢ�Ĥޤ� @file{catalog} 
-�ޤ��� @file{catalogs} �ե������¸�ߤ���ǥ��쥯�ȥ��ؤ��Ƥ��ʤ��Ƥ�
-�����ޤ���
+@code{appendix-path} 副指示子では、その書籍に対応する appendix (付録) 
+パッケージの絶対パスを指定します。
+パスは appendix パッケージのトップディレクトリ、つまり @file{catalog} 
+または @file{catalogs} ファイルの存在するディレクトリを指してしなくては
+いけません。
 
-�������ؼ��Ҥϡ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���1 �Ĥ� @code{book} ʣ��ؼ��Ҥ� 2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-���Ҥ�Ȥ���ǡ�appendix �ѥå�������ɬ�ܤǤϤ���ޤ��󤬡��ʤ��ȳ�����
-�����Բ�ǽ�ˤʤ뤿�ᡢ�ɤߤŤ餤�����Τ�ޤ���
+この副指示子は、必ずしも定義する必要はありません。
+また、1 つの @code{book} 複合指示子で 2 度以上定義することはできません。
+書籍を使う上で、appendix パッケージは必須ではありませんが、ないと外字が
+識別不可能になるため、読みづらいかも知れません。
 
 @item max-clients
-@code{max-clients} ���ؼ��Ҥˤϡ����ν��Ҥ�Ʊ���ˤ����ĤΥ��饤����Ȥ�
-�Ȥ����Ȥ��Ǥ���Τ�����ꤷ�ޤ���
-���ؼ��Ҥ��ͤˤϡ�0 �ʾ����������ꤷ�ޤ���
-�������ؼ��Ҥϡ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���1 �Ĥ� @code{book} ʣ��ؼ��Ҥ� 2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵��������ͤ� @samp{1} �Ǥ���
-0 ����ꤹ��ȡ�̵���¤ˤʤ�ޤ���
+@code{max-clients} 副指示子には、この書籍を同時にいくつのクライアントが
+使うことができるのかを指定します。
+副指示子の値には、0 以上の整数を指定します。
+この副指示子は、必ずしも定義する必要はありません。
+また、1 つの @code{book} 複合指示子で 2 度以上定義することはできません。
+無指定時の値は @samp{1} です。
+0 を指定すると、無制限になります。
 
-@code{work-path} (@pxref{Working Directory}) �˶��̤��ͤ򥻥åȤ��Ƥ����ȡ�
-���饤����Ȥο��� @code{ebnetd}, @code{ndtpd}, @code{ebhttpd} �֤�
-��ͭ����ޤ���
-���Ȥ��С�����ִ֤ˤ�����Ҥ򥢥��������Ƥ��� @code{ebnetd} ���饤�����
-�� 2 �ġ�@code{ndtpd} ���饤����Ȥ� 3 �Ĥ��ä��Ȥ���ȡ������Ф�
-5 �ĤΥ��饤����Ȥ����Ҥ˥����������Ƥ����Τ�Ƚ�Ǥ��ޤ���
+@code{work-path} (@pxref{Working Directory}) に共通の値をセットしておくと、
+クライアントの数が @code{ebnetd}, @code{ndtpd}, @code{ebhttpd} 間で
+共有されます。
+たとえば、ある瞬間にある書籍をアクセスしている @code{ebnetd} クライアント
+が 2 つ、@code{ndtpd} クライアントが 3 つあったとすると、サーバは
+5 つのクライアントが書籍にアクセスしているものと判断します。
 
 @item hosts
-@code{hosts} ���ؼ��Ҥˤϡ����ν��ҤˤɤΥۥ��Ȥ����������Ǥ��ơ��ɤ�
-�ۥ��Ȥ��Ǥ��ʤ��Τ�����ꤷ�ޤ���
-�������ؼ��Ҥϡ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���1 �Ĥ� @code{book} ʣ��ؼ��Ҥǲ��٤Ǥ�������뤳�Ȥ���ǽ�Ǥ���
-@code{book} ʣ��ؼ��Ҥ� @code{hosts} ���ؼ��Ҥ�����ʤ��Ƥ⥨�顼�ˤ�
-�ʤ�ޤ��󤬡����ν��ҤϤɤΥ��饤����Ȥ���⥢�������Ǥ��ޤ���
+@code{hosts} 副指示子には、この書籍にどのホストがアクセスできて、どの
+ホストができないのかを指定します。
+この副指示子は、必ずしも定義する必要はありません。
+また、1 つの @code{book} 複合指示子で何度でも定義することが可能です。
+@code{book} 複合指示子が @code{hosts} 副指示子を持たなくてもエラーには
+なりませんが、その書籍はどのクライアントからもアクセスできません。
 
-�������ؼ��Ҥ�ɽ����ˡ�ϡ�ñ�Ȼؼ��Ҥ� @code{hosts} ��Ʊ���Ǥ���
+この副指示子の表記方法は、単独指示子の @code{hosts} と同じです。
 @end table
 
 @c --------------------------------------------------------------------
 @node Sample Configuration,  , Book Group Directive, Configuration File
-@section ����ե��������
+@section 設定ファイルの例
 
-EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ��ޥ����ͭ��
-�ɤ߹������ѤΥǡ������֤��ǥ��쥯�ȥ� (@code{sysconfdir}) �ΰ��֤��ѹ�
-���Ƥ��ʤ���С���������ե�����Υ���ץ��
-@file{/usr/local/etc/ebnetd.conf.sample} �˥��󥹥ȡ��뤵��Ƥ��ޤ���
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、マシン固有の
+読み込み専用のデータを置くディレクトリ (@code{sysconfdir}) の位置を変更
+していなければ、この設定ファイルのサンプルは
+@file{/usr/local/etc/ebnetd.conf.sample} にインストールされています。
 
 @example
 ######################################################################
-# ebnetd/ndtpd/ebhttpd ������ե�����Υ���ץ�
-# (���Υե������ `ebnetd.conf' �˥��ԡ����ơ��Խ����Ʋ�����)
+# ebnetd/ndtpd/ebhttpd の設定ファイルのサンプル
+# (このファイルを `ebnetd.conf' にコピーして、編集して下さい)
 ######################################################################
 
-### `ebnetd' ����ĥ��ݡ����ֹ�
-### (̵����ξ��: ebnet)
+### `ebnetd' が見張るポート番号
+### (無指定の場合: ebnet)
 # ebnet-port	ebnet
 
-### `ndtpd' ����ĥ��ݡ����ֹ�
-### (̵����ξ��: ndtp)
+### `ndtpd' が見張るポート番号
+### (無指定の場合: ndtp)
 # ndtp-port	ndtp
 
-### `ebhttpd' ����ĥ��ݡ����ֹ�
-### (̵����ξ��: http)
+### `ebhttpd' が見張るポート番号
+### (無指定の場合: http)
 # http-port	http
 
-### �����ФΥץ������ν�ͭ�桼��
-### (̵����ξ��: �ʤ�)
+### サーバのプロセスの所有ユーザ
+### (無指定の場合: なし)
 user		ndtpuser
 
-### �����ФΥץ������Υ��롼��
-### (̵����ξ��: �ʤ�)
+### サーバのプロセスのグループ
+### (無指定の場合: なし)
 group		ndtpgrp
 
-### �����Ф�Ʊ������³�Ǥ��륯�饤����Ȥο�
-### (̵����ξ��: 1)
+### サーバに同時に接続できるクライアントの数
+### (無指定の場合: 1)
 # max-clients	1
 
-### �����Ф���³�Ǥ���ۥ��ȡ��Ǥ��ʤ��ۥ���
-### (̵����ξ��: �ʤ�)
+### サーバに接続できるホスト、できないホスト
+### (無指定の場合: なし)
 hosts		127.0.0.1
 hosts		::1
 hosts		!?
 hosts		host.your.domain
 
-### �����Ф��򿮤����䤨�����ͥ��������ڤ�ޤǤλ���
-### (̵����ξ��: 900)
+### サーバが交信の途絶えたコネクションを切るまでの時間
+### (無指定の場合: 900)
 # timeout		900
 
-### ����ѥǥ��쥯�ȥ�Υѥ�
-### �����Ф�ư�������ˡ����Υǥ��쥯�ȥ���ꡢ�����Хץ�������
-### �񤭹����褦�ˤ��Ƥ����Ʋ�������
-### (̵����ξ��: /usr/local/var/ebnetd)
+### 作業用ディレクトリのパス
+### サーバを起動する前に、このディレクトリを作り、サーバプロセスが
+### 書き込めるようにしておいて下さい。
+### (無指定の場合: /usr/local/var/ebnetd)
 # work-path	/usr/local/var/ebnetd
 
-### ���θ����ǡ������Ф��֤����ҥåȤ�������ȥ�κ���Ŀ�
-### (̵����ξ��: 50)
+### 一回の検索で、サーバが返す、ヒットしたエントリの最大個数
+### (無指定の場合: 50)
 # max-hits	50
 
-### ���饤����Ȥؤΰ��α����ǡ������Ф��֤��ƥ����Ȥκ��祵����
+### クライアントへの一回の応答で、サーバが返すテキストの最大サイズ
 ### (default: 32768)
 # max-text-size		32768
 
-### syslog �Υե�����ƥ�
-### (̵����ξ��: daemon)
+### syslog のファシリティ
+### (無指定の場合: daemon)
 syslog-facility	local0
 
 ###
-### ���ҤΥ���ȥ�
+### 書籍のエントリ
 ###
 begin book
-    ### ����̾
-    ### (ɬ��)
+    ### 書籍名
+    ### (必須)
     name		JITENBAN97
 
-    ### ���Ҥ���̾
-    ### (ɬ��)
+    ### 書籍の題名
+    ### (必須)
     title		Jitenban 97
 
-    ### ���ҤΥȥåץǥ��쥯�ȥ�
-    ### (ɬ��)
+    ### 書籍のトップディレクトリ
+    ### (必須)
     path		/cdrom
 
-    ### appendix (��Ͽ) �ѥå������Υȥåץǥ��쥯�ȥ�
-    ### (̵����ξ��: �ʤ�)
+    ### appendix (付録) パッケージのトップディレクトリ
+    ### (無指定の場合: なし)
     appendix-path	/usr/local/share/eb/appendix/jitenban97-2.1
 
-    ### Ʊ���˥��������Ǥ��륯�饤����Ȥο�
-    ### (̵����ξ��: 1)
+    ### 同時にアクセスできるクライアントの数
+    ### (無指定の場合: 1)
     max-clients		1
 
-    ### ���ν��Ҥ����ѤǤ���ۥ��ȡ��Ǥ��ʤ��ۥ���
-    ### (̵����ξ��: �ʤ�)
+    ### この書籍を利用できるホスト、できないホスト
+    ### (無指定の場合: なし)
     hosts		127.0.0.1
     hosts		::1
     hosts		!?
     hosts		host.your.domain
 end
 
-### �⤷��CD-ROM ���Ҥ�¾�ˤ⤢��ʤ顢`book' ʣ��ؼ��� (`begin book'
-### ���� `end' �δ֤ι�) ���ɲä��Ʋ�������`book' ʣ��ؼ��Ҥϡ�
-### ���Ұ�����ɬ�פǤ���
+### もし、CD-ROM 書籍が他にもあるなら、`book' 複合指示子 (`begin book'
+### から `end' の間の行) を追加して下さい。`book' 複合指示子は、
+### 書籍一冊毎に必要です。
 @end example
 
 @c ===================================================================
 @node Configuration Checker, Setup Your Environment, Configuration File, Top
-@chapter ����ե�����Υ����å����ޥ��
+@chapter 設定ファイルのチェックコマンド
 
-�Խ�������������ե����������å�����ˤϡ�@code{ebncheck} �Ȥ���
-�����å����ޥ�ɤ�Ȥ����ɤ��Ǥ��礦��
-EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�����Ѥ�
-���ޥ�ɤ��֤��ǥ��쥯�ȥ� (@code{sbindir}) �ΰ��֤��ѹ����Ƥ��ʤ���С�
-@code{ebncheck} �� @file{/usr/local/sbin} �˥��󥹥ȡ��뤵��Ƥ��ޤ���
+編集し終えた設定ファイルをチェックするには、@code{ebncheck} という
+チェックコマンドを使うと良いでしょう。
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (@code{sbindir}) の位置を変更していなければ、
+@code{ebncheck} は @file{/usr/local/sbin} にインストールされています。
 
-���Ū�ʷаޤ��顢@code{ndtpd} �Τ���� @code{ndtpcheck}, @code{ebhttpd}
-�Τ���� @code{ebhtcheck} �Ȥ������ޥ�ɤ��碌���Ѱդ���Ƥ��ޤ�����
-�ä˰㤤�Ϥ���ޤ���
+歴史的な経緯から、@code{ndtpd} のための @code{ndtpcheck}, @code{ebhttpd}
+のための @code{ebhtcheck} というコマンドも合わせて用意されていますが、
+特に違いはありません。
 
 @menu
-* Invoking ebncheck::           @code{ebncheck} �μ¹�
-* ebncheck Options::            @code{ebncheck} �Υ��ץ����
+* Invoking ebncheck::           @code{ebncheck} の実行
+* ebncheck Options::            @code{ebncheck} のオプション
 @end menu
 
 @c -------------------------------------------------------------------
 @node Invoking ebncheck, ebncheck Options, Configuration Checker, Configuration Checker
-@section @code{ebncheck} �μ¹�
+@section @code{ebncheck} の実行
 
-@code{ebncheck} ���ޥ�ɤϡ�@code{ebnetd} ��Ʊ�����Τ�����ե������
-�ɤ߹���ǡ������å����ޤ���
-@code{ebncheck} ���ޥ�ɤΰ���Ū�ʵ�ư��ˡ�ϼ����̤�Ǥ���
+@code{ebncheck} コマンドは、@code{ebnetd} と同じ要領で設定ファイルを
+読み込んで、チェックします。
+@code{ebncheck} コマンドの一般的な起動方法は次の通りです。
 
 @example
 % /usr/local/sbin/ebncheck
 @end example
 
 @noindent
-��������EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�
-�����ѤΥ��ޥ�ɤ��֤��ǥ��쥯�ȥ� (@code{sbindir}) �ΰ��֤��ѹ�����
-���ʤ��Ȳ��ꤷ�Ƥ��ޤ���
+ただし、EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (@code{sbindir}) の位置を変更して
+いないと仮定しています。
 
-���Ҥθ��꤬ȯ�������ȡ�@code{ebncheck} ��ɸ�२�顼���Ϥ˰ʲ��Τ褦��
-��å���������Ϥ��ޤ���
+記述の誤りが発見されると、@code{ebncheck} は標準エラー出力に以下のような
+メッセージを出力します。
 
 @example
 /usr/local/etc/ebnetd.conf:12: unknown user: noboy
@@ -1122,65 +1122,65 @@ configuration failure
 
 @c -------------------------------------------------------------------
 @node ebncheck Options,  , Invoking ebncheck, Configuration Checker
-@section @code{ebncheck} �Υ��ץ����
+@section @code{ebncheck} のオプション
 
-@code{ebncheck} ���ޥ�ɤϡ�����Ū�ʰ�ʸ�����ץ����̾�ȳФ��䤹��Ĺ��
-���ץ����̾��ξ���򰷤����Ȥ��Ǥ��ޤ���
-Ĺ�����ץ����̾��ɽ���ˤϡ�@samp{-} �ǤϤʤ� @samp{--} ���Ѥ��ޤ���
-���ץ����̾����դ˷�ޤ��ϰ���ǡ�̾���θ�����ʬ���ά���뤳�Ȥ�
-�Ǥ��ޤ���
+@code{ebncheck} コマンドは、伝統的な一文字オプション名と覚えやすい長い
+オプション名の両方を扱うことができます。
+長いオプション名を表すには、@samp{-} ではなく @samp{--} を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
 
-@code{ebncheck} ���ޥ�ɤϰʲ��˵󤲤����ץ������᤹�뤳�Ȥ�
-�Ǥ��ޤ���
+@code{ebncheck} コマンドは以下に挙げたオプションを解釈することが
+できます。
 
 @table @code
-@item -c @var{�ե�����}
-@itemx --configuration-file @var{�ե�����}
-����ե��������ꤷ�ޤ���
-̵������Υե�����̾�ϡ��إ�ץ�å���������˵�����Ƥ��ޤ���
+@item -c @var{ファイル}
+@itemx --configuration-file @var{ファイル}
+設定ファイルを指定します。
+無指定時のファイル名は、ヘルプメッセージの中に記されています。
 
 @item -d
 @itemx --debug
 @itemx --verbose
-�ǥХå��Ѥξ����ɸ�२�顼���Ϥ˽��Ϥ��ޤ���
-�ǥХå��Ѥξ���ϡ�����ե�����γƹԤ��ɤΤ褦�˲�ᤵ���Τ��򼨤���
-����ޤ���
+デバッグ用の情報を標準エラー出力に出力します。
+デバッグ用の情報は、設定ファイルの各行がどのように解釈されるのかを示して
+くれます。
 
 @item -h
 @itemx --help
-�إ�ץ�å�������ɸ����Ϥ˽��Ϥ��ơ���λ���ޤ���
+ヘルプメッセージを標準出力に出力して、終了します。
 
 @item -v
 @itemx --version
-�С�������ֹ��ɸ����Ϥ˽��Ϥ��ơ���λ���ޤ���
+バージョン番号を標準出力に出力して、終了します。
 @end table
 
 @c ===================================================================
 @node Setup Your Environment, Start ebnetd, Configuration Checker, Top
-@chapter �Ķ�����
+@chapter 環境設定
 
-�����м��դΥ����ƥ�δĶ�������򤹤�ɬ�פ����뤫���Τ�ޤ���
-����ˤϡ������餯�����ѡ��桼���θ��¤�ɬ�פˤʤ�Ǥ��礦��
+サーバ周辺のシステムの環境を設定をする必要があるかも知れません。
+設定には、おそらくスーパーユーザの権限が必要になるでしょう。
 
 @menu
-* Services::                    @file{services} �ե����������
-* Syslog::                      @file{syslog.conf} �ե����������
-* Working Directory::           EBNETD �κ���ѥǥ��쥯�ȥ�
-* Mount CD-ROM Books::          CD-ROM ���ҤΥޥ����
-* Appendix Package::            appendix �ѥå��������Ѱ�
+* Services::                    @file{services} ファイルの設定
+* Syslog::                      @file{syslog.conf} ファイルの設定
+* Working Directory::           EBNETD の作業用ディレクトリ
+* Mount CD-ROM Books::          CD-ROM 書籍のマウント
+* Appendix Package::            appendix パッケージの用意
 @end menu
 
 @c -------------------------------------------------------------------
 @node Services, Syslog, Setup Your Environment, Setup Your Environment
-@section @file{services} �ե�����
+@section @file{services} ファイル
 
-�����ӥ�̾ @samp{ebnet}, @samp{ndtp}, @samp{http} �����ʤ��Υ����ƥ��
-@file{services} �ե������̵����С��ɲä��ʤ��ƤϤʤ�ޤ���
-(����ξ�� @file{/etc/services})��
-�⤷�����ʤ��Υۥ��Ȥ� NIS ���饤����Ȥʤ�С������ NIS �����о��
-���� NIS �Υޥåפ������ʤ��ƤϤʤ�ޤ���
+サービス名 @samp{ebnet}, @samp{ndtp}, @samp{http} があなたのシステムの
+@file{services} ファイルに無ければ、追加しなくてはなりません
+(大抵の場合 @file{/etc/services})。
+もし、あなたのホストが NIS クライアントならば、代わりに NIS サーバ上に
+ある NIS のマップを修正しなくてはなりません。
 
-�⤷�����ιԤ�̵�����­���ޤ���
+もし、次の行が無ければ足します。
 
 @example
 http          80/tcp
@@ -1189,44 +1189,44 @@ ebnet         22010/tcp
 @end example
 
 @noindent
-���Τ褦�ˡ������ƥ�� @file{services} �ե�����ˤϡ����Ǥ��̤Υ����ӥ�
-̾�ǥ���ȥ꤬���äƤ��뤫���Τ�ޤ���
+次のように、システムの @file{services} ファイルには、すでに別のサービス
+名でエントリが入っているかも知れません。
 
 @example
 search        2010/tcp
 @end example
 
 @noindent
-���ξ��ϡ������ӥ�̾����̾�Ȥ��Ƥ��ιԤ��ɲä��Ʋ�������
+この場合は、サービス名を別名としてその行に追加して下さい。
 
 @example
 search        2010/tcp        ndtp
 @end example
 
 @noindent
-(�ܤ����ϡ����ʤ��Υ����ƥ�Υޥ˥奢�������������)
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
 
 @c -------------------------------------------------------------------
 @node Syslog, Working Directory, Services, Setup Your Environment
-@section @file{syslog.conf} �ե�����
+@section @file{syslog.conf} ファイル
 
-@code{ebnetd}, @code{ndtpd}, @code{ebhttpd} �� syslog ��Ȥä�
-������å�������Ͽ���ޤ���
-@code{syslogd} ������ե����� (����ξ�� @file{/etc/syslog.conf}) �ˡ�
-���Τ褦�ʹԤ��ɲä��Ʋ�������
-���̤˥ե�����ɤζ��ڤ�ˤϥ��֤���������Ƥ��ޤ���Τǡ������
-�Ȥ�ʤ��褦�����դ��Ʋ�������
+@code{ebnetd}, @code{ndtpd}, @code{ebhttpd} は syslog を使って
+ログメッセージを記録します。
+@code{syslogd} の設定ファイル (大抵の場合 @file{/etc/syslog.conf}) に、
+次のような行を追加して下さい。
+一般にフィールドの区切りにはタブしか許されていませんので、空白を
+使わないように注意して下さい。
 
 @example
 local0.info   /usr/local/var/ebnetd/log/ebnetd.log
 @end example
 
 @noindent
-@code{ebnetd} �����Ѥ��� syslog �Υե�����ƥ��ϡ�@code{ebnetd} ��
-����ե������ @code{syslog-facility} �ؼ��ҤǷ�ޤ뤳�Ȥ�α�դ���
-������ (@pxref{Single Directive List, , @code{syslog-facility}})��
+@code{ebnetd} が使用する syslog のファシリティは、@code{ebnetd} の
+設定ファイルの @code{syslog-facility} 指示子で決まることに留意して
+下さい (@pxref{Single Directive List, , @code{syslog-facility}})。
 
-�⤷�����ե����뤬¸�ߤ��ʤ���С����Υե������������ޤ���
+もしログファイルが存在しなければ、空のファイルを作成します。
 
 @example
 @group
@@ -1236,32 +1236,32 @@ local0.info   /usr/local/var/ebnetd/log/ebnetd.log
 @end example
 
 @noindent
-�������Ԥ��Ƥ��� @code{syslogd} �ץ������� PID ��Ĵ�٤ޤ���
+現在走行している @code{syslogd} プロセスの PID を調べます。
 
 @example
 % ps axuww | grep syslogd
 @end example
 
 @noindent
-(�ܤ����ϡ����ʤ��Υ����ƥ�Υޥ˥奢�������������)
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
 @*
-@code{syslogd} �����äƤ���ʤ�С����Τ褦�ʹԤ����Ĥ���Ϥ��Ǥ���
+@code{syslogd} が走っているならば、次のような行が見つかるはずです。
 
 @example
 root        63  0.0  1.1   188  316  ??  Is   10:04PM    0:00.16 syslogd
 @end example
 
 @noindent
-�ϥ󥰥��åץ����ʥ� (@code{SIGHUP}) �� @code{syslogd} ������ȡ�
-@code{syslogd} �� @file{syslog.conf} ���ɤ߹���ľ���ޤ���
+ハングアップシグナル (@code{SIGHUP}) を @code{syslogd} に送ると、
+@code{syslogd} は @file{syslog.conf} を読み込み直します。
 
 @example 
 % kill -HUP 63
 @end example
 
 @noindent
-���ʤ��Υ����ƥ�� @code{logger} ���ޥ�ɤ�����С����Τ褦�ˤ���
-@code{syslogd} �˥ƥ��ȥ�å����������뤳�Ȥ��Ǥ��ޤ���
+あなたのシステムに @code{logger} コマンドがあれば、次のようにして
+@code{syslogd} にテストメッセージを送ることができます。
 
 @example 
 % logger -p local0.info "test message"
@@ -1269,15 +1269,15 @@ root        63  0.0  1.1   188  316  ??  Is   10:04PM    0:00.16 syslogd
 
 @c -------------------------------------------------------------------
 @node Working Directory, Mount CD-ROM Books, Syslog, Setup Your Environment
-@section ����ѥǥ��쥯�ȥ�
+@section 作業用ディレクトリ
 
-@code{ebnetd}, @code{ndtpd}, @code{ebhttpd} �Ϻ���ѤΥǥ��쥯�ȥ�β���
-�����Ĥ��Υե������������ޤ���
-���Υǥ��쥯�ȥ�ϡ�����ե��������� @code{work-path} �ؼ���
-�ǻ��ꤹ�뤳�Ȥ��Ǥ��ޤ� (@pxref{Single Directive List, ,@code{work-path}})��
+@code{ebnetd}, @code{ndtpd}, @code{ebhttpd} は作業用のディレクトリの下に
+いくつかのファイルを作成します。
+このディレクトリは、設定ファイルの中の @code{work-path} 指示子
+で指定することができます (@pxref{Single Directive List, ,@code{work-path}})。
 
-���Υǥ��쥯�ȥ���ꡢ�����Хץ������ȥ����ѡ��桼����������
-�����褦�ˤ��Ƥ����Ʋ�������
+このディレクトリを作り、サーバプロセスとスーパーユーザだけが書き
+込めるようにしておいて下さい。
 
 @example
 # mkdir /usr/local/var/ebnetd
@@ -1286,178 +1286,178 @@ root        63  0.0  1.1   188  316  ??  Is   10:04PM    0:00.16 syslogd
 @end example
 
 @noindent
-(���ʤ��Υ����ƥ�Ǥϡ������Хץ��������ͭ����桼����
-@samp{ndtpuser} �Ǥ���Ȳ��ꤷ�Ƥ��ޤ���)
+(あなたのシステムでは、サーバプロセスを所有するユーザが
+@samp{ndtpuser} であると仮定しています。)
 
-�������������Хץ������ν�ͭ�桼���ȥ��롼�פϡ�����ե���������
-@code{user}, @code{group} �ؼ��ҤǤ��줾���ޤ�ޤ��Τǡ�����
-���Ʋ����� (@pxref{Single Directive List, , @code{user}}, �����
-@pxref{Single Directive List, , @code{group}})��
+ただし、サーバプロセスの所有ユーザとグループは、設定ファイルの中の
+@code{user}, @code{group} 指示子でそれぞれ決まりますので、注意
+して下さい (@pxref{Single Directive List, , @code{user}}, および
+@pxref{Single Directive List, , @code{group}})。
 
 @c -------------------------------------------------------------------
 @node Mount CD-ROM Books, Appendix Package, Working Directory, Setup Your Environment
-@section CD-ROM ���ҤΥޥ����
+@section CD-ROM 書籍のマウント
 
-��˽Ҥ٤��褦�ˡ�CD-ROM ���Ҽ��Τ� ISO 9660 �����˽��äƤ��ޤ���
-CD-ROM ���Ҥϡ�¾�� ISO 9660 �����Υǥ�������Ʊ����ˡ�ǥޥ���Ȥ��뤳��
-���Ǥ��ޤ���
-�⤷��ISO 9660 �� CD-ROM �ǥ������Υޥ������ˡ��ʬ����ʤ���С����ʤ�
-�Υ����ƥ�Υޥ˥奢���Ĵ�٤Ʋ�������
+先に述べたように、CD-ROM 書籍自体は ISO 9660 形式に従っています。
+CD-ROM 書籍は、他の ISO 9660 形式のディスクと同じ方法でマウントすること
+ができます。
+もし、ISO 9660 の CD-ROM ディスクのマウント方法が分からなければ、あなた
+のシステムのマニュアルを調べて下さい。
 
-�����Ф� @code{ebzip} �ǰ��̤��줿����򥢥��������뤳�Ȥ��Ǥ��ޤ�
-(@pxref{Compression, , ����, ebzip-ja, ebzip})��
+サーバは @code{ebzip} で圧縮された辞書をアクセスすることができます
+(@pxref{Compression, , 圧縮, ebzip-ja, ebzip})。
 
 @c -------------------------------------------------------------------
 @node Appendix Package,  , Mount CD-ROM Books, Setup Your Environment
-@section appendix �ѥå��������Ѱ�
+@section appendix パッケージの用意
 
-@dfn{appendix} (@dfn{��Ͽ}) �Ȥ� CD-ROM ���Ҥ�����ǡ����Τ��ȤǤ���
-appendix �� CD-ROM ���Ҥν��ǼҤ����󶡤���Ƥ����ΤǤϤʤ���
-EB �饤�֥��˸�ͭ�Τ�ΤǤ���
+@dfn{appendix} (@dfn{付録}) とは CD-ROM 書籍の補助データのことです。
+appendix は CD-ROM 書籍の出版社から提供されているものではなく、
+EB ライブラリに固有のものです。
 
-(�� EBNET ���ۥѥå������Υ����Фϡ�������� EB �饤�֥��˿���
-�ط����Ƥ��뤳�Ȥ�פ��Ф��Ʋ�������
-@code{ebnetd} �ϡ�EB �饤�֥��Τ���α�֥������������ФǤ���
-@code{ndtpd} �� @code{ebhttpd}�ϡ�CD-ROM ���ҤΥ��������� EB �饤�֥��
-����Ѥ��Ƥ��ޤ���)
+(本 EBNET 配布パッケージのサーバは、いずれも EB ライブラリに深く
+関係していることを思い出して下さい。
+@code{ebnetd} は、EB ライブラリのための遠隔アクセスサーバです。
+@code{ndtpd} と @code{ebhttpd}は、CD-ROM 書籍のアクセスに EB ライブラリ
+を使用しています。)
 
-appendix �ϰʲ��Υǡ����� CD-ROM ���Ҥ��Ф����󶡤��ޤ���
+appendix は以下のデータを CD-ROM 書籍に対して提供します。
 
 @table @asis
-@item ��ʸ�ζ��ڤꥳ����
-���ʤ��� EB �饤�֥���Ȥä� CD-ROM �������Τ���ñ�������ݡ�����
-ñ�����������λ����ս�ǡ�EB �饤�֥�꤬��ʸ�ν��Ϥ�ߤ�뤳�Ȥ�
-���ʤ��ϴ��Ԥ���ΤǤϤʤ��Ǥ��礦����
-��������EB �饤�֥��Ϥ��Τ褦��ư����ݾڤ��뤳�Ȥ��Ǥ��ޤ���
-�ʤ��ʤ顢CD-ROM ���Ҥ���ʸ�ˤϡ����ܤν����򼨤�����¸�ߤ��ʤ�����
-�Ǥ���
+@item 本文の区切りコード
+あなたが EB ライブラリを使って CD-ROM 辞書の中のある単語を引く際、その
+単語の説明が終了する箇所で、EB ライブラリが本文の出力を止めることを
+あなたは期待するのではないでしょうか。
+しかし、EB ライブラリはそのような動作を保証することができません。
+なぜなら、CD-ROM 書籍の本文には、項目の終わりを示す印が存在しないから
+です。
 
-�����ˤ⡢¿���� CD-ROM ���Ҥˤϡ����ܤν����򼨤��������ؤȤ���
-�Ȥ��롢@dfn{���ڤꥳ����} (@dfn{stop code}) �Ȥ�����Τ���äƤ��ޤ���
-�̾EB �饤�֥��Ϥ��ζ��ڤꥳ���ɤ�ưŪ�˿�¬����褦�ˤʤä�
-����ΤǤ������������ä����ڤꥳ���ɤ�Ƴ���Ф����Ȥ�����ޤ���
-appendix �ζ��ڤꥳ���ɤϡ����ν��Ҥ����������ڤꥳ���ɤ� EB �饤�֥��
-�˶����Ƥ�뤿����Ѥ��ޤ���
+幸いにも、多くの CD-ROM 書籍には、項目の終わりを示す印の代替として
+使える、@dfn{区切りコード} (@dfn{stop code}) というものを持っています。
+通常、EB ライブラリはこの区切りコードを自動的に推測するようになって
+いるのですが、時々誤った区切りコードを導き出すことがあります。
+appendix の区切りコードは、その書籍の正しい区切りコードを EB ライブラリ
+に教えてやるために用います。
 
-@item ����������ʸ����
-¿���� CD-ROM ���Ҥϡ����� (�ȼ����������ʸ��) ����äƤ��ꡢ��ʸ���
-���γ�����ȤäƤ��ޤ���
-CD-ROM ���ҤǤϳ����Υӥåȥޥåץե���Ȥ��Ѱդ��Ƥ��ꡢ
-���饤����ȥ��ץꥱ������󤬳�������Ϥ���ˤϡ����Υե���Ȥ�����
-���ʤ��ƤϤʤ�ޤ���
+@item 外字の代替文字列
+多くの CD-ROM 書籍は、外字 (独自に定義した文字) を持っており、本文中で
+その外字を使っています。
+CD-ROM 書籍では外字のビットマップフォントを用意しており、
+クライアントアプリケーションが外字を出力するには、そのフォントを描画
+しなくてはなりません。
 
-appendix �Ǥϡ������� @dfn{����ʸ����} (@dfn{alternation text}) �����
-���뤳�Ȥ��Ǥ��ޤ���
-���ץꥱ�������ϡ��ӥåȥޥåץե���Ȥ����褹������ˡ�����
-����ʸ�������Ϥ��뤳�Ȥˤ��Ƥ��ɤ��Ǥ��礦��
+appendix では、外字の @dfn{代替文字列} (@dfn{alternation text}) を定義
+することができます。
+アプリケーションは、ビットマップフォントを描画する代わりに、その
+代替文字列を出力することにしても良いでしょう。
 @end table
 
-appendix �ѥå������Υ쥤�����Ȥ� CD-ROM ���ҤΤ�ΤȤ褯���Ƥ��ޤ���
-�ȥåץǥ��쥯�ȥ�ˤ� @code{catalog} �⤷���� @code{catalogs}
-�ե����뤬¸�ߤ��������ܤΥǡ������б����륵�֥ǥ��쥯�ȥ�����֤����
-���ޤ���
-appendx ��Ȥ��ˤϡ�����ե��������Ρ�ʣ��ؼ��� @code{book} ��
-@code{appendix-path} ���ؼ��Ҥǻ��ꤷ�ޤ�
-(@pxref{Group Directive, , @code{appendix-path}})��
+appendix パッケージのレイアウトは CD-ROM 書籍のものとよく似ています。
+トップディレクトリには @code{catalog} もしくは @code{catalogs}
+ファイルが存在し、各副本のデータは対応するサブディレクトリに配置されて
+います。
+appendx を使うには、設定ファイルの中の、複合指示子 @code{book} の
+@code{appendix-path} 副指示子で指定します
+(@pxref{Group Directive, , @code{appendix-path}})。
 
-EB �饤�֥��θ����� FTP ������
+EB ライブラリの公式な FTP サイト
 (@url{ftp://ftp.sra.co.jp/pub/misc/eb/appendix/})
-�ˡ�appendix �ѥå������������Ĥ��֤��Ƥ���ޤ���
-�����˺ܤäƤ��ʤ� CD-ROM �����Ѥ� appendix �ѥå����������������ϡ�
-@code{ebappendix} ���ޥ�ɤ�Ȥ��ޤ��礦��
-appendix �Υǡ����ե������������Ԥ����Ȥ��Ǥ��ޤ���
+に、appendix パッケージがいくつか置いてあります。
+ここに載っていない CD-ROM 書籍用の appendix パッケージを作成する場合は、
+@code{ebappendix} コマンドを使いましょう。
+appendix のデータファイルの整形を行うことができます。
 
 @c ===================================================================
 @node Start ebnetd, Start ndtpd, Setup Your Environment, Top
-@chapter @code{ebnetd} �ε�ư
+@chapter @code{ebnetd} の起動
 
-@code{ebnetd} �ϡ�������ɥ�����Υǡ���󡢤��뤤�� @code{inetd} ��
-�ҥץ������Ȥ��Ƶ�ư���뤳�Ȥ��Ǥ��ޤ���
-���꤬�ʤ���С�������ɥ�����Υǡ����Ȥ��Ƶ�ư����褦�ˤʤäƤ��ޤ���
+@code{ebnetd} は、スタンドアロンのデーモン、あるいは @code{inetd} の
+子プロセスとして起動することができます。
+指定がなければ、スタンドアロンのデーモンとして起動するようになっています。
 
-�����Фإ��ͥ���������ˤ���ʤ��ʤ顢����ξ�����ޤ��뤿���
-@code{ebnetd} �� @code{inetd} �λҥץ������Ȥ��Ƶ�ư���������ɤ��Ǥ��礦��
+サーバへコネクションが頻繁に来ないなら、メモリの消費を抑えるために
+@code{ebnetd} を @code{inetd} の子プロセスとして起動する方が良いでしょう。
 
-��������@code{inetd} �ˤ�äƵ�ư������٤ˡ�@code{ebnetd} ������ե�����
-���ɤ߹��ߡ�������Τ���� CD-ROM ���Ҥ���ǡ�������ʬŪ���ɤ߹��ߤޤ���
-���ͥ���������ˤ����褦�ʤ顢@code{ebnetd} �򥹥���ɥ�����Υǡ����
-�Ȥ��Ƶ�ư���������ɤ��Ǥ��礦��
+しかし、@code{inetd} によって起動される度に、@code{ebnetd} は設定ファイル
+を読み込み、初期化のために CD-ROM 書籍からデータを部分的に読み込みます。
+コネクションが頻繁に来るようなら、@code{ebnetd} をスタンドアロンのデーモン
+として起動した方が良いでしょう。
 
-���ʤ��Υ����ƥ�Ǥ� @code{ebnetd} ��ɬ�פȤ��ʤ��ʤ顢���ξϤλĤ��
-��ʬ���ɤ����Ф��Ʋ�������
+あなたのシステムでは @code{ebnetd} を必要としないなら、この章の残りの
+部分は読み飛ばして下さい。
 
 @menu
-* ebnetd Standalone::           @code{ebnetd} �򥹥���ɥ�����ǵ�ư
-* ebnetd Child of inetd::       @code{ebnetd} �� @code{inetd} ��ͳ�ǵ�ư
-* ebnetd Child of xinetd::      @code{ebnetd} �� @code{xinetd} ��ͳ�ǵ�ư
-* ebnetd Test with telnet::     @code{telnet} �ˤ�� @code{ebnetd} �γ�ǧ
-* ebnetd Options::              @code{ebnetd} �Υ��ץ����
+* ebnetd Standalone::           @code{ebnetd} をスタンドアロンで起動
+* ebnetd Child of inetd::       @code{ebnetd} を @code{inetd} 経由で起動
+* ebnetd Child of xinetd::      @code{ebnetd} を @code{xinetd} 経由で起動
+* ebnetd Test with telnet::     @code{telnet} による @code{ebnetd} の確認
+* ebnetd Options::              @code{ebnetd} のオプション
 @end menu
 
 @c -------------------------------------------------------------------
 @node ebnetd Standalone, ebnetd Child of inetd, Start ebnetd, Start ebnetd
-@section @code{ebnetd} �򥹥���ɥ�����ǵ�ư
+@section @code{ebnetd} をスタンドアロンで起動
 
-@code{ebnetd} �򥹥���ɥ�����Υǡ����Ȥ��Ƶ�ư����ˤϡ����Τ褦��
-���ޥ�ɤ�¹Ԥ��Ʋ�������
-�����ѡ��桼���θ��¤�ɬ�פ����Τ�ޤ���
+@code{ebnetd} をスタンドアロンのデーモンとして起動するには、次のように
+コマンドを実行して下さい。
+スーパーユーザの権限が必要かも知れません。
 
 @example
 % /usr/local/sbin/ebnetd
 @end example
 
 @noindent
-EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�����Ѥ�
-���ޥ�ɤ��֤��ǥ��쥯�ȥ� (@code{sbindir}) �ΰ��֤��ѹ����Ƥ��ʤ���С�
-@code{ebnetd} �� @file{/usr/local/sbin} �˥��󥹥ȡ��뤵��Ƥ��ޤ���
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (@code{sbindir}) の位置を変更していなければ、
+@code{ebnetd} は @file{/usr/local/sbin} にインストールされています。
 
 @c -------------------------------------------------------------------
 @node ebnetd Child of inetd, ebnetd Child of xinetd, ebnetd Standalone, Start ebnetd
-@section @code{ebnetd} �� @code{inetd} ��ͳ�ǵ�ư
+@section @code{ebnetd} を @code{inetd} 経由で起動
 
-@code{ebnetd} �� @code{inetd} �λҥץ������Ȥ��Ƶ�ư�ˤϡ����μ�礬ɬ��
-�ˤʤ�ޤ���
-���Υ���ȥ�� @file{inetd.conf} �ե����� (����ξ�� @file{/etc/inetd.conf})
-�˲ä��ޤ���
-@samp{--inetd} (�ޤ��� @samp{-i}) ���ץ�����­���Τ�˺��ʤ��褦�ˤ���
-��������
+@code{ebnetd} を @code{inetd} の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを @file{inetd.conf} ファイル (大抵の場合 @file{/etc/inetd.conf})
+に加えます。
+@samp{--inetd} (または @samp{-i}) オプションを足すのを忘れないようにして
+下さい。
 
 @example
 ebnet  stream  tcp  nowait  root  /usr/local/sbin/ebnetd ebnetd --inetd
 @end example
 
 @noindent
-(��������EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�
-�����ѤΥ��ޥ�ɤ��֤��ǥ��쥯�ȥ� (@code{sbindir}) �ΰ��֤��ѹ����Ƥ��ʤ�
-�Ȳ��ꤷ�Ƥ��ޤ���)
+(ただし、EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (@code{sbindir}) の位置を変更していない
+と仮定しています。)
 
-���Ԥ��Ƥ��� @code{inetd} �ץ������� PID ��õ���Ф��ޤ���
-BSD �ϤΥ����ƥ�Ǥϡ����Τ褦�ˤ��ޤ���
+走行している @code{inetd} プロセスの PID を探し出します。
+BSD 系のシステムでは、次のようにします。
 
 @example
 % ps axuww | grep inetd
 @end example
 
 @noindent
-SYSV �ϤΥ����ƥ�ʤ顢���Τ褦�ˤ��ޤ���
+SYSV 系のシステムなら、次のようにします。
 
 @example
 % ps -ef | grep inetd
 @end example
 
 @noindent
-(�ܤ����ϡ����ʤ��Υ����ƥ�Υޥ˥奢�������������)
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
 @*
-@code{inetd} �����äƤ���ʤ�С����Τ褦�ʹԤ����Ĥ���Ϥ��Ǥ���
+@code{inetd} が走っているならば、次のような行が見つかるはずです。
 
 @example
 root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
 @end example
 
 @noindent
-���Ĥ��ä��ʤ�С��ϥ󥰥��åץ����ʥ� (@code{SIGHUP}) �� @code{inetd}
-������ޤ���
-�����餯�������ѡ��桼���θ��¤�ɬ�פǤ���
+見つかったならば、ハングアップシグナル (@code{SIGHUP}) を @code{inetd}
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
 
 @example 
 % kill -HUP 79
@@ -1465,19 +1465,19 @@ root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
 
 @c -------------------------------------------------------------------
 @node ebnetd Child of xinetd, ebnetd Test with telnet, ebnetd Child of inetd, Start ebnetd
-@section @code{ebnetd} �� @code{xinetd} ��ͳ�ǵ�ư
+@section @code{ebnetd} を @code{xinetd} 経由で起動
 
-Linux �����ƥ�ˤϡ�����Ū�� @code{inetd} ������� @code{xinetd} ��
-���Ѥ��Ƥ����Τ⤢��ޤ���
-@code{xinetd} ������ե������ʸˡ�ϡ�����Ū�� @code{inetd} ������ե�����
-��ʸˡ�Ȥϰۤʤ�ޤ���
+Linux システムには、伝統的な @code{inetd} の代わりに @code{xinetd} を
+使用しているものもあります。
+@code{xinetd} の設定ファイルの文法は、伝統的な @code{inetd} の設定ファイル
+の文法とは異なります。
 
-@code{ebnetd} �� @code{xinetd} �λҥץ������Ȥ��Ƶ�ư�ˤϡ����μ�礬ɬ��
-�ˤʤ�ޤ���
-���Υ���ȥ������ե����� (����ξ�� @file{/etc/xinetd.d/ebnet}) ��
-�ä��ޤ���
-@samp{--inetd} (�ޤ��� @samp{-i}) ���ץ�����­���Τ�˺��ʤ��褦�ˤ���
-��������
+@code{ebnetd} を @code{xinetd} の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを設定ファイル (大抵の場合 @file{/etc/xinetd.d/ebnet}) に
+加えます。
+@samp{--inetd} (または @samp{-i}) オプションを足すのを忘れないようにして
+下さい。
 
 @example
 @group
@@ -1497,27 +1497,27 @@ service ebnet
 @end example
 
 @noindent
-(��������EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�
-�����ѤΥ��ޥ�ɤ��֤��ǥ��쥯�ȥ� (@code{sbindir}) �ΰ��֤��ѹ����Ƥ���
-���Ȳ��ꤷ�Ƥ��ޤ���)
+(ただし、EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (@code{sbindir}) の位置を変更していな
+いと仮定しています。)
 
-���Ԥ��Ƥ��� @code{xinetd} �ץ������� PID ��õ���Ф��ޤ���
+走行している @code{xinetd} プロセスの PID を探し出します。
 
 @example
 % ps axuww | grep xinetd
 @end example
 
 @*
-@code{xinetd} �����äƤ���ʤ�С����Τ褦�ʹԤ����Ĥ���Ϥ��Ǥ���
+@code{xinetd} が走っているならば、次のような行が見つかるはずです。
 
 @example
 root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
 @end example
 
 @noindent
-���Ĥ��ä��ʤ�С�USER2 �����ʥ� (@code{SIGUSR2}) �� @code{xinetd}
-������ޤ���
-�����餯�������ѡ��桼���θ��¤�ɬ�פǤ���
+見つかったならば、USER2 シグナル (@code{SIGUSR2}) を @code{xinetd}
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
 
 @example 
 % kill -USR2 79
@@ -1525,20 +1525,20 @@ root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
 
 @c -------------------------------------------------------------------
 @node ebnetd Test with telnet, ebnetd Options, ebnetd Child of xinetd, Start ebnetd
-@section @code{telnet} �ˤ�� @code{ebnetd} �γ�ǧ
+@section @code{telnet} による @code{ebnetd} の確認
 
-���åȥ��åפ����٤ƴ�λ�����顢@code{telnet} ���ޥ�ɤ��Ѥ��� 
-@code{ebnetd} ����³���Ƥߤޤ��礦��
+セットアップがすべて完了したら、@code{telnet} コマンドを用いて 
+@code{ebnetd} に接続してみましょう。
 
-�ޤ������Τ褦�����Ϥ��ޤ���
-������Ǥϡ�localhost ��� @code{ebnetd} ����³���Ƥ��ޤ���
+まず、次のように入力します。
+この例では、localhost 上の @code{ebnetd} に接続しています。
 
 @example
 % telnet localhost ebnet
 @end example
 
 @noindent
-@code{ebnetd} ����³������դ���С����Τ褦�ʥ�å�������ɽ������ޤ���
+@code{ebnetd} が接続を受け付ければ、次のようなメッセージが表示されます。
 
 @example
 Connected to localhost.
@@ -1546,15 +1546,15 @@ Escape character is '^]'.
 @end example
 
 @noindent
-�����ǡ�@key{BOOKLIST} ��³���� @key{Enter} �����Ϥ��ޤ���
+ここで、@key{BOOKLIST} に続けて @key{Enter} を入力します。
 
 @example
 BOOKLIST
 @end example
 
 @noindent
-@code{ebnetd} �������ư���Ƥ���С����Τ褦�����Ѳ�ǽ�� CD-ROM 
-���Ҥΰ�������Ϥ��ޤ���
+@code{ebnetd} が正常に動いていれば、次のように利用可能な CD-ROM 
+書籍の一覧を出力します。
 
 @example
 !OK; book list follows
@@ -1566,7 +1566,7 @@ colloc.app
 @end example
 
 @noindent
-��³�򽪤���ˤϡ�@key{QUIT} ��³���� @key{Enter} �����Ϥ��ޤ���
+接続を終えるには、@key{QUIT} に続けて @key{Enter} を入力します。
 
 @example
 QUIT
@@ -1575,133 +1575,133 @@ Connection closed by foreign host.
 
 @c -------------------------------------------------------------------
 @node ebnetd Options,  , ebnetd Test with telnet, Start ebnetd
-@section @code{ebnetd} �Υ��ץ����
+@section @code{ebnetd} のオプション
 
-@code{ebnetd} ���ޥ�ɤϡ�����Ū�ʰ�ʸ�����ץ����̾�ȳФ��䤹��Ĺ��
-���ץ����̾��ξ���򰷤����Ȥ��Ǥ��ޤ���
-Ĺ�����ץ����̾��ɽ���ˤϡ�@samp{-} �ǤϤʤ� @samp{--} ���Ѥ��ޤ���
-���ץ����̾����դ˷�ޤ��ϰ���ǡ�̾���θ�����ʬ���ά���뤳�Ȥ�
-�Ǥ��ޤ���
+@code{ebnetd} コマンドは、伝統的な一文字オプション名と覚えやすい長い
+オプション名の両方を扱うことができます。
+長いオプション名を表すには、@samp{-} ではなく @samp{--} を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
 
-@code{ebnetd} ���ޥ�ɤϰʲ��˵󤲤����ץ������᤹�뤳�Ȥ��Ǥ��ޤ���
+@code{ebnetd} コマンドは以下に挙げたオプションを解釈することができます。
 
 @table @code
-@item -c @var{�ե�����}
-@itemx --configuration-file @var{�ե�����}
-����ե��������ꤷ�ޤ���
-̵������Υե�����̾�ϡ��إ�ץ�å���������˵�����Ƥ��ޤ���
+@item -c @var{ファイル}
+@itemx --configuration-file @var{ファイル}
+設定ファイルを指定します。
+無指定時のファイル名は、ヘルプメッセージの中に記されています。
 
 @item -h
 @itemx --help
-�إ�ץ�å�������ɸ����Ϥ˽��Ϥ��ơ���λ���ޤ���
+ヘルプメッセージを標準出力に出力して、終了します。
 
 @item -i
 @itemx --inetd	
-@code{inetd} �⡼�ɡ�
-@code{ebnetd} �� @code{inetd} ���鵯ư������Ȥ��ϡ����Υ��ץ��������
-����ɬ�פ�����ޤ���
+@code{inetd} モード。
+@code{ebnetd} を @code{inetd} から起動させるときは、このオプションを指定
+する必要があります。
 
 @item -t
 @itemx --test
-�ƥ��ȥ⡼�ɡ�
-@code{ebnetd} �ϥե������饦��ɥץ������Ȥ��Ƶ�ư���졢�褷�� fork ��
-�Ԥ��ޤ���
-�����ФؤΥꥯ�����Ȥ�ɸ�����Ϥ����ɤ߹��ޤ졢���饤����ȤؤΥ쥹�ݥ�
-��ɸ����Ϥؽ��Ϥ���ޤ���
-ɸ�����Ϥ����ɸ����Ϥϡ�ü���ȷ���դ���줿�ե����뵭�һҤǤ��äƤ�
-�����ޤ���
-�ޤ��������������Ф��뼱�̥����å��ϹԤ��ޤ���Τǡ����٤Ƥ� CD-ROM ����
-�˥���������ǽ�Ǥ���
+テストモード。
+@code{ebnetd} はフォアグラウンドプロセスとして起動され、決して fork を
+行いません。
+サーバへのリクエストは標準入力から読み込まれ、クライアントへのレスポンス
+は標準出力へ出力されます。
+標準入力および標準出力は、端末と結び付けられたファイル記述子であっても
+構いません。
+また、アクセスに対する識別チェックは行いませんので、すべての CD-ROM 書籍
+にアクセス可能です。
 
 @item -v
 @itemx --version
-�С�������ֹ��ɸ�२�顼���Ϥ˽��Ϥ��ơ���λ���ޤ���
+バージョン番号を標準エラー出力に出力して、終了します。
 @end table
 
 @c ===================================================================
 @node Start ndtpd, Start ebhttpd, Start ebnetd, Top
-@chapter @code{ndtpd} �ε�ư
+@chapter @code{ndtpd} の起動
 
-���ʤ��Υ����ƥ�Ǥ� @code{ndtpd} ��ɬ�פȤ��ʤ��ʤ顢���ξϤ��ɤ����Ф���
-��������
+あなたのシステムでは @code{ndtpd} を必要としないなら、この章は読み飛ばして
+下さい。
 
-@code{ndtpd} �⡢������ɥ�����Υǡ����Ȥ��Ƶ�ư����������
-@code{inted} �λҥץ������Ȥ��Ƶ�ư���������Ρ�2 �Ĥμ¹ԥ⡼�ɤ�
-���äƤ��ޤ���
-���꤬�ʤ���С�@code{ndtpd} �ϥ�����ɥ�����Υǡ����Ȥ��Ƶ�ư���ޤ���
+@code{ndtpd} も、スタンドアロンのデーモンとして起動するやり方と
+@code{inted} の子プロセスとして起動するやり方の、2 つの実行モードを
+持っています。
+指定がなければ、@code{ndtpd} はスタンドアロンのデーモンとして起動します。
 
 @menu
-* ndtpd Standalone::            @code{ndtpd} �򥹥���ɥ�����ǵ�ư
-* ndtpd Child of inetd::        @code{ndtpd} �� @code{inetd} ��ͳ�ǵ�ư
-* ndtpd Child of xinetd::       @code{ndtpd} �� @code{xinetd} ��ͳ�ǵ�ư
-* ndtpd Test with telnet::      @code{telnet} �ˤ�� @code{ndtpd} �γ�ǧ
-* ndtpd Options::               @code{ndtpd} �Υ��ץ����
+* ndtpd Standalone::            @code{ndtpd} をスタンドアロンで起動
+* ndtpd Child of inetd::        @code{ndtpd} を @code{inetd} 経由で起動
+* ndtpd Child of xinetd::       @code{ndtpd} を @code{xinetd} 経由で起動
+* ndtpd Test with telnet::      @code{telnet} による @code{ndtpd} の確認
+* ndtpd Options::               @code{ndtpd} のオプション
 @end menu
 
 @c -------------------------------------------------------------------
 @node ndtpd Standalone, ndtpd Child of inetd, Start ndtpd, Start ndtpd
-@section @code{ndtpd} �򥹥���ɥ�����ǵ�ư
+@section @code{ndtpd} をスタンドアロンで起動
 
-@code{ndtpd} �򥹥���ɥ�����Υǡ����Ȥ��Ƶ�ư����ˤϡ����Τ褦��
-���ޥ�ɤ�¹Ԥ��Ʋ�������
-�����ѡ��桼���θ��¤�ɬ�פ����Τ�ޤ���
+@code{ndtpd} をスタンドアロンのデーモンとして起動するには、次のように
+コマンドを実行して下さい。
+スーパーユーザの権限が必要かも知れません。
 
 @example
 % /usr/local/sbin/ndtpd
 @end example
 
 @noindent
-EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�����Ѥ�
-���ޥ�ɤ��֤��ǥ��쥯�ȥ� (@code{sbindir}) �ΰ��֤��ѹ����Ƥ��ʤ���С�
-@code{ndtpd} �� @file{/usr/local/sbin} �˥��󥹥ȡ��뤵��Ƥ��ޤ���
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (@code{sbindir}) の位置を変更していなければ、
+@code{ndtpd} は @file{/usr/local/sbin} にインストールされています。
 
 @c -------------------------------------------------------------------
 @node ndtpd Child of inetd, ndtpd Child of xinetd, ndtpd Standalone, Start ndtpd
-@section @code{ndtpd} �� @code{inetd} ��ͳ�ǵ�ư
+@section @code{ndtpd} を @code{inetd} 経由で起動
 
-@code{ndtpd} �� @code{inetd} �λҥץ������Ȥ��Ƶ�ư�ˤϡ����μ�礬ɬ��
-�ˤʤ�ޤ���
-���Υ���ȥ�� @file{inetd.conf} �ե����� (����ξ�� @file{/etc/inetd.conf})
-�˲ä��ޤ���
-@samp{--inetd} (�ޤ��� @samp{-i}) ���ץ�����­���Τ�˺��ʤ��褦�ˤ���
-��������
+@code{ndtpd} を @code{inetd} の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを @file{inetd.conf} ファイル (大抵の場合 @file{/etc/inetd.conf})
+に加えます。
+@samp{--inetd} (または @samp{-i}) オプションを足すのを忘れないようにして
+下さい。
 
 @example
 ndtp  stream  tcp  nowait  root  /usr/local/sbin/ndtpd ndtpd --inetd
 @end example
 
 @noindent
-(��������EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�
-�����ѤΥ��ޥ�ɤ��֤��ǥ��쥯�ȥ� (@code{sbindir}) �ΰ��֤��ѹ����Ƥ��ʤ�
-�Ȳ��ꤷ�Ƥ��ޤ���)
+(ただし、EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (@code{sbindir}) の位置を変更していない
+と仮定しています。)
 
-���Ԥ��Ƥ��� @code{inetd} �ץ������� PID ��õ���Ф��ޤ���
-BSD �ϤΥ����ƥ�Ǥϡ����Τ褦�ˤ��ޤ���
+走行している @code{inetd} プロセスの PID を探し出します。
+BSD 系のシステムでは、次のようにします。
 
 @example
 % ps axuww | grep inetd
 @end example
 
 @noindent
-SYSV �ϤΥ����ƥ�ʤ顢���Τ褦�ˤ��ޤ���
+SYSV 系のシステムなら、次のようにします。
 
 @example
 % ps -ef | grep inetd
 @end example
 
 @noindent
-(�ܤ����ϡ����ʤ��Υ����ƥ�Υޥ˥奢�������������)
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
 @*
-@code{inetd} �����äƤ���ʤ�С����Τ褦�ʹԤ����Ĥ���Ϥ��Ǥ���
+@code{inetd} が走っているならば、次のような行が見つかるはずです。
 
 @example
 root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
 @end example
 
 @noindent
-���Ĥ��ä��ʤ�С��ϥ󥰥��åץ����ʥ� (@code{SIGHUP}) �� @code{inetd}
-������ޤ���
-�����餯�������ѡ��桼���θ��¤�ɬ�פǤ���
+見つかったならば、ハングアップシグナル (@code{SIGHUP}) を @code{inetd}
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
 
 @example 
 % kill -HUP 79
@@ -1709,19 +1709,19 @@ root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
 
 @c -------------------------------------------------------------------
 @node ndtpd Child of xinetd, ndtpd Test with telnet, ndtpd Child of inetd, Start ndtpd
-@section @code{ndtpd} �� @code{xinetd} ��ͳ�ǵ�ư
+@section @code{ndtpd} を @code{xinetd} 経由で起動
 
-Linux �����ƥ�ˤϡ�����Ū�� @code{inetd} ������� @code{xinetd} ��
-���Ѥ��Ƥ����Τ⤢��ޤ���
-@code{xinetd} ������ե������ʸˡ�ϡ�����Ū�� @code{inetd} ������ե�����
-��ʸˡ�Ȥϰۤʤ�ޤ���
+Linux システムには、伝統的な @code{inetd} の代わりに @code{xinetd} を
+使用しているものもあります。
+@code{xinetd} の設定ファイルの文法は、伝統的な @code{inetd} の設定ファイル
+の文法とは異なります。
 
-@code{ndtpd} �� @code{xinetd} �λҥץ������Ȥ��Ƶ�ư�ˤϡ����μ�礬ɬ��
-�ˤʤ�ޤ���
-���Υ���ȥ������ե����� (����ξ�� @file{/etc/xinetd.d/ndtp}) ��
-�ä��ޤ���
-@samp{--inetd} (�ޤ��� @samp{-i}) ���ץ�����­���Τ�˺��ʤ��褦�ˤ���
-��������
+@code{ndtpd} を @code{xinetd} の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを設定ファイル (大抵の場合 @file{/etc/xinetd.d/ndtp}) に
+加えます。
+@samp{--inetd} (または @samp{-i}) オプションを足すのを忘れないようにして
+下さい。
 
 @example
 @group
@@ -1741,27 +1741,27 @@ service ndtp
 @end example
 
 @noindent
-(��������EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�
-�����ѤΥ��ޥ�ɤ��֤��ǥ��쥯�ȥ� (@code{sbindir}) �ΰ��֤��ѹ����Ƥ���
-���Ȳ��ꤷ�Ƥ��ޤ���)
+(ただし、EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (@code{sbindir}) の位置を変更していな
+いと仮定しています。)
 
-���Ԥ��Ƥ��� @code{xinetd} �ץ������� PID ��õ���Ф��ޤ���
+走行している @code{xinetd} プロセスの PID を探し出します。
 
 @example
 % ps axuww | grep xinetd
 @end example
 
 @*
-@code{xinetd} �����äƤ���ʤ�С����Τ褦�ʹԤ����Ĥ���Ϥ��Ǥ���
+@code{xinetd} が走っているならば、次のような行が見つかるはずです。
 
 @example
 root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
 @end example
 
 @noindent
-���Ĥ��ä��ʤ�С�USER2 �����ʥ� (@code{SIGUSR2}) �� @code{xinetd}
-������ޤ���
-�����餯�������ѡ��桼���θ��¤�ɬ�פǤ���
+見つかったならば、USER2 シグナル (@code{SIGUSR2}) を @code{xinetd}
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
 
 @example 
 % kill -USR2 79
@@ -1769,20 +1769,20 @@ root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
 
 @c -------------------------------------------------------------------
 @node ndtpd Test with telnet, ndtpd Options, ndtpd Child of xinetd, Start ndtpd
-@section @code{telnet} �ˤ�� @code{ndtpd} �γ�ǧ
+@section @code{telnet} による @code{ndtpd} の確認
 
-���åȥ��åפ����٤ƴ�λ�����顢@code{telnet} ���ޥ�ɤ��Ѥ��� 
-@code{ndtpd} ����³���Ƥߤޤ��礦��
+セットアップがすべて完了したら、@code{telnet} コマンドを用いて 
+@code{ndtpd} に接続してみましょう。
 
-�ޤ������Τ褦�����Ϥ��ޤ���
-������Ǥϡ�localhost ��� @code{ndtpd} ����³���Ƥ��ޤ���
+まず、次のように入力します。
+この例では、localhost 上の @code{ndtpd} に接続しています。
 
 @example
 % telnet localhost ndtp
 @end example
 
 @noindent
-@code{ndtpd} ����³������դ���С����Τ褦�ʥ�å�������ɽ������ޤ���
+@code{ndtpd} が接続を受け付ければ、次のようなメッセージが表示されます。
 
 @example
 Connected to localhost.
@@ -1790,9 +1790,9 @@ Escape character is '^]'.
 @end example
 
 @noindent
-�����ǡ�@key{t} ��³���� @key{Enter} �����Ϥ��ޤ���
-@code{ndtpd} �������ư���Ƥ���С����Τ褦�����Ѳ�ǽ�� CD-ROM 
-���Ҥΰ�������Ϥ��ޤ���
+ここで、@key{t} に続けて @key{Enter} を入力します。
+@code{ndtpd} が正常に動いていれば、次のように利用可能な CD-ROM 
+書籍の一覧を出力します。
 
 @example
 t
@@ -1804,7 +1804,7 @@ $*
 @end example
 
 @noindent
-��³�򽪤���ˤϡ�@key{Q} ��³���� @key{Enter} �����Ϥ��ޤ���
+接続を終えるには、@key{Q} に続けて @key{Enter} を入力します。
 
 @example
 Q
@@ -1813,95 +1813,95 @@ Connection closed by foreign host.
 
 @c -------------------------------------------------------------------
 @node ndtpd Options,  , ndtpd Test with telnet, Start ndtpd
-@section @code{ndtpd} �Υ��ץ����
+@section @code{ndtpd} のオプション
 
-@code{ndtpd} �Υ��ޥ�ɹԤλ�����ˡ�ϡ�@code{ebnetd} ��Ʊ���Ǥ���
-�ܤ����ϡ�@pxref{ebnetd Options, , @code{ebnetd} �Υ��ץ����} ��
-���Ȥ��Ʋ�������
+@code{ndtpd} のコマンド行の指定方法は、@code{ebnetd} と同じです。
+詳しくは、@pxref{ebnetd Options, , @code{ebnetd} のオプション} を
+参照して下さい。
 
 @c ===================================================================
 @node Start ebhttpd, Terminate and Restart, Start ndtpd, Top
-@chapter @code{ebhttpd} �ε�ư
+@chapter @code{ebhttpd} の起動
 
-���ʤ��Υ����ƥ�Ǥ� @code{ebhttpd} ��ɬ�פȤ��ʤ��ʤ顢���ξϤ�
-�ɤ����Ф��Ʋ�������
+あなたのシステムでは @code{ebhttpd} を必要としないなら、この章は
+読み飛ばして下さい。
 
-@code{ebhttpd} �⡢������ɥ�����Υǡ����Ȥ��Ƶ�ư����������
-@code{inted} �λҥץ������Ȥ��Ƶ�ư���������Ρ�2 �Ĥμ¹ԥ⡼�ɤ�
-���äƤ��ޤ���
-���꤬�ʤ���С�@code{ebhttpd} �ϥ�����ɥ�����Υǡ����Ȥ��Ƶ�ư���ޤ���
+@code{ebhttpd} も、スタンドアロンのデーモンとして起動するやり方と
+@code{inted} の子プロセスとして起動するやり方の、2 つの実行モードを
+持っています。
+指定がなければ、@code{ebhttpd} はスタンドアロンのデーモンとして起動します。
 
 @menu
-* ebhttpd Standalone::          @code{ebhttpd} �򥹥���ɥ�����ǵ�ư
-* ebhttpd Child of inetd::      @code{ebhttpd} �� @code{inetd} ��ͳ�ǵ�ư
-* ebhttpd Child of xinetd::     @code{ebhttpd} �� @code{xinetd} ��ͳ�ǵ�ư
-* ebhttpd Test with telnet::    @code{telnet} �ˤ�� @code{ebhttpd} �γ�ǧ
-* ebhttpd Options::             @code{ebhttpd} �Υ��ץ����
+* ebhttpd Standalone::          @code{ebhttpd} をスタンドアロンで起動
+* ebhttpd Child of inetd::      @code{ebhttpd} を @code{inetd} 経由で起動
+* ebhttpd Child of xinetd::     @code{ebhttpd} を @code{xinetd} 経由で起動
+* ebhttpd Test with telnet::    @code{telnet} による @code{ebhttpd} の確認
+* ebhttpd Options::             @code{ebhttpd} のオプション
 @end menu
 
 @c -------------------------------------------------------------------
 @node ebhttpd Standalone, ebhttpd Child of inetd, Start ebhttpd, Start ebhttpd
-@section @code{ebhttpd} �򥹥���ɥ�����ǵ�ư
+@section @code{ebhttpd} をスタンドアロンで起動
 
-@code{ebhttpd} �򥹥���ɥ�����Υǡ����Ȥ��Ƶ�ư����ˤϡ����Τ褦��
-���ޥ�ɤ�¹Ԥ��Ʋ������������ѡ��桼���θ��¤�ɬ�פ����Τ�ޤ���
+@code{ebhttpd} をスタンドアロンのデーモンとして起動するには、次のように
+コマンドを実行して下さい。スーパーユーザの権限が必要かも知れません。
 
 @example
 % /usr/local/sbin/ebhttpd
 @end example
 
 @noindent
-EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�����Ѥ�
-���ޥ�ɤ��֤��ǥ��쥯�ȥ� (@code{sbindir}) �ΰ��֤��ѹ����Ƥ��ʤ���С�
-@code{ebhttpd} �� @file{/usr/local/sbin} �˥��󥹥ȡ��뤵��Ƥ��ޤ���
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (@code{sbindir}) の位置を変更していなければ、
+@code{ebhttpd} は @file{/usr/local/sbin} にインストールされています。
 
 @c -------------------------------------------------------------------
 @node ebhttpd Child of inetd, ebhttpd Child of xinetd, ebhttpd Standalone, Start ebhttpd
-@section @code{ebhttpd} �� @code{inetd} ��ͳ�ǵ�ư
+@section @code{ebhttpd} を @code{inetd} 経由で起動
 
-@code{ebhttpd} �� @code{inetd} �λҥץ������Ȥ��Ƶ�ư�ˤϡ����μ�礬ɬ��
-�ˤʤ�ޤ���
-���Υ���ȥ�� @file{inetd.conf} �ե����� (����ξ�� @file{/etc/inetd.conf})
-�˲ä��ޤ���
-@samp{--inetd} (�ޤ��� @samp{-i}) ���ץ�����­���Τ�˺��ʤ��褦�ˤ���
-��������
+@code{ebhttpd} を @code{inetd} の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを @file{inetd.conf} ファイル (大抵の場合 @file{/etc/inetd.conf})
+に加えます。
+@samp{--inetd} (または @samp{-i}) オプションを足すのを忘れないようにして
+下さい。
 
 @example
 http  stream  tcp  nowait  root  /usr/local/sbin/ebhttpd ebhttpd --inetd
 @end example
 
 @noindent
-(��������EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�
-�����ѤΥ��ޥ�ɤ��֤��ǥ��쥯�ȥ� (@code{sbindir}) �ΰ��֤��ѹ����Ƥ��ʤ�
-�Ȳ��ꤷ�Ƥ��ޤ���)
+(ただし、EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (@code{sbindir}) の位置を変更していない
+と仮定しています。)
 
-���Ԥ��Ƥ��� @code{inetd} �ץ������� PID ��õ���Ф��ޤ���
-BSD �ϤΥ����ƥ�Ǥϡ����Τ褦�ˤ��ޤ���
+走行している @code{inetd} プロセスの PID を探し出します。
+BSD 系のシステムでは、次のようにします。
 
 @example
 % ps axuww | grep inetd
 @end example
 
 @noindent
-SYSV �ϤΥ����ƥ�ʤ顢���Τ褦�ˤ��ޤ���
+SYSV 系のシステムなら、次のようにします。
 
 @example
 % ps -ef | grep inetd
 @end example
 
 @noindent
-(�ܤ����ϡ����ʤ��Υ����ƥ�Υޥ˥奢�������������)
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
 @*
-@code{inetd} �����äƤ���ʤ�С����Τ褦�ʹԤ����Ĥ���Ϥ��Ǥ���
+@code{inetd} が走っているならば、次のような行が見つかるはずです。
 
 @example
 root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
 @end example
 
 @noindent
-���Ĥ��ä��ʤ�С��ϥ󥰥��åץ����ʥ� (@code{SIGHUP}) �� @code{inetd}
-������ޤ���
-�����餯�������ѡ��桼���θ��¤�ɬ�פǤ���
+見つかったならば、ハングアップシグナル (@code{SIGHUP}) を @code{inetd}
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
 
 @example 
 % kill -HUP 79
@@ -1909,19 +1909,19 @@ root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
 
 @c -------------------------------------------------------------------
 @node ebhttpd Child of xinetd, ebhttpd Test with telnet, ebhttpd Child of inetd, Start ebhttpd
-@section @code{ebhttpd} �� @code{xinetd} ��ͳ�ǵ�ư
+@section @code{ebhttpd} を @code{xinetd} 経由で起動
 
-Linux �����ƥ�ˤϡ�����Ū�� @code{inetd} ������� @code{xinetd} ��
-���Ѥ��Ƥ����Τ⤢��ޤ���
-@code{xinetd} ������ե������ʸˡ�ϡ�����Ū�� @code{inetd} ������ե�����
-��ʸˡ�Ȥϰۤʤ�ޤ���
+Linux システムには、伝統的な @code{inetd} の代わりに @code{xinetd} を
+使用しているものもあります。
+@code{xinetd} の設定ファイルの文法は、伝統的な @code{inetd} の設定ファイル
+の文法とは異なります。
 
-@code{ebhttpd} �� @code{xinetd} �λҥץ������Ȥ��Ƶ�ư�ˤϡ����μ�礬ɬ��
-�ˤʤ�ޤ���
-���Υ���ȥ������ե����� (����ξ�� @file{/etc/xinetd.d/http}) ��
-�ä��ޤ���
-@samp{--inetd} (�ޤ��� @samp{-i}) ���ץ�����­���Τ�˺��ʤ��褦�ˤ���
-��������
+@code{ebhttpd} を @code{xinetd} の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを設定ファイル (大抵の場合 @file{/etc/xinetd.d/http}) に
+加えます。
+@samp{--inetd} (または @samp{-i}) オプションを足すのを忘れないようにして
+下さい。
 
 @example
 @group
@@ -1941,27 +1941,27 @@ service http
 @end example
 
 @noindent
-(��������EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�
-�����ѤΥ��ޥ�ɤ��֤��ǥ��쥯�ȥ� (@code{sbindir}) �ΰ��֤��ѹ����Ƥ���
-���Ȳ��ꤷ�Ƥ��ޤ���)
+(ただし、EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (@code{sbindir}) の位置を変更していな
+いと仮定しています。)
 
-���Ԥ��Ƥ��� @code{xinetd} �ץ������� PID ��õ���Ф��ޤ���
+走行している @code{xinetd} プロセスの PID を探し出します。
 
 @example
 % ps axuww | grep xinetd
 @end example
 
 @*
-@code{xinetd} �����äƤ���ʤ�С����Τ褦�ʹԤ����Ĥ���Ϥ��Ǥ���
+@code{xinetd} が走っているならば、次のような行が見つかるはずです。
 
 @example
 root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
 @end example
 
 @noindent
-���Ĥ��ä��ʤ�С�USER2 �����ʥ� (@code{SIGUSR2}) �� @code{xinetd}
-������ޤ���
-�����餯�������ѡ��桼���θ��¤�ɬ�פǤ���
+見つかったならば、USER2 シグナル (@code{SIGUSR2}) を @code{xinetd}
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
 
 @example 
 % kill -USR2 79
@@ -1969,20 +1969,20 @@ root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
 
 @c -------------------------------------------------------------------
 @node ebhttpd Test with telnet, ebhttpd Options, ebhttpd Child of xinetd, Start ebhttpd
-@section @code{telnet} �ˤ�� @code{ebhttpd} �γ�ǧ
+@section @code{telnet} による @code{ebhttpd} の確認
 
-���åȥ��åפ����٤ƴ�λ�����顢@code{telnet} ���ޥ�ɤ��Ѥ��� 
-@code{ebhttpd} ����³���Ƥߤޤ��礦��
+セットアップがすべて完了したら、@code{telnet} コマンドを用いて 
+@code{ebhttpd} に接続してみましょう。
 
-�ޤ������Τ褦�����Ϥ��ޤ���
-������Ǥϡ�localhost ��� @code{ebhttpd} ����³���Ƥ��ޤ���
+まず、次のように入力します。
+この例では、localhost 上の @code{ebhttpd} に接続しています。
 
 @example
 % telnet localhost http
 @end example
 
 @noindent
-@code{ebhttpd} ����³������դ���С����Τ褦�ʥ�å�������ɽ������ޤ���
+@code{ebhttpd} が接続を受け付ければ、次のようなメッセージが表示されます。
 
 @example
 Connected to localhost.
@@ -1990,7 +1990,7 @@ Escape character is '^]'.
 @end example
 
 @noindent
-�����ǡ����Τ褦�˥ꥯ�����Ȥ����Ϥ��ޤ���
+ここで、次のようにリクエストを入力します。
 
 @example
 GET / HTTP/1.0
@@ -1998,9 +1998,9 @@ GET / HTTP/1.0
 @end example
 
 @noindent
-���Υꥯ�����Ȥ� 2 �Ԥ���ʤꡢ2 ���ܤ϶��ԤǤ��Τǡ����դ��Ʋ�������
+このリクエストは 2 行からなり、2 行目は空行ですので、注意して下さい。
 
-@code{ebhttpd} �������ư���Ƥ���С����Τ褦�ʱ����������ޤ���
+@code{ebhttpd} が正常に動いていれば、次のような応答が得られます。
 
 @example
 HTTP/1.1 200 Ok
@@ -2011,184 +2011,184 @@ Content-Type: text/html; charset="euc-jp"
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
 <head>
- (�ʲ�ά)
+ (以下略)
 @end example
 
 @c -------------------------------------------------------------------
 @node ebhttpd Options,  , ebhttpd Test with telnet, Start ebhttpd
-@section @code{ebhttpd} �Υ��ץ����
+@section @code{ebhttpd} のオプション
 
-@code{ebhttpd} �Υ��ޥ�ɹԤλ�����ˡ�ϡ�@code{ebnetd} ��Ʊ���Ǥ���
-�ܤ����ϡ�@pxref{ebnetd Options, , @code{ebnetd} �Υ��ץ����} ��
-���Ȥ��Ʋ�������
+@code{ebhttpd} のコマンド行の指定方法は、@code{ebnetd} と同じです。
+詳しくは、@pxref{ebnetd Options, , @code{ebnetd} のオプション} を
+参照して下さい。
 
 @c ===================================================================
 @node Terminate and Restart, Daily Works, Start ebhttpd, Top
-@chapter �����Фν�λ����Ӻƻ�ư
+@chapter サーバの終了および再始動
 
-@code{ebncontrol} ���ޥ�ɤ��Ѥ��뤳�Ȥǡ����ߥ�����ɥ�����Υǡ����
-�Ȥ������äƤ��� @code{ebnetd} �ץ�������λ�������ꡢ������λ���ƻ�ư
-�������ꤹ�뤳�Ȥ��Ǥ��ޤ���
-EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�����Ѥ�
-���ޥ�ɤ��֤��ǥ��쥯�ȥ� (@code{sbindir}) �ΰ��֤��ѹ����Ƥ��ʤ���С�
-@code{ebncontrol} �� @file{/usr/local/sbin} �˥��󥹥ȡ��뤵��Ƥ��ޤ���
-������� @code{ebnetd} ��λ������ˤϼ��Τ褦�ˤ��ޤ���
+@code{ebncontrol} コマンドを用いることで、現在スタンドアロンのデーモン
+として走っている @code{ebnetd} プロセスを終了させたり、強制終了、再始動
+させたりすることができます。
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (@code{sbindir}) の位置を変更していなければ、
+@code{ebncontrol} は @file{/usr/local/sbin} にインストールされています。
+走行中の @code{ebnetd} を終了させるには次のようにします。
 
 @example
 % /usr/local/sbin/ebncontrol terminate
 @end example
 
-@code{ebnetd} �ϼ��Ȥ� PID �����ѥǥ��쥯�ȥ�β��Υե����� 
-@file{ebnetd.pid} �˵�Ͽ���ޤ�
-(@pxref{Working Directory, , ��ȥǥ��쥯�ȥ�})��
-@code{ebncontrol} �ϡ�������� @code{ebnetd} �ץ������� PID ���Τ뤿���
-���� PID �ե��������Ȥ��ɤߡ����� PID ���Ф��ƥ����ʥ������ޤ���
+@code{ebnetd} は自身の PID を作業用ディレクトリの下のファイル 
+@file{ebnetd.pid} に記録します
+(@pxref{Working Directory, , 作業ディレクトリ})。
+@code{ebncontrol} は、走行中の @code{ebnetd} プロセスの PID を知るために
+この PID ファイルの中身を読み、その PID に対してシグナルを送ります。
 
-@code{ebnetd} ������˽�λ����С�PID �ե������ @code{ebnetd} ���Ȥ�
-��äƺ������ޤ���
-�������ʤ��顢@code{ebnetd} ���۾ｪλ�����Ȥ��ϡ�PID �ե�����Ϻ��
-����ޤ���
-���ξ�硢�Ĥ��줿 PID �ե�����˵��Ҥ��줿 PID �ϡ����¾�Υץ�������
-������Ƥ����ǽ��������ޤ���
-@code{ebncontrol} �μ¹ԤϿ��Ť˹ԤäƲ�������
-@code{ebncontrol} �ϡ������� @code{ebnetd} �ץ�������¸�ߤ��뤫�ɤ�����
-�Ĥ��Ƥϡ��Τ���ޤ���
-@code{ebnetd} �ץ�������¸�ߤ��ʤ��Τ� PID �ե���������ĤäƤ���ȡ�
-@code{ebncontrol} ��¾�Υץ������˥����ʥ�����äƤ��ޤ������Τ�ޤ���
+@code{ebnetd} が正常に終了すれば、PID ファイルは @code{ebnetd} 自身に
+よって削除されます。
+しかしながら、@code{ebnetd} が異常終了したときは、PID ファイルは削除
+されません。
+この場合、残された PID ファイルに記述された PID は、後で他のプロセスに
+割り当てられる可能性があります。
+@code{ebncontrol} の実行は慎重に行って下さい。
+@code{ebncontrol} は、本当に @code{ebnetd} プロセスが存在するかどうかに
+ついては、確かめません。
+@code{ebnetd} プロセスが存在しないのに PID ファイルだけ残っていると、
+@code{ebncontrol} は他のプロセスにシグナルを送ってしまうかも知れません。
 
-@code{ebncontrol} �� @code{ebnetd} ������ե�������ɤ߹��ߡ������
-�ǥ��쥯�ȥ�ΰ��֤�Ĵ�٤ޤ���
-�ǥ��쥯�ȥ�ΰ��֤ϡ�����ե��������ñ�Ȼؼ��� @code{work-path}
-��������뤳�Ȥ��Ǥ��ޤ� (@pxref{Single Directive List, , @code{work-path}})��
-̵�����������ե�����Υե�����̾�������ñ�Ȼؼ��� @code{work-path}
-���ͤ� @code{ebnetd} ��Ʊ���Ǥ���
+@code{ebncontrol} は @code{ebnetd} の設定ファイルを読み込み、作業用
+ディレクトリの位置を調べます。
+ディレクトリの位置は、設定ファイル中の単独指示子 @code{work-path}
+で定義することができます (@pxref{Single Directive List, , @code{work-path}})。
+無指定時の設定ファイルのファイル名、および単独指示子 @code{work-path}
+の値は @code{ebnetd} と同じです。
 
-�ޤ���@code{ndtpd} ����� @code{ebhttpd} �Τ���� @code{ndtpcontrol},
-@code{ebhtcontrol} �����줾���Ѱդ���Ƥ��ޤ���
-������ˡ�ϡ�@code{ebncontrol} ��Ʊ���Ǥ���
+また、@code{ndtpd} および @code{ebhttpd} のために @code{ndtpcontrol},
+@code{ebhtcontrol} がそれぞれ用意されています。
+使用方法は、@code{ebncontrol} と同じです。
 
 @menu
-* Invoke Server Controler::     ���������楳�ޥ�ɤμ¹�
-* ebncontrol Options::          ���������楳�ޥ�ɤΥ��ץ����
+* Invoke Server Controler::     サーバ制御コマンドの実行
+* ebncontrol Options::          サーバ制御コマンドのオプション
 @end menu
 
 @c -------------------------------------------------------------------
 @node Invoke Server Controler, ebncontrol Options, Terminate and Restart, Terminate and Restart
-@section ���������楳�ޥ�ɤμ¹�
+@section サーバ制御コマンドの実行
 
-���ҤΤ褦�ˡ�@code{ebncontrol}, @code{ndtpcontrol}, @code{ebhtcontrol}
-�ϡ����٤�Ʊ�����ޥ�ɹ԰�����Ȥ�褦�ˤʤäƤ��ޤ���
-�����Υ��ޥ�ɤΰ���Ū�ʼ¹���ˡ�ϡ������̤�Ǥ���
+前述のように、@code{ebncontrol}, @code{ndtpcontrol}, @code{ebhtcontrol}
+は、すべて同じコマンド行引数をとるようになっています。
+これらのコマンドの一般的な実行方法は、次の通りです。
 
 @example
-% /usr/local/sbin/ebncontrol @var{�����ޥ��}
-% /usr/local/sbin/ndtpcontrol @var{�����ޥ��}
-% /usr/local/sbin/ebhtcontrol @var{�����ޥ��}
+% /usr/local/sbin/ebncontrol @var{副コマンド}
+% /usr/local/sbin/ndtpcontrol @var{副コマンド}
+% /usr/local/sbin/ebhtcontrol @var{副コマンド}
 @end example
 
-�����ޥ�ɤϡ��ʲ��Τ�Τ��᤹�뤳�Ȥ��Ǥ��ޤ���
-�����ޥ��̾����դ˷�ޤ��ϰ���ǡ�̾���θ�����ʬ���ά���뤳�Ȥ�
-�Ǥ��ޤ���
+副コマンドは、以下のものを解釈することができます。
+副コマンド名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
 
 @table @code
 @item kill
-�������äƤ��륵���Хץ�����������λ�����ޤ� (@code{SIGKILL} �����ʥ�
-������ޤ�)��
-�ޤ������������楳�ޥ�ɤ��������Хץ������� PID �ե������õ�ޤ���
-���������ޥ�ɤ����ˡ��ޤ� @code{terminate} ����˻�٤��Ǥ���
+現在走っているサーバプロセスを強制終了させます (@code{SIGKILL} シグナル
+を送ります)。
+また、サーバ制御コマンドが、サーバプロセスの PID ファイルを消去します。
+この副コマンドを試す前に、まず @code{terminate} を先に試すべきです。
 
 @item restart
-�������äƤ��륵���Хץ�������ƻ�ư�����ޤ�
-(@code{SIGHUP} �����ʥ������ޤ�)��
-�����Хץ������Ϥ��٤Ƥ� TCP ���ͥ��������Ĥ�������ե������
-�ɤ߹���ľ���ޤ���
+現在走っているサーバプロセスを再始動させます
+(@code{SIGHUP} シグナルを送ります)。
+サーバプロセスはすべての TCP コネクションを閉じ、設定ファイルを
+読み込み直します。
 
 @item status
-�����Хץ����������äƤ��뤫�ɤ���Ĵ�١���̤�ɸ�२�顼���Ϥ˽��Ϥ��ޤ���
-���������ޥ�ɤϡ������Ф˥����ʥ�����뤳�ȤϤ��ޤ���
+サーバプロセスが走っているかどうか調べ、結果を標準エラー出力に出力します。
+この副コマンドは、サーバにシグナルを送ることはしません。
 
 @item terminate
-�������äƤ��� �����Хץ�������λ�����ޤ�
-(@code{SIGTERM} �����ʥ������ޤ�)��
+現在走っている サーバプロセスを終了させます
+(@code{SIGTERM} シグナルを送ります)。
 @end table
 
 @c -------------------------------------------------------------------
 @node ebncontrol Options,  , Invoke Server Controler, Terminate and Restart
-@section @code{ebncontrol} �Υ��ץ����
+@section @code{ebncontrol} のオプション
 
-@code{ebncontrol}, @code{ndtpcontrol}, @code{ebhtcontrol} ���ޥ�ɤϡ�
-����Ū�ʰ�ʸ�����ץ����̾�ȳФ��䤹��Ĺ�����ץ����̾��ξ���򰷤�����
-���Ǥ��ޤ���
-Ĺ�����ץ����̾��ɽ���ˤϡ�@samp{-} �ǤϤʤ� @samp{--} ���Ѥ��ޤ���
-���ץ����̾����դ˷�ޤ��ϰ���ǡ�̾���θ�����ʬ���ά���뤳�Ȥ�
-�Ǥ��ޤ���
+@code{ebncontrol}, @code{ndtpcontrol}, @code{ebhtcontrol} コマンドは、
+伝統的な一文字オプション名と覚えやすい長いオプション名の両方を扱うこと
+ができます。
+長いオプション名を表すには、@samp{-} ではなく @samp{--} を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
 
-@code{ebncontrol}, @code{ndtpcontrol}, @code{ebhtcontrol} �ϰʲ��˵󤲤�
-���ץ������᤹�뤳�Ȥ��Ǥ��ޤ���
+@code{ebncontrol}, @code{ndtpcontrol}, @code{ebhtcontrol} は以下に挙げた
+オプションを解釈することができます。
 
 @table @code
-@item -c @var{�ե�����}
-@itemx --configuration-file @var{�ե�����}
-����ե��������ꤷ�ޤ���
-̵������Υե�����̾�ϡ��إ�ץ�å���������˵�����Ƥ��ޤ���
+@item -c @var{ファイル}
+@itemx --configuration-file @var{ファイル}
+設定ファイルを指定します。
+無指定時のファイル名は、ヘルプメッセージの中に記されています。
 
 @item -h
 @itemx --help
-�إ�ץ�å�������ɸ����Ϥ˽��Ϥ��ơ���λ���ޤ���
+ヘルプメッセージを標準出力に出力して、終了します。
 
 @item -v
 @itemx --version
-�С�������ֹ��ɸ����Ϥ˽��Ϥ��ơ���λ���ޤ���
+バージョン番号を標準出力に出力して、終了します。
 @end table
 
 @c ===================================================================
 @node Daily Works, Network License, Terminate and Restart, Top
-@chapter �����δ������
+@chapter 毎日の管理作業
 
-@code{ebndaily} ���ޥ�ɤϡ�@code{ebnetd}, @code{ndtpd}, @code{ebhttpd}
-�� syslog �ե�����Τ������Ǥ⿷������Τ�Ĵ�٤����׾������������syslog
-�ե�����Υ����ơ�������Ԥ��ޤ���
-���η�̤ϡ����ޥ�ɹԤΰ����˻��ꤵ�줿�����Ԥ˰��Ƥơ��᡼���
-�����ޤ���
+@code{ebndaily} コマンドは、@code{ebnetd}, @code{ndtpd}, @code{ebhttpd}
+の syslog ファイルのうち、最も新しいものを調べて統計情報を生成し、syslog
+ファイルのローテーションを行います。
+その結果は、コマンド行の引数に指定された管理者に宛てて、メールで
+送られます。
 
-EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�����Ѥ�
-���ޥ�ɤ��֤��ǥ��쥯�ȥ� (@code{sbindir}) �ΰ��֤��ѹ����Ƥ��ʤ���С�
-@code{ebndaily} �� @file{/usr/local/sbin} �˥��󥹥ȡ��뤵��Ƥ��ޤ���
-@code{ebndaily} ��¹Ԥ������Ū����ˡ�ϼ����̤�Ǥ���
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (@code{sbindir}) の位置を変更していなければ、
+@code{ebndaily} は @file{/usr/local/sbin} にインストールされています。
+@code{ebndaily} を実行する一般的な方法は次の通りです。
 
 @example
-% /usr/local/sbin/ebndaily @var{�᡼�륢�ɥ쥹}...
+% /usr/local/sbin/ebndaily @var{メールアドレス}...
 @end example
 
 @noindent
-�ʲ��ϼ¹���Ǥ���
+以下は実行例です。
 
 @example
 % /usr/local/sbin/ebndaily root@@host.your.domain
 @end example
 
 @noindent
-2 �İʾ�Υ᡼�륢�ɥ쥹��񤯤��Ȥ�Ǥ��ޤ���
+2 つ以上のメールアドレスを書くこともできます。
 
 @example
 % /usr/local/sbin/ebndaily root@@host.your.domain root@@dept.your.domain
 @end example
 
 @sp 1
-@code{ebndaily} ��������󡢼�ưŪ�˼¹Ԥ���ˤϡ��ʲ��Τ褦�ʥ���ȥ�
-�򤢤ʤ��Υ����ƥ�� @file{crontab} �˲ä��Ʋ�������
+@code{ebndaily} を毎日一回、自動的に実行するには、以下のようなエントリ
+をあなたのシステムの @file{crontab} に加えて下さい。
 
 @example
 0 0 * * *    /usr/local/sbin/ebndaily root@@host.your.domain
 @end example
 
 @noindent
-(�ܤ����ϡ������ʤΥ����ƥ�Υޥ˥奢�������������)
+(詳しくは、あたなのシステムのマニュアルをご覧下さい。)
 @*
-�Ȥ����ѹ��λ��꤬�ʤ���С�@code{ebndaily} �ϡ��Ť��ʤä� 
-syslog �ե������ @code{compress} ���ޥ�ɤǰ��̤���7 ����ʬ��¸���ޤ���
-���ߤ� syslog �ե����뤬 @file{/usr/local/var/ebnetd/log/ebnetd.log} 
-���Ȥ���ȡ��Ť��ʤä� syslog �ե�����ϼ��Τ褦����¸����ޤ���
+とくに変更の指定がなければ、@code{ebndaily} は、古くなった 
+syslog ファイルを @code{compress} コマンドで圧縮し、7 世代分保存します。
+現在の syslog ファイルが @file{/usr/local/var/ebnetd/log/ebnetd.log} 
+だとすると、古くなった syslog ファイルは次のように保存されます。
 
 @example
 /usr/local/var/ebnetd/log/ebnetd.log.0.Z
@@ -2201,122 +2201,122 @@ syslog �ե������ @code{compress} ���ޥ�ɤǰ��̤���7 ����ʬ��¸���ޤ���
 @end example
 
 @noindent
-������ syslog �ϼ������Τǥ����ơ�����󤵤�ޤ���
+これらの syslog は次の要領でローテーションされます。
 
 @enumerate
-@item ��äȤ�Ť� syslog �ե����� @file{ebnetd.log.6.Z} ���������ޤ���
+@item もっとも古い syslog ファイル @file{ebnetd.log.6.Z} が削除されます。
 
-@item ¾�� @file{ebnetd.log.@var{n}.Z} �ե�����ϡ�
-@file{ebnetd.log.@var{n+1}.Z} �˲�̾����ޤ���
+@item 他の @file{ebnetd.log.@var{n}.Z} ファイルは、
+@file{ebnetd.log.@var{n+1}.Z} に改名されます。
 
-@item ���ߤ� syslog �ե����� @file{ebnetd.log} �� @file{ebnetd.log.0} ��
-���ԡ�����ޤ���
+@item 現在の syslog ファイル @file{ebnetd.log} は @file{ebnetd.log.0} に
+コピーされます。
 
-@item @file{ebnetd.log.0} �ϡ�@code{compress} �ǰ��̤��졢�ե�����̾�� 
-@file{ebnetd.log.0.Z} ���Ѥ��ޤ���
+@item @file{ebnetd.log.0} は、@code{compress} で圧縮され、ファイル名が 
+@file{ebnetd.log.0.Z} に変わります。
 
-@item ���ߤ� syslog file @file{ebnetd.log} �����Ƥ����ꥢ����ޤ���
+@item 現在の syslog file @file{ebnetd.log} の内容がクリアされます。
 @end enumerate
 
 @menu
-* ebndaily Options::            @code{ebndaily} �Υ��ץ����
+* ebndaily Options::            @code{ebndaily} のオプション
 @end menu
 
 @c -------------------------------------------------------------------
 @node ebndaily Options,  , Daily Works, Daily Works
-@section @code{ebndaily} �Υ��ץ����
+@section @code{ebndaily} のオプション
 
-@code{ebndaily} ���ޥ�ɤϡ�����Ū�ʰ�ʸ�����ץ����̾�ȳФ��䤹��Ĺ��
-���ץ����̾��ξ���򰷤����Ȥ��Ǥ��ޤ���
-Ĺ�����ץ����̾��ɽ���ˤϡ�@samp{-} �ǤϤʤ� @samp{--} ���Ѥ��ޤ���
-���ץ����̾����դ˷�ޤ��ϰ���ǡ�̾���θ�����ʬ���ά���뤳�Ȥ�
-�Ǥ��ޤ���
+@code{ebndaily} コマンドは、伝統的な一文字オプション名と覚えやすい長い
+オプション名の両方を扱うことができます。
+長いオプション名を表すには、@samp{-} ではなく @samp{--} を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
 
-@code{ebndaily} ���ޥ�ɤϰʲ��˵󤲤����ץ������᤹�뤳�Ȥ�
-�Ǥ��ޤ���
+@code{ebndaily} コマンドは以下に挙げたオプションを解釈することが
+できます。
 
 @table @code
-@item -a @var{����}
-@itemx --ages @var{����}
-�Ť� syslog �ե������ @var{����} ����ʬ������¸���ޤ���
-̵������� @samp{7} �Ǥ���
+@item -a @var{整数}
+@itemx --ages @var{整数}
+古い syslog ファイルを @var{整数} 世代分だけ保存します。
+無指定時は @samp{7} です。
 
-@item -c @var{���̥ץ������}
-@itemx --compressor @var{���̥ץ������}
-�Ť��ʤä� syslog �ե�����򰵽̤���ץ���������ꤷ�ޤ���
-@var{���̥ץ������} �ϡ�@samp{compress}��@samp{gzip}��@samp{bzip2}��
-@samp{none} �Τ����Τ����줫�Ǥʤ��ƤϤʤ�ޤ���
-̵������ϡ�@samp{compress} �Ǥ���
+@item -c @var{圧縮プログラム}
+@itemx --compressor @var{圧縮プログラム}
+古くなった syslog ファイルを圧縮するプログラムを指定します。
+@var{圧縮プログラム} は、@samp{compress}、@samp{gzip}、@samp{bzip2}、
+@samp{none} のうちのいずれかでなくてはなりません。
+無指定時は、@samp{compress} です。
 
-@samp{compress} ����ꤹ�뤫��@samp{--compressor} (@samp{-c}) ���ץ����
-���Ѥ��ʤ��ä����ϡ�@samp{compress} ���ޥ�ɤˤ�밵�̤��Ԥ�졢
-���̤��줿�ե�����ˤϳ�ĥ�� @file{.Z} ���ղä���ޤ���
-@samp{gzip} ����ꤷ�����ϡ�@samp{gzip} ���ޥ�ɤˤ�밵�̤��Ԥ�졢
-���̤��줿�ե�����ˤϳ�ĥ�� @file{.gz} ���ղä���ޤ���
-@samp{bzip2} ����ꤷ�����ϡ�@samp{bzip2} ���ޥ�ɤˤ�밵�̤��Ԥ�졢
-���̤��줿�ե�����ˤϳ�ĥ�� @file{.bz2} ���ղä���ޤ���
-@samp{none} ����ꤷ�����ϡ����̤ϹԤ�줺���ե�����γ�ĥ�Ҥ�
-�Ѥ��ޤ���
+@samp{compress} を指定するか、@samp{--compressor} (@samp{-c}) オプション
+を用いなかった場合は、@samp{compress} コマンドによる圧縮が行われ、
+圧縮されたファイルには拡張子 @file{.Z} が付加されます。
+@samp{gzip} を指定した場合は、@samp{gzip} コマンドによる圧縮が行われ、
+圧縮されたファイルには拡張子 @file{.gz} が付加されます。
+@samp{bzip2} を指定した場合は、@samp{bzip2} コマンドによる圧縮が行われ、
+圧縮されたファイルには拡張子 @file{.bz2} が付加されます。
+@samp{none} を指定した場合は、圧縮は行われず、ファイルの拡張子も
+変わりません。
 
-@item -l @var{�ե�����}
-@itemx --log-file @var{�ե�����}
-���ߤ� syslog �ե��������ꤷ�ޤ���
+@item -l @var{ファイル}
+@itemx --log-file @var{ファイル}
+現在の syslog ファイルを指定します。
 @*
-EBNETD �� @file{/usr/local} �ʲ��˥��󥹥ȡ��뤷�����ġ��ޥ����ͭ�ι���
-���줦��ǡ������֤��ǥ��쥯�ȥ� (@code{localstatedir}) �����
-�����ե����뤬�֤����ǥ��쥯�ȥ� (@code{--with-logdir} �ǻ���) ���ѹ�
-���Ƥ��ʤ���С�̵������Ǥ� @file{/usr/local/var/ebnetd/log/ebnetd.log}
-�ˤʤ�ޤ���
-̵������Υե�����̾�ϡ��إ�ץ�å���������˵�����Ƥ��ޤ���
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、マシン固有の更新
+されうるデータを置くディレクトリ (@code{localstatedir}) および
+ログファイルが置かれるディレクトリ (@code{--with-logdir} で指定) を変更
+していなければ、無指定時では @file{/usr/local/var/ebnetd/log/ebnetd.log}
+になります。
+無指定時のファイル名は、ヘルプメッセージの中に記されています。
 
 @item -h
 @itemx --help
-�إ�ץ�å�������ɸ����Ϥ˽��Ϥ��ơ���λ���ޤ���
+ヘルプメッセージを標準出力に出力して、終了します。
 
 @item -v
 @itemx --version
-�С�������ֹ��ɸ����Ϥ˽��Ϥ��ơ���λ���ޤ���
+バージョン番号を標準出力に出力して、終了します。
 
 @item -@var{n}
 @itemx --fast
 @itemx --best
-�����Υ��ץ����� @code{gzip}, @code{bzip2} ���Ϥ���ޤ�
-(@pxref{Invoking gzip, , Invoking @code{gzip}, gzip, Gzip User's Manual})��
-@code{gzip}, @code{bzip2} ����Ѥ��ʤ��Ȥ��ϡ������̵�뤵��ޤ���
+これらのオプションは @code{gzip}, @code{bzip2} に渡されます
+(@pxref{Invoking gzip, , Invoking @code{gzip}, gzip, Gzip User's Manual})。
+@code{gzip}, @code{bzip2} を使用しないときは、たんに無視されます。
 @end table
 
 @c ===================================================================
 @node Network License,  , Daily Works, Top
-@appendix �ͥåȥ���饤����
+@appendix ネットワークライセンス
 
-CD-ROM ���Ҥν��ǼҤϥ��ץ����ǥͥåȥ���饤���󥹤��Ѱդ��Ƥ���
-���Ȥ�����ޤ���
-����ϡ����ʤ��� LAN ���ʣ���Υ桼�����Ф��ƽ��ҤؤΥ�����������Ĥ���
-��ΤǤ���
-�ͥåȥ���饤���󥹤Ǥϡ�Ʊ���ˤ��ν��Ҥإ�����������桼���κ����
-�����¤���뤳�Ȥ�����ޤ� (�饤���󥹤η��֤��͡��Ǥ��Τǡ��ܤ�����
-���ǼҤˤ��䤤��碌������)��
+CD-ROM 書籍の出版社はオプションでネットワークライセンスを用意している
+ことがあります。
+これは、あなたの LAN 上の複数のユーザに対して書籍へのアクセスを許可する
+ものです。
+ネットワークライセンスでは、同時にその書籍へアクセスするユーザの最大数
+が制限されることがあります (ライセンスの形態は様々ですので、詳しくは
+出版社にお問い合わせ下さい)。
 
-����ե����� (�̾� @code{ebnetd.conf}) �ˤϡ�2 �Ĥ� @code{max-clients}
-�Ȥ����ѥ�᥿������ޤ���
-��Ĥ�ñ�Ȼؼ��Ҥ�
-(@pxref{Single Directive List, ,@code{max-clients}})��
-�⤦��Ĥ� @code{book} ʣ��ؼ��Ҥ����ؼ��ҤǤ�
-(@pxref{Book Group Directive, , @code{max-clients}})��
-�ɤ���⥯�饤����Ȥκ���������¤��ޤ���
+設定ファイル (通常 @code{ebnetd.conf}) には、2 つの @code{max-clients}
+というパラメタがあります。
+一つは単独指示子で
+(@pxref{Single Directive List, ,@code{max-clients}})、
+もう一つは @code{book} 複合指示子の副指示子です
+(@pxref{Book Group Directive, , @code{max-clients}})。
+どちらもクライアントの最大数を制限します。
 
-�����ϥͥåȥ���饤���󥹤ν���������ޤ����������ʤ�ΤǤ�
-����ޤ���
-���Ȥ��С����Ҥ����������Ǥ���Τϡ��桼���λ��Ѥ��Ƥ��륯�饤����Ȥ�
-�����Ф���³���Ƥ���֤����ˤ��٤��Ǥ����������Фˤ��Ƥ⥯�饤����Ȥ�
-���Ƥ⡢��³���֤����ˤ˥����å�����櫓�ǤϤ���ޤ���
-���Ȥ��С������Фϥ����ॢ���Ȥ�ȯ������ȡ����饤����ȤȤ���³��
-�ڤ�ޤ���
-����ɤ⡢���饤����Ȥ� CD-ROM ���Ҥ���Ȥ�ɽ����³�����桼�����̤�
-����ƥ�Ĥ�ɽ�����׵᤹��ޤǤ��ξ��֤�³���ΤǤ���
+これらはネットワークライセンスの順守を補助しますが、完璧なものでは
+ありません。
+たとえば、書籍がアクセスできるのは、ユーザの使用しているクライアントが
+サーバに接続している間だけにすべきですが、サーバにしてもクライアントに
+しても、接続状態を頻繁にチェックするわけではありません。
+たとえば、サーバはタイムアウトが発生すると、クライアントとの接続を
+切ります。
+けれども、クライアントは CD-ROM 書籍の中身を表示し続け、ユーザが別の
+コンテンツの表示を要求するまでこの状態が続くのです。
 
-����Ǥ⡢�ͥåȥ���饤���󥹤Τ���� @code{max-clients} �����ꤹ��
-���Ȥ��ɤ����ȤǤ���
-���פʤΤ� @code{max-clients} ��ǽ�Ϥ�΅���ʤ����ȤǤ���
+それでも、ネットワークライセンスのために @code{max-clients} を設定する
+ことは良いことです。
+重要なのは @code{max-clients} の能力を過信しないことです。
 @contents
 @bye

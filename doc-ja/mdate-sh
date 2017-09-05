@@ -130,5 +130,5 @@ case $3 in
 esac
 
 # The result.
-echo "$year Ç¯ $nummonth ·î $day Æü"
+echo "$year å¹´ $nummonth æœˆ $day æ—¥"
 

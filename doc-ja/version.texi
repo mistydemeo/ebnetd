@@ -1,4 +1,4 @@
-@set UPDATED 2003 ǯ 9
-@set UPDATED-MONTH ǯ 9
+@set UPDATED 2003 年 9
+@set UPDATED-MONTH 年 9
 @set EDITION 1.0
 @set VERSION 1.0
