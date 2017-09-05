@@ -1,0 +1,301 @@
+#! @PERL@
+eval 'exec @PERL@ -S $0 ${1+"$@"}'
+    if 0;
+
+#                                                         -*- Perl -*-
+# Copyright (c) 1997 - 2003
+#    Motoyuki Kasahara
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+
+# Set output record separator to ' '.
+$, = ' ';
+
+# Set umask
+umask(022);
+
+# PATH
+$ENV{'PATH'} = '/usr/bin:/bin';
+$ENV{'PATH'} .= ':/usr/ucb' if (-d '/usr/ucb');
+
+# Program name, program version and mailing address.
+$program_name = 'ebndaily';
+$program_version = '@VERSION@';
+$mailing_address = '@MAILING_ADDRESS@';
+
+# Statistics commands.
+$ebnstat = '@libexecdir@/@EBNSTAT@';
+$ndtpstat = '@libexecdir@/@NDTPSTAT@';
+$ebhtstat = '@libexecdir@/@EBHTSTAT@';
+
+# Log file.
+$log_file = '@logdir@/ebnetd.log';
+
+# How many generataions of syslog files are kept.
+$ages = 7;
+
+# `commpress' and `gzip' Command.
+$compress = '@COMPRESS@';
+$gzip = '@GZIPCMD@';
+$bzip2 = '@BZIP2@';
+$gzip_options = '';
+
+# How to compress old logs; `gzip', `compress', or `none'.
+$compressor = 'none';
+
+# Compression programs and suffixes they usually add to the filename.
+%compressors = ('gzip',     '.gz',
+		'bzip2',    '.bz2',
+		'compress', '.Z',
+		'none',     '');
+
+# Command to send mail which accepts "-s subject" option.
+$mailx = '@MAILX@';
+
+# Whether to send a report mail or not.
+$report_mail_flag = 1;
+
+# Usage
+$help_message = "Usage: $program_name [option...] mail-address...
+Options:
+  -a INTEGER  --ages INTEGER
+                             keep INTEGER ages of old syslog files
+                             (default: $ages)
+  -c TYPE  --compressor TYPE
+                             how to compress old syslog files; compress, gzip,
+                             bzip2 or none (default: $compressor)
+  -h  --help                 display this help, then exit
+  -l FILE  --log-file FILE   specify a syslog file
+                             (default: $log_file)
+  -n  --no-mail              do not send report mail
+  -v  --version              display version number, then exit
+  -1  --fast                 compress faster when using gzip or bzip2
+  -9  --best                 compress better when using gzip or bzip2
+
+Arguemnts:
+  mail-address               receipient of a report from $program_name.
+
+Report bugs to $mailing_address.
+";
+
+# Copyright message.
+$copyright = "Copyright (c) 1997 - 2003
+   Motoyuki Kasahara
+";
+
+# `try ...' message.
+$try_help_message = "try \`$0 --help\' for more information\n";
+
+# Command line options.
+@long_options = ('-a --ages       required-argument',
+		 '-c --compressor required-argument',
+		 '-h --help       no-argument',
+		 '-l --log-file   required-argument',
+		 '-n --no-mail    no-argument',
+		 '-v --version    no-argument',
+		 '-1 --fast       no-argument',
+		 '-2              no-argument',
+		 '-3              no-argument',
+		 '-4              no-argument',
+		 '-5              no-argument',
+		 '-6              no-argument',
+		 '-7              no-argument',
+		 '-8              no-argument',
+		 '-9 --best       no-argument');
+
+#
+# Parse command line options.
+#
+&getopt_initialize(@long_options);
+while (($option_name, $option_argument) = &getopt_long) {
+    if ($option_name eq '-a') {
+	if ($option_argument !~ /^\d+$/ || $option_argument <= 0) {
+	    warn "$0: ages must be an integral number and greater than 0.\n";
+	    exit(1);
+	}
+	$ages = $option_argument;
+    } elsif ($option_name eq '-c') {
+	if ($option_argument !~ /^(compress|gzip|bzip2|none)$/i) {
+	    warn "$0: unknown compressor \`$option_argument\'\n";
+	    warn $try_help_message;
+	    exit(1);
+	}
+	$compressor = "\L$option_argument";
+    } elsif ($option_name eq '-h') {
+	print $help_message;
+	exit(0);
+    } elsif ($option_name eq '-l') {
+	$log_file = $option_argument;
+	
+    } elsif ($option_name eq '-n') {
+	$report_mail_flag = 0;
+	
+    } elsif ($option_name eq '-v') {
+	print "$program_name (EBNETD) version $program_version\n";
+	print $copyright;
+	exit(0);
+    } elsif ($option_name =~ /^-[1-9]$/) {
+	$gzip_options = $option_argument;
+    } else {
+	warn $try_help_message;
+	exit(1);
+    }
+}
+
+if (@ARGV == 0) {
+    warn "$0: too few argument\n";
+    warn $try_help_message;
+    exit(1);
+}
+
+die "$0: gzip not found.\n" if ($compressor eq 'gzip' && $gzip eq 'no');
+die "$0: bzip2 not found.\n" if ($compressor eq 'bzip2' && $bzip2 eq 'no');
+
+# 
+# Set signal handlers. 
+#
+$SIG{'HUP'} = 'signal_handler';
+$SIG{'INT'} = 'signal_handler';
+$SIG{'QUIT'} = 'signal_handler';
+$SIG{'TERM'} = 'signal_handler';
+
+sub signal_handler {
+    close(SAVEOUT);
+    close(SAVEERR);
+    if (-f $errfile && !unlink("$errfile")) {
+	warn "$0: cannot unlink the file, $!: $errfile\n";
+    }
+    if (-f $statfile && !unlink("$statfile")) {
+	warn "$0: cannot unlink the file, $!: $statfile\n";
+    }
+    exit(1);
+}
+
+#
+# Redirect STDOUT and STDERR to temporary files.
+#
+$error_file = "/tmp/ebndaye$$";
+$stat_file = "/tmp/ebndays$$";
+
+if (-f $error_file && !unlink("$error_file")) {
+    warn "$0: cannot unlink the file, $!: $error_file\n";
+}
+if (-f $stat_file && !unlink("$stat_file")) {
+    warn "$0: cannot unlink the file, $!: $stat_file\n";
+}
+
+open(SAVEERR, ">&STDERR");
+open(SAVEOUT, ">&STDOUT");
+if (!open(STDERR, ">$error_file")) {
+    print SAVEERR "cannot open the file $error_file, $!\n";
+    exit 1;
+}
+if (!open(STDOUT, ">$stat_file")) {
+    print SAVEERR "cannot open the file $stat_file, $!\n";
+    exit 1;
+}
+select(STDOUT);
+$| = 1;                      
+
+#
+# Get statistics.
+#
+warn "failed to execute \`$ebnstat $log_file\'\n"
+    if (system("$ebnstat $log_file") >> 8 != 0);
+warn "failed to execute \`$ndtpstat $log_file\'\n"
+    if (system("$ndtpstat $log_file") >> 8 != 0);
+warn "failed to execute \`$ebhtstat $log_file\'\n"
+    if (system("$ebhtstat $log_file") >> 8 != 0);
+
+#
+# Rotate old logs.
+#
+$suffix = $compressors{$compressor};
+$i = $ages - 1;
+warn "$0: cannot remove $log_file.$i$suffix\n"
+    if (-f "$log_file.$i$suffix" && !unlink("$log_file.$i$suffix"));
+
+while (0 < $i) {
+    $j = $i--;
+    warn "$0: cannot move $log_file.$i$suffix to $log_file.$j$suffix\n"
+	if (-f "$log_file.$i$suffix"
+	    && !rename("$log_file.$i$suffix", "$log_file.$j$suffix"));
+}
+
+warn "$0: cannot remove $log_file.0\n"
+    if (-f "$log_file.0" && !unlink("$log_file.0"));
+
+#
+# Copy `ebnetd.log' to `ebnetd.log.0'.
+#
+warn "$0: failed to execute \`cp $log_file $log_file.0\'\n"
+    if (system("cp $log_file $log_file.0") >> 8 != 0);
+
+#
+# Make a new log file.
+#
+warn "$0: cannot create new $log_file\n"
+    unless (open(LOGFILE, ">$log_file") && close(LOGFILE));
+
+#
+# Compress the last log.
+#
+if ($compressor eq 'gzip') {
+    if (system("$gzip $gzip_options $log_file.0") >> 8 != 0) {
+	warn "$0: failed to execute \`$gzip $gzip_options $log_file.0\'\n";
+    }
+} elsif ($compressor eq 'bzip2') {
+    if (system("$bzip2 $gzip_options $log_file.0") >> 8 != 0) {
+	warn "$0: failed to execute \`$bzip2 $gzip_options $log_file.0\'\n";
+    }
+} elsif ($compressor eq 'compress') {
+    # It doesn't examine exit code.  In some systems, `compress' returns
+    # with exit code 1 when an file is larger after compression.  
+    system("$compress -c $log_file.0 > $log_file.0$suffix");
+    warn "$0: cannot compress $log_file.0\n" if (! -f "$log_file.0$suffix");
+    warn "$0: cannot remove $log_file.0\n"
+	if (-f "$log_file.0" && !unlink("$log_file.0"));
+}
+
+#
+# Output log sizes.
+#
+print "Log Size:\n";
+warn "$0: failed to execute \`ls -l $log_file*\'\n"
+    if (system("ls -l $log_file*") >> 8 != 0);
+print "\n\n\n";
+
+#
+# Error messages at executing ebndaily.
+#
+print "Error Messages at Executing $0:\n"
+    if (-f $error_file && -s $error_file);
+
+#
+# Send the report via mail.
+#
+if ($report_mail_flag
+    && system("cat $stat_file $error_file | $mailx -s \'ebnetd/ndtpd/ebhttpd daily log\' @ARGV") >> 8 != 0) {
+    print SAVEERR "failed to execute \`$mailx -s ... @ARGV\'\n";
+    exit 1;
+}
+
+#
+# Remove temorary files.
+#
+unlink($stat_file, $error_file);
+
+exit;
+
+# Local Variables: 
+# mode: perl
+# End: 

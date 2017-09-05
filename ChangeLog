@@ -1,0 +1,39 @@
+2003-06-09  Motoyuki Kasahara  <m-kasahr@sra.co.jp>
+
+	* Version 1.0beta0.
+
+	* ndtpd/ndtpstat.in: Output a special message if there is no access.
+
+2003-06-01  Motoyuki Kasahara  <m-kasahr@sra.co.jp>
+
+	* ndtpd/global.c, ndtpd/defs.h.in (alias_eiwa, alias_waei,
+	alias_kojien): Removed.
+	* ndtpd/config.c (cf_book_alias_eiwa, cf_book_alias_waei,
+	cf_book_alias_kojien): Removed.
+
+2003-05-24  Motoyuki Kasahara  <m-kasahr@sra.co.jp>
+
+	* lib/linebuf.c (read_line_buffer): Fix a bug that timeout never
+	occurs.
+
+2003-05-03  Motoyuki Kasahara  <m-kasahr@sra.co.jp>
+
+	* lib/ioall.h: (write_string_all): Fix the function declaration.
+
+2003-04-29  Motoyuki Kasahara  <m-kasahr@sra.co.jp>
+
+	* lib/ticket.c, lib/ticket.h (have_ticket): New function.
+	
+2003-04-19  Motoyuki Kasahara  <m-kasahr@sra.co.jp>
+
+	* lib/confutil.c (parse_tcp_port, parse_udp_port): Check if
+	the string string represents an integer in 0...65535.
+
+	* ebhttpd/httpmisc.c, ebhttpd/httprequest.h, ebnetd/config.c,
+	ebnetd/global.c, lib/confutil.c, lib/confutil.h, lib/getaddrinfo.c,
+	lib/dummyin6.h: Use `in_port_t' rather than `int'.
+
+	* lib/serverport.c, lib/serverport.h, lib/dummyin6.h:
+	Use `sa_family_t' rather than `int'.
+
+	

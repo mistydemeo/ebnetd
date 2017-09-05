@@ -1,0 +1,340 @@
+/*                                                            -*- C -*-
+ * Copyright (c) 1997, 99, 2000, 01  
+ *    Motoyuki Kasahara
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+#ifndef DEFS_H
+#define DEFS_H
+
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
+#include <stdio.h>
+#include <time.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+
+#if defined(EBNETD) || defined(USE_TINYEB)
+#include "ebtiny/eb.h"
+#include "ebtiny/error.h"
+#else
+#if defined(NDTPD) || defined(EBHTTPD)
+#include <eb/eb.h>
+#include <eb/error.h>
+#endif
+#endif
+
+#include "readconf.h"
+#include "permission.h"
+#include "ticket.h"
+
+/*
+ * Software name and program names.
+ */
+#ifdef EBNETD
+#define SOFTWARE_NAME		"EBNETD"
+#define SERVER_PROGRAM_NAME	"ebnetd"
+#define CHECK_PROGRAM_NAME	"ebncheck"
+#define CONTROL_PROGRAM_NAME	"ebncontrol"
+#endif
+#ifdef NDTPD
+#define SOFTWARE_NAME		"NDTPD"
+#define SERVER_PROGRAM_NAME	"ndtpd"
+#define CHECK_PROGRAM_NAME	"ndtpcheck"
+#define CONTROL_PROGRAM_NAME	"ndtpcontorl"
+#endif
+#ifdef EBHTTPD
+#define SOFTWARE_NAME		"ebHTTPD"
+#define SERVER_PROGRAM_NAME	"ebhttpd"
+#define CHECK_PROGRAM_NAME	"ebhtcheck"
+#define CONTROL_PROGRAM_NAME	"ebhtcontrol"
+#endif
+
+/*
+ * Configuration filename.
+ */
+#define DEFAULT_CONFIGURATION_FILE_NAME	"@sysconfdir@/ebnetd.conf"
+
+/*
+ * Path to a working directory.
+ */
+#define DEFAULT_WORK_PATH		"@pkglocalstatedir@"
+
+/*
+ * Basename of the file on which the sever writes its process ID.
+ * (Its length must not exceed MAX_WORK_PATH_BASE_NAME_LENGTH characters.)
+ */
+#ifdef EBNETD
+#define PID_BASE_NAME			"ebnd.pid"
+#endif
+#ifdef NDTPD
+#define PID_BASE_NAME			"ndtpd.pid"
+#endif
+#ifdef EBHTTPD
+#define PID_BASE_NAME			"ebhttpd.pid"
+#endif
+
+/*
+ * Basename of the lock file that records the number of running
+ * server processes invoked by inetd.
+ * (Its length must not exceed MAX_WORK_PATH_BASE_NAME_LENGTH characters.
+ * It must not conflict with "<book-name>.<lock-suffix>".)
+ */
+#ifdef EBNETD
+#define LOCK_BASE_NAME			"ebnetd.lock"
+#endif
+#ifdef NDTPD
+#define LOCK_BASE_NAME			"ndtpd.lock"
+#endif
+#ifdef EBHTTPD
+#define LOCK_BASE_NAME			"ebhttpd.lock"
+#endif
+
+/*
+ * Base name of the mtime file.
+ * Last modified time of this file becomes last modified time of all
+ * contents on the server.
+ */
+#ifdef EBHTTPD
+#define MTIME_BASE_NAME			"ebhttpd.mtime"
+#endif
+
+/*
+ * Port number on which the server listens.
+ * It must be a TCP protocol name or a port number.
+ */
+#ifdef EBNETD
+#define SERVICE_NAME			"ebnet"
+#define DEFAULT_PORT			22010
+#endif
+#ifdef NDTPD
+#define SERVICE_NAME			"ndtp"
+#define DEFAULT_PORT			2010
+#endif
+#ifdef EBHTTPD
+#define SERVICE_NAME			"http"
+#define DEFAULT_PORT			80
+#endif
+
+/*
+ * Suffix of the lock file.
+ * (The length of the "<book-name>.<lock-suffix>" file must not exceed
+ * MAX_WORK_PATH_BASE_NAME_LENGTH characters.)
+ */
+#define BOOK_LOCK_SUFFIX		"lock"
+
+/*
+ * How many connections the server accepts at the same time.
+ */
+#define DEFAULT_MAX_CLIENTS		1
+
+/*
+ * How many clients can use a book at the same time.
+ */
+#define DEFAULT_BOOK_MAX_CLIENTS	1
+
+/*
+ * Seconds until the server closes a idle connection.
+ */
+#define DEFAULT_IDLE_TIMEOUT		900
+
+/*
+ * Syslog facility.
+ */
+#define DEFAULT_SYSLOG_FACILITY   	LOG_DAEMON
+
+/*
+ * The number of hit entries the server give up searching.
+ */
+#define DEFAULT_MAX_HITS		50
+
+/*
+ * The default maximum size of text the server may send as a response to
+ * a client.
+ */
+#define DEFAULT_MAX_TEXT_SIZE		32768
+
+/*
+ * The umask value of the server.
+ */
+#define SERVER_UMASK			022
+
+/*
+ * Maximum lengh of a generic string.
+ */
+#define MAX_STRING_LENGTH		511
+
+/*
+ * Maximum lengh of a book name. 
+ */
+#define MAX_BOOK_NAME_LENGTH 		14
+
+/*
+ * Maximum lengh of a book title.
+ */
+#define MAX_BOOK_TITLE_LENGTH		80
+
+/*
+ * Maximum length of a basename written in the work-path directory.
+ */
+#define MAX_WORK_PATH_BASE_NAME_LENGTH	32
+
+/*
+ * Backlog for listen().
+ */
+#define LISTENING_BACKLOG		5
+
+/*
+ * Running modes of the server.
+ */
+#define SERVER_MODE_STANDALONE		0
+#define SERVER_MODE_INETD		1
+#define SERVER_MODE_TEST		2
+#define SERVER_MODE_CHECK		3
+#define SERVER_MODE_CONTROL		4
+
+/*
+ * Book -- represents a book.
+ */
+typedef struct Book_Struct Book;
+struct Book_Struct {
+    /*
+     * Path of the book.
+     */
+    char *path;
+
+    /*
+     * Path of the book.
+     */
+    char *appendix_path;
+
+    /*
+     * Name of the book.
+     */
+    char name[MAX_BOOK_NAME_LENGTH + 1];
+
+    /*
+     * Access permission to the current client.
+     */
+    int permission_flag;
+
+    /*
+     * Title of the book.
+     */
+    char title[MAX_BOOK_TITLE_LENGTH + 1];
+
+    /*
+     * The maximum number of connections to the book.
+     */
+    int max_clients;
+
+    /*
+     * Access permission list to the book.
+     */
+    Permission permissions;
+
+    /*
+     * Ticket stock (`max-clients' controler).
+     */
+    Ticket_Stock ticket_stock;
+
+    /*
+     * Entity of the CD-ROM book.
+     */
+    EB_Book book;
+
+    /*
+     * Appendix entitiy of the CD-ROM book.
+     */
+    EB_Appendix appendix;
+
+    /*
+     * Refer to a next book.
+     * Set to NULL when there is no more book.
+     */
+    Book *next;
+};
+
+/*
+ * Trick for function protypes.
+ */
+#ifndef EBNETD_P
+#ifdef __STDC__
+#define EBNETD_P(p)	p
+#else /* not __STDC__ */
+#define EBNETD_P(p)	()
+#endif /* not __STDC__ */
+#endif /* EBNETD_P */
+
+/*
+ * Function declarations.
+ */
+/* book.c */
+void initialize_book_registry EBNETD_P((void));
+void finalize_book_registry EBNETD_P((void));
+void terminate_book_registry EBNETD_P((void));
+int count_book_registry EBNETD_P((void));
+int activate_book_registry EBNETD_P((void));
+Book *add_book EBNETD_P((void));
+int delete_book EBNETD_P((Book *));
+Book *find_book EBNETD_P((const char *));
+EB_Subbook_Code find_subbook EBNETD_P((Book *, const char *));
+EB_Subbook_Code find_appendix_subbook EBNETD_P((Book *, const char *));
+void check_book_permissions EBNETD_P((void));
+void set_all_book_permissions EBNETD_P((void));
+/* global.c */
+int initialize_global_variables EBNETD_P((void));
+void finalize_global_variables EBNETD_P((void));
+/* misc.c */
+void output_version EBNETD_P((void));
+void output_try_help EBNETD_P((void));
+/* ndtp.c */
+int protocol_main EBNETD_P((void));
+
+/*
+ * Global variables.
+ */
+extern Configuration configuration_table[];
+extern const char *invoked_name;
+extern const char *program_name;
+extern const char *program_version;
+extern char work_path[];
+extern char configuration_file_name[];
+extern in_port_t listening_port;
+extern in_port_t old_listening_port;
+fd_set listening_files;
+int max_listening_file;
+extern int accepted_in_file;
+extern int accepted_out_file;
+extern uid_t user_id;
+extern gid_t group_id;
+extern char pid_file_name[];
+extern char old_pid_file_name[];
+extern char connection_lock_file_name[];
+extern Ticket_Stock connection_ticket_stock;
+extern int max_clients;
+extern int connection_count;
+extern int idle_timeout;
+extern Permission permissions;
+extern Book *book_registry;
+extern Book *book_registry_tail;
+extern int book_count;
+extern int max_hits;
+extern size_t max_text_size;
+extern char client_host_name[];
+extern char client_address[];
+extern int server_mode;
+extern int syslog_facility;
+
+#endif /* not DEFS_H */

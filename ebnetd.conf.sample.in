@@ -1,0 +1,94 @@
+######################################################################
+# Configuration file for ebnetd/ndtpd/ebhttpd.
+# (Copy this file to `ebnetd.conf', and edit it.)
+######################################################################
+
+### Port number `ebnetd' binds.
+### (default: ebnet)
+# ebnet-port		ebnet
+
+### Port number `ndtpd' binds.
+### (default: ndtp)
+# ndtp-port		ndtp
+
+### Port number `ebhttpd' binds.
+### (default: http)
+# http-port		http
+
+### Owner of the server process.
+### (default: none)
+user			ndtpuser
+
+### Group of the server process.
+### (default: none)
+group			ndtpgrp
+
+### How many clients can be connected to the server at the same time.
+### (default: 1)
+# max-clients		1
+
+### Which hosts can or cannot connect to the server.
+### (default: none)
+hosts			127.0.0.1
+hosts			::1
+hosts			!?
+hosts			host.your.domain
+
+### Timeout seconds until the server disconnects an idle connection.
+### (default: 900)
+# timeout		900
+
+### Path to a working directory.
+### Please create the directory and make it be writable for the server
+### processes before executing the server.
+### (default: @pkglocalstatedir@)
+# work-path		@pkglocalstatedir@
+
+### How many hit entries the server tries to find at a search.
+### (default: 50)
+# max-hits		50
+
+### The maximum size of text the server may send as a response to
+### a client.
+### (default: 32768)
+# max-text-size		32768
+
+### Syslog facility
+### (default: daemon)
+syslog-facility		local0
+
+###
+### Book entry
+###
+begin book
+    ### Name of the book.
+    ### (required)
+    name		jitenban97
+
+    ### Title of the book.
+    ### (required)
+    title		Jitenban 97
+
+    ### Path to a top directory of the book.
+    ### (required)
+    path		/cdrom
+
+    ### Path to a top directory of the appdendix data of the book.
+    ### (default: none)
+    appendix-path	@datadir@/eb/appendix/jitenban97-2.1
+
+    ### How many clients can access the book at the same time.
+    ### (default: 1)
+    max-clients		1
+
+    ### Which hosts can or cannot access to the book.
+    ### (default: none)
+    hosts		127.0.0.1
+    hosts		::1
+    hosts		!?
+    hosts		host.your.domain
+end
+
+### Add a book group directive (lines between `begin book' and `end'),
+### if you want to read another CD-ROM book.  A book group directive
+### is required for each book.

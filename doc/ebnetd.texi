@@ -1,0 +1,2260 @@
+\input texinfo		@c -*-texinfo-*-
+@c %** start of header
+@setfilename ebnetd.info
+@settitle EBNETD/ebHTTPD/NDTPD
+@c %** end of header
+
+@include version.texi
+
+@dircategory CD-ROM Book Utilities
+@direntry
+* EBNETD: (ebnetd).             Network EB Library server.
+* NDTPD: (ndtpd).               Server for accessing CD-ROM books with NDTP.
+* ebHTTPD: (ebhttpd).           Server for accessing CD-ROM books with HTTP.
+@end direntry
+
+@ifinfo
+EBNETD/NDTPD/ebHTTPD: CD-ROM Book Servers, by Motoyuki Kasahara.
+
+Copyright @copyright{} 1997, 98, 99, 2000, 01, 03  Motoyuki Kasahara
+
+Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies.
+
+@ignore
+Permission is granted to process this file through TeX and print the
+results, provided the printed document carries copying permission
+notice identical to this one except for the removal of this paragraph
+(this paragraph not being relevant to the printed manual).
+
+@end ignore
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided that the entire
+resulting derived work is distributed under the terms of a permission
+notice identical to this one.
+
+Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions,
+except that this permission notice may be stated in a translation approved
+by Free Software Foundation, Inc.
+@end ifinfo
+
+@titlepage
+@title EBNETD/NDTPD/ebHTTPD
+@subtitle CD-ROM Book Servers.
+@subtitle Edition @value{EDITION} for EBNETD version @value{VERSION}
+@subtitle @value{UPDATED}
+@author by Motoyuki Kasahara
+
+@page
+@vskip 0pt plus 1filll
+Copyright @copyright{} 1997, 98, 99, 2000, 01, 03  Motoyuki Kasahara
+
+Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies.
+
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided that the entire
+resulting derived work is distributed under the terms of a permission
+notice identical to this one.
+
+Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions,
+except that this permission notice may be stated in a translation approved
+by Free Software Foundation, Inc.
+@end titlepage
+
+@node Top, Introduction, (dir), (dir)
+@ifinfo
+This is edition @value{EDITION}, for EBNETD version @value{VERSION}.
+@end ifinfo
+
+@menu
+* Introduction::                Introduction.
+* Installation::                Installation of NDTPD.
+* Configuration File::          How to write a configuration file.
+* Configuration Checker::       How to check a configuration file.
+* Setup Your Environment::      Setup your environment.
+* Start ebnetd::                Start @code{ebnetd}.
+* Start ndtpd::                 Start @code{ndtpd}.
+* Start ebhttpd::               Start @code{ebhttpd}.
+* Terminate and Restart::       How to terminate and restart @code{ebnetd}.
+* Daily Works::                 Daily administrative works.
+* Network License::             Network License.
+
+@detailmenu
+ --- The Detailed Node Listing ---
+
+Installation of EBNETD
+
+* Basic Installation::          Basic installation.
+* Compilers and Options::       Choose compilers and its options.
+* Multiple Architectures::      Compile EBNETD on multiple Architectures.
+* Installation Names::          Change installation Names.
+* Optional Features::           Selecting optional features.
+* System Type::                 Specifying the system type.
+* Sharing Defaults::            Set default values for @code{configure}
+                                scripts to share.
+* Operation Controls::          Control @code{configure} operation.
+* Optional Feature List::       Optional features this package supports.
+
+Configuration File
+
+* Single Directive::            Common form of single directive.
+* Single Directive List::       Single directive list.
+* Group Directive::             Common form of group directive.
+* Book Group Directive::        Book group directive list.
+* Sample Configuration::        Sample configuration file.
+
+Configuration Checker
+
+* Invoking ebncheck::           Invoking @code{ebncheck}.
+* ebncheck Options::            Summary of options to @code{ebncheck}.
+
+Setup Your Environment
+
+* Services::                    Setup your @file{services} file.
+* Syslog::                      Setup your @file{syslog.conf} file.
+* Working Directory::           Make a working directory.
+* Mount CD-ROM Books::          Mount your CD-ROM books.
+* Appendix Package::            Copy appendix package.
+
+Start @code{ebnetd}
+
+* ebnetd Standalone::           Run @code{ebnetd} as a standard daemon.
+* ebnetd Child of inetd::       Run @code{ebnetd} as a child of @code{inetd}.
+* ebnetd Child of xinetd::      Run @code{ebnetd} as a child of @code{xinetd}.
+* ebnetd Test with telnet::     Test @code{ebnetd} with @code{telnet}.
+* ebnetd Options::              Summary of options to @code{ebnetd}.
+
+Start @code{ndtpd}
+
+* ndtpd Standalone::            Run @code{ndtpd} as a standard daemon.
+* ndtpd Child of inetd::        Run @code{ndtpd} as a child of @code{inetd}.
+* ndtpd Child of xinetd::       Run @code{ndtpd} as a child of @code{xinetd}.
+* ndtpd Test with telnet::      Test @code{ndtpd} with @code{telnet}.
+* ndtpd Options::               Options to @code{ndtpd}.
+
+Start @code{ebhttpd}
+
+* ebhttpd Standalone::          Run @code{ebhttpd} as a standard daemon.
+* ebhttpd Child of inetd::      Run @code{ebhttpd} as a child of @code{inetd}.
+* ebhttpd Child of xinetd::     Run @code{ebhttpd} as a child of @code{xinetd}.
+* ebhttpd Test with telnet::    Test @code{ebhttpd} with @code{telnet}.
+* ebhttpd Options::             Options to @code{ebhttpd}.
+
+Terminate and Restart the Servers
+
+* Invoke Server Controler::     Invoke Server Control Commands
+* Server Controler Options::    Summary of Options to Server Control Commands
+
+Daily Administrative Works
+
+* ebndaily Options::            Summary of options to @code{ebndaily}.
+
+@end detailmenu
+@end menu
+
+@c ===================================================================
+@node Introduction, Installation, Top, Top
+@chapter Introduction
+
+This EBNETD distribution contains three server commands: @code{ebnetd},
+@code{ndtpd} and @code{ebhttpd}.
+They are servers for accessing CD-ROM book on remote host via TCP/IP.
+They can run on UNIX derived systems.
+
+@table @code
+@item ebnetd
+@code{ebnetd} is a server of EBNET protocol which is designed to
+communicate with @dfn{EB Library}.
+
+EB Library is a C library for accessing CD-ROM book.
+Also @code{ndtpd} and @code{ebhttpd} use EB Library.
+Using @code{ebnetd}, EB Library applications can access CD-ROM books
+on a remote server.
+For more details about EB Library, see
+@url{http://www.sra.co.jp/m-kasahr/eb/}.
+
+@item ndtpd
+@code{ndtpd} is an NDTP (Network Dictionary Transfer Protocol) server.
+The first implementation of the NDTP server is @dfn{dserver}.
+@code{ndtpd} has upper compatibility with dserver-2.2.
+
+The web page
+@url{http://www.sra.co.jp/m-kasahr/ndtpd/related.html}
+lists NDTP clients which can talk with @code{ndtpd}.
+
+@item ebhttpd
+@code{ebhttpd} is a WWW (World Wide Web) server.
+It supprts HTTP/1.0 and HTTP/1.1 (Hypertext Transfer Protocol version
+1.0 and 1.1).
+@end table
+
+The servers support CD-ROM books of EB, EBG, EBXA, EBXA-C, S-EBXA and
+EPWING formats.
+CD-ROM books of those formats are popular in Japan.
+Since CD-ROM books themseves are stands on the ISO 9660 format, you can
+mount the discs by the same way as other ISO 9660 discs.
+The servers can run as a standalone daemons by default, but can also
+run as children of @code{inetd}.
+
+EBNETD is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2, or (at your option)
+any later version.
+
+EBNETD is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+In addition, you must follow the licenses of your CD-ROM books.
+Though EBNETD is free software, your books may not be free.  Don't
+open your books to unlicensed hosts nor users.
+
+In addition, you must follow the licenses of your CD-ROM books.
+EBNETD is free software, your books may not be free.
+Don't open your books to unlicensed hosts nor users.
+
+This edition corresponds to version @value{VERSION} of EBNETD.
+
+You can get the latest EBNETD from
+@url{ftp://ftp.sra.co.jp/pub/misc/eb/}.
+
+You can get information about EBNETD from
+@url{http://www.sra.co.jp/people/m-kasahr/ebnetd/}.
+
+Mail comments and bug reports to
+@email{m-kasahr@@sra.co.jp} in Japanese or English.
+
+@c ===================================================================
+@node Installation, Configuration File, Introduction, Top
+@chapter Installation of EBNETD
+
+Before installing EBNETD, you need to install EB Library 3.3 or later
+version.
+
+You can get the latest EB Library from
+@url{ftp://ftp.sra.co.jp/pub/misc/eb/}.
+
+You can get information about EB Library from
+@url{http://www.sra.co.jp/people/m-kasahr/eb/}.
+
+@menu
+* Basic Installation::          Basic installation.
+* Compilers and Options::       Choose compilers and its options.
+* Multiple Architectures::      Compile EBNETD on multiple Architectures.
+* Installation Names::          Change installation Names.
+* Optional Features::           Selecting optional features.
+* System Type::                 Specifying the system type.
+* Sharing Defaults::            Set default values for @code{configure}
+                                scripts to share.
+* Operation Controls::          Control @code{configure} operation.
+* Optional Feature List::       Optional features this package supports.
+@end menu
+
+@c -------------------------------------------------------------------
+@node Basic Installation, Compilers and Options, Installation, Installation
+@section Basic Installation
+
+These are generic installation instructions.
+
+The @code{configure} shell script attempts to guess correct values for
+various system-dependent variables used during compilation.  It uses
+those values to create a @file{Makefile} in each directory of the
+package.  It may also create one or more @file{.h} files containing
+system-dependent definitions.  Finally, it creates a shell script
+@file{config.status} that you can run in the future to recreate the
+current configuration, a file @file{config.cache} that saves the results
+of its tests to speed up reconfiguring, and a file @file{config.log}
+containing compiler output (useful mainly for debugging
+@code{configure}).
+
+If you need to do unusual things to compile the package, please try to
+figure out how @code{configure} could check whether to do them, and mail
+diffs or instructions to the address given in the @file{README} so they
+can be considered for the next release.  If at some point
+@file{config.cache} contains results you don't want to keep, you may
+remove or edit it.
+
+The file @file{configure.in} is used to create @file{configure} by a
+program called @code{autoconf}.  You only need @file{configure.in} if
+you want to change it or regenerate @file{configure} using a newer
+version of @code{autoconf}.
+
+@noindent
+The simplest way to compile this package is:
+
+@enumerate
+@item
+@code{cd} to the directory containing the package's source code and type
+@samp{./configure} to configure the package for your system.  If you're
+using @code{csh} on an old version of System V, you might need to type
+@samp{sh ./configure} instead to prevent @code{csh} from trying to
+execute @code{configure} itself.
+
+Running @code{configure} takes awhile.  While running, it prints some
+messages telling which features it is checking for.
+
+@item
+Type @samp{make} to compile the package.
+
+@item
+Optionally, type @samp{make check} to run any self-tests that come with
+the package.
+
+@item
+Type @samp{make install} to install the programs and any data files and
+documentation.
+
+@item
+You can remove the program binaries and object files from the source code
+directory by typing @samp{make clean}.  To also remove the files that
+@code{configure} created (so you can compile the package for a different
+kind of computer), type @samp{make distclean}.  There is also a
+@samp{make maintainer-clean} target, but that is intended mainly for the
+package's developers.  If you use it, you may have to get all sorts of
+other programs in order to regenerate files that came with the distribution.
+@end enumerate
+
+@c -------------------------------------------------------------------
+@node Compilers and Options, Multiple Architectures, Basic Installation, Installation
+@section Compilers and Options
+
+Some systems require unusual options for compilation or linking that
+the @code{configure} script does not know about.  You can give
+@code{configure} initial values for variables by setting them in the
+environment.  Using a Bourne-compatible shell, you can do that on the
+command line like this:
+@example
+CC=c89 CFLAGS=-O2 LIBS=-lposix ./configure
+@end example
+
+@noindent
+Or on systems that have the @code{env} program, you can do it like this:
+@example
+env CPPFLAGS=-I/usr/local/include LDFLAGS=-s ./configure
+@end example
+
+@c -------------------------------------------------------------------
+@node Multiple Architectures, Installation Names, Compilers and Options, Installation
+@section Compiling For Multiple Architectures
+
+You can compile the package for more than one kind of computer at the
+same time, by placing the object files for each architecture in their
+own directory.  To do this, you must use a version of @code{make} that
+supports the @code{VPATH} variable, such as GNU @code{make}.  @code{cd}
+to the directory where you want the object files and executables to go
+and run the @code{configure} script.  @code{configure} automatically
+checks for the source code in the directory that @code{configure} is in
+and in @file{..}.
+
+If you have to use a @code{make} that does not supports the @code{VPATH}
+variable, you have to compile the package for one architecture at a time
+in the source code directory.  After you have installed the package for
+one architecture, use @samp{make distclean} before reconfiguring for
+another architecture.
+
+@c -------------------------------------------------------------------
+@node Installation Names, Optional Features, Multiple Architectures, Installation
+@section Installation Names
+
+By default, @samp{make install} will install the package's files in
+@file{/usr/local/bin}, @file{/usr/local/man}, etc.  You can specify an
+installation prefix other than @file{/usr/local} by giving
+@code{configure} the option @samp{--prefix=@var{path}}.
+
+You can specify separate installation prefixes for architecture-specific
+files and architecture-independent files.  If you give @code{configure}
+the option @samp{--exec-prefix=@var{path}}, the package will use
+@var{path} as the prefix for installing programs and libraries.
+Documentation and other data files will still use the regular prefix.
+
+In addition, if you use an unusual directory layout you can give options
+like @samp{--bindir=@var{path}} to specify different values for
+particular kinds of files.  Run @samp{configure --help} for a list of
+the directories you can set and what kinds of files go in them.
+
+If the package supports it, you can cause programs to be installed with
+an extra prefix or suffix on their names by giving @code{configure} the
+option @samp{--program-prefix=@var{PREFIX}} or
+@samp{--program-suffix=@var{SUFFIX}}.
+
+@c -------------------------------------------------------------------
+@node Optional Features, System Type, Installation Names, Installation
+@section Optional Features
+
+Some packages pay attention to @samp{--enable-@var{feature}} options to
+@code{configure}, where @var{feature} indicates an optional part of the
+package.  They may also pay attention to @samp{--with-@var{package}}
+options, where @var{package} is something like @samp{gnu-as} or @samp{x}
+(for the X Window System).  The @file{README} should mention any
+@samp{--enable-} and @samp{--with-} options that the package recognizes.
+
+For packages that use the X Window System, @code{configure} can usually
+find the X include and library files automatically, but if it doesn't,
+you can use the @code{configure} options @samp{--x-includes=@var{dir}}
+and @samp{--x-libraries=@var{dir}} to specify their locations.
+
+@c -------------------------------------------------------------------
+@node System Type, Sharing Defaults, Optional Features, Installation
+@section Specifying the System Type
+
+There may be some features @code{configure} can not figure out
+automatically, but needs to determine by the type of host the package
+will run on.  Usually @code{configure} can figure that out, but if it
+prints a message saying it can not guess the host type, give it the
+@samp{--host=@var{type}} option.  @var{type} can either be a short name
+for the system type, such as @samp{sun4}, or a canonical name with three
+fields:
+@example
+@var{cpu}-@var{company}-@var{system}
+@end example
+@noindent
+See the file @file{config.sub} for the possible values of each field.
+If @file{config.sub} isn't included in this package, then this package
+doesn't need to know the host type.
+
+If you are building compiler tools for cross-compiling, you can also use
+the @samp{--target=@var{type}} option to select the type of system
+they will produce code for and the @samp{--build=@var{type}} option
+to select the type of system on which you are compiling the package.
+
+@c -------------------------------------------------------------------
+@node Sharing Defaults, Operation Controls, System Type, Installation
+@section Sharing Defaults
+
+If you want to set default values for @code{configure} scripts to share,
+you can create a site shell script called @file{config.site} that gives
+default values for variables like @code{CC}, @code{cache_file}, and
+@code{prefix}.  @code{configure} looks for
+@file{@var{prefix}/share/config.site} if it exists, then
+@file{@var{prefix}/etc/config.site} if it exists.  Or, you can set
+the @code{CONFIG_SITE} environment variable to the location of the site
+script.  A warning: not all @code{configure} scripts look for a site script.
+
+@c -------------------------------------------------------------------
+@node Operation Controls, Optional Feature List, Sharing Defaults, Installation
+@section Operation Controls
+
+@code{configure} recognizes the following options to control how it
+operates.
+
+@table @code
+@item --cache-file=@var{file}
+Use and save the results of the tests in @var{file} instead of
+@file{./config.cache}.  Set @var{file} to @file{/dev/null} to disable
+caching, for debugging @code{configure}.
+
+@item --help
+Print a summary of the options to @code{configure}, and exit.
+
+@item --quiet
+@itemx --silent
+@itemx -q
+Do not print messages saying which checks are being made.
+
+@item --srcdir=@var{dir}
+Look for the package's source code in directory @var{dir}.  Usually
+@code{configure} can determine that directory automatically.
+
+@item --version
+Print the version of Autoconf used to generate the @code{configure}
+script, and exit.
+@end table
+
+@c -------------------------------------------------------------------
+@node Optional Feature List,  , Operation Controls, Installation
+@section Optional Feature List
+
+@code{configure} in this package recognizes the following
+@samp{--enable-} and @samp{--with-} options.
+
+@table @code
+@item --with-logdir=@var{dir}
+Syslog files that @code{ebndaily} rotates by default are placed on
+@var{dir}.
+The default value is @samp{@var{localstatedir}/ebnetd/log}.
+
+@item --with-eb-conf=@var{file}
+Read EB Libfary configuration file in @var{file}.
+The default value is @samp{@var{sysconfdir}/eb.conf}.
+
+@item --with-gnu-ld
+Assume the C compiler uses GNU ld.
+The default value is @samp{no}.
+
+@item --enable-ipv6
+Support IPv6.
+The default value is @samp{yes} if the system supports IPv6.
+
+@end table
+
+@c ===================================================================
+@node Configuration File, Configuration Checker, Installation, Top
+@chapter Configuration File
+
+To start @code{ebnetd}, @code{ndtpd} or @code{ebhttpd}, you have to edit
+a configuration file.
+The server reads the file when it starts and restarts.
+The file determines various server behaviors.
+The configuration file is @file{/usr/local/etc/ebnetd.conf} by default,
+if EBNETD has been installed under @file{/usr/local}, and if a directory
+for read-only single-machine data (@code{sysconfdir}) has not been
+changed at the installation.
+It can be changed by the command line option @samp{--configuration-file}
+(or @samp{-c}) (@pxref{ebnetd Options}).
+
+In the configuration file, blank lines and lines whose first non-blank
+character is a hash (@samp{#}) are ignored.
+Any other lines must be @dfn{single directive} or @dfn{group directive}.
+The order of single and group directives is not matter.
+
+Each line including newline character must be 511 characters maximum.
+
+@menu
+* Single Directive::            Common form of single directive.
+* Single Directive List::       Single directive list.
+* Group Directive::             Common form of group directive.
+* Book Group Directive::        Book group directive list.
+* Sample Configuration::        Sample configuration file.
+@end menu
+
+@c -------------------------------------------------------------------
+@node Single Directive, Single Directive List, Configuration File, Configuration File
+@section Common Form of Single Directive
+
+Single directive is a directive terminated in a line.
+The common form of a single directive is:
+
+@example
+@var{directive-name}    @var{directive-value}
+@end example
+
+@noindent
+In the following example, @code{syslog-facility} is a directive name,
+and @file{local0} is a directive value.
+
+@example
+syslog-facility    local0
+@end example
+
+@noindent
+Since directive names are case sensitive, you cannot type
+@samp{syslog-facility} instead of @samp{Syslog-Facility}.
+Spaces and tabs separate a directive name with a directive value.
+A sequence of spaces and tabs in the head of a directive name and in
+the tail of a line are ignored.
+
+@c -------------------------------------------------------------------
+@node Single Directive List, Group Directive, Single Directive, Configuration File
+@section Single Directive List
+
+The following single directives are recognized.
+
+@table @code
+@item ebnet-port
+The @code{ebnet-port} directive specifies a port number which @code{ebnetd}
+binds.
+The value of the directive must be a service name on TCP (e.g. @samp{EBNET})
+or a port number (e.g. @samp{22010}).
+The directive is ignored when @code{ebnetd} is invoked by @code{inetd}.
+The directive is optional, and cannot be defined more than once.
+The default value is @samp{EBNET}.
+
+@code{ndtpd} and @code{ebhttpd} always ignore the directive.
+
+@item ndtp-port
+The @code{ndtp-port} directive specifies a port number which @code{ndtpd}
+binds.
+The value of the directive must be a service name on TCP (e.g. @samp{NDTP})
+or a port number (e.g. @samp{2010}).
+The directive is ignored when @code{ndtpd} is invoked by @code{inetd}.
+The directive is optional, and cannot be defined more than once.
+The default value is @samp{NDTP}.
+
+@code{ebnetd} and @code{ebhttpd} always ignore the directive.
+
+@item http-port
+The @code{http-port} directive specifies a port number which @code{ebhttpd}
+binds.
+The value of the directive must be a service name on TCP (e.g. @samp{HTTP})
+or a port number (e.g. @samp{80}).
+The directive is ignored when @code{ebhttpd} is invoked by @code{inetd}.
+The directive is optional, and cannot be defined more than once.
+The default value is @samp{HTTP}.
+
+@code{ebnetd} and @code{ndtpd} always ignore the directive.
+
+@item user
+The @code{user} directive specifies an owner of server processes.
+The value of the directive must be an user name (e.g. @samp{nobody})
+or an user ID (e.g. @samp{65535}).
+To change an owner to another user, you must start a server process
+with super user's privilege.
+If a server fails to change an owner, it gives up running.
+The directive is optional, and cannot be defined more than once.
+If the directive is not defined, owner is unchanged.
+
+We recommend you to create a dummy user account such as @samp{ebnetuser}, 
+and use it for this directive.
+
+@item group
+The @code{group} directive specifies a group of server processes.
+The value of the directive must be an group name (e.g. @samp{nogroup})
+or a group ID (e.g. @samp{65534}).
+The directive is optional, and cannot be defined more than once.
+If a server fails to change a group, it gives up running.
+If the directive is not defined, group ID is unchanged.
+
+We recommend you to create a dummy group account such as @samp{ebnetgrp}, 
+and use it for this directive.
+
+@item max-clients
+The @code{max-clients} directive specifies how many clients can be
+connected to a server at the same time.
+The value of the directive must be an integer not less than zero.
+The directive is optional, and cannot be defined more than once.
+The default value is @samp{1}.
+If the value is set to @samp{0}, the limitation is disabled.
+
+@item hosts
+The @code{hosts} directive specifies which hosts can or cannot connect
+to the servers.
+The value of the directive must be a hostname, IP address or
+@var{address/netmask} pattern.
+
+In addition, you can insert a leading optional exclamation mark 
+(@samp{!}) for each pattern.
+If the value of the directive starts with an exclamation mark, it means
+that hosts matched to the following IP address or hostsname are denied
+to connect to the servers.
+Otherwise, hosts matched to the value are permitted to connect to
+the servers.
+
+@sp 1
+@example
+@group
+# permit to connect from `host.xxx.yyy.jp'.
+hosts host.xxx.yyy.jp
+
+# permit to connect from `127.0.0.1'.
+hosts 127.0.0.1
+
+# deny to connect from `192.24.1.0/24.
+hosts !192.24.1.0/24
+@end group
+@end example
+
+@noindent
+In a hostname pattern, you can use asterisk (@samp{*}) and question
+mark (@samp{?}).
+An asterisk matches to any sequence of zero or more characters
+except for a leading exclamation mark.
+
+@sp 1
+@example
+@group
+# deny to connect hosts under the `xxx.yyy.jp' domain
+hosts !*.xxx.yyy.jp
+
+# permit to connect from any hosts.
+hosts *
+@end group
+@end example
+
+@noindent
+An question mark represents @dfn{unknown hostname}.
+
+@sp 1
+@example
+@group
+# deny to connect from hosts with unknown hostname.
+hosts !?
+@end group
+@end example
+
+@noindent
+The @code{host} directive is optional, and can be defined any number of
+times.
+A configuration file without @code{host} directive is valid, but nobody
+can connect to the servers!
+Please note that only one hostname, IP address or @var{address/netmask}
+pattern can be defined in a directive.
+Hosts not matched to any @code{hosts} directives are denied to connect.
+When a host matches to two or more @code{hosts} directives, nearest one
+to the top of the configuration file is chosen.
+
+In the following example, hosts under the @samp{sub1.xxx.yyy.jp} domain
+are denied to connect, but any other hosts under the @samp{xxx.yyy.jp}
+domain are permitted to connect to the servers.
+
+@sp 1
+@example
+@group
+hosts !*.sub1.xxx.yyy.jp
+hosts *.xxx.yyy.jp
+@end group
+@end example
+
+In this example, the order of the directives are significant.
+If the order is reversed, all hosts under the @samp{xxx.yyy.jp} domain
+including @samp{sub1.xxx.yyy.jp} are permitted to connect to the servers.
+
+@sp 1
+@example
+@group
+# wrong!!!
+hosts *.xxx.yyy.jp
+hosts !*.sub1.xxx.yyy.jp
+@end group
+@end example
+
+In comprison of hostnames, @code{ndptd} always uses canonical hostname
+of a client, which is gotten by an address of the client with name
+resolution service such as DNS.
+Please note that aliases of the client is never used.
+
+Specifying IPv6 address and @var{IPv6 address/netmask} pattern are also
+permitted.
+The servers built without IPv6 support can talk to IPv4 clients only,
+but they can interpret IPv6 addresses specified in a configuration file.
+
+@sp 1
+@example
+@group
+# permit to connect from `12ab:0:0:cd3/60' and `::1'.
+hosts ::1
+hosts 12ab:0:0:cd3/60
+@end group
+@end example
+
+@noindent
+In the @code{hosts} directive, IPv4 address (e.g. @samp{192.168.1.1})
+and the corresponding IPv4 mapped IPv6 address
+(e.g. @samp{::ffff:192.168.1.1}) are eqeivalent.
+That is to say that IPv4 client @samp{192.168.1.1} matches to
+@code{hosts} directive @samp{::ffff:192.168.1.1}, and IPv6 client
+@samp{::ffff:192.168.1.1} matches to @code{hosts} directive
+@samp{192.168.1.1}.
+
+@item timeout
+The @code{timeout} directive specifies timeout seconds until a server
+disconnects an idle connection.
+The value of the directive must be an integer not less than zero.
+The directive is optional, and cannot be defined more than once.
+The default value is @samp{900} (15 minutes).
+If the value is set to @samp{0}, timeout never occurs.
+
+@item work-path
+The @code{work-path} directive specifies the path of a working directory
+for @code{ebnetd} (@pxref{Working Directory}).
+The value of the directive must be an absolute path.
+@code{ebnetd} creates some work files under the directory, and a core
+file is dumped at there when @code{ebnetd} aborts.
+The directive is optional, and cannot be defined more than once.
+The default value is @file{/usr/local/var/ebnetd}, if EBNETD has installed
+under @file{/usr/local}, and if a directory for modifiable single-machine
+data (@code{localstatedir}) has not been changed at the installation.
+
+@item max-hits
+The @code{max-hits} directive specifies how many hit entries
+@code{ebnetd} tries to find at a search.
+When @code{ebnetd} has find the number of hit entries specified by the
+directive, @code{ebnetd} stops searching immediately.
+The directive is optional, and cannot be defined more than once.
+The default value is @samp{50}.
+If it is set to @samp{0}, @code{ebnetd} tries to find all hit entires in
+a subbook.
+
+@code{ebnetd} always ignores the directive.
+
+@item max-text-size
+The @code{max-text-size} directive restricts the maximum bytes of text
+which @code{ebnetd} sends to a client as a response to him.
+The directive is optional, and cannot be defined more than once.
+The default value is @samp{32768}.
+If it is set to @samp{0}, the size restriction is disabled.
+
+@code{ebnetd} always ignores the directive.
+
+@item syslog-facility
+The @code{syslog-facility} directive specifies a syslog facility (e.g.
+@samp{daemon}, @samp{local0}, and so on).
+The directive is optional, and cannot be defined more than once.
+The facility @samp{daemon} is used by default.
+Please note that syslog facility @samp{daemon} is used until @code{ebnetd}
+finish reading a configuration file.
+@end table
+
+@c -------------------------------------------------------------------
+@node Group Directive, Book Group Directive, Single Directive List, Configuration File
+@section Group Directive
+
+Group directive is a directive whose description is across some lines
+in a configuration file.
+The common form of a group directive is:
+
+@example
+@group
+begin @var{group-name}
+    @var{sub-directive-name}    @var{sub-directive-value}
+             : 
+             : (repeated)
+             : 
+end
+@end group
+@end example
+
+@noindent
+The keyword @code{begin} indicates the beginning of the group directive.
+It leads an argument @var{group-name}.
+They are separated by spaces or tabs, and they must be placed in
+a line.
+The keyword @code{end} indicates the end of the group directive.
+It is solely placed at a line.
+
+In EBNETD version @value{VERSION}, only @code{book} can be prescribed
+as the group-name.
+Each @dfn{sub-directive} in the group is defined between @code{begin}
+and @code{end} lines.
+Generic description rules about sub-directive are the same as those 
+of single directives; @var{sub-directive-name} and
+@var{sub-directive-value} are separated by space or tabs, and so on.
+
+This is an example of the @code{book} group directive.
+
+@example
+@group
+begin book
+        name            EJDICT
+        title           English Japanese Dictionary
+        path            /mnt/cdrom
+        hosts           127.0.0.1 
+        hosts           host.your.domain       
+end
+@end group
+@end example
+
+@c -------------------------------------------------------------------
+@node Book Group Directive, Sample Configuration, Group Directive, Configuration File
+@section @code{book} Group directive 
+
+A @code{book} group directive corresponds to a CD-ROM book, so that
+you have to define the group directive for each CD-ROM book.
+EBNETD recognizes following sub-directives in the @code{book} group
+directives.
+
+@table @code
+@item name
+The @code{name} sub-directive specifies a name of the book.
+The value of the sub-directive must consist of lower letters
+(@samp{a}..@samp{z}), digits (@samp{0}..@samp{9}), underscore (@samp{_})
+and hypen (@samp{-}).
+Its length must be up to 14 bytes.
+Since the name is used to identify the book, each book name in a
+configuration file must be unique.
+The sub-directive is required in each @code{book} group directive, but
+cannot be defined more than once in a group directive.
+
+@item title
+The @code{title} sub-directive specifies a title of the book.
+The value of the sub-directive can be a sequences of any characters
+except for newline and NULL (@samp{\0}) character.
+Its length must be up to 80 bytes.
+The title must be written in ISO 8859 1 or Japanese EUC (Extended Unix
+Code).
+Spaces or tabs are also accepted and they are taken literally.
+
+The sub-directive is required in each @code{book} group directive, but
+cannot be defined more than once in a group directive.
+
+@item path
+The @code{path} sub-directive specifies an absolute path to the book.
+The path must point to the top directory of the book where the file
+@file{CATALOG} or @file{CATALOGS} resides.
+EBNET remote access identifier (e.g. @samp{ebnet://host/book}) is
+not allowed.
+
+The sub-directive is required in each @code{book} group directive, but
+cannot be defined more than once in a group directive.
+
+@item appendix-path
+The @code{appendix-path} sub-directive specifies an absolute path to
+the appendix data of the book (@pxref{Appendix Package}).
+The path must point to the top directory of the appendix package where
+the file @file{CATALOG} or @file{CATALOGS} resides.
+EBNET remote access identifier (e.g. @samp{ebnet://host/book.app}) is
+not allowed.
+
+The sub-directive is optional and cannot be defined more than once
+in a @code{book} group directive.
+To use a book, appendix package is not required, but a book without
+appendix package may be difficult for users to read since some characters
+are unreadable.
+
+@item max-clients
+The @code{max-clients} sub-directive specifies how many clients can be
+accessed to the book at the same time.
+The value of the directive must be an integer not less than zero.
+The directive is optional, and cannot be defined more than once
+in a @code{book} group directive.
+The default value is @samp{1}.
+If the value is set to @samp{0}, the limitation is disabled.
+
+Count of clients are shared by @code{ebnetd}, @code{ndtpd} and
+@code{ebhttpd}, if they use the same @code{work-path}
+(@pxref{Working Directory}).
+For example, if two @code{ebnetd} clients and three @code{ndtpd} clients
+access a book at the same time, the servers cosider the book is accessed
+by five clients.
+
+@item hosts
+The @code{hosts} sub-directive specifies which hosts can or cannot
+access the book.
+The sub-directive is optional, and can be defined any number of times.
+A @code{book} group directive without @code{hosts} sub-directive is
+valid, but nobody can access to the book!
+
+The notation is same as the @code{hosts} single directive.
+@end table
+
+@c --------------------------------------------------------------------
+@node Sample Configuration,  , Book Group Directive, Configuration File
+@section Sample Configuration File
+
+The sample configuration file has been installed as
+@file{/usr/local/etc/ebnetd.conf.sample}, if EBNETD has been installed
+under @file{/usr/local}, and if a directory for read-only single-machine
+data (@code{sysconfdir}) has not been changed at the installation.
+
+@example
+######################################################################
+# Configuration file for ebnetd/ndtpd/ebhttpd.
+# (Copy this file to `ebnetd.conf', and edit it.)
+######################################################################
+
+### Port number `ebnetd' binds.
+### (default: ebnet)
+# ebnet-port	ebnet
+
+### Port number `ndtpd' binds.
+### (default: ndtp)
+# ndtp-port	ndtp
+
+### Port number `ebhttpd' binds.
+### (default: http)
+# http-port             http
+
+### Owner of the server process.
+### (default: none)
+user		ebnetuser
+
+### Group of the server process.
+### (default: none)
+group		ebnetgrp
+
+### How many clients can be connected to the server at the same time.
+### (default: 1)
+# max-clients	1
+
+### Which hosts can or cannot connect to the server.
+### (default: none)
+hosts		127.0.0.1
+hosts		::1
+hosts		!?
+hosts		host.your.domain
+
+### Timeout seconds until the server disconnects an idle connection.
+### (default: 900)
+# timeout		900
+
+### Path to a working directory.
+### Please create the directory and make it be writable for the server
+### processes before executing the server.
+### (default: /usr/local/var/ebnetd)
+# work-path	/usr/local/var/ebnetd
+
+### How many hit entries the server tries to find at a search.
+### (default: 50)
+# max-hits	50
+
+### Maxmimum size of tex the server may send to a client as a response
+### to him.
+### (default: 32768)
+# max-text-size		32768
+
+### Syslog facility
+### (default: daemon)
+syslog-facility	local0
+
+###
+### Book entry
+###
+begin book
+    ### Name of the book.
+    ### (required)
+    name		JITENBAN97
+
+    ### Title of the book.
+    ### (required)
+    title		Jitenban 97
+
+    ### Path to a top directory of the book.
+    ### (required)
+    path		/cdrom
+
+    ### Path to a top directory of the appdendix package of the book.
+    ### (default: none)
+    appendix-path	/usr/local/share/eb/appendix/jitenban97-2.1
+
+    ### How many clients can access the book at the same time.
+    ### (default: 1)
+    # max-clients		1
+
+    ### Which hosts can or cannot access to the book.
+    ### (default: none)
+    hosts		127.0.0.1
+    hosts		::1
+    hosts		!?
+    hosts		host.your.domain
+end
+
+### Add a book group directive (lines between `begin book' and `end'),
+### if you want to read another CD-ROM book.  A book group directive
+### is required for each book.
+@end example
+
+@c ===================================================================
+@node Configuration Checker, Setup Your Environment, Configuration File, Top
+@chapter Configuration Checker
+
+To check for the configuration file you have edit,
+you can use the configuration checker named @code{ebncheck}.
+The @code{ebncheck} command has been installed at @file{/usr/local/sbin},
+if EBNETD has been installed under @file{/usr/local}, and if a directory
+for system administrative executables (@code{sbindir}) has not been
+changed at the installation.
+
+Because of historical reason, also @code{ndtpcheck} and @code{ebhtcheck}
+commands are available for @code{ndtpd} and @code{ebhttpd}, but they has
+no differences.
+
+@menu
+* Invoking ebncheck::           Invoking @code{ebncheck}.
+* ebncheck Options::            Summary of options to @code{ebncheck}.
+@end menu
+
+@c -------------------------------------------------------------------
+@node Invoking ebncheck, ebncheck Options, Configuration Checker, Configuration Checker
+@section Invoking @code{ebncheck}
+
+The @code{ebncheck} command reads and checks a configuration file
+as the same way as @code{ebnetd} does.
+The usual way to execute @code{ebncheck} is as follows:
+
+@example
+% /usr/local/sbin/ebncheck
+@end example
+
+@noindent
+It assumes that EBNETD has been installed under @file{/usr/local} and
+if a directory for system administrative executables (@code{sbindir})
+has not been changed at the installation.
+
+If an error occurs, @code{ebncheck} outputs messages to standard error
+like as follows.
+
+@example
+/usr/local/etc/ebnetd.conf:12: unknown user: noboy
+configuration failure
+@end example
+
+@c -------------------------------------------------------------------
+@node ebncheck Options,  , Invoking ebncheck, Configuration Checker
+@section Summary of options to @code{ebncheck}
+
+The @code{ebncheck} command supports both traditional single-letter
+options and mnemonic long option names.
+Long option names are indicated with @samp{--} instead of @samp{-}.
+Abbreviations for option names are allowed as long as they are unique.
+
+The @code{ebncheck} command recognizes these command line options.
+
+@table @code
+@item -c @var{file}
+@itemx --configuration-file @var{file}
+Specify a configuration file.
+The default filename is shown in the help message.
+
+@item -d
+@itemx --debug
+@itemx --verbose
+Print debugging information to standard error.
+Debugging information shows how each line in a configuration file
+is processed.
+
+@item -h
+@itemx --help
+Output help message to standard error, then exit.
+
+@item -v
+@itemx --version
+Output version number to standard error, then exit.
+@end table
+
+@c ===================================================================
+@node Setup Your Environment, Start ebnetd, Configuration Checker, Top
+@chapter Setup Your Environment
+
+You may have to setup system environment around the server.
+Super user's priviledge may be required to do it.
+
+@menu
+* Services::                    Setup your @file{services} file.
+* Syslog::                      Setup your @file{syslog.conf} file.
+* Working Directory::           Make a working directory.
+* Mount CD-ROM Books::          Mount your CD-ROM books.
+* Appendix Package::            Copy appendix package.
+@end menu
+
+@c -------------------------------------------------------------------
+@node Services, Syslog, Setup Your Environment, Setup Your Environment
+@section @file{services} File
+
+The service names @samp{ebnet}, @samp{ndtp} and @samp{http} must be
+added to your @file{services} file (usually, @file{/etc/services}),
+if missing.
+If your host runs as NIS client, you have to edit the NIS map on the
+NIS server, instead.
+
+This lines shuold be added, if missing:
+
+@example
+http           80/tcp
+ndtp           2010/tcp
+ebnet          22010/tcp
+@end example
+
+@noindent
+The configuration file on your system may have had the line with
+a different service name, like that:
+
+@example
+search        2010/tcp
+@end example
+
+@noindent
+In this case, please add the service name as an alias:
+
+@example
+search        2010/tcp        ebnet
+@end example
+
+@noindent
+(For details, please read the manual for your system.)
+
+@c -------------------------------------------------------------------
+@node Syslog, Working Directory, Services, Setup Your Environment
+@section @file{syslog.conf} File
+
+@code{ebnetd}, @code{ndtpd} and @code{ebhttpd} use @code{syslog} to
+record their log messages.
+Insert a line like as below into the configuration file for @code{syslogd}
+(usually @file{/etc/syslog.conf}).
+Care must be taken not to use space to separete fields, because only
+TAB is allowed in general.
+
+@example
+local0.info   /usr/local/var/ebnetd/log/ebnetd.log
+@end example
+
+@noindent
+Please remember that the syslog facility of the servers can be
+determined at the @code{syslog-facility} directive in the configuration
+file for @code{ebnetd}
+(@pxref{Single Directive List, , @code{syslog-facility}}).
+
+@noindent
+Create an empty log file if missing.
+
+@example
+@group
+% touch /usr/local/var/ebnetd/log/ebnetd.log
+% chmod 644 /usr/local/var/ebnetd/log/ebnetd.log
+@end group
+@end example
+
+@noindent
+Find the PID of the running @code{syslogd} process.
+In BSD based sytems, type the following.
+
+@example
+% ps axuww | grep syslogd
+@end example
+
+@noindent
+In SYSV based sytems, type the following.
+
+@example
+% ps -ef | grep syslogd
+@end example
+
+@noindent
+(For details, please read the manual for your system.)
+@*
+If @code{syslogd} is running, you can find a line like as below.
+
+@example
+root        63  0.0  1.1   188  316  ??  Is   10:04PM    0:00.16 syslogd
+@end example
+
+@noindent
+Send a hung-up signal (@code{SIGHUP}) to @code{syslogd}, and then
+@code{syslogd} re-reads @file{syslog.conf}.
+
+@example 
+% kill -HUP 63
+@end example
+
+@noindent
+If your system has the @code{logger} command, you can send a test
+message to @code{syslogd} like as follows:
+
+@example 
+% logger -p local0.info "test message"
+@end example
+
+@c -------------------------------------------------------------------
+@node Working Directory, Mount CD-ROM Books, Syslog, Setup Your Environment
+@section Working Directory
+
+@code{ebnetd}, @code{ndtpd} and @code{ebhttpd} create some files under
+a working directory.
+The directory can be specified by @code{work-path} in the configuration
+file (@pxref{Single Directive List, , @code{work-path}}).
+
+Please create the directory and make it be writable for the server
+processes and super user only.
+
+@example
+# mkdir /usr/local/var/ebnetd
+# chown ebnetuser /usr/local/var/ebnetd
+# chmod 755 /usr/local/var/ebnetd
+@end example
+
+@noindent
+It assumes that owner of server processes on your system is
+@samp{ebnetuser}.
+
+Please remember that owner and group of the server processes are
+defined at the @code{user} and @code{group} directives in the
+configuration file (@pxref{Single Directive List, , @code{user}}, and
+@pxref{Single Directive List, , @code{group}}).
+
+@c -------------------------------------------------------------------
+@node Mount CD-ROM Books, Appendix Package, Working Directory, Setup Your Environment
+@section Mount Your CD-ROM Books
+
+As mentioned before, CD-ROM books themseves are stands on ISO 9660 format.
+You can mount your CD-ROM books by the same way as other ISO 9660 discs.
+Please read the manual for your system, if you don't know the way of
+mounting ISO 9660 discs on your system.
+
+The servers can access CD-ROM books compressed by @code{ebzip}.
+See @xref{Compression, , Compression, ebzip, ebzip}, for more details.
+
+@c -------------------------------------------------------------------
+@node Appendix Package,  , Mount CD-ROM Books, Setup Your Environment
+@section Setup Appendix Package
+
+@dfn{appendix} is supplementary data for CD-ROM book.
+It is not provided by publishers of CD-ROM Book.
+It is peculiar to EB Library.
+
+(Remember that all the servers in the EBNET distribution are related
+closely to EB Library.
+@code{ebnetd} is remote access server for EB Library.
+@code{ndtpd} and @code{ebhttpd} use EB Library to access CD-ROM Books.)
+
+Appendix provides the following data for CD-ROM book:
+
+@table @asis
+@item Text stop code
+When you look up a word in a CD-ROM dictionary using EB Library,
+you might wish EB Library stops displaying dictionary's text at the
+point where explanation of the word ends.
+Howerver, the software cannot ensure it, since CD-ROM book has no marker
+in its text which indicates end of paragraph.
+
+Fortunately, many CD-ROM books have a @dfn{text stop code} which
+could be used for substitute for end of paragraph.
+EB Library guesses text stop code automatically by default, but sometimes
+takes a false code.
+Appanedix's stop code is used to tell EB Library a correct stop code of
+the CD-ROM book.
+
+@item Alternation text for local defined characters
+Many CD-ROM books define their local characters, and use them in text.
+To display the local character, client applications have to draw its
+bitmap font provided by the CD-ROM book.
+
+Appendix can define alternation text for each local defined character.
+Instead of drawing the bitmap font, application may output the alternation
+text.
+@end table
+
+The layout of appendix package is similar to that of CD-ROM book.
+It has the @code{CATALOG} or @code{CATALOGS} file at its top
+directory, and data for each subbook are arranged in the corresponding
+sub-directory.
+To use an appendix, set the @code{appendix-path} sub-directive of the
+@code{book} group directive in a configuration file
+(@pxref{Group Directive, , @code{appendix-path}}).
+
+There are some appendix packages in the EB Library official FTP site
+(@url{ftp://ftp.sra.co.jp/pub/misc/eb/appendix/}).
+If you want to create an appendx package for a CD-ROM book not listed here,
+use the @code{ebappendix} command to format appendix data files.
+
+@c ===================================================================
+@node Start ebnetd, Start ndtpd, Setup Your Environment, Top
+@chapter Start @code{ebnetd}
+
+@code{ebnetd} can run as a standalone daemon, or as a child process of
+@code{inted}.
+By default, @code{ebnetd} runs as a standalone daemon.
+
+If connections aren't come frequently to the server, it may be better
+to run @code{ebnetd} as a child of @code{inetd} to save consumption
+of memory resource.
+However, each time invoked by @code{inetd}, @code{ebnetd} reads a
+configuration file and reads some data from CD-ROM books for initialization.
+If connections are come frequently to the server, it may be better
+to run @code{ebnetd} as a standalone daemon.
+
+If you don't have to run @code{ebnetd} on your system, skip rest of
+this chapter.
+
+@menu
+* ebnetd Standalone::           Run @code{ebnetd} as a standard daemon.
+* ebnetd Child of inetd::       Run @code{ebnetd} as a child of @code{inetd}.
+* ebnetd Child of xinetd::      Run @code{ebnetd} as a child of @code{xinetd}.
+* ebnetd Test with telnet::     Test @code{ebnetd} with @code{telnet}.
+* ebnetd Options::              Summary of options to @code{ebnetd}.
+@end menu
+
+@c -------------------------------------------------------------------
+@node ebnetd Standalone, ebnetd Child of inetd, Start ebnetd, Start ebnetd
+@section Run @code{ebnetd} as a standard daemon
+
+To start @code{ebnetd} as a standalone daemon, type the following command.
+Super user's priviledge may be required.
+
+@example
+% /usr/local/sbin/ebnetd
+@end example
+
+@noindent
+It assumes that EBNETD has been installed under @file{/usr/local}, and
+if a directory for system administrative executables (@code{sbindir})
+has not been changed at the installation.
+
+@c -------------------------------------------------------------------
+@node ebnetd Child of inetd, ebnetd Child of xinetd, ebnetd Standalone, Start ebnetd
+@section Run @code{ebnetd} as a child of @code{inetd}.
+
+To start @code{ebnetd} from @code{inetd}, following processes are needed.
+Add the following entry to the @file{inetd.conf} file (usually
+@file{/etc/inetd.conf}).
+Don't forget to add the @samp{--inetd} (or @samp{-i}) option.
+
+@example
+ebnet  stream  tcp  nowait  root  /usr/local/sbin/ebnetd ebnetd --inetd
+@end example
+
+@noindent
+It assumes that EBNETD has been installed under @file{/usr/local} and
+if a directory for system administrative executables (@code{sbindir})
+has not been changed at the installation.
+
+Find the PID of the running @code{inetd} process.
+
+@example
+% ps axuww | grep inetd
+@end example
+
+@noindent
+(For details, please read the manual for your system.)
+@*
+If @code{inetd} is running, you can find a line like as below.
+
+@example
+root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
+@end example
+
+@noindent
+If found, send a hung-up signal (@code{SIGHUP}) to @code{inetd} to
+re-read @file{inetd.conf}.
+Super user's priviledge may be required.
+
+@example 
+% kill -HUP 79
+@end example
+
+@c -------------------------------------------------------------------
+@node ebnetd Child of xinetd, ebnetd Test with telnet, ebnetd Child of inetd, Start ebnetd
+@section Run @code{ebnetd} as a Child Proccess of @code{xinetd}
+
+Some Linux systems use @code{xinetd} instead of traditional @code{inetd}.
+The configuration file format of @code{xinetd} is different from that
+of traditional @code{inetd}.
+
+To start @code{ebnetd} from @code{xinetd}, following processes are needed.
+Add the following entry to the configuration file (usually
+@file{/etc/xinetd.d/ebnet}).
+Don't forget to specify the @samp{--inetd} (or @samp{-i}) option as 
+@code{server_args}.
+
+@example
+@group
+# default: off
+# description: The ebnet server
+service ebnet
+@{
+        disable = no
+        socket_type     = stream
+        wait            = no
+        user            = root
+        server          = /usr/local/sbin/ebnetd
+        server_args     = --inetd
+        log_on_failure  += USERID
+@}
+@end group
+@end example
+
+@noindent
+It assumes that EBNETD has been installed under @file{/usr/local} and
+if a directory for system administrative executables (@code{sbindir})
+has not been changed at the installation.
+
+Find the PID of the running @code{xinetd} process.
+In BSD based sytems, type the following.
+
+@example
+% ps axuww | grep xinetd
+@end example
+
+@noindent
+In SYSV based sytems, type the following.
+
+@example
+% ps -ef | grep xinetd
+@end example
+
+@noindent
+(For details, please read the manual for your system.)
+@*
+If @code{xinetd} is running, you can find a line like as below.
+
+@example
+root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
+@end example
+
+@noindent
+If found, send an USER2 signal (@code{SIGUSR2}) to @code{xinetd} to
+re-read the configuration.
+Super user's priviledge may be required.
+
+@example 
+% kill -USR2 79
+@end example
+
+@c -------------------------------------------------------------------
+@node ebnetd Test with telnet, ebnetd Options, ebnetd Child of xinetd, Start ebnetd
+@section Test @code{ebnetd} with @code{telnet}
+
+When all the setup has been completed, try to connect to @code{ebnetd}
+with the @code{telnet} command.
+
+At first, type as follows.
+In this example, we try to connect to @code{ebnetd} on localhost.
+
+@example
+% telnet localhost ebnet
+@end example
+
+@noindent
+The following message is displayed if @code{ebnetd} accepts a
+connection.
+
+@example
+Connected to localhost.
+Escape character is '^]'.
+@end example
+
+@noindent
+Then, tpye @key{BOOKLIST} and @key{Enter}.
+
+@example
+BOOKLIST
+@end example
+
+@noindent
+If @code{ebnetd} is running correctly, it outputs a list of CD-ROM book
+names like this:
+
+@example
+!OK; book list follows
+chujiten
+kojien
+colloc
+colloc.app
+@end example
+
+@noindent
+To close the connection, type @key{QUIT} and @key{Enter}.
+
+@example
+QUIT
+Connection closed by foreign host.
+@end example
+
+@c -------------------------------------------------------------------
+@node ebnetd Options,  , ebnetd Test with telnet, Start ebnetd
+@section Summary of options to @code{ebnetd}
+
+@code{ebnetd} supports both traditional single-letter
+options and mnemonic long option names.
+Long option names are indicated with @samp{--} instead of @samp{-}.
+Abbreviations for option names are allowed as long as they are unique.
+
+@code{ebnetd} recognizes following command line options.
+
+@table @code
+@item -c @var{file}
+@itemx --configuration-file @var{file}
+Specify a configuration file read by @code{ebnetd}.
+The default filename is shown in the help message.
+
+@item -h
+@itemx --help
+Output help message to standard error, then exit.
+
+@item -i
+@itemx --inetd	
+@code{inetd} mode.
+It must be specified when @code{ebnetd} is invoked by @code{inetd}.
+
+@item -t
+@itemx --test
+Test mode.
+The @code{ebnetd} process runs in foreground, and never forks.
+Requests to the server are input from standard in and responses to
+a client are output to srandard out.
+Standard in and out can be file descriptors associated with terminals.
+In addition, access permission is never checked, so that you can access
+all CD-ROM books defined in a configuration file.
+
+@item -v
+@itemx --version
+Output version number to standard error, then exit.
+@end table
+
+@c ===================================================================
+@node Start ndtpd, Start ebhttpd, Start ebnetd, Top
+@chapter Start @code{ndtpd}
+
+If you don't have to run @code{ndtpd} on your system, skip this chapter.
+
+Also @code{ndtpd} has two running mode, standalone daemon and child
+process of @code{inted}.
+By default, @code{ndtpd} runs as a standalone daemon.
+
+@menu
+* ndtpd Standalone::            Run @code{ndtpd} as a standard daemon.
+* ndtpd Child of inetd::        Run @code{ndtpd} as a child of @code{inetd}.
+* ndtpd Child of xinetd::       Run @code{ndtpd} as a child of @code{xinetd}.
+* ndtpd Test with telnet::      Test @code{ndtpd} with @code{telnet}.
+* ndtpd Options::               Options to @code{ndtpd}.
+@end menu
+
+@c -------------------------------------------------------------------
+@node ndtpd Standalone, ndtpd Child of inetd, Start ndtpd, Start ndtpd
+@section Run @code{ndtpd} as a standard daemon
+
+To start @code{ndtpd} as a standalone daemon, type the following command.
+Super user's priviledge may be required.
+
+@example
+% /usr/local/sbin/ndtpd
+@end example
+
+@noindent
+It assumes that EBNETD has been installed under @file{/usr/local}, and
+if a directory for system administrative executables (@code{sbindir})
+has not been changed at the installation.
+
+@c -------------------------------------------------------------------
+@node ndtpd Child of inetd, ndtpd Child of xinetd, ndtpd Standalone, Start ndtpd
+@section Run @code{ndtpd} as a child of @code{inetd}
+
+To start @code{ndtpd} from @code{inetd}, following processes are needed.
+Add the following entry to the @file{inetd.conf} file (usually
+@file{/etc/inetd.conf}).
+Don't forget to add the @samp{--inetd} (or @samp{-i}) option.
+
+@example
+ndtp  stream  tcp  nowait  root  /usr/local/sbin/ndtpd ndtpd --inetd
+@end example
+
+@noindent
+It assumes that EBNETD has been installed under @file{/usr/local} and
+if a directory for system administrative executables (@code{sbindir})
+has not been changed at the installation.
+
+Find the PID of the running @code{inetd} process.
+
+@example
+% ps axuww | grep inetd
+@end example
+
+@noindent
+(For details, please read the manual for your system.)
+@*
+If @code{inetd} is running, you can find a line like as below.
+
+@example
+root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
+@end example
+
+@noindent
+If found, send a hung-up signal (@code{SIGHUP}) to @code{inetd} to
+re-read @file{inetd.conf}.
+Super user's priviledge may be required.
+
+@example 
+% kill -HUP 79
+@end example
+
+@c -------------------------------------------------------------------
+@node ndtpd Child of xinetd, ndtpd Test with telnet, ndtpd Child of inetd, Start ndtpd
+@section Run @code{ndtpd} as a child of @code{xinetd}
+
+Some Linux systems use @code{xinetd} instead of traditional @code{inetd}.
+The configuration file format of @code{xinetd} is different from that
+of traditional @code{inetd}.
+
+To start @code{ndtpd} from @code{xinetd}, following processes are needed.
+Add the following entry to the configuration file (usually
+@file{/etc/xinetd.d/ndtp}).
+Don't forget to specify the @samp{--inetd} (or @samp{-i}) option as 
+@code{server_args}.
+
+@example
+@group
+# default: off
+# description: The ndtp server
+service ndtp
+@{
+        disable = no
+        socket_type     = stream
+        wait            = no
+        user            = root
+        server          = /usr/local/sbin/ndtpd
+        server_args     = --inetd
+        log_on_failure  += USERID
+@}
+@end group
+@end example
+
+@noindent
+It assumes that EBNETD has been installed under @file{/usr/local} and
+if a directory for system administrative executables (@code{sbindir})
+has not been changed at the installation.
+
+Find the PID of the running @code{xinetd} process.
+In BSD based sytems, type the following.
+
+@example
+% ps axuww | grep xinetd
+@end example
+
+@noindent
+In SYSV based sytems, type the following.
+
+@example
+% ps -ef | grep xinetd
+@end example
+
+@noindent
+(For details, please read the manual for your system.)
+@*
+If @code{xinetd} is running, you can find a line like as below.
+
+@example
+root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
+@end example
+
+@noindent
+If found, send an USER2 signal (@code{SIGUSR2}) to @code{xinetd} to
+re-read the configuration.
+Super user's priviledge may be required.
+
+@example 
+% kill -USR2 79
+@end example
+
+@c -------------------------------------------------------------------
+@node ndtpd Test with telnet, ndtpd Options, ndtpd Child of xinetd, Start ndtpd
+@section Test @code{ndtpd} with @code{telnet}
+
+When all the setup has been completed, try to connect to @code{ndtpd}
+with the @code{telnet} command.
+
+At first, type as follows.
+In this example, we try to connect to @code{ndtpd} on localhost.
+
+@example
+% telnet localhost ndtp
+@end example
+
+@noindent
+The following message is displayed if @code{ndtpd} accepts a
+connection.
+
+@example
+Connected to localhost.
+Escape character is '^]'.
+@end example
+
+@noindent
+Then, tpye @key{t} and @key{Enter}.
+If @code{ndtpd} is running correctly, it outputs a list of 
+available CD-ROM books like this:
+
+@example
+t
+1   Oxford Dictionary/Thesaurus   edict/oxford   0   0   0
+2   Quick Tour                    edict/quick    0   0   0
+3   User's Guide                  edict/user     0   0   0
+4   About This Disc               edict/about    0   0   0
+$*
+@end example
+
+@noindent
+To close the connection, type @key{Q} and @key{Enter}.
+
+@example
+Q
+Connection closed by foreign host.
+@end example
+
+@c -------------------------------------------------------------------
+@node ndtpd Options,  , ndtpd Test with telnet, Start ndtpd
+@section Options to @code{ndtpd}
+
+The command line usage of @code{ndtpd} is the same as that of
+@code{ebnetd}.
+See @pxref{ebnetd Options, , Summary of @code{ebnetd} options},
+for more details.
+
+@c ===================================================================
+@node Start ebhttpd, Terminate and Restart, Start ndtpd, Top
+@chapter Start @code{ebhttpd}
+
+If you don't have to run @code{ebhttpd} on your system, skip this chapter.
+
+Also @code{ebhttpd} has two running mode, standalone daemon and child
+process of @code{inted}.
+By default, @code{ebhttpd} runs as a standalone daemon.
+
+@menu
+* ebhttpd Standalone::          Run @code{ebhttpd} as a standard daemon.
+* ebhttpd Child of inetd::      Run @code{ebhttpd} as a child of @code{inetd}.
+* ebhttpd Child of xinetd::     Run @code{ebhttpd} as a child of @code{xinetd}.
+* ebhttpd Test with telnet::    Test @code{ebhttpd} with @code{telnet}.
+* ebhttpd Options::             Options to @code{ebhttpd}.
+@end menu
+
+@c -------------------------------------------------------------------
+@node ebhttpd Standalone, ebhttpd Child of inetd, Start ebhttpd, Start ebhttpd
+@section Run @code{ebhttpd} as a standard daemon
+
+To start @code{ebhttpd} as a standalone daemon, type the following command.
+Super user's priviledge may be required.
+
+@example
+% /usr/local/sbin/ebhttpd
+@end example
+
+@noindent
+It assumes that EBNETD has been installed under @file{/usr/local}, and
+if a directory for system administrative executables (@code{sbindir})
+has not been changed at the installation.
+
+@c -------------------------------------------------------------------
+@node ebhttpd Child of inetd, ebhttpd Child of xinetd, ebhttpd Standalone, Start ebhttpd
+@section Run @code{ebhttpd} as a child of @code{inetd}
+
+To start @code{ebhttpd} from @code{inetd}, following processes are needed.
+Add the following entry to the @file{inetd.conf} file (usually
+@file{/etc/inetd.conf}).
+Don't forget to add the @samp{--inetd} (or @samp{-i}) option.
+
+@example
+http  stream  tcp  nowait  root  /usr/local/sbin/ebhttpd ebhttpd --inetd
+@end example
+
+@noindent
+It assumes that EBNETD has been installed under @file{/usr/local} and
+if a directory for system administrative executables (@code{sbindir})
+has not been changed at the installation.
+
+Find the PID of the running @code{inetd} process.
+
+@example
+% ps axuww | grep inetd
+@end example
+
+@noindent
+(For details, please read the manual for your system.)
+@*
+If @code{inetd} is running, you can find a line like as below.
+
+@example
+root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
+@end example
+
+@noindent
+If found, send a hung-up signal (@code{SIGHUP}) to @code{inetd} to
+re-read @file{inetd.conf}.
+Super user's priviledge may be required.
+
+@example 
+% kill -HUP 79
+@end example
+
+@c -------------------------------------------------------------------
+@node ebhttpd Child of xinetd, ebhttpd Test with telnet, ebhttpd Child of inetd, Start ebhttpd
+@section Run @code{ebhttpd} as a child of @code{xinetd}
+
+Some Linux systems use @code{xinetd} instead of traditional @code{inetd}.
+The configuration file format of @code{xinetd} is different from that
+of traditional @code{inetd}.
+
+To start @code{ebhttpd} from @code{xinetd}, following processes are needed.
+Add the following entry to the configuration file (usually
+@file{/etc/xinetd.d/ndtp}).
+Don't forget to specify the @samp{--inetd} (or @samp{-i}) option as 
+@code{server_args}.
+
+@example
+@group
+# default: off
+# description: The ndtp server
+service http
+@{
+        disable = no
+        socket_type     = stream
+        wait            = no
+        user            = root
+        server          = /usr/local/sbin/ebhttpd
+        server_args     = --inetd
+        log_on_failure  += USERID
+@}
+@end group
+@end example
+
+@noindent
+It assumes that EBNETD has been installed under @file{/usr/local} and
+if a directory for system administrative executables (@code{sbindir})
+has not been changed at the installation.
+
+Find the PID of the running @code{xinetd} process.
+In BSD based sytems, type the following.
+
+@example
+% ps axuww | grep xinetd
+@end example
+
+@noindent
+In SYSV based sytems, type the following.
+
+@example
+% ps -ef | grep xinetd
+@end example
+
+@noindent
+(For details, please read the manual for your system.)
+@*
+If @code{xinetd} is running, you can find a line like as below.
+
+@example
+root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
+@end example
+
+@noindent
+If found, send an USER2 signal (@code{SIGUSR2}) to @code{xinetd} to
+re-read the configuration.
+Super user's priviledge may be required.
+
+@example 
+% kill -USR2 79
+@end example
+
+@c -------------------------------------------------------------------
+@node ebhttpd Test with telnet, ebhttpd Options, ebhttpd Child of xinetd, Start ebhttpd
+@section Test @code{ebhttpd} with @code{telnet}
+
+When all the setup has been completed, try to connect to @code{ebhttpd}
+with the @code{telnet} command.
+
+At first, type as follows.
+In this example, we try to connect to @code{ebhttpd} on localhost.
+
+@example
+% telnet localhost http
+@end example
+
+@noindent
+The following message is displayed if @code{ebhttpd} accepts a
+connection.
+
+@example
+Connected to localhost.
+Escape character is '^]'.
+@end example
+
+@noindent
+Then, tpye a request like:
+
+@example
+GET / HTTP/1.0
+
+@end example
+
+@noindent
+Note that the request consists of two lines and the second line is
+empty.
+
+If @code{ebhttpd} accepts the request, the following response will
+be shown.
+
+@example
+HTTP/1.1 200 Ok
+Date: Fri, 16 May 2003 13:11:12 GMT
+Server: ebHTTPD 0.0
+Content-Type: text/html; charset="euc-jp"
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+ (snip)
+@end example
+
+@c -------------------------------------------------------------------
+@node ebhttpd Options,  , ebhttpd Test with telnet, Start ebhttpd
+@section Options to @code{ebhttpd}
+
+The command line usage of @code{ebhttpd} is the same as that of
+@code{ebnetd}.
+See @xref{ndtpd Options, , Summary of @code{ebnetd} options},
+for more details.
+
+@c ===================================================================
+@node Terminate and Restart, Daily Works, Start ebhttpd, Top
+@chapter Terminate and Restart the Servers
+
+You can use the @code{ebncontrol} command to terminate, kill and
+restart the @code{ebnetd} precess running as a standalone daemon.
+@code{ebncontrol} has been installed at @file{/usr/local/sbin}, if
+EBNETD has been installed under @file{/usr/local}, and if a directory
+for system administrative executables (@code{sbindir}) has not been
+changed at the installation.
+You can terminate the running @code{ebnetd} process like as follows:
+
+@example
+% /usr/local/sbin/ebncontrol terminate
+@end example
+
+@code{ebnetd} logs its PID to the file @file{ebnetd.pid} at the working
+directory (@pxref{Working Directory}).
+@code{ebncontrol} reads contents of the PID file to get a PID of
+the running @code{ebnetd} process, and then @code{ebncontrol} sends
+a signal to the PID.
+
+The PID file is deleted by @code{ebnetd} when it is terminated normally.
+However, the PID file is not deleted when @code{ebnetd} aborts.
+The PID logged in the remained PID file will be assigned to another
+process, in this case.
+Be careful invoking @code{ebncontrol}.
+@code{ebncontrol} doesn't examine whether the @code{ebnetd} process
+really exists.
+If the pid file is obsolete, @code{ebncontrol} may send a signal to 
+another process.
+
+@code{ebncontrol} reads the configuration file for @code{ebnetd} in
+order to get a location of the working directory.
+It can be defined at the @code{work-path} single directive in the
+configuration file (@pxref{Single Directive List, , @code{work-path}}).
+The default filename of the configuration file and default value
+of the @code{work-path} single directive are the same as those of
+@code{ebnetd}.
+
+Also the @code{ndtpcontrol} and @code{ebhtcontrol} commands are
+available to terminate @code{ndtpd} and @code{ebhttpd}.
+Command line usage of @code{ndtpcontrol} and @code{ebhtcontrol} are
+the same as that of @code{ebncontrol}.
+
+@menu
+* Invoke Server Controler::     Invoke Server Control Commands
+* Server Controler Options::    Summary of Options to Server Control Commands
+@end menu
+
+@c -------------------------------------------------------------------
+@node Invoke Server Controler, Server Controler Options, Terminate and Restart, Terminate and Restart
+@section Invoke Server Control Commands
+
+As described before, @code{ebncontrol}, @code{ndtpcontrol} and
+@code{ebhtcontrol} take the same command line arguments.
+The usual ways to invoke the commands are as follows:
+
+@example
+% /usr/local/sbin/ebncontrol @var{sub-command}
+% /usr/local/sbin/ndtpcontrol @var{sub-command}
+% /usr/local/sbin/ebhtcontrol @var{sub-command}
+@end example
+
+They recognize the following @var{sub-commands}.
+Abbreviations for sub-command names are allowed as long as they are
+unique.
+
+@table @code
+@item kill
+Kill the running server process (send the @code{SIGKILL} signal).
+It also deletes the server's PID file.
+Before trying the @code{kill} sub-command, you should try @code{terminate}
+sub-command.
+
+@item restart
+Restart the server.
+(send the @code{SIGHUP} signal).
+The server process closes all connections, and reads a configuration
+file again.
+
+@item status
+Examine whether the server is running or not, and output the result
+to standard error.
+This sub-command doesn't send any signal to the server.
+
+@item terminate
+Terminate the running server process
+(send the @code{SIGTERM} signal).
+@end table
+
+@c -------------------------------------------------------------------
+@node Server Controler Options,  , Invoke Server Controler, Terminate and Restart
+@section Summary of Options to Server Control Commands
+
+The @code{ebncontrol}, @code{ndtpcontrol} and @code{ebhtcontrol}
+commands support both traditional single-letter options and mnemonic
+long option names.
+Long option names are indicated with @samp{--} instead of @samp{-}.
+Abbreviations for option names are allowed as long as they are unique.
+
+@code{ebncontrol}, @code{ndtpcontrol} and @code{ebhtcontrol} recognize
+the command line options below.
+
+@table @code
+@item -c @var{file}
+@itemx --configuration-file @var{file}
+Specify a configuration file.
+The default filename is shown in the help message.
+
+@item -h
+@itemx --help
+Output help message to standard error, then exit.
+
+@item -v
+@itemx --version
+Output version number to standard error, then exit.
+@end table
+
+@c ===================================================================
+@node Daily Works, Network License, Terminate and Restart, Top
+@chapter Daily Administrative Works
+
+The @code{ebndaily} command generates statistics summary from a latest
+syslog file of the servers (@code{ebnetd}, @code{ndtpd} and @code{ebhttpd}),
+rotates syslog files, and then mails the results to administrators
+specified by command line arguments.
+
+@code{ebndaily} has been installed at @file{/usr/local/sbin}, if EBNETD
+has been installed under @file{/usr/local}, and if a directory for system
+administrative executables (@code{sbindir}) has not been changed at
+the installation.
+Its usual way to invoke @code{ebndaily} is as follows:
+
+@example
+% /usr/local/sbin/ebndaily @var{mail-address}...
+@end example
+
+@noindent
+For example,
+
+@example
+% /usr/local/sbin/ebndaily root@@host.your.domain
+@end example
+
+@noindent
+Two or more mail addresses can be accepted:
+
+@example
+% /usr/local/sbin/ebndaily root@@host.your.domain root@@dept.your.domain
+@end example
+
+@sp 1
+To execute @code{ebndaily} once a day automatically, add an entry
+like as follows on your @file{crontab}.
+
+@example
+0 0 * * *    /usr/local/sbin/ebndaily root@@host.your.domain
+@end example
+
+@noindent
+(For details, please read the manual for your system.)
+@*
+By default, @code{ebndaily} keeps 7 ages of old syslog files.
+If the current syslog file is @file{/usr/local/var/ebnetd/log/ebnetd.log},
+the old syslog files are kept as:
+
+@example
+/usr/local/var/ebnetd/log/ebnetd.log.0
+/usr/local/var/ebnetd/log/ebnetd.log.1
+/usr/local/var/ebnetd/log/ebnetd.log.2
+/usr/local/var/ebnetd/log/ebnetd.log.3
+/usr/local/var/ebnetd/log/ebnetd.log.4
+/usr/local/var/ebnetd/log/ebnetd.log.5
+/usr/local/var/ebnetd/log/ebnetd.log.6
+@end example
+
+@noindent
+These syslog files are rotated by the following processes:
+
+@enumerate
+@item The eldest syslog file @file{ebnetd.log.6} is removed.
+
+@item Other @file{ebnetd.log.@var{n}} files are moved to 
+@file{ebnetd.log.@var{n+1}}.
+
+@item The current syslog file @file{ebnetd.log} is copied to 
+@file{ebnetd.log.0}.
+
+@item The current syslog file @file{ebnetd.log} is cleared.
+@end enumerate
+
+@menu
+* ebndaily Options::            Summary of options to @code{ebndaily}.
+@end menu
+
+@c -------------------------------------------------------------------
+@node ebndaily Options,  , Daily Works, Daily Works
+@section Summary of Options to @code{ebndaily}
+
+The @code{ebndaily} command supports both traditional single-letter
+options and mnemonic long option names.
+Long option names are indicated with @samp{--} instead of @samp{-}.
+Abbreviations for option names are allowed as long as they are unique.
+
+The @code{ebndaily} command recognizes following command line options.
+
+@table @code
+@item -a @var{integer}
+@itemx --ages @var{integer}
+Keep @var{integer} ages of old syslog files.
+The default value is @samp{7}.
+
+@item -c @var{compressor}
+@itemx --compressor @var{compressor}
+Specify a commpression program to compress old syslog files.
+The @var{compressor} must be @samp{compress}, @samp{gzip}, @samp{bzip2}
+or @samp{none}.
+The default value is @samp{none}.
+
+When @samp{compress} is specified or no @samp{--compressor} (@samp{-c})
+option is specified, the @samp{compress} command is used for compression
+and the suffix @file{.Z} are added to the old syslog files.
+When @samp{gzip} is specified, the @code{gzip} command is used for
+compression and the suffix @file{.gz} are added to the old syslog files.
+When @samp{bzip2} is specified, the @code{bzip2} command is used for
+compression and the suffix @file{.bz2} are added to the old syslog files.
+When @samp{none} is specified, no compression program is used and 
+no suffix is added to the old syslog files.
+
+@item -l @var{file}
+@itemx --log-file @var{file}
+Specify the current syslog file.
+@*
+The default value is @file{/usr/local/var/ebnetd/log/ebnetd.log}, if
+EBNETD has been installed under @file{/usr/local}, and if a directory
+for modifiable single-machine data (@code{localstatedir}) and 
+a directory for log files (specified by @code{--with-logdir}) have
+not been changed at the installation.
+The default filename is shown in the help message.
+
+@item -h
+@itemx --help
+Output help message to standard error, then exit.
+
+@item -v
+@itemx --version
+Output version number to standard error, then exit.
+
+@item -@var{n}
+@itemx --fast
+@itemx --best
+These options are passed to @code{gzip} and @code{bzip2}
+(@pxref{Invoking gzip, , Invoking @code{gzip}, gzip, Gzip User's Manual},
+for more details).
+If neither @code{gzip} nor @code{bzip2} is used, these options are merely
+ignored.
+@end table
+
+@c ===================================================================
+@node Network License,  , Daily Works, Top
+@chapter Network License
+
+Some CD-ROM book publishers optionally provide network license.
+It allows multiple users on your LAN to access the book.
+The license may limit the maximum number of users accessing to the
+book at the same time (since the contents of network license is various,
+please contact publishers of your book for more details).
+
+In the configuration file (usually @code{ebnetd.conf}), there are two
+@code{max-clients} parameters.
+One is single directive
+(@pxref{Single Directive List, ,@code{max-clients}}),
+and another is sub-directive in the @code{book}
+(@pxref{Book Group Directive, , @code{max-clients}}).
+group directive.
+Both limits the maximum number of clients.
+
+They help follow the the network license, but they are not perfect.
+The book should be readable to an user only while his client connects
+to a server, but neither server or client doesn't check connection
+status frequently.
+For example, server closes the connection when idle timeout occurs.
+However, client keeps displaying contents of the CD-ROM book until
+user requests another contents.
+
+Setting @code{max-clients} for network license is still a good idea.
+It is important that you don't overestimate the abilities of
+@code{max-clients}.
+
+@c -------------------------------------------------------------------
+@contents
+@bye

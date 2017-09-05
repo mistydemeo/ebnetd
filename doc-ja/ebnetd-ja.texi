@@ -1,0 +1,2322 @@
+\input texinfo		@c -*-texinfo-*-
+@c %** start of header
+@setfilename ebnetd-ja.info
+@settitle ebNETD
+@c %** end of header
+
+@include version.texi
+
+@dircategory CD-ROM Book Utilities
+@direntry
+* EBNETD: (ebnetd).             Network EB Library server.
+* NDTPD: (ndtpd).               Server for accessing CD-ROM books with NDTP.
+* ebHTTPD: (ebhttpd).           Server for accessing CD-ROM books with HTTP.
+@end direntry
+
+@ifinfo
+EBNETD: CD-ROM 書籍サーバ群、笠原基之
+
+Copyright @copyright{} 1997, 98, 99, 2000, 01, 03  Motoyuki Kasahara
+
+Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies.
+
+@ignore
+Permission is granted to process this file through TeX and print the
+results, provided the printed document carries copying permission
+notice identical to this one except for the removal of this paragraph
+(this paragraph not being relevant to the printed manual).
+
+@end ignore
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided that the entire
+resulting derived work is distributed under the terms of a permission
+notice identical to this one.
+
+Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions,
+except that this permission notice may be stated in a translation approved
+by Free Software Foundation, Inc.
+@end ifinfo
+
+@titlepage
+@title ebNETD/NDTPD/ebHTTPD
+@subtitle CD-ROM 書籍サーバ群
+@subtitle 第 @value{EDITION} 版 (EBNETD バージョン @value{VERSION} に対応)
+@subtitle @value{UPDATED}
+@author 笠原 基之
+
+@page
+@vskip 0pt plus 1filll
+Copyright @copyright{} 1997, 98, 99, 2000, 01, 03  Motoyuki Kasahara
+
+Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies.
+
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided that the entire
+resulting derived work is distributed under the terms of a permission
+notice identical to this one.
+
+Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions,
+except that this permission notice may be stated in a translation approved
+by Free Software Foundation, Inc.
+@end titlepage
+
+@node Top, Introduction, (dir), (dir)
+@ifinfo
+この文書は第 @value{EDITION} 版です。EBNETD バージョン @value{VERSION}
+に対応しています。
+@end ifinfo
+
+@menu
+* Introduction::                はじめに
+* Installation::                EBNETD のインストール
+* Configuration File::          設定ファイルの書き方
+* Configuration Checker::       設定ファイルの確認
+* Setup Your Environment::      環境設定
+* Start ebnetd::                @code{ebnetd} の起動
+* Start ndtpd::                 @code{ndtpd} の起動
+* Start ebhttpd::               @code{ebhttpd} の起動
+* Terminate and Restart::       @code{ndtpd} の終了および再始動
+* Daily Works::                 毎日の管理作業
+* Network License::             ネットワークライセンス
+
+@detailmenu
+ --- The Detailed Node Listing ---
+
+EBNETD のインストール
+
+* Basic Installation::          基本的なインストール方法
+* Compilers and Options::       コンパイラとコンパイルオプションの選択
+* Multiple Architectures::      複数のアーキテクチャでコンパイル
+* Installation Names::          インストール名の変更
+* Optional Features::           取捨選択の可能な機能
+* System Type::                 システムの種類
+* Sharing Defaults::            @code{configure} スクリプトのデフォルト
+                                を共通の値に設定するには
+* Operation Controls::          @code{configure} の動作の制御
+* Optional Feature List::       取捨選択の可能な機能の一覧
+
+設定ファイル
+
+* Single Directive::            単独指示子の一般形
+* Single Directive List::       単独指示子の一覧
+* Group Directive::             複合指示子の一般形
+* Book Group Directive::        複合指示子の一覧
+* Sample Configuration::        設定ファイルの例
+
+設定ファイルのチェックコマンド
+
+* Invoking ebncheck::           @code{ebncheck} の実行
+* ebncheck Options::            @code{ebncheck} のオプション
+
+環境設定
+
+* Services::                    @file{services} ファイルの設定
+* Syslog::                      @file{syslog.conf} ファイルの設定
+* Working Directory::           EBNETD の作業用ディレクトリ
+* Mount CD-ROM Books::          CD-ROM 書籍のマウント
+* Appendix Package::            appendix パッケージの用意
+
+@code{ebnetd} の起動
+
+* ebnetd Standalone::           @code{ebnetd} をスタンドアロンで起動
+* ebnetd Child of inetd::       @code{ebnetd} を @code{inetd} 経由で起動
+* ebnetd Child of xinetd::      @code{ebnetd} を @code{xinetd} 経由で起動
+* ebnetd Test with telnet::     @code{telnet} による @code{ebnetd} の確認
+* ebnetd Options::              @code{ebnetd} のオプション
+
+@code{ndtpd} の起動
+
+* ndtpd Standalone::            @code{ndtpd} をスタンドアロンで起動
+* ndtpd Child of inetd::        @code{ndtpd} を @code{inetd} 経由で起動
+* ndtpd Child of xinetd::       @code{ndtpd} を @code{xinetd} 経由で起動
+* ndtpd Test with telnet::      @code{telnet} による @code{ndtpd} の確認
+* ndtpd Options::               @code{ndtpd} のオプション
+
+@code{ebhttpd} の起動
+
+* ebhttpd Standalone::          @code{ebhttpd} をスタンドアロンで起動
+* ebhttpd Child of inetd::      @code{ebhttpd} を @code{inetd} 経由で起動
+* ebhttpd Child of xinetd::     @code{ebhttpd} を @code{xinetd} 経由で起動
+* ebhttpd Test with telnet::    @code{telnet} による @code{ebhttpd} の確認
+* ebhttpd Options::             @code{ebhttpd} のオプション
+
+サーバの終了および再始動
+
+* Invoke Server Controler::     サーバ制御コマンドの実行
+* ebncontrol Options::          サーバ制御コマンドのオプション
+
+毎日の管理作業
+
+* ebndaily Options::            @code{ebndaily} のオプション
+
+@end detailmenu
+@end menu
+
+@c ===================================================================
+@node Introduction, Installation, Top, Top
+@chapter はじめに
+
+本 EBNETD 配布パッケージには、@code{ebnetd}, @code{ndtpd}, @code{ebhttpd}
+という 3 つのサーバコマンドを収録しています。
+これらはいずれも、TCP/IP を用いて遠隔ホストの CD-ROM 書籍にアクセスする
+ためのサーバです。
+UNIX 系 OS のシステム上で動作させることができます。
+
+@table @code
+@item ebnetd
+@code{ebnetd} は EBNET プロトコルのサーバで、EBNET は @dfn{EB ライブラリ}
+と通信を行うために設計されたプロトコルです。
+
+EB ライブラリは、CD-ROM 書籍のアクセスを行う、C 言語のライブラリです。
+@code{ndtpd}, @code{ebhttpd} も EB ライブラリを使用しています。
+@code{ebnetd} を使用すると、EB ライブラリのアプリケーションは、遠隔ホスト
+の CD-ROM 書籍にアクセスできるようになります。
+EB ライブラリについての詳細は、@url{http://www.sra.co.jp/m-kasahr/eb/}
+を参照して下さい。
+
+@item ndtpd
+@code{ndtpd} は NDTP (Network Dictionary Transfer Protocol) サーバです。
+NDTP を最初に実装したサーバは @dfn{dserver} で、@code{ndtpd} は
+dserver-2.2 と上位互換性があります。
+
+Web ページ
+@url{http://www.sra.co.jp/m-kasahr/ndtpd/related.html}
+に @code{ndtpd} と通信可能な NDTP クライアントの一覧が載っています。
+
+@item ebhttpd
+@code{ebhttpd} は WWW (World Wide Web) サーバです。
+HTTP/1.0 および HTTP/1.1 (Hypertext Transfer Protocol version 1.0 
+および 1.1) に対応しています。
+@end table
+
+これらサーバ群は、EB, EBG, EBXA, EBXA-C, S-EBXA および EPWING 形式の
+CD-ROM 書籍に対応しています。
+これらの形式の CD-ROM 書籍は、日本で一般的に使われています。
+CD-ROM 書籍自体は ISO 9660 形式になっていますので、他の ISO 9660 形式
+と同じ要領でマウントすることができます。
+サーバは、デフォルトではスタンドアロンで動作しますが、@code{inetd} 
+経由で起動するようにすることも可能です。
+
+EBNETD はフリーソフトウェアです。あなたは、Free Software Foundation が
+公表した GNU General Public License (GNU 一般公有使用許諾) バージョン 
+2 あるいはそれ以降の各バージョンの中からいずれかを選択し、そのバージョ
+ンが定める条項に従って本プログラムを再頒布または変更することができます。
+
+EBNETD は有用とは思いますが、頒布にあたっては、市場性及び特定目的適合性
+についての暗黙の保証を含めて、いかなる保証も行ないません。詳細について
+は GNU General Public License をお読み下さい。
+
+加えて、あなたは自分の所有する CD-ROM 書籍の使用許諾も守らなくてはいけ
+ません。
+EBNETD はフリーソフトウェアですが、あなたの書籍が自由に使えるものである
+とは限りません。
+使用を許されていないホストやユーザに対して、あなたの書籍を公開しないで
+下さい。
+
+この文書は EBNETD バージョン @value{VERSION} に対応しています。
+
+最新の EBNETD は
+@url{ftp://ftp.sra.co.jp/pub/misc/eb/} から入手できます。
+
+EBNETD に関する情報は
+@url{http://www.sra.co.jp/people/m-kasahr/ebnetd/} から得ることができます。
+
+コメントやバグの報告は
+@email{m-kasahr@@sra.co.jp} 宛に、日本語か英語でお送り下さい。
+
+@c ===================================================================
+@node Installation, Configuration File, Introduction, Top
+@chapter EBNETD のインストール
+
+EBNETD は CD-ROM 書籍にアクセスするために、EB ライブラリを使用しています。
+EBNETD をインストールする前に、EB ライブラリ 3.3 もしくはそれ以降の
+バージョンをインストールする必要があります。
+
+最新の EB ライブラリは
+@url{ftp://ftp.sra.co.jp/pub/misc/eb/}
+から入手できます。
+
+EB ライブラリに関する情報は
+@url{http://www.sra.co.jp/people/m-kasahr/eb/}
+から得ることができます。
+
+@menu
+* Basic Installation::          基本的なインストール方法
+* Compilers and Options::       コンパイラとコンパイルオプションの選択
+* Multiple Architectures::      複数のアーキテクチャでコンパイル
+* Installation Names::          インストール名の変更
+* Optional Features::           取捨選択の可能な機能
+* System Type::                 システムの種類
+* Sharing Defaults::            @code{configure} スクリプトのデフォルト
+                                を共通の値に設定するには
+* Operation Controls::          @code{configure} の動作の制御
+* Optional Feature List::       取捨選択の可能な機能の一覧
+@end menu
+
+@c -------------------------------------------------------------------
+@node Basic Installation, Compilers and Options, Installation, Installation
+@section 基本的なインストール方法
+
+以下に記したのは、一般的なインストールの方法です。
+
+@code{configure} シェルスクリプトは、コンパイル中に使用される、システム
+依存のチェック項目の値を正しく推定しようと努めます。
+@code{configure}は、判定した値を利用してパッケージ中の各ディレクトリの 
+@file{Makefile}を生成します。
+加えて、システムに依存する定義内容を記した @file{.h} ファイルを一つ
+もしくはいくつか生成することもあります。
+最後に、@code{configure} は @code{config.status} というシェルスクリプト
+@file{config.cache}、@file{config.log} というファイルを生成します。
+@code{config.status} は、現在のコンフィグレーションを後で再度生成すると
+きに用います。
+@file{config.cache} は、再度コンフィグレーションを行うときにスピードアップ
+を図るために、テストの結果を保存してあります。
+@file{config.log} には、(主に @code{configure} のデバッグに役立つような)
+コンピュータの出力が記録されています。
+
+あなたがパッケージをコンパイルするにあたって、特別なことをしなければ
+ならなかったときは、@code{configure} がどのような判定をしていたのかを
+調べてみて、@file{README} に記されたアドレスに宛てて、相違点や指摘を
+メールで送って下さい。
+そうすれば、次回のリリースに向けて検討されると思います。
+もし、@file{config.cache} に見られたくない結果が記録されている場合は、
+その部分を削除したり編集したりしても構いません。
+
+@file{configure.in} というファイルは、@code{autoconf} というプログラムが 
+@file{configure} を生成するときに参照します。
+あなたにとって @file{configure.in} というファイルが必要になるのは、
+@file{configure.in} の内容を変更したい場合か、@code{autoconf} のもっと
+新しいバージョンで @file{configure} を生成したい場合の、いずれかだけです。
+
+@noindent
+パッケージの最も単純なコンパイル方法は次の通りです。
+
+@enumerate
+@item
+パッケージのソースコードが置かれているディレクトリに移動 (@code{cd}) し、
+あなたのシステム向けのコンフィグレーションを行うために @samp{./configure}
+を実行します。
+あなたが古いバージョンの System V で @code{csh} を使用している場合は、
+@code{csh} 自身がスクリプトを実行してしまわないように、
+@samp{sh. /configure} とする必要があるかも知れません。
+
+
+@code{configure} の実行には少々時間がかかります。
+実行している間は、どのような項目をチェックしているのかを記したメッセージ
+が出力されます。
+
+@item
+@samp{make} を実行してパッケージをコンパイルします。
+
+@item
+任意で、パッケージに付属しているセルフテストを実行する場合は、
+@samp{make check} を実行します。
+
+@item
+@samp{make install} を実行して、プログラムおよびデータファイル、
+ドキュメントをインストールします。
+
+@item
+@samp{make clean} を実行すると、生成されたプログラムのバイナリファイルや
+オブジェクトファイルを、ソースコードの置かれたディレクトリから消すことが
+できます。
+一緒に @code{configure} が生成したファイルも消すには (こうすることで、
+別の種類のコンピュータでパッケージをコンパイルできます)、
+@samp{make distclean} を実行します。
+@samp{make maintainer-clean} というターゲットも用意されていますが、
+これは主にそのパッケージの開発者のためのものです。
+@samp{make maintainer-clean} を実行してしまうと、パッケージに元々
+含まれていたファイルを再生成するために、他のいろいろなプログラムを
+入手しなくてはいけなくなるかも知れません。
+@end enumerate
+
+@c -------------------------------------------------------------------
+@node Compilers and Options, Multiple Architectures, Basic Installation, Installation
+@section コンパイラとコンパイルオプション
+
+システムによっては、@code{configure} スクリプトが理解していない、
+コンパイルやリンクのための特別なオプションを与える必要があります。
+環境変数を通して、@code{configure} に対して初期値を与えることができます。
+Bourne シェルと互換性のあるシェルを使用している場合は、次のようにします。
+@example
+CC=c89 CFLAGS=-O2 LIBS=-lposix ./configure
+@end example
+
+@noindent
+@code{env} というコマンドがシステムにあるならば、次のようにすることも
+できます。
+@example
+env CPPFLAGS=-I/usr/local/include LDFLAGS=-s ./configure
+@end example
+
+@c -------------------------------------------------------------------
+@node Multiple Architectures, Installation Names, Compilers and Options, Installation
+@section 複数のアーキテクチャでのインストール
+
+オブジェクトファイルをアーキテクチャ毎に別々のディレクトリに置くように
+することにより、種類の異なる複数のコンピュータが、パッケージを同時に
+コンパイルできます。
+これを行うには、GNU @code{make} のように、@code{VPATH} 変数に対応した
+@code{make} を使用する必要があります。
+オブジェクトファイルや実行形式のファイルを置いておきたいディレクトリに
+移動 (@code{cd}) して、そこで @code{configure} スクリプトを実行します。
+@code{configure} は、自身の存在するディレクトリおよび @file{..} に
+ソースコードがあるかどうかを自動的に調べます。
+
+@code{VPATH} 変数に対応していない @code{make} を使用している場合は、
+ソースコードディレクトリの下で、一度に一つのアーキテクチャずつコンパイル
+していくしかありません。一つのアーキテクチャのコンパイルが終わったら、
+別のアーキテクチャでコンパイルするために再コンフィグレーションを行う
+前に @samp{make distclean} を実行して下さい。
+
+@c -------------------------------------------------------------------
+@node Installation Names, Optional Features, Multiple Architectures, Installation
+@section インストール名
+
+デフォルトでは、@samp{make install} を実行すると、パッケージ中のファイル
+が @file{/usr/local/bin}、@file{/usr/local/man} などにインストール
+されます。
+@code{configure} に対して @samp{--prefix=@var{パス}} オプションを指定
+することで、@file{/usr/local} 以外のインストール先を指定するとができます。
+
+アーキテクチャに依存したファイルとそうでないファイルを、それぞれ異なった
+インストール先にインストールすることも可能です。
+@code{configure} に対して @samp{--exec-prefix=@var{パス}} を指定すると、
+プログラムやライブラリなどのインストール先が @var{パス} に変わります。
+ドキュメントや、データファイルなどは、通常のインストール先にインストール
+されます。
+
+加えて、あなたが通常とは異なったディレクトリレイアウトを採用している場合
+は、@samp{--bindir=@var{パス}} といったオプションを指定することで、特定
+の種類のファイルのインストール先だけを変えることができます。
+@samp{configure --help} を実行すると、どのようなディレクトリを変更できる
+のか、どのような種類のファイルがどのディレクトリにインストールされるのかが
+分かります。
+
+パッケージがサポートしているならば、@code{configure} に 
+@samp{--program-prefix=@var{接頭辞}} や
+@samp{--program-suffix=@var{接尾辞}} というオプションを与えることで、
+インストール時にプログラム名に接頭辞や接尾辞を付加することができます。
+
+@c -------------------------------------------------------------------
+@node Optional Features, System Type, Installation Names, Installation
+@section 取捨選択の可能な機能
+
+パッケージによっては、@code{configure} が @samp{--enable-@var{機能}} 
+オプションを認識することがあります。
+ここで @var{機能} は、パッケージにおいて取捨選択の可能な機能を表します。
+また、@samp{--with-@var{パッケージ}} オプションを認識することもあります。
+ここで @var{パッケージ} は、@samp{gnu-as} や (X ウィンドウシステムの
+ための) @samp{x} といったものです。
+@file{README} ファイルでは、どのような @samp{--enable-}、@samp{--with-}
+オプションをパッケージが認識するのか、記しておくべきです。
+
+一般に、X ウィンドウシステムを使用しているパッケージでは、@code{configure}
+は X の include ファイルとライブラリファイルを自動的に見つけ出すことが
+できますが、見つけられない場合は、@code{configure} のオプション
+@samp{--x-includes=@var{ディレクトリ}} と
+@samp{--x-libraries=@var{ディレクトリ}} を用いることでディレクトリの
+位置を明示的に指定することができます。
+
+@c -------------------------------------------------------------------
+@node System Type, Sharing Defaults, Optional Features, Installation
+@section システムの種類の指定
+
+設定項目によっては、@code{configure} が自動的に識別できなくても、
+パッケージが動作するホストの種類を基に決定しなければならないときもあります。
+通常、@code{configure} はそのホストの種類を識別することができますが、
+もしも @code{configure} がホストの種類を識別できないという旨のメッセージ
+を出力してきたときは、@samp{--host=@var{種類}} オプションを与えて下さい。
+@var{種類} は @samp{sun4} のようなシステムの種類を表した短い名前か、
+あるいは次のように 3 つの項からなる正式名称のいずれかです。
+@example
+@var{CPU}-@var{社名}-@var{システム}
+@end example
+@noindent
+それぞれの項にどのような値が指定可能なのかについては、@file{config.sub}
+ファイルをご覧下さい。
+パッケージが @file{config.sub} を含んでいないのであれば、そのパッケージ
+はホストの種類を識別する必要がないことを意味しています。
+
+あなたがクロスコンパイルのためのコンパイラツールをインストールしようと
+している場合は、@samp{--target=@var{種類}} オプションを使用することで、
+どのホスト向けのコードを生成させるのかを指定できます。そして、
+@samp{--build=@var{種類}} オプションを使用することで、パッケージを
+コンパイルしようとしているシステムの種類を指定することができます。
+
+@c -------------------------------------------------------------------
+@node Sharing Defaults, Operation Controls, System Type, Installation
+@section デフォルト値の共有
+
+複数の @code{configure} スクリプトに対して共通のデフォルト値を設定したい
+ときは、サイト毎に @file{config.site} というシェルスクリプトを作成し、
+そこに @code{CC} や @code{cache_file}、@code{prefix} といった変数の
+デフォルト値を記述して下さい。
+@code{configure} は @file{@var{prefix}/share/config.site} があれば、
+それを調べ、次に @file{@var{prefix}/etc/config.site} があればそれを
+調べます。
+あるいは、環境変数 @code{CONFIG_SITE} を設定することで、サイト固有の
+スクリプトの位置を指定することもできます。
+ただし、すべての @code{configure} スクリプトがサイト固有のスクリプトを見
+に行くわけではありませんので、ご注意下さい。
+
+@c -------------------------------------------------------------------
+@node Operation Controls, Optional Feature List, Sharing Defaults, Installation
+@section @code{configure} の動作の制御
+
+@code{configure} は次に記したオプションを認識します。
+
+@table @code
+@item --cache-file=@var{ファイル}
+テストの結果の読み込みや書き出しに使用するファイルは、通常
+@file{./config.cache} ですが、代わりに @var{ファイル} を用います。
+@code{configure} をデバッグするときは、@var{ファイル} に @file{/dev/null}
+を指定することで、キャッシュを抑制することができます。
+
+@item --help
+@code{configure} のオプションの一覧を表示して、終了します。
+
+@item --quiet
+@itemx --silent
+@itemx -q
+どのチェック項目を行っているのかを示すメッセージを出力しません。
+通常のメッセージ出力をすべて抑制するには、@file{/dev/null} へ
+リダイレクトして下さい (ただし、エラーメッセージについては出力されて
+しまいますが)。
+
+@item --srcdir=@var{ディレクトリ}
+パッケージのソースコードを探し出す際に、@var{ディレクトリ} を探します。
+通常、@code{configure} は自動的にディレクトリを決定します。
+
+@item --version
+@code{configure} スクリプトがどのバージョンの Autoconf によって生成された
+のかを表示して、終了します。
+@end table
+
+@noindent
+役に立つ場面は限られますが、@code{configure} には他にもいくつかの
+オプションが用意されています。
+
+@c -------------------------------------------------------------------
+@node Optional Feature List,  , Operation Controls, Installation
+@section 選択可能な機能の一覧
+
+本パッケージの @code{configure} は以下に記した
+@samp{--enable-} および @samp{--with-} オプションを認識します。
+
+@table @code
+@item --with-logdir=@var{dir}
+@code{ebndaily} がローテーションを行う syslog ファイル
+が置かれるディレクトリのデフォルトとして @var{dir} を指定します。
+無指定時は、@samp{@var{localstatedir}/ebnetd/log} です。
+
+@item --with-eb-conf=@var{file}
+EB ライブラリの設定ファイルとして @var{file} を読み込みます。
+デフォルトは、@samp{@var{sysconfdir}/eb.conf} です。
+
+@item --with-gnu-ld
+C コンパイラが GNU ld を使用していると仮定します。
+デフォルトは、@samp{no} です。
+
+@item --enable-ipv6
+IPv6 に対応させます。
+システムが IPv6 に対応している場合、
+The default value is @samp{yes} if the system supports IPv6.
+
+@end table
+
+@c ===================================================================
+@node Configuration File, Configuration Checker, Installation, Top
+@chapter 設定ファイル
+
+@code{ebnetd}, @code{ndtpd}, @code{ebhttpd} を始動させるためには、まず
+設定ファイルを編集する必要があります。
+サーバは、始動時および再始動時にこのファイルを読み込みます。
+このファイルの内容によって、サーバの様々な挙動が決定されます。
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、マシン固有の
+読み込み専用のデータを置くディレクトリ (@code{sysconfdir}) の位置を
+変更していなければ、無指定時に読み込まれる設定ファイルは
+@file{/usr/local/etc/ebnetd.conf} になります。
+設定ファイルの位置は、コマンドラインオプション @samp{--configuration-file}
+(あるいは @samp{-c}) を用いることで変更が可能です
+(@pxref{ebnetd Options, , @code{ebnetd} のオプション})。
+
+設定ファイルの中では、空行、および空白以外の最初の文字がハッシュ記号 
+(@samp{#}) である行は無視されます。
+他の行はすべて、@dfn{単独指示子 (single directive)} か
+@dfn{複合指示子 (group directive)} のいずれかでなくてはなりません。
+単独指示子と複合指示子は、どのような順序で定義しても差し支えありません。
+
+各行は、改行文字を含め 511 文字を越えてはなりません。
+
+@menu
+* Single Directive::            単独指示子の一般形
+* Single Directive List::       単独指示子の一覧
+* Group Directive::             複合指示子の一般形
+* Book Group Directive::        複合指示子の一覧
+* Sample Configuration::        設定ファイルの例
+@end menu
+
+@c -------------------------------------------------------------------
+@node Single Directive, Single Directive List, Configuration File, Configuration File
+@section 単独指示子の一般形
+
+単独指示子とは、1 行で完結する指示子です。
+単独指示子の一般形は次の通りです。
+
+@example
+@var{指示子の名前}    @var{指示子の値}
+@end example
+
+@noindent
+以下の例では、@code{syslog-facility} が指示子の名前、@file{local0} が
+その値です。
+
+@example
+syslog-facility    local0
+@end example
+
+@noindent
+指示子名の大文字と小文字は区別されますので、@samp{syslog-facility}
+を @samp{Syslog-Facility} と書くことはできません。
+指示子の名前と値の区切りには、空白かタブを用います。
+連続した空白とタブが、行頭および行末にあった場合、それらは無視されます。
+
+@c -------------------------------------------------------------------
+@node Single Directive List, Group Directive, Single Directive, Configuration File
+@section 単独指示子の一覧
+
+単独指示子には次のようなものがあります。
+
+@table @code
+@item ebnet-port
+@code{ebnet-port} 指示子では、@code{ebnetd} が見張るポートの番号を指定
+します。
+指示子の値は、TCP のサービス名 (例: @samp{EBNET}) か、ポート番号 
+(例: @samp{22010}) でなくてはいけません。
+@code{ebnetd} を @code{inetd} 経由で起動した場合は、この指示子は
+無視されます。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は @samp{EBNET} です。
+
+@code{ndtpd}, @code{ebhttpd} はこの指示子を常に無視します。
+
+@item ndtp-port
+@code{ndtp-port} 指示子では、@code{ndtpd} が見張るポートの番号を指定
+します。
+指示子の値は、TCP のサービス名 (例: @samp{NDTP}) か、ポート番号 
+(例: @samp{2010}) でなくてはいけません。
+@code{ebnetd} を @code{inetd} 経由で起動した場合は、この指示子は
+無視されます。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は @samp{NDTP} です。
+
+@code{ebnetd}, @code{ebhttpd} はこの指示子を常に無視します。
+
+@item http-port
+@code{http-port} 指示子では、@code{ebhttpd} が見張るポートの番号を
+指定します。
+指示子の値は、TCP のサービス名 (例: @samp{HTTP}) か、ポート番号 
+(例: @samp{80}) でなくてはいけません。
+@code{ebhttpd} を @code{inetd} 経由で起動した場合は、この指示子は
+無視されます。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は @samp{HTTP} です。
+
+@code{ebnetd}, @code{ebhttpd} はこの指示子を常に無視します。
+
+@item user
+@code{user} 指示子では、サーバプロセスの実効ユーザを指定します。
+指示子の値は、ユーザ名 (例: @samp{nobody}) か、ユーザ ID (例: @samp{65535})
+でなくてはいけません。
+別のユーザに実効ユーザを変える場合は、スーパユーザ特権を有した状態で
+サーバを起動しなくてはなりません。
+実効ユーザの変更に失敗すると、サーバは走行の継続を断念します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+この指示子を定義しなかった場合、サーバプロセスの実効ユーザは変化
+しません。
+
+@samp{ndtpuser} のようなダミーのユーザアカウントを一つ作って、それを
+この指示子で指定することをお薦めします。
+
+@item group
+@code{group} 指示子では、サーバプロセスの実効グループを指定します。
+指示子の値は、ユーザ名 (例: @samp{nogroup}) か、グループ ID
+(例: @samp{65534}) でなくてはいけません。
+実効グループの変更に失敗すると、サーバは走行の継続を断念します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することもできません。
+この指示子を定義しなかった場合、サーバプロセスの実効グループは変化
+しません。
+
+@samp{ndtpgrp} のようなダミーのグループアカウントを一つ作って、それを
+この指示子で指定することをお薦めします。
+
+@item max-clients
+@code{max-clients} 指示子では、同時にサーバに接続できるクライアントの
+数の上限を指定します。
+指示子の値は、0 以上の整数でなくてはいけません。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は @samp{1} です。
+指示子の値を 0 に設定すると、無制限になります。
+
+@item hosts
+@code{hosts} 指示子では、どのホストがサーバに接続でき、どのホストが
+接続できないのかを指定します。
+指示子の値は IP アドレス、ホスト名、@var{アドレス/ネットマスク} の
+いずれかです。
+加えて、直前に感嘆符 (@samp{!}) を付けることができます。
+指示子の値が感嘆符で始まっていた場合は、それに続く IP アドレスまたは
+ホスト名にマッチするホストからの接続要求は拒否します。
+感嘆符がない場合は、指示子の値にマッチするホストからの接続要求は許可
+します。
+
+@sp 1
+@example
+@group
+# `host.xxx.yyy.jp' からの接続を許可する。
+hosts host.xxx.yyy.jp
+
+# `127.0.0.1' からの接続を許可する。
+hosts 127.0.0.1
+
+# `192.24.1.0/24'.からの接続を拒否する。
+hosts !192.24.1.0/24
+@end group
+@end example
+
+@noindent
+ホスト名に限り、アスタリスク (@samp{*}) と疑問符 (@samp{?}) を使う
+ことができます。
+アスタリスクは、先頭の感嘆符を除いた任意の 0 文字以上の文字列にマッチ
+します。
+
+@sp 1
+@example
+@group
+# `xxx.yyy.jp' ドメインのホストからの接続を拒否する。
+hosts !*.xxx.yyy.jp
+
+# どのホストからの接続も許可する。
+hosts *
+@end group
+@end example
+
+@noindent
+疑問符は @dfn{未知のホスト名} を表します。
+
+@sp 1
+@example
+@group
+# ホスト名が分からないホストからの接続を拒否する。
+hosts !?
+@end group
+@end example
+
+@noindent
+この指示子は必ずしも定義する必要はありません。
+また、何度でも定義することが可能です。
+設定ファイルに @code{hosts} 指示子が無くてもエラーにはなりませんが、
+どのクライアントもサーバにはアクセスできなくなります。
+いずれの @code{hosts} 指示子にもマッチしないホストからの接続要求は拒否
+されます。
+複数の @code{hosts} にマッチする場合は、設定ファイルの先頭に最も近い
+ものが採用されます。
+
+以下の例では、@samp{sub1.xxx.yyy.jp} ドメインに属するホストからの
+接続要求は拒否していますが、それ以外の @samp{xxx.yyy.jp} ドメインに
+属するホストからの接続要求は許可しています。
+
+@sp 1
+@example
+@group
+hosts !*.sub1.xxx.yyy.jp
+hosts *.xxx.yyy.jp
+@end group
+@end example
+
+この例では、指示子の順序は重要です。
+順序を引っくり返してしまうと、@samp{sub1.xxx.yyy.jp} を含め、
+@samp{xxx.yyy.jp} ドメインに属するすべてのホストがサーバに接続できて
+しまいます。
+
+@sp 1
+@example
+@group
+# 間違い!!!
+hosts *.xxx.yyy.jp
+hosts !*.sub1.xxx.yyy.jp
+@end group
+@end example
+
+ホスト名を比較する際、サーバは常にクライアントの正式ホスト名を使用
+します。
+ホスト名は、クライアントのアドレスから DNS などの名前解決のサービス
+を利用して取得します。
+別名は使用されませんので、注意して下さい。
+
+IPv6 アドレスおよび @var{IPv6 アドレス/ネットマスク} パターンを指定
+することも可能です。
+IPv6 対応機能を有効にしてコンパイルされていないサーバは IPv4
+クライアントとしか通信できませんが、設定ファイルに書かれた IPv6
+アドレスを解釈することはできます。
+
+@sp 1
+@example
+@group
+# `12ab:0:0:cd3/60' と `::1' からの接続を許可する。
+hosts ::1
+hosts 12ab:0:0:cd3/60
+@end group
+@end example
+
+@noindent
+@code{hosts} 指示子では、IPv4 アドレス (例 @samp{192.168.1.1}) とそれ
+に対応する IPv4 射影 IPv6 アドレス (例 @samp{::ffff:192.168.1.1}) は
+等価になります。
+つまり、IPv4 クライアント @samp{192.168.1.1} は @code{hosts} 指示子
+@samp{::ffff:192.168.1.1} にマッチし、IPv6 クライアント
+@samp{::ffff:192.168.1.1} は @code{hosts} 指示子 @samp{192.168.1.1}
+にマッチします。
+
+@item timeout
+@code{timeout} 指示子では、交信が途絶えたクライアントとの接続を
+サーバが切断するまでの秒数を指定します。
+指示子の値は、0 以上の整数でなくてはいけません。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は @samp{900} (15分) です。
+指示子の値を 0 に設定すると、時間切れによる切断は行いません。
+
+@item work-path
+@code{work-path} 指示子では、サーバの作業用ディレクトリ
+のパスを指定します (@pxref{Working Directory, , 作業用ディレクトリ})。
+指示子の値は、絶対パスでなくてはいけません。
+サーバはこのディレクトリの下に作業用のファイルをいくつか作成します。
+また、異常終了によってコアファイルをダンプするときは、このディレクトリ
+に作成します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、マシン固有の
+更新されうるデータを置くディレクトリ (@code{localstatedir}) を変更して
+いなければ、無指定時の値は @file{/usr/local/var/ebnetd/} になります。
+
+@item max-hits
+@code{max-hits} 指示子では、一回の検索でサーバが返すヒット数の上限を
+指定します。
+サーバは、この指示子で指定された値と同じだけのヒット数を見つけた時点
+で、ただちに検索を中止します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は @samp{50} です。
+指示子の値を 0 に設定すると、無制限になります。
+
+@code{ebnetd} はこの指示子を常に無視します。
+
+@item max-text-size
+@code{max-text-size} 指示子は、サーバがクライアントへの応答 1 回で
+返すテキストのバイト数の上限を指定します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は @samp{32768} です。
+指示子の値を 0 に設定すると、無制限になります。
+
+@code{ebnetd} はこの指示子を常に無視します。
+
+@item syslog-facility
+@code{syslog-facility} 指示子では、syslog のファシリティを指定します
+(例: @samp{daemon}, @samp{local0} など)。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時は @samp{daemon} を用います。
+また、サーバが設定ファイルを読み込み終わるまでは、@samp{daemon} が
+用いられます。
+@end table
+
+@c -------------------------------------------------------------------
+@node Group Directive, Book Group Directive, Single Directive List, Configuration File
+@section 複合指示子の一般形
+
+複合指示子 (指示命令) とは、記述が設定ファイル内の複数行に渡る指示子です。
+複合指示子の一般形は次の通りです。
+
+@example
+@group
+begin @var{複合指示子の名前}
+    @var{副指示子の名前}    @var{副指示子の値}
+             : 
+             : (repeated)
+             : 
+end
+@end group
+@end example
+
+@noindent
+キーワード @code{begin} は、複合指示子の開始を表します。
+@code{begin} は後ろに @var{複合指示子の名前} を引数として取ります。
+@code{begin} と @var{複合指示子の名前} は空白かタブで区切り、両方とも
+同じ行の中に置きます。
+キーワード @code{end} は、複合指示子の終了を表します。
+@code{end} は、単独で 1 行にして置きます。
+
+EBNETD バージョン @value{VERSION} では、使用できる複合指示子の名前は
+@code{book} だけです。
+それぞれの @dfn{副指示子} は、@code{begin} と @code{end} の行の間に
+置きます。
+副指示子に関する記述の一般的な規則は、単独指示子と変わりません
+(たとえば、@var{副指示子の名前}と @var{副指示子の値} は空白かタブで
+区切ることなど)。
+
+以下は、 @code{book} 複合指示子の記述例です。
+
+@example
+@group
+begin book
+        name            EJDICT
+        title           English Japanese Dictionary
+        path            /mnt/cdrom
+        hosts           127.0.0.1 
+        hosts           host.your.domain       
+end
+@end group
+@end example
+
+@c -------------------------------------------------------------------
+@node Book Group Directive, Sample Configuration, Group Directive, Configuration File
+@section @code{book} 複合指示子
+
+一つの @code{book} 複合指示子 は一冊の CD-ROM 書籍に対応しますので、
+CD-ROM 書籍一冊ごとにこの複合指示子を定義しなくてはいけません。
+@code{book} 複合指示子の副指示子として、EBNETD が認識するものは次の通り
+です。
+
+@table @code
+@item name
+@code{name} 副指示子では、その書籍の名前を指定します。
+副指示子の値に用いることができるのは、英小文字 (@samp{a}..@samp{z})、
+数字 (@samp{0}..@samp{9})、下線 (@samp{_})、ハイフン (@samp{-}) だけで、
+長さは 14 文字までです。
+この名前は、書籍を識別するために使いますので、各書籍には異なる名前を
+付けなくてはいけません。
+この副指示子は、それぞれの @code{book} 複合指示子に必須です。
+また、1 つの @code{book} 複合指示子で 2 度以上定義することはできません。
+
+@item title
+@code{title} 副指示子では、その書籍の題名を指定します。
+副指示子の値には、改行文字とナル文字 (@samp{\0}) を除く任意の文字を
+使って指定することができますが、長さは 80 バイトまでです。
+EUC (Extended Unix Code) を用いれば日本語の文字も使用可能です。
+副指示子の値の中に空白やタブを用いることも可能で、これらは他の文字と
+同じく一文字として解釈されます。
+
+この副指示子は、それぞれの @code{book} 複合指示子に必須です。
+また、1 つの @code{book} 複合指示子で 2 度以上定義することはできません。
+
+@item path
+@code{path} 副指示子では、その書籍の絶対パスを指定します。
+パスはその書籍のトップディレクトリ、つまり @file{CATALOG} または
+@file{CATALOGS} ファイルの存在するディレクトリを指してしなくては
+いけません。
+
+この副指示子は、それぞれの @code{book} 複合指示子に必須です。
+また、1 つの @code{book} 複合指示子で 2 度以上定義することはできません。
+
+@item appendix-path
+@code{appendix-path} 副指示子では、その書籍に対応する appendix (付録) 
+パッケージの絶対パスを指定します。
+パスは appendix パッケージのトップディレクトリ、つまり @file{CATALOG} 
+または @file{CATALOGS} ファイルの存在するディレクトリを指してしなくては
+いけません。
+
+この副指示子は、必ずしも定義する必要はありません。
+また、1 つの @code{book} 複合指示子で 2 度以上定義することはできません。
+書籍を使う上で、appendix パッケージは必須ではありませんが、ないと外字が
+識別不可能になるため、読みづらいかも知れません。
+
+@item max-clients
+@code{max-clients} 副指示子には、この書籍を同時にいくつのクライアントが
+使うことができるのかを指定します。
+副指示子の値には、0 以上の整数を指定します。
+この副指示子は、必ずしも定義する必要はありません。
+また、1 つの @code{book} 複合指示子で 2 度以上定義することはできません。
+無指定時の値は @samp{1} です。
+0 を指定すると、無制限になります。
+
+@code{work-path} (@pxref{Working Directory}) に共通の値をセットしておくと、
+クライアントの数が @code{ebnetd}, @code{ndtpd}, @code{ebhttpd} 間で
+共有されます。
+たとえば、ある瞬間にある書籍をアクセスしている @code{ebnetd} クライアント
+が 2 つ、@code{ndtpd} クライアントが 3 つあったとすると、サーバは
+5 つのクライアントが書籍にアクセスしているものと判断します。
+
+@item hosts
+@code{hosts} 副指示子には、この書籍にどのホストがアクセスできて、どの
+ホストができないのかを指定します。
+この副指示子は、必ずしも定義する必要はありません。
+また、1 つの @code{book} 複合指示子で何度でも定義することが可能です。
+@code{book} 複合指示子が @code{hosts} 副指示子を持たなくてもエラーには
+なりませんが、その書籍はどのクライアントからもアクセスできません。
+
+この副指示子の表記方法は、単独指示子の @code{hosts} と同じです。
+@end table
+
+@c --------------------------------------------------------------------
+@node Sample Configuration,  , Book Group Directive, Configuration File
+@section 設定ファイルの例
+
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、マシン固有の
+読み込み専用のデータを置くディレクトリ (@code{sysconfdir}) の位置を変更
+していなければ、この設定ファイルのサンプルは
+@file{/usr/local/etc/ebnetd.conf.sample} にインストールされています。
+
+@example
+######################################################################
+# ebnetd/ndtpd/ebhttpd の設定ファイルのサンプル
+# (このファイルを `ebnetd.conf' にコピーして、編集して下さい)
+######################################################################
+
+### `ebnetd' が見張るポート番号
+### (無指定の場合: ebnet)
+# ebnet-port	ebnet
+
+### `ndtpd' が見張るポート番号
+### (無指定の場合: ndtp)
+# ndtp-port	ndtp
+
+### `ebhttpd' が見張るポート番号
+### (無指定の場合: http)
+# http-port	http
+
+### サーバのプロセスの所有ユーザ
+### (無指定の場合: なし)
+user		ndtpuser
+
+### サーバのプロセスのグループ
+### (無指定の場合: なし)
+group		ndtpgrp
+
+### サーバに同時に接続できるクライアントの数
+### (無指定の場合: 1)
+# max-clients	1
+
+### サーバに接続できるホスト、できないホスト
+### (無指定の場合: なし)
+hosts		127.0.0.1
+hosts		::1
+hosts		!?
+hosts		host.your.domain
+
+### サーバが交信の途絶えたコネクションを切るまでの時間
+### (無指定の場合: 900)
+# timeout		900
+
+### 作業用ディレクトリのパス
+### サーバを起動する前に、このディレクトリを作り、サーバプロセスが
+### 書き込めるようにしておいて下さい。
+### (無指定の場合: /usr/local/var/ebnetd)
+# work-path	/usr/local/var/ebnetd
+
+### 一回の検索で、サーバが返す、ヒットしたエントリの最大個数
+### (無指定の場合: 50)
+# max-hits	50
+
+### クライアントへの一回の応答で、サーバが返すテキストの最大サイズ
+### (default: 32768)
+# max-text-size		32768
+
+### syslog のファシリティ
+### (無指定の場合: daemon)
+syslog-facility	local0
+
+###
+### 書籍のエントリ
+###
+begin book
+    ### 書籍名
+    ### (必須)
+    name		JITENBAN97
+
+    ### 書籍の題名
+    ### (必須)
+    title		Jitenban 97
+
+    ### 書籍のトップディレクトリ
+    ### (必須)
+    path		/cdrom
+
+    ### appendix (付録) パッケージのトップディレクトリ
+    ### (無指定の場合: なし)
+    appendix-path	/usr/local/share/eb/appendix/jitenban97-2.1
+
+    ### 同時にアクセスできるクライアントの数
+    ### (無指定の場合: 1)
+    max-clients		1
+
+    ### この書籍を利用できるホスト、できないホスト
+    ### (無指定の場合: なし)
+    hosts		127.0.0.1
+    hosts		::1
+    hosts		!?
+    hosts		host.your.domain
+end
+
+### もし、CD-ROM 書籍が他にもあるなら、`book' 複合指示子 (`begin book'
+### から `end' の間の行) を追加して下さい。`book' 複合指示子は、
+### 書籍一冊毎に必要です。
+@end example
+
+@c ===================================================================
+@node Configuration Checker, Setup Your Environment, Configuration File, Top
+@chapter 設定ファイルのチェックコマンド
+
+編集し終えた設定ファイルをチェックするには、@code{ebncheck} という
+チェックコマンドを使うと良いでしょう。
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (@code{sbindir}) の位置を変更していなければ、
+@code{ebncheck} は @file{/usr/local/sbin} にインストールされています。
+
+歴史的な経緯から、@code{ndtpd} のための @code{ndtpcheck}, @code{ebhttpd}
+のための @code{ebhtcheck} というコマンドも合わせて用意されていますが、
+特に違いはありません。
+
+@menu
+* Invoking ebncheck::           @code{ebncheck} の実行
+* ebncheck Options::            @code{ebncheck} のオプション
+@end menu
+
+@c -------------------------------------------------------------------
+@node Invoking ebncheck, ebncheck Options, Configuration Checker, Configuration Checker
+@section @code{ebncheck} の実行
+
+@code{ebncheck} コマンドは、@code{ebnetd} と同じ要領で設定ファイルを
+読み込んで、チェックします。
+@code{ebncheck} コマンドの一般的な起動方法は次の通りです。
+
+@example
+% /usr/local/sbin/ebncheck
+@end example
+
+@noindent
+ただし、EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (@code{sbindir}) の位置を変更して
+いないと仮定しています。
+
+記述の誤りが発見されると、@code{ebncheck} は標準エラー出力に以下のような
+メッセージを出力します。
+
+@example
+/usr/local/etc/ebnetd.conf:12: unknown user: noboy
+configuration failure
+@end example
+
+@c -------------------------------------------------------------------
+@node ebncheck Options,  , Invoking ebncheck, Configuration Checker
+@section @code{ebncheck} のオプション
+
+@code{ebncheck} コマンドは、伝統的な一文字オプション名と覚えやすい長い
+オプション名の両方を扱うことができます。
+長いオプション名を表すには、@samp{-} ではなく @samp{--} を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
+
+@code{ebncheck} コマンドは以下に挙げたオプションを解釈することが
+できます。
+
+@table @code
+@item -c @var{ファイル}
+@itemx --configuration-file @var{ファイル}
+設定ファイルを指定します。
+無指定時のファイル名は、ヘルプメッセージの中に記されています。
+
+@item -d
+@itemx --debug
+@itemx --verbose
+デバッグ用の情報を標準エラー出力に出力します。
+デバッグ用の情報は、設定ファイルの各行がどのように解釈されるのかを示して
+くれます。
+
+@item -h
+@itemx --help
+ヘルプメッセージを標準出力に出力して、終了します。
+
+@item -v
+@itemx --version
+バージョン番号を標準出力に出力して、終了します。
+@end table
+
+@c ===================================================================
+@node Setup Your Environment, Start ebnetd, Configuration Checker, Top
+@chapter 環境設定
+
+サーバ周辺のシステムの環境を設定をする必要があるかも知れません。
+設定には、おそらくスーパーユーザの権限が必要になるでしょう。
+
+@menu
+* Services::                    @file{services} ファイルの設定
+* Syslog::                      @file{syslog.conf} ファイルの設定
+* Working Directory::           EBNETD の作業用ディレクトリ
+* Mount CD-ROM Books::          CD-ROM 書籍のマウント
+* Appendix Package::            appendix パッケージの用意
+@end menu
+
+@c -------------------------------------------------------------------
+@node Services, Syslog, Setup Your Environment, Setup Your Environment
+@section @file{services} ファイル
+
+サービス名 @samp{ebnet}, @samp{ndtp}, @samp{http} があなたのシステムの
+@file{services} ファイルに無ければ、追加しなくてはなりません
+(大抵の場合 @file{/etc/services})。
+もし、あなたのホストが NIS クライアントならば、代わりに NIS サーバ上に
+ある NIS のマップを修正しなくてはなりません。
+
+もし、次の行が無ければ足します。
+
+@example
+http          80/tcp
+ndtp          2010/tcp
+ebnet         22010/tcp
+@end example
+
+@noindent
+次のように、システムの @file{services} ファイルには、すでに別のサービス
+名でエントリが入っているかも知れません。
+
+@example
+search        2010/tcp
+@end example
+
+@noindent
+この場合は、サービス名を別名としてその行に追加して下さい。
+
+@example
+search        2010/tcp        ndtp
+@end example
+
+@noindent
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
+
+@c -------------------------------------------------------------------
+@node Syslog, Working Directory, Services, Setup Your Environment
+@section @file{syslog.conf} ファイル
+
+@code{ebnetd}, @code{ndtpd}, @code{ebhttpd} は syslog を使って
+ログメッセージを記録します。
+@code{syslogd} の設定ファイル (大抵の場合 @file{/etc/syslog.conf}) に、
+次のような行を追加して下さい。
+一般にフィールドの区切りにはタブしか許されていませんので、空白を
+使わないように注意して下さい。
+
+@example
+local0.info   /usr/local/var/ebnetd/log/ebnetd.log
+@end example
+
+@noindent
+@code{ebnetd} が使用する syslog のファシリティは、@code{ebnetd} の
+設定ファイルの @code{syslog-facility} 指示子で決まることに留意して
+下さい (@pxref{Single Directive List, , @code{syslog-facility}})。
+
+もしログファイルが存在しなければ、空のファイルを作成します。
+
+@example
+@group
+% touch /usr/local/var/ebnetd/log/ebnetd.log
+% chmod 644 /usr/local/var/ebnetd/log/ebnetd.log
+@end group
+@end example
+
+@noindent
+現在走行している @code{syslogd} プロセスの PID を調べます。
+
+@example
+% ps axuww | grep syslogd
+@end example
+
+@noindent
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
+@*
+@code{syslogd} が走っているならば、次のような行が見つかるはずです。
+
+@example
+root        63  0.0  1.1   188  316  ??  Is   10:04PM    0:00.16 syslogd
+@end example
+
+@noindent
+ハングアップシグナル (@code{SIGHUP}) を @code{syslogd} に送ると、
+@code{syslogd} は @file{syslog.conf} を読み込み直します。
+
+@example 
+% kill -HUP 63
+@end example
+
+@noindent
+あなたのシステムに @code{logger} コマンドがあれば、次のようにして
+@code{syslogd} にテストメッセージを送ることができます。
+
+@example 
+% logger -p local0.info "test message"
+@end example
+
+@c -------------------------------------------------------------------
+@node Working Directory, Mount CD-ROM Books, Syslog, Setup Your Environment
+@section 作業用ディレクトリ
+
+@code{ebnetd}, @code{ndtpd}, @code{ebhttpd} は作業用のディレクトリの下に
+いくつかのファイルを作成します。
+このディレクトリは、設定ファイルの中の @code{work-path} 指示子
+で指定することができます (@pxref{Single Directive List, ,@code{work-path}})。
+
+このディレクトリを作り、サーバプロセスとスーパーユーザだけが書き
+込めるようにしておいて下さい。
+
+@example
+# mkdir /usr/local/var/ebnetd
+# chown ndtpuser /usr/local/var/ebnetd
+# chmod 755 /usr/local/var/ebnetd
+@end example
+
+@noindent
+(あなたのシステムでは、サーバプロセスを所有するユーザが
+@samp{ndtpuser} であると仮定しています。)
+
+ただし、サーバプロセスの所有ユーザとグループは、設定ファイルの中の
+@code{user}, @code{group} 指示子でそれぞれ決まりますので、注意
+して下さい (@pxref{Single Directive List, , @code{user}}, および
+@pxref{Single Directive List, , @code{group}})。
+
+@c -------------------------------------------------------------------
+@node Mount CD-ROM Books, Appendix Package, Working Directory, Setup Your Environment
+@section CD-ROM 書籍のマウント
+
+先に述べたように、CD-ROM 書籍自体は ISO 9660 形式に従っています。
+CD-ROM 書籍は、他の ISO 9660 形式のディスクと同じ方法でマウントすること
+ができます。
+もし、ISO 9660 の CD-ROM ディスクのマウント方法が分からなければ、あなた
+のシステムのマニュアルを調べて下さい。
+
+サーバは @code{ebzip} で圧縮された辞書をアクセスすることができます
+(@pxref{Compression, , 圧縮, ebzip-ja, ebzip})。
+
+@c -------------------------------------------------------------------
+@node Appendix Package,  , Mount CD-ROM Books, Setup Your Environment
+@section appendix パッケージの用意
+
+@dfn{appendix} (@dfn{付録}) とは CD-ROM 書籍の補助データのことです。
+appendix は CD-ROM 書籍の出版社から提供されているものではなく、
+EB ライブラリに固有のものです。
+
+(本 EBNET 配布パッケージのサーバは、いずれも EB ライブラリに深く
+関係していることを思い出して下さい。
+@code{ebnetd} は、EB ライブラリのための遠隔アクセスサーバです。
+@code{ndtpd} と @code{ebhttpd}は、CD-ROM 書籍のアクセスに EB ライブラリ
+を使用しています。)
+
+appendix は以下のデータを CD-ROM 書籍に対して提供します。
+
+@table @asis
+@item 本文の区切りコード
+あなたが EB ライブラリを使って CD-ROM 辞書の中のある単語を引く際、その
+単語の説明が終了する箇所で、EB ライブラリが本文の出力を止めることを
+あなたは期待するのではないでしょうか。
+しかし、EB ライブラリはそのような動作を保証することができません。
+なぜなら、CD-ROM 書籍の本文には、項目の終わりを示す印が存在しないから
+です。
+
+幸いにも、多くの CD-ROM 書籍には、項目の終わりを示す印の代替として
+使える、@dfn{区切りコード} (@dfn{stop code}) というものを持っています。
+通常、EB ライブラリはこの区切りコードを自動的に推測するようになって
+いるのですが、時々誤った区切りコードを導き出すことがあります。
+appendix の区切りコードは、その書籍の正しい区切りコードを EB ライブラリ
+に教えてやるために用います。
+
+@item 外字の代替文字列
+多くの CD-ROM 書籍は、外字 (独自に定義した文字) を持っており、本文中で
+その外字を使っています。
+CD-ROM 書籍では外字のビットマップフォントを用意しており、
+クライアントアプリケーションが外字を出力するには、そのフォントを描画
+しなくてはなりません。
+
+appendix では、外字の @dfn{代替文字列} (@dfn{alternation text}) を定義
+することができます。
+アプリケーションは、ビットマップフォントを描画する代わりに、その
+代替文字列を出力することにしても良いでしょう。
+@end table
+
+appendix パッケージのレイアウトは CD-ROM 書籍のものとよく似ています。
+トップディレクトリには @code{CATALOG} もしくは @code{CATALOGS}
+ファイルが存在し、各副本のデータは対応するサブディレクトリに配置されて
+います。
+appendx を使うには、設定ファイルの中の、複合指示子 @code{book} の
+@code{appendix-path} 副指示子で指定します
+(@pxref{Group Directive, , @code{appendix-path}})。
+
+EB ライブラリの公式な FTP サイト
+(@url{ftp://ftp.sra.co.jp/pub/misc/eb/appendix/})
+に、appendix パッケージがいくつか置いてあります。
+ここに載っていない CD-ROM 書籍用の appendix パッケージを作成する場合は、
+@code{ebappendix} コマンドを使いましょう。
+appendix のデータファイルの整形を行うことができます。
+
+@c ===================================================================
+@node Start ebnetd, Start ndtpd, Setup Your Environment, Top
+@chapter @code{ebnetd} の起動
+
+@code{ebnetd} は、スタンドアロンのデーモン、あるいは @code{inetd} の
+子プロセスとして起動することができます。
+指定がなければ、スタンドアロンのデーモンとして起動するようになっています。
+
+サーバへコネクションが頻繁に来ないなら、メモリの消費を抑えるために
+@code{ebnetd} を @code{inetd} の子プロセスとして起動する方が良いでしょう。
+
+しかし、@code{inetd} によって起動される度に、@code{ebnetd} は設定ファイル
+を読み込み、初期化のために CD-ROM 書籍からデータを部分的に読み込みます。
+コネクションが頻繁に来るようなら、@code{ebnetd} をスタンドアロンのデーモン
+として起動した方が良いでしょう。
+
+あなたのシステムでは @code{ebnetd} を必要としないなら、この章の残りの
+部分は読み飛ばして下さい。
+
+@menu
+* ebnetd Standalone::           @code{ebnetd} をスタンドアロンで起動
+* ebnetd Child of inetd::       @code{ebnetd} を @code{inetd} 経由で起動
+* ebnetd Child of xinetd::      @code{ebnetd} を @code{xinetd} 経由で起動
+* ebnetd Test with telnet::     @code{telnet} による @code{ebnetd} の確認
+* ebnetd Options::              @code{ebnetd} のオプション
+@end menu
+
+@c -------------------------------------------------------------------
+@node ebnetd Standalone, ebnetd Child of inetd, Start ebnetd, Start ebnetd
+@section @code{ebnetd} をスタンドアロンで起動
+
+@code{ebnetd} をスタンドアロンのデーモンとして起動するには、次のように
+コマンドを実行して下さい。
+スーパーユーザの権限が必要かも知れません。
+
+@example
+% /usr/local/sbin/ebnetd
+@end example
+
+@noindent
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (@code{sbindir}) の位置を変更していなければ、
+@code{ebnetd} は @file{/usr/local/sbin} にインストールされています。
+
+@c -------------------------------------------------------------------
+@node ebnetd Child of inetd, ebnetd Child of xinetd, ebnetd Standalone, Start ebnetd
+@section @code{ebnetd} を @code{inetd} 経由で起動
+
+@code{ebnetd} を @code{inetd} の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを @file{inetd.conf} ファイル (大抵の場合 @file{/etc/inetd.conf})
+に加えます。
+@samp{--inetd} (または @samp{-i}) オプションを足すのを忘れないようにして
+下さい。
+
+@example
+ebnet  stream  tcp  nowait  root  /usr/local/sbin/ebnetd ebnetd --inetd
+@end example
+
+@noindent
+(ただし、EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (@code{sbindir}) の位置を変更していない
+と仮定しています。)
+
+走行している @code{inetd} プロセスの PID を探し出します。
+BSD 系のシステムでは、次のようにします。
+
+@example
+% ps axuww | grep inetd
+@end example
+
+@noindent
+SYSV 系のシステムなら、次のようにします。
+
+@example
+% ps -ef | grep inetd
+@end example
+
+@noindent
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
+@*
+@code{inetd} が走っているならば、次のような行が見つかるはずです。
+
+@example
+root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
+@end example
+
+@noindent
+見つかったならば、ハングアップシグナル (@code{SIGHUP}) を @code{inetd}
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
+
+@example 
+% kill -HUP 79
+@end example
+
+@c -------------------------------------------------------------------
+@node ebnetd Child of xinetd, ebnetd Test with telnet, ebnetd Child of inetd, Start ebnetd
+@section @code{ebnetd} を @code{xinetd} 経由で起動
+
+Linux システムには、伝統的な @code{inetd} の代わりに @code{xinetd} を
+使用しているものもあります。
+@code{xinetd} の設定ファイルの文法は、伝統的な @code{inetd} の設定ファイル
+の文法とは異なります。
+
+@code{ebnetd} を @code{xinetd} の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを設定ファイル (大抵の場合 @file{/etc/xinetd.d/ebnet}) に
+加えます。
+@samp{--inetd} (または @samp{-i}) オプションを足すのを忘れないようにして
+下さい。
+
+@example
+@group
+# default: off
+# description: The ebnet server
+service ebnet
+@{
+        disable = no
+        socket_type     = stream
+        wait            = no
+        user            = root
+        server          = /usr/local/sbin/ebnetd
+        server_args     = --inetd
+        log_on_failure  += USERID
+@}
+@end group
+@end example
+
+@noindent
+(ただし、EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (@code{sbindir}) の位置を変更していな
+いと仮定しています。)
+
+走行している @code{xinetd} プロセスの PID を探し出します。
+
+@example
+% ps axuww | grep xinetd
+@end example
+
+@*
+@code{xinetd} が走っているならば、次のような行が見つかるはずです。
+
+@example
+root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
+@end example
+
+@noindent
+見つかったならば、USER2 シグナル (@code{SIGUSR2}) を @code{xinetd}
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
+
+@example 
+% kill -USR2 79
+@end example
+
+@c -------------------------------------------------------------------
+@node ebnetd Test with telnet, ebnetd Options, ebnetd Child of xinetd, Start ebnetd
+@section @code{telnet} による @code{ebnetd} の確認
+
+セットアップがすべて完了したら、@code{telnet} コマンドを用いて 
+@code{ebnetd} に接続してみましょう。
+
+まず、次のように入力します。
+この例では、localhost 上の @code{ebnetd} に接続しています。
+
+@example
+% telnet localhost ebnet
+@end example
+
+@noindent
+@code{ebnetd} が接続を受け付ければ、次のようなメッセージが表示されます。
+
+@example
+Connected to localhost.
+Escape character is '^]'.
+@end example
+
+@noindent
+ここで、@key{BOOKLIST} に続けて @key{Enter} を入力します。
+
+@example
+BOOKLIST
+@end example
+
+@noindent
+@code{ebnetd} が正常に動いていれば、次のように利用可能な CD-ROM 
+書籍の一覧を出力します。
+
+@example
+!OK; book list follows
+chujiten
+kojien
+colloc
+colloc.app
+
+@end example
+
+@noindent
+接続を終えるには、@key{QUIT} に続けて @key{Enter} を入力します。
+
+@example
+QUIT
+Connection closed by foreign host.
+@end example
+
+@c -------------------------------------------------------------------
+@node ebnetd Options,  , ebnetd Test with telnet, Start ebnetd
+@section @code{ebnetd} のオプション
+
+@code{ebnetd} コマンドは、伝統的な一文字オプション名と覚えやすい長い
+オプション名の両方を扱うことができます。
+長いオプション名を表すには、@samp{-} ではなく @samp{--} を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
+
+@code{ebnetd} コマンドは以下に挙げたオプションを解釈することができます。
+
+@table @code
+@item -c @var{ファイル}
+@itemx --configuration-file @var{ファイル}
+設定ファイルを指定します。
+無指定時のファイル名は、ヘルプメッセージの中に記されています。
+
+@item -h
+@itemx --help
+ヘルプメッセージを標準出力に出力して、終了します。
+
+@item -i
+@itemx --inetd	
+@code{inetd} モード。
+@code{ebnetd} を @code{inetd} から起動させるときは、このオプションを指定
+する必要があります。
+
+@item -t
+@itemx --test
+テストモード。
+@code{ebnetd} はフォアグラウンドプロセスとして起動され、決して fork を
+行いません。
+サーバへのリクエストは標準入力から読み込まれ、クライアントへのレスポンス
+は標準出力へ出力されます。
+標準入力および標準出力は、端末と結び付けられたファイル記述子であっても
+構いません。
+また、アクセスに対する識別チェックは行いませんので、すべての CD-ROM 書籍
+にアクセス可能です。
+
+@item -v
+@itemx --version
+バージョン番号を標準エラー出力に出力して、終了します。
+@end table
+
+@c ===================================================================
+@node Start ndtpd, Start ebhttpd, Start ebnetd, Top
+@chapter @code{ndtpd} の起動
+
+あなたのシステムでは @code{ndtpd} を必要としないなら、この章は読み飛ばして
+下さい。
+
+@code{ndtpd} も、スタンドアロンのデーモンとして起動するやり方と
+@code{inted} の子プロセスとして起動するやり方の、2 つの実行モードを
+持っています。
+指定がなければ、@code{ndtpd} はスタンドアロンのデーモンとして起動します。
+
+@menu
+* ndtpd Standalone::            @code{ndtpd} をスタンドアロンで起動
+* ndtpd Child of inetd::        @code{ndtpd} を @code{inetd} 経由で起動
+* ndtpd Child of xinetd::       @code{ndtpd} を @code{xinetd} 経由で起動
+* ndtpd Test with telnet::      @code{telnet} による @code{ndtpd} の確認
+* ndtpd Options::               @code{ndtpd} のオプション
+@end menu
+
+@c -------------------------------------------------------------------
+@node ndtpd Standalone, ndtpd Child of inetd, Start ndtpd, Start ndtpd
+@section @code{ndtpd} をスタンドアロンで起動
+
+@code{ndtpd} をスタンドアロンのデーモンとして起動するには、次のように
+コマンドを実行して下さい。
+スーパーユーザの権限が必要かも知れません。
+
+@example
+% /usr/local/sbin/ndtpd
+@end example
+
+@noindent
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (@code{sbindir}) の位置を変更していなければ、
+@code{ndtpd} は @file{/usr/local/sbin} にインストールされています。
+
+@c -------------------------------------------------------------------
+@node ndtpd Child of inetd, ndtpd Child of xinetd, ndtpd Standalone, Start ndtpd
+@section @code{ndtpd} を @code{inetd} 経由で起動
+
+@code{ndtpd} を @code{inetd} の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを @file{inetd.conf} ファイル (大抵の場合 @file{/etc/inetd.conf})
+に加えます。
+@samp{--inetd} (または @samp{-i}) オプションを足すのを忘れないようにして
+下さい。
+
+@example
+ndtp  stream  tcp  nowait  root  /usr/local/sbin/ndtpd ndtpd --inetd
+@end example
+
+@noindent
+(ただし、EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (@code{sbindir}) の位置を変更していない
+と仮定しています。)
+
+走行している @code{inetd} プロセスの PID を探し出します。
+BSD 系のシステムでは、次のようにします。
+
+@example
+% ps axuww | grep inetd
+@end example
+
+@noindent
+SYSV 系のシステムなら、次のようにします。
+
+@example
+% ps -ef | grep inetd
+@end example
+
+@noindent
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
+@*
+@code{inetd} が走っているならば、次のような行が見つかるはずです。
+
+@example
+root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
+@end example
+
+@noindent
+見つかったならば、ハングアップシグナル (@code{SIGHUP}) を @code{inetd}
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
+
+@example 
+% kill -HUP 79
+@end example
+
+@c -------------------------------------------------------------------
+@node ndtpd Child of xinetd, ndtpd Test with telnet, ndtpd Child of inetd, Start ndtpd
+@section @code{ndtpd} を @code{xinetd} 経由で起動
+
+Linux システムには、伝統的な @code{inetd} の代わりに @code{xinetd} を
+使用しているものもあります。
+@code{xinetd} の設定ファイルの文法は、伝統的な @code{inetd} の設定ファイル
+の文法とは異なります。
+
+@code{ndtpd} を @code{xinetd} の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを設定ファイル (大抵の場合 @file{/etc/xinetd.d/ndtp}) に
+加えます。
+@samp{--inetd} (または @samp{-i}) オプションを足すのを忘れないようにして
+下さい。
+
+@example
+@group
+# default: off
+# description: The ndtp server
+service ndtp
+@{
+        disable = no
+        socket_type     = stream
+        wait            = no
+        user            = root
+        server          = /usr/local/sbin/ndtpd
+        server_args     = --inetd
+        log_on_failure  += USERID
+@}
+@end group
+@end example
+
+@noindent
+(ただし、EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (@code{sbindir}) の位置を変更していな
+いと仮定しています。)
+
+走行している @code{xinetd} プロセスの PID を探し出します。
+
+@example
+% ps axuww | grep xinetd
+@end example
+
+@*
+@code{xinetd} が走っているならば、次のような行が見つかるはずです。
+
+@example
+root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
+@end example
+
+@noindent
+見つかったならば、USER2 シグナル (@code{SIGUSR2}) を @code{xinetd}
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
+
+@example 
+% kill -USR2 79
+@end example
+
+@c -------------------------------------------------------------------
+@node ndtpd Test with telnet, ndtpd Options, ndtpd Child of xinetd, Start ndtpd
+@section @code{telnet} による @code{ndtpd} の確認
+
+セットアップがすべて完了したら、@code{telnet} コマンドを用いて 
+@code{ndtpd} に接続してみましょう。
+
+まず、次のように入力します。
+この例では、localhost 上の @code{ndtpd} に接続しています。
+
+@example
+% telnet localhost ndtp
+@end example
+
+@noindent
+@code{ndtpd} が接続を受け付ければ、次のようなメッセージが表示されます。
+
+@example
+Connected to localhost.
+Escape character is '^]'.
+@end example
+
+@noindent
+ここで、@key{t} に続けて @key{Enter} を入力します。
+@code{ndtpd} が正常に動いていれば、次のように利用可能な CD-ROM 
+書籍の一覧を出力します。
+
+@example
+t
+1   Oxford Dictionary/Thesaurus   edict/oxford   0   0   0
+2   Quick Tour                    edict/quick    0   0   0
+3   User's Guide                  edict/user     0   0   0
+4   About This Disc               edict/about    0   0   0
+$*
+@end example
+
+@noindent
+接続を終えるには、@key{Q} に続けて @key{Enter} を入力します。
+
+@example
+Q
+Connection closed by foreign host.
+@end example
+
+@c -------------------------------------------------------------------
+@node ndtpd Options,  , ndtpd Test with telnet, Start ndtpd
+@section @code{ndtpd} のオプション
+
+@code{ndtpd} のコマンド行の指定方法は、@code{ebnetd} と同じです。
+詳しくは、@pxref{ebnetd Options, , @code{ebnetd} のオプション} を
+参照して下さい。
+
+@c ===================================================================
+@node Start ebhttpd, Terminate and Restart, Start ndtpd, Top
+@chapter @code{ebhttpd} の起動
+
+あなたのシステムでは @code{ebhttpd} を必要としないなら、この章は
+読み飛ばして下さい。
+
+@code{ebhttpd} も、スタンドアロンのデーモンとして起動するやり方と
+@code{inted} の子プロセスとして起動するやり方の、2 つの実行モードを
+持っています。
+指定がなければ、@code{ebhttpd} はスタンドアロンのデーモンとして起動します。
+
+@menu
+* ebhttpd Standalone::          @code{ebhttpd} をスタンドアロンで起動
+* ebhttpd Child of inetd::      @code{ebhttpd} を @code{inetd} 経由で起動
+* ebhttpd Child of xinetd::     @code{ebhttpd} を @code{xinetd} 経由で起動
+* ebhttpd Test with telnet::    @code{telnet} による @code{ebhttpd} の確認
+* ebhttpd Options::             @code{ebhttpd} のオプション
+@end menu
+
+@c -------------------------------------------------------------------
+@node ebhttpd Standalone, ebhttpd Child of inetd, Start ebhttpd, Start ebhttpd
+@section @code{ebhttpd} をスタンドアロンで起動
+
+@code{ebhttpd} をスタンドアロンのデーモンとして起動するには、次のように
+コマンドを実行して下さい。スーパーユーザの権限が必要かも知れません。
+
+@example
+% /usr/local/sbin/ebhttpd
+@end example
+
+@noindent
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (@code{sbindir}) の位置を変更していなければ、
+@code{ebhttpd} は @file{/usr/local/sbin} にインストールされています。
+
+@c -------------------------------------------------------------------
+@node ebhttpd Child of inetd, ebhttpd Child of xinetd, ebhttpd Standalone, Start ebhttpd
+@section @code{ebhttpd} を @code{inetd} 経由で起動
+
+@code{ebhttpd} を @code{inetd} の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを @file{inetd.conf} ファイル (大抵の場合 @file{/etc/inetd.conf})
+に加えます。
+@samp{--inetd} (または @samp{-i}) オプションを足すのを忘れないようにして
+下さい。
+
+@example
+http  stream  tcp  nowait  root  /usr/local/sbin/ebhttpd ebhttpd --inetd
+@end example
+
+@noindent
+(ただし、EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (@code{sbindir}) の位置を変更していない
+と仮定しています。)
+
+走行している @code{inetd} プロセスの PID を探し出します。
+BSD 系のシステムでは、次のようにします。
+
+@example
+% ps axuww | grep inetd
+@end example
+
+@noindent
+SYSV 系のシステムなら、次のようにします。
+
+@example
+% ps -ef | grep inetd
+@end example
+
+@noindent
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
+@*
+@code{inetd} が走っているならば、次のような行が見つかるはずです。
+
+@example
+root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
+@end example
+
+@noindent
+見つかったならば、ハングアップシグナル (@code{SIGHUP}) を @code{inetd}
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
+
+@example 
+% kill -HUP 79
+@end example
+
+@c -------------------------------------------------------------------
+@node ebhttpd Child of xinetd, ebhttpd Test with telnet, ebhttpd Child of inetd, Start ebhttpd
+@section @code{ebhttpd} を @code{xinetd} 経由で起動
+
+Linux システムには、伝統的な @code{inetd} の代わりに @code{xinetd} を
+使用しているものもあります。
+@code{xinetd} の設定ファイルの文法は、伝統的な @code{inetd} の設定ファイル
+の文法とは異なります。
+
+@code{ebhttpd} を @code{xinetd} の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを設定ファイル (大抵の場合 @file{/etc/xinetd.d/http}) に
+加えます。
+@samp{--inetd} (または @samp{-i}) オプションを足すのを忘れないようにして
+下さい。
+
+@example
+@group
+# default: off
+# description: The http server
+service http
+@{
+        disable = no
+        socket_type     = stream
+        wait            = no
+        user            = root
+        server          = /usr/local/sbin/ebhttpd
+        server_args     = --inetd
+        log_on_failure  += USERID
+@}
+@end group
+@end example
+
+@noindent
+(ただし、EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (@code{sbindir}) の位置を変更していな
+いと仮定しています。)
+
+走行している @code{xinetd} プロセスの PID を探し出します。
+
+@example
+% ps axuww | grep xinetd
+@end example
+
+@*
+@code{xinetd} が走っているならば、次のような行が見つかるはずです。
+
+@example
+root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
+@end example
+
+@noindent
+見つかったならば、USER2 シグナル (@code{SIGUSR2}) を @code{xinetd}
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
+
+@example 
+% kill -USR2 79
+@end example
+
+@c -------------------------------------------------------------------
+@node ebhttpd Test with telnet, ebhttpd Options, ebhttpd Child of xinetd, Start ebhttpd
+@section @code{telnet} による @code{ebhttpd} の確認
+
+セットアップがすべて完了したら、@code{telnet} コマンドを用いて 
+@code{ebhttpd} に接続してみましょう。
+
+まず、次のように入力します。
+この例では、localhost 上の @code{ebhttpd} に接続しています。
+
+@example
+% telnet localhost http
+@end example
+
+@noindent
+@code{ebhttpd} が接続を受け付ければ、次のようなメッセージが表示されます。
+
+@example
+Connected to localhost.
+Escape character is '^]'.
+@end example
+
+@noindent
+ここで、次のようにリクエストを入力します。
+
+@example
+GET / HTTP/1.0
+
+@end example
+
+@noindent
+このリクエストは 2 行からなり、2 行目は空行ですので、注意して下さい。
+
+@code{ebhttpd} が正常に動いていれば、次のような応答が得られます。
+
+@example
+HTTP/1.1 200 Ok
+Date: Fri, 16 May 2003 13:11:12 GMT
+Server: ebHTTPD 0.0
+Content-Type: text/html; charset="euc-jp"
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+ (以下略)
+@end example
+
+@c -------------------------------------------------------------------
+@node ebhttpd Options,  , ebhttpd Test with telnet, Start ebhttpd
+@section @code{ebhttpd} のオプション
+
+@code{ebhttpd} のコマンド行の指定方法は、@code{ebnetd} と同じです。
+詳しくは、@pxref{ebnetd Options, , @code{ebnetd} のオプション} を
+参照して下さい。
+
+@c ===================================================================
+@node Terminate and Restart, Daily Works, Start ebhttpd, Top
+@chapter サーバの終了および再始動
+
+@code{ebncontrol} コマンドを用いることで、現在スタンドアロンのデーモン
+として走っている @code{ebnetd} プロセスを終了させたり、強制終了、再始動
+させたりすることができます。
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (@code{sbindir}) の位置を変更していなければ、
+@code{ebncontrol} は @file{/usr/local/sbin} にインストールされています。
+走行中の @code{ebnetd} を終了させるには次のようにします。
+
+@example
+% /usr/local/sbin/ebncontrol terminate
+@end example
+
+@code{ebnetd} は自身の PID を作業用ディレクトリの下のファイル 
+@file{ebnetd.pid} に記録します
+(@pxref{Working Directory, , 作業ディレクトリ})。
+@code{ebncontrol} は、走行中の @code{ebnetd} プロセスの PID を知るために
+この PID ファイルの中身を読み、その PID に対してシグナルを送ります。
+
+@code{ebnetd} が正常に終了すれば、PID ファイルは @code{ebnetd} 自身に
+よって削除されます。
+しかしながら、@code{ebnetd} が異常終了したときは、PID ファイルは削除
+されません。
+この場合、残された PID ファイルに記述された PID は、後で他のプロセスに
+割り当てられる可能性があります。
+@code{ebncontrol} の実行は慎重に行って下さい。
+@code{ebncontrol} は、本当に @code{ebnetd} プロセスが存在するかどうかに
+ついては、確かめません。
+@code{ebnetd} プロセスが存在しないのに PID ファイルだけ残っていると、
+@code{ebncontrol} は他のプロセスにシグナルを送ってしまうかも知れません。
+
+@code{ebncontrol} は @code{ebnetd} の設定ファイルを読み込み、作業用
+ディレクトリの位置を調べます。
+ディレクトリの位置は、設定ファイル中の単独指示子 @code{work-path}
+で定義することができます (@pxref{Single Directive List, , @code{work-path}})。
+無指定時の設定ファイルのファイル名、および単独指示子 @code{work-path}
+の値は @code{ebnetd} と同じです。
+
+また、@code{ndtpd} および @code{ebhttpd} のために @code{ndtpcontrol},
+@code{ebhtcontrol} がそれぞれ用意されています。
+使用方法は、@code{ebncontrol} と同じです。
+
+@menu
+* Invoke Server Controler::     サーバ制御コマンドの実行
+* ebncontrol Options::          サーバ制御コマンドのオプション
+@end menu
+
+@c -------------------------------------------------------------------
+@node Invoke Server Controler, ebncontrol Options, Terminate and Restart, Terminate and Restart
+@section サーバ制御コマンドの実行
+
+前述のように、@code{ebncontrol}, @code{ndtpcontrol}, @code{ebhtcontrol}
+は、すべて同じコマンド行引数をとるようになっています。
+これらのコマンドの一般的な実行方法は、次の通りです。
+
+@example
+% /usr/local/sbin/ebncontrol @var{副コマンド}
+% /usr/local/sbin/ndtpcontrol @var{副コマンド}
+% /usr/local/sbin/ebhtcontrol @var{副コマンド}
+@end example
+
+副コマンドは、以下のものを解釈することができます。
+副コマンド名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
+
+@table @code
+@item kill
+現在走っているサーバプロセスを強制終了させます (@code{SIGKILL} シグナル
+を送ります)。
+また、サーバ制御コマンドが、サーバプロセスの PID ファイルを消去します。
+この副コマンドを試す前に、まず @code{terminate} を先に試すべきです。
+
+@item restart
+現在走っているサーバプロセスを再始動させます
+(@code{SIGHUP} シグナルを送ります)。
+サーバプロセスはすべての TCP コネクションを閉じ、設定ファイルを
+読み込み直します。
+
+@item status
+サーバプロセスが走っているかどうか調べ、結果を標準エラー出力に出力します。
+この副コマンドは、サーバにシグナルを送ることはしません。
+
+@item terminate
+現在走っている サーバプロセスを終了させます
+(@code{SIGTERM} シグナルを送ります)。
+@end table
+
+@c -------------------------------------------------------------------
+@node ebncontrol Options,  , Invoke Server Controler, Terminate and Restart
+@section @code{ebncontrol} のオプション
+
+@code{ebncontrol}, @code{ndtpcontrol}, @code{ebhtcontrol} コマンドは、
+伝統的な一文字オプション名と覚えやすい長いオプション名の両方を扱うこと
+ができます。
+長いオプション名を表すには、@samp{-} ではなく @samp{--} を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
+
+@code{ebncontrol}, @code{ndtpcontrol}, @code{ebhtcontrol} は以下に挙げた
+オプションを解釈することができます。
+
+@table @code
+@item -c @var{ファイル}
+@itemx --configuration-file @var{ファイル}
+設定ファイルを指定します。
+無指定時のファイル名は、ヘルプメッセージの中に記されています。
+
+@item -h
+@itemx --help
+ヘルプメッセージを標準出力に出力して、終了します。
+
+@item -v
+@itemx --version
+バージョン番号を標準出力に出力して、終了します。
+@end table
+
+@c ===================================================================
+@node Daily Works, Network License, Terminate and Restart, Top
+@chapter 毎日の管理作業
+
+@code{ebndaily} コマンドは、@code{ebnetd}, @code{ndtpd}, @code{ebhttpd}
+の syslog ファイルのうち、最も新しいものを調べて統計情報を生成し、syslog
+ファイルのローテーションを行います。
+その結果は、コマンド行の引数に指定された管理者に宛てて、メールで
+送られます。
+
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (@code{sbindir}) の位置を変更していなければ、
+@code{ebndaily} は @file{/usr/local/sbin} にインストールされています。
+@code{ebndaily} を実行する一般的な方法は次の通りです。
+
+@example
+% /usr/local/sbin/ebndaily @var{メールアドレス}...
+@end example
+
+@noindent
+以下は実行例です。
+
+@example
+% /usr/local/sbin/ebndaily root@@host.your.domain
+@end example
+
+@noindent
+2 つ以上のメールアドレスを書くこともできます。
+
+@example
+% /usr/local/sbin/ebndaily root@@host.your.domain root@@dept.your.domain
+@end example
+
+@sp 1
+@code{ebndaily} を毎日一回、自動的に実行するには、以下のようなエントリ
+をあなたのシステムの @file{crontab} に加えて下さい。
+
+@example
+0 0 * * *    /usr/local/sbin/ebndaily root@@host.your.domain
+@end example
+
+@noindent
+(詳しくは、あたなのシステムのマニュアルをご覧下さい。)
+@*
+とくに変更の指定がなければ、@code{ebndaily} は、古くなった 
+syslog ファイルを @code{compress} コマンドで圧縮し、7 世代分保存します。
+現在の syslog ファイルが @file{/usr/local/var/ebnetd/log/ebnetd.log} 
+だとすると、古くなった syslog ファイルは次のように保存されます。
+
+@example
+/usr/local/var/ebnetd/log/ebnetd.log.0.Z
+/usr/local/var/ebnetd/log/ebnetd.log.1.Z
+/usr/local/var/ebnetd/log/ebnetd.log.2.Z
+/usr/local/var/ebnetd/log/ebnetd.log.3.Z
+/usr/local/var/ebnetd/log/ebnetd.log.4.Z
+/usr/local/var/ebnetd/log/ebnetd.log.5.Z
+/usr/local/var/ebnetd/log/ebnetd.log.6.Z
+@end example
+
+@noindent
+これらの syslog は次の要領でローテーションされます。
+
+@enumerate
+@item もっとも古い syslog ファイル @file{ebnetd.log.6.Z} が削除されます。
+
+@item 他の @file{ebnetd.log.@var{n}.Z} ファイルは、
+@file{ebnetd.log.@var{n+1}.Z} に改名されます。
+
+@item 現在の syslog ファイル @file{ebnetd.log} は @file{ebnetd.log.0} に
+コピーされます。
+
+@item @file{ebnetd.log.0} は、@code{compress} で圧縮され、ファイル名が 
+@file{ebnetd.log.0.Z} に変わります。
+
+@item 現在の syslog file @file{ebnetd.log} の内容がクリアされます。
+@end enumerate
+
+@menu
+* ebndaily Options::            @code{ebndaily} のオプション
+@end menu
+
+@c -------------------------------------------------------------------
+@node ebndaily Options,  , Daily Works, Daily Works
+@section @code{ebndaily} のオプション
+
+@code{ebndaily} コマンドは、伝統的な一文字オプション名と覚えやすい長い
+オプション名の両方を扱うことができます。
+長いオプション名を表すには、@samp{-} ではなく @samp{--} を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
+
+@code{ebndaily} コマンドは以下に挙げたオプションを解釈することが
+できます。
+
+@table @code
+@item -a @var{整数}
+@itemx --ages @var{整数}
+古い syslog ファイルを @var{整数} 世代分だけ保存します。
+無指定時は @samp{7} です。
+
+@item -c @var{圧縮プログラム}
+@itemx --compressor @var{圧縮プログラム}
+古くなった syslog ファイルを圧縮するプログラムを指定します。
+@var{圧縮プログラム} は、@samp{compress}、@samp{gzip}、@samp{bzip2}、
+@samp{none} のうちのいずれかでなくてはなりません。
+無指定時は、@samp{compress} です。
+
+@samp{compress} を指定するか、@samp{--compressor} (@samp{-c}) オプション
+を用いなかった場合は、@samp{compress} コマンドによる圧縮が行われ、
+圧縮されたファイルには拡張子 @file{.Z} が付加されます。
+@samp{gzip} を指定した場合は、@samp{gzip} コマンドによる圧縮が行われ、
+圧縮されたファイルには拡張子 @file{.gz} が付加されます。
+@samp{bzip2} を指定した場合は、@samp{bzip2} コマンドによる圧縮が行われ、
+圧縮されたファイルには拡張子 @file{.bz2} が付加されます。
+@samp{none} を指定した場合は、圧縮は行われず、ファイルの拡張子も
+変わりません。
+
+@item -l @var{ファイル}
+@itemx --log-file @var{ファイル}
+現在の syslog ファイルを指定します。
+@*
+EBNETD を @file{/usr/local} 以下にインストールし、かつ、マシン固有の更新
+されうるデータを置くディレクトリ (@code{localstatedir}) および
+ログファイルが置かれるディレクトリ (@code{--with-logdir} で指定) を変更
+していなければ、無指定時では @file{/usr/local/var/ebnetd/log/ebnetd.log}
+になります。
+無指定時のファイル名は、ヘルプメッセージの中に記されています。
+
+@item -h
+@itemx --help
+ヘルプメッセージを標準出力に出力して、終了します。
+
+@item -v
+@itemx --version
+バージョン番号を標準出力に出力して、終了します。
+
+@item -@var{n}
+@itemx --fast
+@itemx --best
+これらのオプションは @code{gzip}, @code{bzip2} に渡されます
+(@pxref{Invoking gzip, , Invoking @code{gzip}, gzip, Gzip User's Manual})。
+@code{gzip}, @code{bzip2} を使用しないときは、たんに無視されます。
+@end table
+
+@c ===================================================================
+@node Network License,  , Daily Works, Top
+@appendix ネットワークライセンス
+
+CD-ROM 書籍の出版社はオプションでネットワークライセンスを用意している
+ことがあります。
+これは、あなたの LAN 上の複数のユーザに対して書籍へのアクセスを許可する
+ものです。
+ネットワークライセンスでは、同時にその書籍へアクセスするユーザの最大数
+が制限されることがあります (ライセンスの形態は様々ですので、詳しくは
+出版社にお問い合わせ下さい)。
+
+設定ファイル (通常 @code{ebnetd.conf}) には、2 つの @code{max-clients}
+というパラメタがあります。
+一つは単独指示子で
+(@pxref{Single Directive List, ,@code{max-clients}})、
+もう一つは @code{book} 複合指示子の副指示子です
+(@pxref{Book Group Directive, , @code{max-clients}})。
+どちらもクライアントの最大数を制限します。
+
+これらはネットワークライセンスの順守を補助しますが、完璧なものでは
+ありません。
+たとえば、書籍がアクセスできるのは、ユーザの使用しているクライアントが
+サーバに接続している間だけにすべきですが、サーバにしてもクライアントに
+しても、接続状態を頻繁にチェックするわけではありません。
+たとえば、サーバはタイムアウトが発生すると、クライアントとの接続を
+切ります。
+けれども、クライアントは CD-ROM 書籍の中身を表示し続け、ユーザが別の
+コンテンツの表示を要求するまでこの状態が続くのです。
+
+それでも、ネットワークライセンスのために @code{max-clients} を設定する
+ことは良いことです。
+重要なのは @code{max-clients} の能力を過信しないことです。
+@contents
+@bye

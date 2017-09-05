@@ -1,0 +1,251 @@
+#! @PERL@
+
+eval 'exec @PERL@ -S $0 ${1+"$@"}'
+    if 0;
+
+#                                                         -*- Perl -*-
+# Copyright (c) 2000 - 2003  Motoyuki Kasahara
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+
+# Program name, program version and mailing address.
+$progname ='ebnupgrade';
+$version = '@VERSION@';
+$mailing_address = '@MAILING_ADDRESS@';
+
+# Default configuration files.
+$old_file = '@sysconfdir@/ebnetd.conf';
+$new_file = '';
+
+# Test mode flag.
+$test_mode = 0;
+
+# Quiet mode flag.
+$quiet_mode = 0;
+
+# Help message.
+$help = "Usage: $progname [option...]
+Options:
+  -c FILE  --configuration-file FILE
+                             input old configuration from FILE
+                             (default: $old_file)
+  -h  --help                 display this help, then exit
+  -o FILE  --output-file FILE
+                             output new configuration to FILE
+                             (default: $old_file.new)
+  -q  --quiet  --silence     suppress report messages
+  -t  --test                 only check for input file
+  -v  --version              display version number, then exit
+
+Report bugs to $mailing_address.
+";
+
+# Copyright message.
+$copyright = "Copyright (c) 2000 - 2003
+   Motoyuki Kasahara
+";
+
+$tryhelp = "try \`$0 --help\' for more information\n";
+
+# Command line options.
+@long_options = ('-c --configuration-file required-argument',
+		 '-o --output-file        required-argument',
+		 '-h --help               no-argument',
+		 '-q --quiet --silence    no-argument',
+		 '-t --test               no-argument',
+		 '-v --version no-argument');
+
+# Netmask conversion table.
+%netmask_table = ('0.0.0.0',         0,
+		  '128.0.0.0',       1,
+		  '192.0.0.0',       2,
+		  '224.0.0.0',       3,
+		  '240.0.0.0',       4,
+		  '248.0.0.0',       5,
+		  '252.0.0.0',       6,
+		  '254.0.0.0',       7,
+		  '255.0.0.0',       8,
+		  '128.128.0.0',     9,
+		  '192.192.0.0',     10,
+		  '224.224.0.0',     11,
+		  '240.240.0.0',     12,
+		  '248.248.0.0',     13,
+		  '252.252.0.0',     14,
+		  '254.254.0.0',     15,
+		  '255.255.0.0',     16,
+		  '128.255.128.0',   17,
+		  '192.255.192.0',   18,
+		  '224.255.224.0',   19,
+		  '240.255.240.0',   20,
+		  '248.255.248.0',   21,
+		  '252.255.252.0',   22,
+		  '254.255.254.0',   23,
+		  '255.255.255.0',   24,
+		  '128.255.255.128', 25,
+		  '192.255.255.192', 26,
+		  '224.255.255.224', 27,
+		  '240.255.255.240', 28,
+		  '248.255.255.248', 29,
+		  '252.255.255.252', 30,
+		  '254.255.255.254', 31,
+		  '255.255.255.255', 32);
+
+#
+# Parse command line options.
+#
+&getopt_initialize(@long_options);
+while (($option_name, $option_argument) = &getopt_long) {
+    if ($option_name eq '-c') {
+	$old_file = $option_argument;
+    } elsif ($option_name eq '-h') {
+        print $help;
+        exit(0);
+    } elsif ($option_name eq '-o') {
+        $new_file = $option_argument;
+    } elsif ($option_name eq '-q') {
+        $quiet_mode = 1;
+    } elsif ($option_name eq '-t') {
+        $test_mode = 1;
+    } elsif ($option_name eq '-v') {
+        print "$progname (EBNETD) version $version\n";
+        print $copyright;
+        exit(0);
+    } else {
+        die $tryhelp;
+    }
+}
+
+if (@ARGV != 0) {
+    warn "$0: too many arguments\n";
+    die $tryhelp;
+}
+
+#
+# Open a configuration file.
+#
+if ($new_file eq '') {
+    if ($old_file eq '' || $old_file eq '-') {
+	$new_file = "ebnetd.conf.new";
+    } else {
+	$new_file = "$old_file.new";
+    }
+}
+
+if ($old_file eq '-') {
+    if (!open(OLD_FILE, "<& STDIN")) {
+	die "$0: failed to duplicate standard in, $!\n";
+    }
+    $old_file = '(stdin)';
+} else {
+    if (!open(OLD_FILE, "< $old_file")) {
+	die "$0: failed to open the file, $!: $old_file\n";
+    }
+}
+
+if (!$test_mode) {
+    if ($new_file eq '-') {
+	if (!open(NEW_FILE, ">& STDOUT")) {
+	    die "$0: failed to duplicate standard in, $!\n";
+	}
+    } else {
+	if (!open(NEW_FILE, "> $new_file")) {
+	    die "$0: failed to open the file, $!: $new_file\n";
+	}
+    }
+}
+
+#
+# Add a header.
+#
+print NEW_FILE "\#\# Converted by $progname $version\n\n" if (!$test_mode);
+
+while (<OLD_FILE>) {
+    #
+    # Remove spaces in the head and tail of the line.
+    #
+    chop if (/\n/);
+    s/\s*$//;
+    s/^(\s*)//;
+    $indent = $1;
+
+    #
+    # Skip the line if it is empty or comment line.
+    #
+    if (/^\#/ || /^$/) {
+	print NEW_FILE "$indent$_\n" if (!$test_mode);
+	next;
+    }
+
+    #
+    # Rewrite the line.
+    #
+    ($directive_name, $separator, $directive_value) = /^(\S+)(\s+)(\S.*)$/;
+
+    if ($directive_name eq 'pid-file'
+	|| $directive_name eq 'server-name'
+	|| $directive_name eq 'ident-hosts'
+	|| $directive_name eq 'ident-timeout'
+	|| $directive_name =~ /^alias-/) {
+	#
+	# They are obsolete directives.  Comment out.
+	#
+	printf(STDERR "%s: %d: $directive_name' is obsoleted (comment out)\n",
+	       $old_file, $.) if (!$quiet_mode);
+	print NEW_FILE "$indent\# $_\n" if (!$test_mode);
+
+    } elsif ($directive_name eq 'hosts'
+	     && $directive_value =~ /^([0-9.]+)\/(\d+\.\d+\.\d+\.\d+)$/) {
+	#
+	# Substitute a netmask notation.
+	#
+	$network = $1;
+	$netmask = $2;
+	printf(STDERR "%s: %d: netmask must be an integer (fixed)\n",
+	       $old_file, $.) if (!$quiet_mode);
+	if (defined($netmask_table{$netmask})) {
+	    $directive_value = "$network/$netmask_table{$netmask}";
+	    printf(NEW_FILE "%s%s%s%s\n", $indent, $directive_name,
+		   $separator, $directive_value) if (!$test_mode);
+	} else {
+	    printf(STDERR "%s: %d: cannot convert the netmask (comment out)\n",
+		   $old_file, $.) if (!$quiet_mode);
+	    print NEW_FILE "$indent\# $_\n" if (!$test_mode);
+	}
+
+    } elsif ($directive_name eq 'name' && $directive_value =~ /[A-Z]/) {
+	#
+	# Covert upper letters in a book name to lower letters.
+	#
+	printf(STDERR
+	       "%s: %d: letters in book name must be lower case (fixed)\n",
+	       $old_file, $.) if (!$quiet_mode);
+	$directive_value = "\L$directive_value";
+	printf(NEW_FILE "%s%s%s%s\n", $indent, $directive_name,
+	       $separator, $directive_value) if (!$test_mode);
+	
+    } else {
+	#
+	# Other lines are output as it is.
+	#
+	print NEW_FILE "$indent$_\n" if (!$test_mode);
+    }
+}
+
+#
+# Close the configuration file.
+#
+close(OLD_FILE);
+close(NEW_FILE);
+
+# Local Variables: 
+# mode: perl
+# End: 

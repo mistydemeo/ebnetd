@@ -1,0 +1,706 @@
+This is ebnetd-ja.info, produced by makeinfo version 4.2 from
+ebnetd-ja.texi.
+
+INFO-DIR-SECTION CD-ROM Book Utilities
+START-INFO-DIR-ENTRY
+* EBNETD: (ebnetd).             Network EB Library server.
+* NDTPD: (ndtpd).               Server for accessing CD-ROM books with NDTP.
+* ebHTTPD: (ebhttpd).           Server for accessing CD-ROM books with HTTP.
+END-INFO-DIR-ENTRY
+
+   EBNETD: CD-ROM 書籍サーバ群、笠原基之
+
+   Copyright (C) 1997, 98, 99, 2000, 01, 03  Motoyuki Kasahara
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy and distribute modified versions of
+this manual under the conditions for verbatim copying, provided that
+the entire resulting derived work is distributed under the terms of a
+permission notice identical to this one.
+
+   Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions, except that this permission notice may be stated in a
+translation approved by Free Software Foundation, Inc.
+
+
+File: ebnetd-ja.info,  Node: ebnetd Test with telnet,  Next: ebnetd Options,  Prev: ebnetd Child of xinetd,  Up: Start ebnetd
+
+`telnet' による `ebnetd' の確認
+===============================
+
+   セットアップがすべて完了したら、`telnet' コマンドを用いて `ebnetd'
+に接続してみましょう。
+
+   まず、次のように入力します。 この例では、localhost 上の `ebnetd'
+に接続しています。
+
+     % telnet localhost ebnet
+
+`ebnetd' が接続を受け付ければ、次のようなメッセージが表示されます。
+
+     Connected to localhost.
+     Escape character is '^]'.
+
+ここで、<BOOKLIST> に続けて <Enter> を入力します。
+
+     BOOKLIST
+
+`ebnetd' が正常に動いていれば、次のように利用可能な CD-ROM
+書籍の一覧を出力します。
+
+     !OK; book list follows
+     chujiten
+     kojien
+     colloc
+     colloc.app
+
+接続を終えるには、<QUIT> に続けて <Enter> を入力します。
+
+     QUIT
+     Connection closed by foreign host.
+
+
+File: ebnetd-ja.info,  Node: ebnetd Options,  Prev: ebnetd Test with telnet,  Up: Start ebnetd
+
+`ebnetd' のオプション
+=====================
+
+   `ebnetd' コマンドは、伝統的な一文字オプション名と覚えやすい長い
+オプション名の両方を扱うことができます。
+長いオプション名を表すには、`-' ではなく `--' を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
+
+   `ebnetd' コマンドは以下に挙げたオプションを解釈することができます。
+
+`-c ファイル'
+`--configuration-file ファイル'
+     設定ファイルを指定します。
+     無指定時のファイル名は、ヘルプメッセージの中に記されています。
+
+`-h'
+`--help'
+     ヘルプメッセージを標準出力に出力して、終了します。
+
+`-i'
+`--inetd'
+     `inetd' モード。 `ebnetd' を `inetd'
+     から起動させるときは、このオプションを指定 する必要があります。
+
+`-t'
+`--test'
+     テストモード。 `ebnetd'
+     はフォアグラウンドプロセスとして起動され、決して fork を
+     行いません。
+     サーバへのリクエストは標準入力から読み込まれ、クライアントへのレスポンス
+     は標準出力へ出力されます。
+     標準入力および標準出力は、端末と結び付けられたファイル記述子であっても
+     構いません。
+     また、アクセスに対する識別チェックは行いませんので、すべての
+     CD-ROM 書籍 にアクセス可能です。
+
+`-v'
+`--version'
+     バージョン番号を標準エラー出力に出力して、終了します。
+
+
+File: ebnetd-ja.info,  Node: Start ndtpd,  Next: Start ebhttpd,  Prev: Start ebnetd,  Up: Top
+
+`ndtpd' の起動
+**************
+
+   あなたのシステムでは `ndtpd' を必要としないなら、この章は読み飛ばして
+下さい。
+
+   `ndtpd' も、スタンドアロンのデーモンとして起動するやり方と `inted'
+の子プロセスとして起動するやり方の、2 つの実行モードを 持っています。
+指定がなければ、`ndtpd' はスタンドアロンのデーモンとして起動します。
+
+* Menu:
+
+* ndtpd Standalone::            `ndtpd' をスタンドアロンで起動
+* ndtpd Child of inetd::        `ndtpd' を `inetd' 経由で起動
+* ndtpd Child of xinetd::       `ndtpd' を `xinetd' 経由で起動
+* ndtpd Test with telnet::      `telnet' による `ndtpd' の確認
+* ndtpd Options::               `ndtpd' のオプション
+
+
+File: ebnetd-ja.info,  Node: ndtpd Standalone,  Next: ndtpd Child of inetd,  Prev: Start ndtpd,  Up: Start ndtpd
+
+`ndtpd' をスタンドアロンで起動
+==============================
+
+   `ndtpd' をスタンドアロンのデーモンとして起動するには、次のように
+コマンドを実行して下さい。 スーパーユーザの権限が必要かも知れません。
+
+     % /usr/local/sbin/ndtpd
+
+EBNETD を `/usr/local' 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (`sbindir') の位置を変更していなければ、
+`ndtpd' は `/usr/local/sbin' にインストールされています。
+
+
+File: ebnetd-ja.info,  Node: ndtpd Child of inetd,  Next: ndtpd Child of xinetd,  Prev: ndtpd Standalone,  Up: Start ndtpd
+
+`ndtpd' を `inetd' 経由で起動
+=============================
+
+   `ndtpd' を `inetd' の子プロセスとして起動には、次の手順が必要
+になります。 次のエントリを `inetd.conf' ファイル (大抵の場合
+`/etc/inetd.conf') に加えます。 `--inetd' (または `-i')
+オプションを足すのを忘れないようにして 下さい。
+
+     ndtp  stream  tcp  nowait  root  /usr/local/sbin/ndtpd ndtpd --inetd
+
+(ただし、EBNETD を `/usr/local' 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (`sbindir') の位置を変更していない
+と仮定しています。)
+
+   走行している `inetd' プロセスの PID を探し出します。 BSD
+系のシステムでは、次のようにします。
+
+     % ps axuww | grep inetd
+
+SYSV 系のシステムなら、次のようにします。
+
+     % ps -ef | grep inetd
+
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
+`inetd' が走っているならば、次のような行が見つかるはずです。
+
+     root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
+
+見つかったならば、ハングアップシグナル (`SIGHUP') を `inetd'
+に送ります。 おそらく、スーパーユーザの権限が必要です。
+
+     % kill -HUP 79
+
+
+File: ebnetd-ja.info,  Node: ndtpd Child of xinetd,  Next: ndtpd Test with telnet,  Prev: ndtpd Child of inetd,  Up: Start ndtpd
+
+`ndtpd' を `xinetd' 経由で起動
+==============================
+
+   Linux システムには、伝統的な `inetd' の代わりに `xinetd' を
+使用しているものもあります。 `xinetd' の設定ファイルの文法は、伝統的な
+`inetd' の設定ファイル の文法とは異なります。
+
+   `ndtpd' を `xinetd' の子プロセスとして起動には、次の手順が必要
+になります。 次のエントリを設定ファイル (大抵の場合
+`/etc/xinetd.d/ndtp') に 加えます。 `--inetd' (または `-i')
+オプションを足すのを忘れないようにして 下さい。
+
+     # default: off
+     # description: The ndtp server
+     service ndtp
+     {
+             disable = no
+             socket_type     = stream
+             wait            = no
+             user            = root
+             server          = /usr/local/sbin/ndtpd
+             server_args     = --inetd
+             log_on_failure  += USERID
+     }
+
+(ただし、EBNETD を `/usr/local' 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (`sbindir') の位置を変更していな
+いと仮定しています。)
+
+   走行している `xinetd' プロセスの PID を探し出します。
+
+     % ps axuww | grep xinetd
+
+`xinetd' が走っているならば、次のような行が見つかるはずです。
+
+     root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
+
+見つかったならば、USER2 シグナル (`SIGUSR2') を `xinetd' に送ります。
+おそらく、スーパーユーザの権限が必要です。
+
+     % kill -USR2 79
+
+
+File: ebnetd-ja.info,  Node: ndtpd Test with telnet,  Next: ndtpd Options,  Prev: ndtpd Child of xinetd,  Up: Start ndtpd
+
+`telnet' による `ndtpd' の確認
+==============================
+
+   セットアップがすべて完了したら、`telnet' コマンドを用いて `ndtpd'
+に接続してみましょう。
+
+   まず、次のように入力します。 この例では、localhost 上の `ndtpd'
+に接続しています。
+
+     % telnet localhost ndtp
+
+`ndtpd' が接続を受け付ければ、次のようなメッセージが表示されます。
+
+     Connected to localhost.
+     Escape character is '^]'.
+
+ここで、<t> に続けて <Enter> を入力します。 `ndtpd'
+が正常に動いていれば、次のように利用可能な CD-ROM
+書籍の一覧を出力します。
+
+     t
+     1   Oxford Dictionary/Thesaurus   edict/oxford   0   0   0
+     2   Quick Tour                    edict/quick    0   0   0
+     3   User's Guide                  edict/user     0   0   0
+     4   About This Disc               edict/about    0   0   0
+     $*
+
+接続を終えるには、<Q> に続けて <Enter> を入力します。
+
+     Q
+     Connection closed by foreign host.
+
+
+File: ebnetd-ja.info,  Node: ndtpd Options,  Prev: ndtpd Test with telnet,  Up: Start ndtpd
+
+`ndtpd' のオプション
+====================
+
+   `ndtpd' のコマンド行の指定方法は、`ebnetd' と同じです。
+詳しくは、*note `ebnetd' のオプション: ebnetd Options. を
+参照して下さい。
+
+
+File: ebnetd-ja.info,  Node: Start ebhttpd,  Next: Terminate and Restart,  Prev: Start ndtpd,  Up: Top
+
+`ebhttpd' の起動
+****************
+
+   あなたのシステムでは `ebhttpd' を必要としないなら、この章は
+読み飛ばして下さい。
+
+   `ebhttpd' も、スタンドアロンのデーモンとして起動するやり方と `inted'
+の子プロセスとして起動するやり方の、2 つの実行モードを 持っています。
+指定がなければ、`ebhttpd' はスタンドアロンのデーモンとして起動します。
+
+* Menu:
+
+* ebhttpd Standalone::          `ebhttpd' をスタンドアロンで起動
+* ebhttpd Child of inetd::      `ebhttpd' を `inetd' 経由で起動
+* ebhttpd Child of xinetd::     `ebhttpd' を `xinetd' 経由で起動
+* ebhttpd Test with telnet::    `telnet' による `ebhttpd' の確認
+* ebhttpd Options::             `ebhttpd' のオプション
+
+
+File: ebnetd-ja.info,  Node: ebhttpd Standalone,  Next: ebhttpd Child of inetd,  Prev: Start ebhttpd,  Up: Start ebhttpd
+
+`ebhttpd' をスタンドアロンで起動
+================================
+
+   `ebhttpd' をスタンドアロンのデーモンとして起動するには、次のように
+コマンドを実行して下さい。スーパーユーザの権限が必要かも知れません。
+
+     % /usr/local/sbin/ebhttpd
+
+EBNETD を `/usr/local' 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (`sbindir') の位置を変更していなければ、
+`ebhttpd' は `/usr/local/sbin' にインストールされています。
+
+
+File: ebnetd-ja.info,  Node: ebhttpd Child of inetd,  Next: ebhttpd Child of xinetd,  Prev: ebhttpd Standalone,  Up: Start ebhttpd
+
+`ebhttpd' を `inetd' 経由で起動
+===============================
+
+   `ebhttpd' を `inetd' の子プロセスとして起動には、次の手順が必要
+になります。 次のエントリを `inetd.conf' ファイル (大抵の場合
+`/etc/inetd.conf') に加えます。 `--inetd' (または `-i')
+オプションを足すのを忘れないようにして 下さい。
+
+     http  stream  tcp  nowait  root  /usr/local/sbin/ebhttpd ebhttpd --inetd
+
+(ただし、EBNETD を `/usr/local' 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (`sbindir') の位置を変更していない
+と仮定しています。)
+
+   走行している `inetd' プロセスの PID を探し出します。 BSD
+系のシステムでは、次のようにします。
+
+     % ps axuww | grep inetd
+
+SYSV 系のシステムなら、次のようにします。
+
+     % ps -ef | grep inetd
+
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
+`inetd' が走っているならば、次のような行が見つかるはずです。
+
+     root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
+
+見つかったならば、ハングアップシグナル (`SIGHUP') を `inetd'
+に送ります。 おそらく、スーパーユーザの権限が必要です。
+
+     % kill -HUP 79
+
+
+File: ebnetd-ja.info,  Node: ebhttpd Child of xinetd,  Next: ebhttpd Test with telnet,  Prev: ebhttpd Child of inetd,  Up: Start ebhttpd
+
+`ebhttpd' を `xinetd' 経由で起動
+================================
+
+   Linux システムには、伝統的な `inetd' の代わりに `xinetd' を
+使用しているものもあります。 `xinetd' の設定ファイルの文法は、伝統的な
+`inetd' の設定ファイル の文法とは異なります。
+
+   `ebhttpd' を `xinetd' の子プロセスとして起動には、次の手順が必要
+になります。 次のエントリを設定ファイル (大抵の場合
+`/etc/xinetd.d/http') に 加えます。 `--inetd' (または `-i')
+オプションを足すのを忘れないようにして 下さい。
+
+     # default: off
+     # description: The http server
+     service http
+     {
+             disable = no
+             socket_type     = stream
+             wait            = no
+             user            = root
+             server          = /usr/local/sbin/ebhttpd
+             server_args     = --inetd
+             log_on_failure  += USERID
+     }
+
+(ただし、EBNETD を `/usr/local' 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (`sbindir') の位置を変更していな
+いと仮定しています。)
+
+   走行している `xinetd' プロセスの PID を探し出します。
+
+     % ps axuww | grep xinetd
+
+`xinetd' が走っているならば、次のような行が見つかるはずです。
+
+     root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
+
+見つかったならば、USER2 シグナル (`SIGUSR2') を `xinetd' に送ります。
+おそらく、スーパーユーザの権限が必要です。
+
+     % kill -USR2 79
+
+
+File: ebnetd-ja.info,  Node: ebhttpd Test with telnet,  Next: ebhttpd Options,  Prev: ebhttpd Child of xinetd,  Up: Start ebhttpd
+
+`telnet' による `ebhttpd' の確認
+================================
+
+   セットアップがすべて完了したら、`telnet' コマンドを用いて `ebhttpd'
+に接続してみましょう。
+
+   まず、次のように入力します。 この例では、localhost 上の `ebhttpd'
+に接続しています。
+
+     % telnet localhost http
+
+`ebhttpd' が接続を受け付ければ、次のようなメッセージが表示されます。
+
+     Connected to localhost.
+     Escape character is '^]'.
+
+ここで、次のようにリクエストを入力します。
+
+     GET / HTTP/1.0
+
+このリクエストは 2 行からなり、2 行目は空行ですので、注意して下さい。
+
+   `ebhttpd' が正常に動いていれば、次のような応答が得られます。
+
+     HTTP/1.1 200 Ok
+     Date: Fri, 16 May 2003 13:11:12 GMT
+     Server: ebHTTPD 0.0
+     Content-Type: text/html; charset="euc-jp"
+     
+     <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+     <html>
+     <head>
+      (以下略)
+
+
+File: ebnetd-ja.info,  Node: ebhttpd Options,  Prev: ebhttpd Test with telnet,  Up: Start ebhttpd
+
+`ebhttpd' のオプション
+======================
+
+   `ebhttpd' のコマンド行の指定方法は、`ebnetd' と同じです。
+詳しくは、*note `ebnetd' のオプション: ebnetd Options. を
+参照して下さい。
+
+
+File: ebnetd-ja.info,  Node: Terminate and Restart,  Next: Daily Works,  Prev: Start ebhttpd,  Up: Top
+
+サーバの終了および再始動
+************************
+
+   `ebncontrol' コマンドを用いることで、現在スタンドアロンのデーモン
+として走っている `ebnetd' プロセスを終了させたり、強制終了、再始動
+させたりすることができます。 EBNETD を `/usr/local'
+以下にインストールし、かつ、システム管理用の コマンドを置くディレクトリ
+(`sbindir') の位置を変更していなければ、 `ebncontrol' は
+`/usr/local/sbin' にインストールされています。 走行中の `ebnetd'
+を終了させるには次のようにします。
+
+     % /usr/local/sbin/ebncontrol terminate
+
+   `ebnetd' は自身の PID を作業用ディレクトリの下のファイル
+`ebnetd.pid' に記録します (*note 作業ディレクトリ: Working Directory.)。
+`ebncontrol' は、走行中の `ebnetd' プロセスの PID を知るために この PID
+ファイルの中身を読み、その PID に対してシグナルを送ります。
+
+   `ebnetd' が正常に終了すれば、PID ファイルは `ebnetd' 自身に
+よって削除されます。 しかしながら、`ebnetd' が異常終了したときは、PID
+ファイルは削除 されません。 この場合、残された PID ファイルに記述された
+PID は、後で他のプロセスに 割り当てられる可能性があります。
+`ebncontrol' の実行は慎重に行って下さい。 `ebncontrol' は、本当に
+`ebnetd' プロセスが存在するかどうかに ついては、確かめません。 `ebnetd'
+プロセスが存在しないのに PID ファイルだけ残っていると、 `ebncontrol'
+は他のプロセスにシグナルを送ってしまうかも知れません。
+
+   `ebncontrol' は `ebnetd' の設定ファイルを読み込み、作業用
+ディレクトリの位置を調べます。
+ディレクトリの位置は、設定ファイル中の単独指示子 `work-path'
+で定義することができます (*note `work-path': Single Directive List.)。
+無指定時の設定ファイルのファイル名、および単独指示子 `work-path' の値は
+`ebnetd' と同じです。
+
+   また、`ndtpd' および `ebhttpd' のために `ndtpcontrol', `ebhtcontrol'
+がそれぞれ用意されています。 使用方法は、`ebncontrol' と同じです。
+
+* Menu:
+
+* Invoke Server Controler::     サーバ制御コマンドの実行
+* ebncontrol Options::          サーバ制御コマンドのオプション
+
+
+File: ebnetd-ja.info,  Node: Invoke Server Controler,  Next: ebncontrol Options,  Prev: Terminate and Restart,  Up: Terminate and Restart
+
+サーバ制御コマンドの実行
+========================
+
+   前述のように、`ebncontrol', `ndtpcontrol', `ebhtcontrol'
+は、すべて同じコマンド行引数をとるようになっています。
+これらのコマンドの一般的な実行方法は、次の通りです。
+
+     % /usr/local/sbin/ebncontrol 副コマンド
+     % /usr/local/sbin/ndtpcontrol 副コマンド
+     % /usr/local/sbin/ebhtcontrol 副コマンド
+
+   副コマンドは、以下のものを解釈することができます。
+副コマンド名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
+
+`kill'
+     現在走っているサーバプロセスを強制終了させます (`SIGKILL' シグナル
+     を送ります)。 また、サーバ制御コマンドが、サーバプロセスの PID
+     ファイルを消去します。 この副コマンドを試す前に、まず `terminate'
+     を先に試すべきです。
+
+`restart'
+     現在走っているサーバプロセスを再始動させます (`SIGHUP'
+     シグナルを送ります)。 サーバプロセスはすべての TCP
+     コネクションを閉じ、設定ファイルを 読み込み直します。
+
+`status'
+     サーバプロセスが走っているかどうか調べ、結果を標準エラー出力に出力します。
+     この副コマンドは、サーバにシグナルを送ることはしません。
+
+`terminate'
+     現在走っている サーバプロセスを終了させます (`SIGTERM'
+     シグナルを送ります)。
+
+
+File: ebnetd-ja.info,  Node: ebncontrol Options,  Prev: Invoke Server Controler,  Up: Terminate and Restart
+
+`ebncontrol' のオプション
+=========================
+
+   `ebncontrol', `ndtpcontrol', `ebhtcontrol' コマンドは、
+伝統的な一文字オプション名と覚えやすい長いオプション名の両方を扱うこと
+ができます。 長いオプション名を表すには、`-' ではなく `--' を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
+
+   `ebncontrol', `ndtpcontrol', `ebhtcontrol' は以下に挙げた
+オプションを解釈することができます。
+
+`-c ファイル'
+`--configuration-file ファイル'
+     設定ファイルを指定します。
+     無指定時のファイル名は、ヘルプメッセージの中に記されています。
+
+`-h'
+`--help'
+     ヘルプメッセージを標準出力に出力して、終了します。
+
+`-v'
+`--version'
+     バージョン番号を標準出力に出力して、終了します。
+
+
+File: ebnetd-ja.info,  Node: Daily Works,  Next: Network License,  Prev: Terminate and Restart,  Up: Top
+
+毎日の管理作業
+**************
+
+   `ebndaily' コマンドは、`ebnetd', `ndtpd', `ebhttpd' の syslog
+ファイルのうち、最も新しいものを調べて統計情報を生成し、syslog
+ファイルのローテーションを行います。
+その結果は、コマンド行の引数に指定された管理者に宛てて、メールで
+送られます。
+
+   EBNETD を `/usr/local' 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (`sbindir') の位置を変更していなければ、
+`ebndaily' は `/usr/local/sbin' にインストールされています。 `ebndaily'
+を実行する一般的な方法は次の通りです。
+
+     % /usr/local/sbin/ebndaily メールアドレス...
+
+以下は実行例です。
+
+     % /usr/local/sbin/ebndaily root@host.your.domain
+
+2 つ以上のメールアドレスを書くこともできます。
+
+     % /usr/local/sbin/ebndaily root@host.your.domain root@dept.your.domain
+
+
+   `ebndaily' を毎日一回、自動的に実行するには、以下のようなエントリ
+をあなたのシステムの `crontab' に加えて下さい。
+
+     0 0 * * *    /usr/local/sbin/ebndaily root@host.your.domain
+
+(詳しくは、あたなのシステムのマニュアルをご覧下さい。)
+とくに変更の指定がなければ、`ebndaily' は、古くなった syslog ファイルを
+`compress' コマンドで圧縮し、7 世代分保存します。 現在の syslog
+ファイルが `/usr/local/var/ebnetd/log/ebnetd.log'
+だとすると、古くなった syslog ファイルは次のように保存されます。
+
+     /usr/local/var/ebnetd/log/ebnetd.log.0.Z
+     /usr/local/var/ebnetd/log/ebnetd.log.1.Z
+     /usr/local/var/ebnetd/log/ebnetd.log.2.Z
+     /usr/local/var/ebnetd/log/ebnetd.log.3.Z
+     /usr/local/var/ebnetd/log/ebnetd.log.4.Z
+     /usr/local/var/ebnetd/log/ebnetd.log.5.Z
+     /usr/local/var/ebnetd/log/ebnetd.log.6.Z
+
+これらの syslog は次の要領でローテーションされます。
+
+  1. もっとも古い syslog ファイル `ebnetd.log.6.Z' が削除されます。
+
+  2. 他の `ebnetd.log.N.Z' ファイルは、 `ebnetd.log.N+1.Z'
+     に改名されます。
+
+  3. 現在の syslog ファイル `ebnetd.log' は `ebnetd.log.0' に
+     コピーされます。
+
+  4. `ebnetd.log.0' は、`compress' で圧縮され、ファイル名が
+     `ebnetd.log.0.Z' に変わります。
+
+  5. 現在の syslog file `ebnetd.log' の内容がクリアされます。
+
+* Menu:
+
+* ebndaily Options::            `ebndaily' のオプション
+
+
+File: ebnetd-ja.info,  Node: ebndaily Options,  Prev: Daily Works,  Up: Daily Works
+
+`ebndaily' のオプション
+=======================
+
+   `ebndaily' コマンドは、伝統的な一文字オプション名と覚えやすい長い
+オプション名の両方を扱うことができます。
+長いオプション名を表すには、`-' ではなく `--' を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
+
+   `ebndaily' コマンドは以下に挙げたオプションを解釈することが
+できます。
+
+`-a 整数'
+`--ages 整数'
+     古い syslog ファイルを 整数 世代分だけ保存します。 無指定時は `7'
+     です。
+
+`-c 圧縮プログラム'
+`--compressor 圧縮プログラム'
+     古くなった syslog ファイルを圧縮するプログラムを指定します。
+     圧縮プログラム は、`compress'、`gzip'、`bzip2'、 `none'
+     のうちのいずれかでなくてはなりません。 無指定時は、`compress'
+     です。
+
+     `compress' を指定するか、`--compressor' (`-c') オプション
+     を用いなかった場合は、`compress' コマンドによる圧縮が行われ、
+     圧縮されたファイルには拡張子 `.Z' が付加されます。 `gzip'
+     を指定した場合は、`gzip' コマンドによる圧縮が行われ、
+     圧縮されたファイルには拡張子 `.gz' が付加されます。 `bzip2'
+     を指定した場合は、`bzip2' コマンドによる圧縮が行われ、
+     圧縮されたファイルには拡張子 `.bz2' が付加されます。 `none'
+     を指定した場合は、圧縮は行われず、ファイルの拡張子も 変わりません。
+
+`-l ファイル'
+`--log-file ファイル'
+     現在の syslog ファイルを指定します。
+     EBNETD を `/usr/local' 以下にインストールし、かつ、マシン固有の更新
+     されうるデータを置くディレクトリ (`localstatedir') および
+     ログファイルが置かれるディレクトリ (`--with-logdir' で指定) を変更
+     していなければ、無指定時では `/usr/local/var/ebnetd/log/ebnetd.log'
+     になります。
+     無指定時のファイル名は、ヘルプメッセージの中に記されています。
+
+`-h'
+`--help'
+     ヘルプメッセージを標準出力に出力して、終了します。
+
+`-v'
+`--version'
+     バージョン番号を標準出力に出力して、終了します。
+
+`-N'
+`--fast'
+`--best'
+     これらのオプションは `gzip', `bzip2' に渡されます (*note Invoking
+     `gzip': (gzip)Invoking gzip.)。 `gzip', `bzip2'
+     を使用しないときは、たんに無視されます。
+
+
+File: ebnetd-ja.info,  Node: Network License,  Prev: Daily Works,  Up: Top
+
+ネットワークライセンス
+**********************
+
+   CD-ROM 書籍の出版社はオプションでネットワークライセンスを用意している
+ことがあります。 これは、あなたの LAN
+上の複数のユーザに対して書籍へのアクセスを許可する ものです。
+ネットワークライセンスでは、同時にその書籍へアクセスするユーザの最大数
+が制限されることがあります (ライセンスの形態は様々ですので、詳しくは
+出版社にお問い合わせ下さい)。
+
+   設定ファイル (通常 `ebnetd.conf') には、2 つの `max-clients'
+というパラメタがあります。 一つは単独指示子で (*note `max-clients':
+Single Directive List.)、 もう一つは `book' 複合指示子の副指示子です
+(*note `max-clients': Book Group Directive.)。
+どちらもクライアントの最大数を制限します。
+
+   これらはネットワークライセンスの順守を補助しますが、完璧なものでは
+ありません。
+たとえば、書籍がアクセスできるのは、ユーザの使用しているクライアントが
+サーバに接続している間だけにすべきですが、サーバにしてもクライアントに
+しても、接続状態を頻繁にチェックするわけではありません。
+たとえば、サーバはタイムアウトが発生すると、クライアントとの接続を
+切ります。 けれども、クライアントは CD-ROM
+書籍の中身を表示し続け、ユーザが別の
+コンテンツの表示を要求するまでこの状態が続くのです。
+
+   それでも、ネットワークライセンスのために `max-clients' を設定する
+ことは良いことです。 重要なのは `max-clients'
+の能力を過信しないことです。
+
+

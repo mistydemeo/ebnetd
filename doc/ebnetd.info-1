@@ -1,0 +1,1319 @@
+This is ebnetd.info, produced by makeinfo version 4.2 from ebnetd.texi.
+
+INFO-DIR-SECTION CD-ROM Book Utilities
+START-INFO-DIR-ENTRY
+* EBNETD: (ebnetd).             Network EB Library server.
+* NDTPD: (ndtpd).               Server for accessing CD-ROM books with NDTP.
+* ebHTTPD: (ebhttpd).           Server for accessing CD-ROM books with HTTP.
+END-INFO-DIR-ENTRY
+
+   EBNETD/NDTPD/ebHTTPD: CD-ROM Book Servers, by Motoyuki Kasahara.
+
+   Copyright (C) 1997, 98, 99, 2000, 01, 03  Motoyuki Kasahara
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy and distribute modified versions of
+this manual under the conditions for verbatim copying, provided that
+the entire resulting derived work is distributed under the terms of a
+permission notice identical to this one.
+
+   Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions, except that this permission notice may be stated in a
+translation approved by Free Software Foundation, Inc.
+
+
+File: ebnetd.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
+
+   This is edition 1.0beta0, for EBNETD version 1.0beta0.
+
+* Menu:
+
+* Introduction::                Introduction.
+* Installation::                Installation of NDTPD.
+* Configuration File::          How to write a configuration file.
+* Configuration Checker::       How to check a configuration file.
+* Setup Your Environment::      Setup your environment.
+* Start ebnetd::                Start `ebnetd'.
+* Start ndtpd::                 Start `ndtpd'.
+* Start ebhttpd::               Start `ebhttpd'.
+* Terminate and Restart::       How to terminate and restart `ebnetd'.
+* Daily Works::                 Daily administrative works.
+* Network License::             Network License.
+
+ --- The Detailed Node Listing ---
+
+Installation of EBNETD
+
+* Basic Installation::          Basic installation.
+* Compilers and Options::       Choose compilers and its options.
+* Multiple Architectures::      Compile EBNETD on multiple Architectures.
+* Installation Names::          Change installation Names.
+* Optional Features::           Selecting optional features.
+* System Type::                 Specifying the system type.
+* Sharing Defaults::            Set default values for `configure'
+                                scripts to share.
+* Operation Controls::          Control `configure' operation.
+* Optional Feature List::       Optional features this package supports.
+
+Configuration File
+
+* Single Directive::            Common form of single directive.
+* Single Directive List::       Single directive list.
+* Group Directive::             Common form of group directive.
+* Book Group Directive::        Book group directive list.
+* Sample Configuration::        Sample configuration file.
+
+Configuration Checker
+
+* Invoking ebncheck::           Invoking `ebncheck'.
+* ebncheck Options::            Summary of options to `ebncheck'.
+
+Setup Your Environment
+
+* Services::                    Setup your `services' file.
+* Syslog::                      Setup your `syslog.conf' file.
+* Working Directory::           Make a working directory.
+* Mount CD-ROM Books::          Mount your CD-ROM books.
+* Appendix Package::            Copy appendix package.
+
+Start `ebnetd'
+
+* ebnetd Standalone::           Run `ebnetd' as a standard daemon.
+* ebnetd Child of inetd::       Run `ebnetd' as a child of `inetd'.
+* ebnetd Child of xinetd::      Run `ebnetd' as a child of `xinetd'.
+* ebnetd Test with telnet::     Test `ebnetd' with `telnet'.
+* ebnetd Options::              Summary of options to `ebnetd'.
+
+Start `ndtpd'
+
+* ndtpd Standalone::            Run `ndtpd' as a standard daemon.
+* ndtpd Child of inetd::        Run `ndtpd' as a child of `inetd'.
+* ndtpd Child of xinetd::       Run `ndtpd' as a child of `xinetd'.
+* ndtpd Test with telnet::      Test `ndtpd' with `telnet'.
+* ndtpd Options::               Options to `ndtpd'.
+
+Start `ebhttpd'
+
+* ebhttpd Standalone::          Run `ebhttpd' as a standard daemon.
+* ebhttpd Child of inetd::      Run `ebhttpd' as a child of `inetd'.
+* ebhttpd Child of xinetd::     Run `ebhttpd' as a child of `xinetd'.
+* ebhttpd Test with telnet::    Test `ebhttpd' with `telnet'.
+* ebhttpd Options::             Options to `ebhttpd'.
+
+Terminate and Restart the Servers
+
+* Invoke Server Controler::     Invoke Server Control Commands
+* Server Controler Options::    Summary of Options to Server Control Commands
+
+Daily Administrative Works
+
+* ebndaily Options::            Summary of options to `ebndaily'.
+
+
+File: ebnetd.info,  Node: Introduction,  Next: Installation,  Prev: Top,  Up: Top
+
+Introduction
+************
+
+   This EBNETD distribution contains three server commands: `ebnetd',
+`ndtpd' and `ebhttpd'.  They are servers for accessing CD-ROM book on
+remote host via TCP/IP.  They can run on UNIX derived systems.
+
+`ebnetd'
+     `ebnetd' is a server of EBNET protocol which is designed to
+     communicate with "EB Library".
+
+     EB Library is a C library for accessing CD-ROM book.  Also `ndtpd'
+     and `ebhttpd' use EB Library.  Using `ebnetd', EB Library
+     applications can access CD-ROM books on a remote server.  For more
+     details about EB Library, see <http://www.sra.co.jp/m-kasahr/eb/>.
+
+`ndtpd'
+     `ndtpd' is an NDTP (Network Dictionary Transfer Protocol) server.
+     The first implementation of the NDTP server is "dserver".  `ndtpd'
+     has upper compatibility with dserver-2.2.
+
+     The web page <http://www.sra.co.jp/m-kasahr/ndtpd/related.html>
+     lists NDTP clients which can talk with `ndtpd'.
+
+`ebhttpd'
+     `ebhttpd' is a WWW (World Wide Web) server.  It supprts HTTP/1.0
+     and HTTP/1.1 (Hypertext Transfer Protocol version 1.0 and 1.1).
+
+   The servers support CD-ROM books of EB, EBG, EBXA, EBXA-C, S-EBXA and
+EPWING formats.  CD-ROM books of those formats are popular in Japan.
+Since CD-ROM books themseves are stands on the ISO 9660 format, you can
+mount the discs by the same way as other ISO 9660 discs.  The servers
+can run as a standalone daemons by default, but can also run as
+children of `inetd'.
+
+   EBNETD is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation; either version 2, or (at your option) any
+later version.
+
+   EBNETD is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+
+   In addition, you must follow the licenses of your CD-ROM books.
+Though EBNETD is free software, your books may not be free.  Don't open
+your books to unlicensed hosts nor users.
+
+   In addition, you must follow the licenses of your CD-ROM books.
+EBNETD is free software, your books may not be free.  Don't open your
+books to unlicensed hosts nor users.
+
+   This edition corresponds to version 1.0beta0 of EBNETD.
+
+   You can get the latest EBNETD from
+<ftp://ftp.sra.co.jp/pub/misc/eb/>.
+
+   You can get information about EBNETD from
+<http://www.sra.co.jp/people/m-kasahr/ebnetd/>.
+
+   Mail comments and bug reports to <m-kasahr@sra.co.jp> in Japanese or
+English.
+
+
+File: ebnetd.info,  Node: Installation,  Next: Configuration File,  Prev: Introduction,  Up: Top
+
+Installation of EBNETD
+**********************
+
+   Before installing EBNETD, you need to install EB Library 3.3 or later
+version.
+
+   You can get the latest EB Library from
+<ftp://ftp.sra.co.jp/pub/misc/eb/>.
+
+   You can get information about EB Library from
+<http://www.sra.co.jp/people/m-kasahr/eb/>.
+
+* Menu:
+
+* Basic Installation::          Basic installation.
+* Compilers and Options::       Choose compilers and its options.
+* Multiple Architectures::      Compile EBNETD on multiple Architectures.
+* Installation Names::          Change installation Names.
+* Optional Features::           Selecting optional features.
+* System Type::                 Specifying the system type.
+* Sharing Defaults::            Set default values for `configure'
+                                scripts to share.
+* Operation Controls::          Control `configure' operation.
+* Optional Feature List::       Optional features this package supports.
+
+
+File: ebnetd.info,  Node: Basic Installation,  Next: Compilers and Options,  Prev: Installation,  Up: Installation
+
+Basic Installation
+==================
+
+   These are generic installation instructions.
+
+   The `configure' shell script attempts to guess correct values for
+various system-dependent variables used during compilation.  It uses
+those values to create a `Makefile' in each directory of the package.
+It may also create one or more `.h' files containing system-dependent
+definitions.  Finally, it creates a shell script `config.status' that
+you can run in the future to recreate the current configuration, a file
+`config.cache' that saves the results of its tests to speed up
+reconfiguring, and a file `config.log' containing compiler output
+(useful mainly for debugging `configure').
+
+   If you need to do unusual things to compile the package, please try
+to figure out how `configure' could check whether to do them, and mail
+diffs or instructions to the address given in the `README' so they can
+be considered for the next release.  If at some point `config.cache'
+contains results you don't want to keep, you may remove or edit it.
+
+   The file `configure.in' is used to create `configure' by a program
+called `autoconf'.  You only need `configure.in' if you want to change
+it or regenerate `configure' using a newer version of `autoconf'.
+
+The simplest way to compile this package is:
+
+  1. `cd' to the directory containing the package's source code and type
+     `./configure' to configure the package for your system.  If you're
+     using `csh' on an old version of System V, you might need to type
+     `sh ./configure' instead to prevent `csh' from trying to execute
+     `configure' itself.
+
+     Running `configure' takes awhile.  While running, it prints some
+     messages telling which features it is checking for.
+
+  2. Type `make' to compile the package.
+
+  3. Optionally, type `make check' to run any self-tests that come with
+     the package.
+
+  4. Type `make install' to install the programs and any data files and
+     documentation.
+
+  5. You can remove the program binaries and object files from the
+     source code directory by typing `make clean'.  To also remove the
+     files that `configure' created (so you can compile the package for
+     a different kind of computer), type `make distclean'.  There is
+     also a `make maintainer-clean' target, but that is intended mainly
+     for the package's developers.  If you use it, you may have to get
+     all sorts of other programs in order to regenerate files that came
+     with the distribution.
+
+
+File: ebnetd.info,  Node: Compilers and Options,  Next: Multiple Architectures,  Prev: Basic Installation,  Up: Installation
+
+Compilers and Options
+=====================
+
+   Some systems require unusual options for compilation or linking that
+the `configure' script does not know about.  You can give `configure'
+initial values for variables by setting them in the environment.  Using
+a Bourne-compatible shell, you can do that on the command line like
+this:
+     CC=c89 CFLAGS=-O2 LIBS=-lposix ./configure
+
+Or on systems that have the `env' program, you can do it like this:
+     env CPPFLAGS=-I/usr/local/include LDFLAGS=-s ./configure
+
+
+File: ebnetd.info,  Node: Multiple Architectures,  Next: Installation Names,  Prev: Compilers and Options,  Up: Installation
+
+Compiling For Multiple Architectures
+====================================
+
+   You can compile the package for more than one kind of computer at the
+same time, by placing the object files for each architecture in their
+own directory.  To do this, you must use a version of `make' that
+supports the `VPATH' variable, such as GNU `make'.  `cd' to the
+directory where you want the object files and executables to go and run
+the `configure' script.  `configure' automatically checks for the
+source code in the directory that `configure' is in and in `..'.
+
+   If you have to use a `make' that does not supports the `VPATH'
+variable, you have to compile the package for one architecture at a time
+in the source code directory.  After you have installed the package for
+one architecture, use `make distclean' before reconfiguring for another
+architecture.
+
+
+File: ebnetd.info,  Node: Installation Names,  Next: Optional Features,  Prev: Multiple Architectures,  Up: Installation
+
+Installation Names
+==================
+
+   By default, `make install' will install the package's files in
+`/usr/local/bin', `/usr/local/man', etc.  You can specify an
+installation prefix other than `/usr/local' by giving `configure' the
+option `--prefix=PATH'.
+
+   You can specify separate installation prefixes for
+architecture-specific files and architecture-independent files.  If you
+give `configure' the option `--exec-prefix=PATH', the package will use
+PATH as the prefix for installing programs and libraries.
+Documentation and other data files will still use the regular prefix.
+
+   In addition, if you use an unusual directory layout you can give
+options like `--bindir=PATH' to specify different values for particular
+kinds of files.  Run `configure --help' for a list of the directories
+you can set and what kinds of files go in them.
+
+   If the package supports it, you can cause programs to be installed
+with an extra prefix or suffix on their names by giving `configure' the
+option `--program-prefix=PREFIX' or `--program-suffix=SUFFIX'.
+
+
+File: ebnetd.info,  Node: Optional Features,  Next: System Type,  Prev: Installation Names,  Up: Installation
+
+Optional Features
+=================
+
+   Some packages pay attention to `--enable-FEATURE' options to
+`configure', where FEATURE indicates an optional part of the package.
+They may also pay attention to `--with-PACKAGE' options, where PACKAGE
+is something like `gnu-as' or `x' (for the X Window System).  The
+`README' should mention any `--enable-' and `--with-' options that the
+package recognizes.
+
+   For packages that use the X Window System, `configure' can usually
+find the X include and library files automatically, but if it doesn't,
+you can use the `configure' options `--x-includes=DIR' and
+`--x-libraries=DIR' to specify their locations.
+
+
+File: ebnetd.info,  Node: System Type,  Next: Sharing Defaults,  Prev: Optional Features,  Up: Installation
+
+Specifying the System Type
+==========================
+
+   There may be some features `configure' can not figure out
+automatically, but needs to determine by the type of host the package
+will run on.  Usually `configure' can figure that out, but if it prints
+a message saying it can not guess the host type, give it the
+`--host=TYPE' option.  TYPE can either be a short name for the system
+type, such as `sun4', or a canonical name with three fields:
+     CPU-COMPANY-SYSTEM
+
+See the file `config.sub' for the possible values of each field.  If
+`config.sub' isn't included in this package, then this package doesn't
+need to know the host type.
+
+   If you are building compiler tools for cross-compiling, you can also
+use the `--target=TYPE' option to select the type of system they will
+produce code for and the `--build=TYPE' option to select the type of
+system on which you are compiling the package.
+
+
+File: ebnetd.info,  Node: Sharing Defaults,  Next: Operation Controls,  Prev: System Type,  Up: Installation
+
+Sharing Defaults
+================
+
+   If you want to set default values for `configure' scripts to share,
+you can create a site shell script called `config.site' that gives
+default values for variables like `CC', `cache_file', and `prefix'.
+`configure' looks for `PREFIX/share/config.site' if it exists, then
+`PREFIX/etc/config.site' if it exists.  Or, you can set the
+`CONFIG_SITE' environment variable to the location of the site script.
+A warning: not all `configure' scripts look for a site script.
+
+
+File: ebnetd.info,  Node: Operation Controls,  Next: Optional Feature List,  Prev: Sharing Defaults,  Up: Installation
+
+Operation Controls
+==================
+
+   `configure' recognizes the following options to control how it
+operates.
+
+`--cache-file=FILE'
+     Use and save the results of the tests in FILE instead of
+     `./config.cache'.  Set FILE to `/dev/null' to disable caching, for
+     debugging `configure'.
+
+`--help'
+     Print a summary of the options to `configure', and exit.
+
+`--quiet'
+`--silent'
+`-q'
+     Do not print messages saying which checks are being made.
+
+`--srcdir=DIR'
+     Look for the package's source code in directory DIR.  Usually
+     `configure' can determine that directory automatically.
+
+`--version'
+     Print the version of Autoconf used to generate the `configure'
+     script, and exit.
+
+
+File: ebnetd.info,  Node: Optional Feature List,  Prev: Operation Controls,  Up: Installation
+
+Optional Feature List
+=====================
+
+   `configure' in this package recognizes the following `--enable-' and
+`--with-' options.
+
+`--with-logdir=DIR'
+     Syslog files that `ebndaily' rotates by default are placed on DIR.
+     The default value is `LOCALSTATEDIR/ebnetd/log'.
+
+`--with-eb-conf=FILE'
+     Read EB Libfary configuration file in FILE.  The default value is
+     `SYSCONFDIR/eb.conf'.
+
+`--with-gnu-ld'
+     Assume the C compiler uses GNU ld.  The default value is `no'.
+
+`--enable-ipv6'
+     Support IPv6.  The default value is `yes' if the system supports
+     IPv6.
+
+
+File: ebnetd.info,  Node: Configuration File,  Next: Configuration Checker,  Prev: Installation,  Up: Top
+
+Configuration File
+******************
+
+   To start `ebnetd', `ndtpd' or `ebhttpd', you have to edit a
+configuration file.  The server reads the file when it starts and
+restarts.  The file determines various server behaviors.  The
+configuration file is `/usr/local/etc/ebnetd.conf' by default, if
+EBNETD has been installed under `/usr/local', and if a directory for
+read-only single-machine data (`sysconfdir') has not been changed at
+the installation.  It can be changed by the command line option
+`--configuration-file' (or `-c') (*note ebnetd Options::).
+
+   In the configuration file, blank lines and lines whose first
+non-blank character is a hash (`#') are ignored.  Any other lines must
+be "single directive" or "group directive".  The order of single and
+group directives is not matter.
+
+   Each line including newline character must be 511 characters maximum.
+
+* Menu:
+
+* Single Directive::            Common form of single directive.
+* Single Directive List::       Single directive list.
+* Group Directive::             Common form of group directive.
+* Book Group Directive::        Book group directive list.
+* Sample Configuration::        Sample configuration file.
+
+
+File: ebnetd.info,  Node: Single Directive,  Next: Single Directive List,  Prev: Configuration File,  Up: Configuration File
+
+Common Form of Single Directive
+===============================
+
+   Single directive is a directive terminated in a line.  The common
+form of a single directive is:
+
+     DIRECTIVE-NAME    DIRECTIVE-VALUE
+
+In the following example, `syslog-facility' is a directive name, and
+`local0' is a directive value.
+
+     syslog-facility    local0
+
+Since directive names are case sensitive, you cannot type
+`syslog-facility' instead of `Syslog-Facility'.  Spaces and tabs
+separate a directive name with a directive value.  A sequence of spaces
+and tabs in the head of a directive name and in the tail of a line are
+ignored.
+
+
+File: ebnetd.info,  Node: Single Directive List,  Next: Group Directive,  Prev: Single Directive,  Up: Configuration File
+
+Single Directive List
+=====================
+
+   The following single directives are recognized.
+
+`ebnet-port'
+     The `ebnet-port' directive specifies a port number which `ebnetd'
+     binds.  The value of the directive must be a service name on TCP
+     (e.g. `EBNET') or a port number (e.g. `22010').  The directive is
+     ignored when `ebnetd' is invoked by `inetd'.  The directive is
+     optional, and cannot be defined more than once.  The default value
+     is `EBNET'.
+
+     `ndtpd' and `ebhttpd' always ignore the directive.
+
+`ndtp-port'
+     The `ndtp-port' directive specifies a port number which `ndtpd'
+     binds.  The value of the directive must be a service name on TCP
+     (e.g. `NDTP') or a port number (e.g. `2010').  The directive is
+     ignored when `ndtpd' is invoked by `inetd'.  The directive is
+     optional, and cannot be defined more than once.  The default value
+     is `NDTP'.
+
+     `ebnetd' and `ebhttpd' always ignore the directive.
+
+`http-port'
+     The `http-port' directive specifies a port number which `ebhttpd'
+     binds.  The value of the directive must be a service name on TCP
+     (e.g. `HTTP') or a port number (e.g. `80').  The directive is
+     ignored when `ebhttpd' is invoked by `inetd'.  The directive is
+     optional, and cannot be defined more than once.  The default value
+     is `HTTP'.
+
+     `ebnetd' and `ndtpd' always ignore the directive.
+
+`user'
+     The `user' directive specifies an owner of server processes.  The
+     value of the directive must be an user name (e.g. `nobody') or an
+     user ID (e.g. `65535').  To change an owner to another user, you
+     must start a server process with super user's privilege.  If a
+     server fails to change an owner, it gives up running.  The
+     directive is optional, and cannot be defined more than once.  If
+     the directive is not defined, owner is unchanged.
+
+     We recommend you to create a dummy user account such as
+     `ebnetuser', and use it for this directive.
+
+`group'
+     The `group' directive specifies a group of server processes.  The
+     value of the directive must be an group name (e.g. `nogroup') or a
+     group ID (e.g. `65534').  The directive is optional, and cannot be
+     defined more than once.  If a server fails to change a group, it
+     gives up running.  If the directive is not defined, group ID is
+     unchanged.
+
+     We recommend you to create a dummy group account such as
+     `ebnetgrp', and use it for this directive.
+
+`max-clients'
+     The `max-clients' directive specifies how many clients can be
+     connected to a server at the same time.  The value of the
+     directive must be an integer not less than zero.  The directive is
+     optional, and cannot be defined more than once.  The default value
+     is `1'.  If the value is set to `0', the limitation is disabled.
+
+`hosts'
+     The `hosts' directive specifies which hosts can or cannot connect
+     to the servers.  The value of the directive must be a hostname, IP
+     address or ADDRESS/NETMASK pattern.
+
+     In addition, you can insert a leading optional exclamation mark
+     (`!') for each pattern.  If the value of the directive starts with
+     an exclamation mark, it means that hosts matched to the following
+     IP address or hostsname are denied to connect to the servers.
+     Otherwise, hosts matched to the value are permitted to connect to
+     the servers.
+
+
+          # permit to connect from `host.xxx.yyy.jp'.
+          hosts host.xxx.yyy.jp
+          
+          # permit to connect from `127.0.0.1'.
+          hosts 127.0.0.1
+          
+          # deny to connect from `192.24.1.0/24.
+          hosts !192.24.1.0/24
+
+     In a hostname pattern, you can use asterisk (`*') and question
+     mark (`?').  An asterisk matches to any sequence of zero or more
+     characters except for a leading exclamation mark.
+
+
+          # deny to connect hosts under the `xxx.yyy.jp' domain
+          hosts !*.xxx.yyy.jp
+          
+          # permit to connect from any hosts.
+          hosts *
+
+     An question mark represents "unknown hostname".
+
+
+          # deny to connect from hosts with unknown hostname.
+          hosts !?
+
+     The `host' directive is optional, and can be defined any number of
+     times.  A configuration file without `host' directive is valid,
+     but nobody can connect to the servers!  Please note that only one
+     hostname, IP address or ADDRESS/NETMASK pattern can be defined in
+     a directive.  Hosts not matched to any `hosts' directives are
+     denied to connect.  When a host matches to two or more `hosts'
+     directives, nearest one to the top of the configuration file is
+     chosen.
+
+     In the following example, hosts under the `sub1.xxx.yyy.jp' domain
+     are denied to connect, but any other hosts under the `xxx.yyy.jp'
+     domain are permitted to connect to the servers.
+
+
+          hosts !*.sub1.xxx.yyy.jp
+          hosts *.xxx.yyy.jp
+
+     In this example, the order of the directives are significant.  If
+     the order is reversed, all hosts under the `xxx.yyy.jp' domain
+     including `sub1.xxx.yyy.jp' are permitted to connect to the
+     servers.
+
+
+          # wrong!!!
+          hosts *.xxx.yyy.jp
+          hosts !*.sub1.xxx.yyy.jp
+
+     In comprison of hostnames, `ndptd' always uses canonical hostname
+     of a client, which is gotten by an address of the client with name
+     resolution service such as DNS.  Please note that aliases of the
+     client is never used.
+
+     Specifying IPv6 address and IPV6 ADDRESS/NETMASK pattern are also
+     permitted.  The servers built without IPv6 support can talk to
+     IPv4 clients only, but they can interpret IPv6 addresses specified
+     in a configuration file.
+
+
+          # permit to connect from `12ab:0:0:cd3/60' and `::1'.
+          hosts ::1
+          hosts 12ab:0:0:cd3/60
+
+     In the `hosts' directive, IPv4 address (e.g. `192.168.1.1') and
+     the corresponding IPv4 mapped IPv6 address (e.g.
+     `::ffff:192.168.1.1') are eqeivalent.  That is to say that IPv4
+     client `192.168.1.1' matches to `hosts' directive
+     `::ffff:192.168.1.1', and IPv6 client `::ffff:192.168.1.1' matches
+     to `hosts' directive `192.168.1.1'.
+
+`timeout'
+     The `timeout' directive specifies timeout seconds until a server
+     disconnects an idle connection.  The value of the directive must
+     be an integer not less than zero.  The directive is optional, and
+     cannot be defined more than once.  The default value is `900' (15
+     minutes).  If the value is set to `0', timeout never occurs.
+
+`work-path'
+     The `work-path' directive specifies the path of a working directory
+     for `ebnetd' (*note Working Directory::).  The value of the
+     directive must be an absolute path.  `ebnetd' creates some work
+     files under the directory, and a core file is dumped at there when
+     `ebnetd' aborts.  The directive is optional, and cannot be defined
+     more than once.  The default value is `/usr/local/var/ebnetd', if
+     EBNETD has installed under `/usr/local', and if a directory for
+     modifiable single-machine data (`localstatedir') has not been
+     changed at the installation.
+
+`max-hits'
+     The `max-hits' directive specifies how many hit entries `ebnetd'
+     tries to find at a search.  When `ebnetd' has find the number of
+     hit entries specified by the directive, `ebnetd' stops searching
+     immediately.  The directive is optional, and cannot be defined
+     more than once.  The default value is `50'.  If it is set to `0',
+     `ebnetd' tries to find all hit entires in a subbook.
+
+     `ebnetd' always ignores the directive.
+
+`max-text-size'
+     The `max-text-size' directive restricts the maximum bytes of text
+     which `ebnetd' sends to a client as a response to him.  The
+     directive is optional, and cannot be defined more than once.  The
+     default value is `32768'.  If it is set to `0', the size
+     restriction is disabled.
+
+     `ebnetd' always ignores the directive.
+
+`syslog-facility'
+     The `syslog-facility' directive specifies a syslog facility (e.g.
+     `daemon', `local0', and so on).  The directive is optional, and
+     cannot be defined more than once.  The facility `daemon' is used
+     by default.  Please note that syslog facility `daemon' is used
+     until `ebnetd' finish reading a configuration file.
+
+
+File: ebnetd.info,  Node: Group Directive,  Next: Book Group Directive,  Prev: Single Directive List,  Up: Configuration File
+
+Group Directive
+===============
+
+   Group directive is a directive whose description is across some lines
+in a configuration file.  The common form of a group directive is:
+
+     begin GROUP-NAME
+         SUB-DIRECTIVE-NAME    SUB-DIRECTIVE-VALUE
+                  :
+                  : (repeated)
+                  :
+     end
+
+The keyword `begin' indicates the beginning of the group directive.  It
+leads an argument GROUP-NAME.  They are separated by spaces or tabs,
+and they must be placed in a line.  The keyword `end' indicates the end
+of the group directive.  It is solely placed at a line.
+
+   In EBNETD version 1.0beta0, only `book' can be prescribed as the
+group-name.  Each "sub-directive" in the group is defined between
+`begin' and `end' lines.  Generic description rules about sub-directive
+are the same as those of single directives; SUB-DIRECTIVE-NAME and
+SUB-DIRECTIVE-VALUE are separated by space or tabs, and so on.
+
+   This is an example of the `book' group directive.
+
+     begin book
+             name            EJDICT
+             title           English Japanese Dictionary
+             path            /mnt/cdrom
+             hosts           127.0.0.1
+             hosts           host.your.domain
+     end
+
+
+File: ebnetd.info,  Node: Book Group Directive,  Next: Sample Configuration,  Prev: Group Directive,  Up: Configuration File
+
+`book' Group directive
+======================
+
+   A `book' group directive corresponds to a CD-ROM book, so that you
+have to define the group directive for each CD-ROM book.  EBNETD
+recognizes following sub-directives in the `book' group directives.
+
+`name'
+     The `name' sub-directive specifies a name of the book.  The value
+     of the sub-directive must consist of lower letters (`a'..`z'),
+     digits (`0'..`9'), underscore (`_') and hypen (`-').  Its length
+     must be up to 14 bytes.  Since the name is used to identify the
+     book, each book name in a configuration file must be unique.  The
+     sub-directive is required in each `book' group directive, but
+     cannot be defined more than once in a group directive.
+
+`title'
+     The `title' sub-directive specifies a title of the book.  The
+     value of the sub-directive can be a sequences of any characters
+     except for newline and NULL (`\0') character.  Its length must be
+     up to 80 bytes.  The title must be written in ISO 8859 1 or
+     Japanese EUC (Extended Unix Code).  Spaces or tabs are also
+     accepted and they are taken literally.
+
+     The sub-directive is required in each `book' group directive, but
+     cannot be defined more than once in a group directive.
+
+`path'
+     The `path' sub-directive specifies an absolute path to the book.
+     The path must point to the top directory of the book where the file
+     `CATALOG' or `CATALOGS' resides.  EBNET remote access identifier
+     (e.g. `ebnet://host/book') is not allowed.
+
+     The sub-directive is required in each `book' group directive, but
+     cannot be defined more than once in a group directive.
+
+`appendix-path'
+     The `appendix-path' sub-directive specifies an absolute path to
+     the appendix data of the book (*note Appendix Package::).  The
+     path must point to the top directory of the appendix package where
+     the file `CATALOG' or `CATALOGS' resides.  EBNET remote access
+     identifier (e.g. `ebnet://host/book.app') is not allowed.
+
+     The sub-directive is optional and cannot be defined more than once
+     in a `book' group directive.  To use a book, appendix package is
+     not required, but a book without appendix package may be difficult
+     for users to read since some characters are unreadable.
+
+`max-clients'
+     The `max-clients' sub-directive specifies how many clients can be
+     accessed to the book at the same time.  The value of the directive
+     must be an integer not less than zero.  The directive is optional,
+     and cannot be defined more than once in a `book' group directive.
+     The default value is `1'.  If the value is set to `0', the
+     limitation is disabled.
+
+     Count of clients are shared by `ebnetd', `ndtpd' and `ebhttpd', if
+     they use the same `work-path' (*note Working Directory::).  For
+     example, if two `ebnetd' clients and three `ndtpd' clients access
+     a book at the same time, the servers cosider the book is accessed
+     by five clients.
+
+`hosts'
+     The `hosts' sub-directive specifies which hosts can or cannot
+     access the book.  The sub-directive is optional, and can be
+     defined any number of times.  A `book' group directive without
+     `hosts' sub-directive is valid, but nobody can access to the book!
+
+     The notation is same as the `hosts' single directive.
+
+
+File: ebnetd.info,  Node: Sample Configuration,  Prev: Book Group Directive,  Up: Configuration File
+
+Sample Configuration File
+=========================
+
+   The sample configuration file has been installed as
+`/usr/local/etc/ebnetd.conf.sample', if EBNETD has been installed under
+`/usr/local', and if a directory for read-only single-machine data
+(`sysconfdir') has not been changed at the installation.
+
+     ######################################################################
+     # Configuration file for ebnetd/ndtpd/ebhttpd.
+     # (Copy this file to `ebnetd.conf', and edit it.)
+     ######################################################################
+     
+     ### Port number `ebnetd' binds.
+     ### (default: ebnet)
+     # ebnet-port	ebnet
+     
+     ### Port number `ndtpd' binds.
+     ### (default: ndtp)
+     # ndtp-port	ndtp
+     
+     ### Port number `ebhttpd' binds.
+     ### (default: http)
+     # http-port             http
+     
+     ### Owner of the server process.
+     ### (default: none)
+     user		ebnetuser
+     
+     ### Group of the server process.
+     ### (default: none)
+     group		ebnetgrp
+     
+     ### How many clients can be connected to the server at the same time.
+     ### (default: 1)
+     # max-clients	1
+     
+     ### Which hosts can or cannot connect to the server.
+     ### (default: none)
+     hosts		127.0.0.1
+     hosts		::1
+     hosts		!?
+     hosts		host.your.domain
+     
+     ### Timeout seconds until the server disconnects an idle connection.
+     ### (default: 900)
+     # timeout		900
+     
+     ### Path to a working directory.
+     ### Please create the directory and make it be writable for the server
+     ### processes before executing the server.
+     ### (default: /usr/local/var/ebnetd)
+     # work-path	/usr/local/var/ebnetd
+     
+     ### How many hit entries the server tries to find at a search.
+     ### (default: 50)
+     # max-hits	50
+     
+     ### Maxmimum size of tex the server may send to a client as a response
+     ### to him.
+     ### (default: 32768)
+     # max-text-size		32768
+     
+     ### Syslog facility
+     ### (default: daemon)
+     syslog-facility	local0
+     
+     ###
+     ### Book entry
+     ###
+     begin book
+         ### Name of the book.
+         ### (required)
+         name		JITENBAN97
+     
+         ### Title of the book.
+         ### (required)
+         title		Jitenban 97
+     
+         ### Path to a top directory of the book.
+         ### (required)
+         path		/cdrom
+     
+         ### Path to a top directory of the appdendix package of the book.
+         ### (default: none)
+         appendix-path	/usr/local/share/eb/appendix/jitenban97-2.1
+     
+         ### How many clients can access the book at the same time.
+         ### (default: 1)
+         # max-clients		1
+     
+         ### Which hosts can or cannot access to the book.
+         ### (default: none)
+         hosts		127.0.0.1
+         hosts		::1
+         hosts		!?
+         hosts		host.your.domain
+     end
+     
+     ### Add a book group directive (lines between `begin book' and `end'),
+     ### if you want to read another CD-ROM book.  A book group directive
+     ### is required for each book.
+
+
+File: ebnetd.info,  Node: Configuration Checker,  Next: Setup Your Environment,  Prev: Configuration File,  Up: Top
+
+Configuration Checker
+*********************
+
+   To check for the configuration file you have edit, you can use the
+configuration checker named `ebncheck'.  The `ebncheck' command has
+been installed at `/usr/local/sbin', if EBNETD has been installed under
+`/usr/local', and if a directory for system administrative executables
+(`sbindir') has not been changed at the installation.
+
+   Because of historical reason, also `ndtpcheck' and `ebhtcheck'
+commands are available for `ndtpd' and `ebhttpd', but they has no
+differences.
+
+* Menu:
+
+* Invoking ebncheck::           Invoking `ebncheck'.
+* ebncheck Options::            Summary of options to `ebncheck'.
+
+
+File: ebnetd.info,  Node: Invoking ebncheck,  Next: ebncheck Options,  Prev: Configuration Checker,  Up: Configuration Checker
+
+Invoking `ebncheck'
+===================
+
+   The `ebncheck' command reads and checks a configuration file as the
+same way as `ebnetd' does.  The usual way to execute `ebncheck' is as
+follows:
+
+     % /usr/local/sbin/ebncheck
+
+It assumes that EBNETD has been installed under `/usr/local' and if a
+directory for system administrative executables (`sbindir') has not
+been changed at the installation.
+
+   If an error occurs, `ebncheck' outputs messages to standard error
+like as follows.
+
+     /usr/local/etc/ebnetd.conf:12: unknown user: noboy
+     configuration failure
+
+
+File: ebnetd.info,  Node: ebncheck Options,  Prev: Invoking ebncheck,  Up: Configuration Checker
+
+Summary of options to `ebncheck'
+================================
+
+   The `ebncheck' command supports both traditional single-letter
+options and mnemonic long option names.  Long option names are
+indicated with `--' instead of `-'.  Abbreviations for option names are
+allowed as long as they are unique.
+
+   The `ebncheck' command recognizes these command line options.
+
+`-c FILE'
+`--configuration-file FILE'
+     Specify a configuration file.  The default filename is shown in
+     the help message.
+
+`-d'
+`--debug'
+`--verbose'
+     Print debugging information to standard error.  Debugging
+     information shows how each line in a configuration file is
+     processed.
+
+`-h'
+`--help'
+     Output help message to standard error, then exit.
+
+`-v'
+`--version'
+     Output version number to standard error, then exit.
+
+
+File: ebnetd.info,  Node: Setup Your Environment,  Next: Start ebnetd,  Prev: Configuration Checker,  Up: Top
+
+Setup Your Environment
+**********************
+
+   You may have to setup system environment around the server.  Super
+user's priviledge may be required to do it.
+
+* Menu:
+
+* Services::                    Setup your `services' file.
+* Syslog::                      Setup your `syslog.conf' file.
+* Working Directory::           Make a working directory.
+* Mount CD-ROM Books::          Mount your CD-ROM books.
+* Appendix Package::            Copy appendix package.
+
+
+File: ebnetd.info,  Node: Services,  Next: Syslog,  Prev: Setup Your Environment,  Up: Setup Your Environment
+
+`services' File
+===============
+
+   The service names `ebnet', `ndtp' and `http' must be added to your
+`services' file (usually, `/etc/services'), if missing.  If your host
+runs as NIS client, you have to edit the NIS map on the NIS server,
+instead.
+
+   This lines shuold be added, if missing:
+
+     http           80/tcp
+     ndtp           2010/tcp
+     ebnet          22010/tcp
+
+The configuration file on your system may have had the line with a
+different service name, like that:
+
+     search        2010/tcp
+
+In this case, please add the service name as an alias:
+
+     search        2010/tcp        ebnet
+
+(For details, please read the manual for your system.)
+
+
+File: ebnetd.info,  Node: Syslog,  Next: Working Directory,  Prev: Services,  Up: Setup Your Environment
+
+`syslog.conf' File
+==================
+
+   `ebnetd', `ndtpd' and `ebhttpd' use `syslog' to record their log
+messages.  Insert a line like as below into the configuration file for
+`syslogd' (usually `/etc/syslog.conf').  Care must be taken not to use
+space to separete fields, because only TAB is allowed in general.
+
+     local0.info   /usr/local/var/ebnetd/log/ebnetd.log
+
+Please remember that the syslog facility of the servers can be
+determined at the `syslog-facility' directive in the configuration file
+for `ebnetd' (*note `syslog-facility': Single Directive List.).
+
+Create an empty log file if missing.
+
+     % touch /usr/local/var/ebnetd/log/ebnetd.log
+     % chmod 644 /usr/local/var/ebnetd/log/ebnetd.log
+
+Find the PID of the running `syslogd' process.  In BSD based sytems,
+type the following.
+
+     % ps axuww | grep syslogd
+
+In SYSV based sytems, type the following.
+
+     % ps -ef | grep syslogd
+
+(For details, please read the manual for your system.)
+If `syslogd' is running, you can find a line like as below.
+
+     root        63  0.0  1.1   188  316  ??  Is   10:04PM    0:00.16 syslogd
+
+Send a hung-up signal (`SIGHUP') to `syslogd', and then `syslogd'
+re-reads `syslog.conf'.
+
+     % kill -HUP 63
+
+If your system has the `logger' command, you can send a test message to
+`syslogd' like as follows:
+
+     % logger -p local0.info "test message"
+
+
+File: ebnetd.info,  Node: Working Directory,  Next: Mount CD-ROM Books,  Prev: Syslog,  Up: Setup Your Environment
+
+Working Directory
+=================
+
+   `ebnetd', `ndtpd' and `ebhttpd' create some files under a working
+directory.  The directory can be specified by `work-path' in the
+configuration file (*note `work-path': Single Directive List.).
+
+   Please create the directory and make it be writable for the server
+processes and super user only.
+
+     # mkdir /usr/local/var/ebnetd
+     # chown ebnetuser /usr/local/var/ebnetd
+     # chmod 755 /usr/local/var/ebnetd
+
+It assumes that owner of server processes on your system is `ebnetuser'.
+
+   Please remember that owner and group of the server processes are
+defined at the `user' and `group' directives in the configuration file
+(*note `user': Single Directive List., and *note `group': Single
+Directive List.).
+
+
+File: ebnetd.info,  Node: Mount CD-ROM Books,  Next: Appendix Package,  Prev: Working Directory,  Up: Setup Your Environment
+
+Mount Your CD-ROM Books
+=======================
+
+   As mentioned before, CD-ROM books themseves are stands on ISO 9660
+format.  You can mount your CD-ROM books by the same way as other ISO
+9660 discs.  Please read the manual for your system, if you don't know
+the way of mounting ISO 9660 discs on your system.
+
+   The servers can access CD-ROM books compressed by `ebzip'.  See
+*Note Compression: (ebzip)Compression, for more details.
+
+
+File: ebnetd.info,  Node: Appendix Package,  Prev: Mount CD-ROM Books,  Up: Setup Your Environment
+
+Setup Appendix Package
+======================
+
+   "appendix" is supplementary data for CD-ROM book.  It is not
+provided by publishers of CD-ROM Book.  It is peculiar to EB Library.
+
+   (Remember that all the servers in the EBNET distribution are related
+closely to EB Library.  `ebnetd' is remote access server for EB Library.
+`ndtpd' and `ebhttpd' use EB Library to access CD-ROM Books.)
+
+   Appendix provides the following data for CD-ROM book:
+
+Text stop code
+     When you look up a word in a CD-ROM dictionary using EB Library,
+     you might wish EB Library stops displaying dictionary's text at the
+     point where explanation of the word ends.  Howerver, the software
+     cannot ensure it, since CD-ROM book has no marker in its text
+     which indicates end of paragraph.
+
+     Fortunately, many CD-ROM books have a "text stop code" which could
+     be used for substitute for end of paragraph.  EB Library guesses
+     text stop code automatically by default, but sometimes takes a
+     false code.  Appanedix's stop code is used to tell EB Library a
+     correct stop code of the CD-ROM book.
+
+Alternation text for local defined characters
+     Many CD-ROM books define their local characters, and use them in
+     text.  To display the local character, client applications have to
+     draw its bitmap font provided by the CD-ROM book.
+
+     Appendix can define alternation text for each local defined
+     character.  Instead of drawing the bitmap font, application may
+     output the alternation text.
+
+   The layout of appendix package is similar to that of CD-ROM book.
+It has the `CATALOG' or `CATALOGS' file at its top directory, and data
+for each subbook are arranged in the corresponding sub-directory.  To
+use an appendix, set the `appendix-path' sub-directive of the `book'
+group directive in a configuration file (*note `appendix-path': Group
+Directive.).
+
+   There are some appendix packages in the EB Library official FTP site
+(<ftp://ftp.sra.co.jp/pub/misc/eb/appendix/>).  If you want to create
+an appendx package for a CD-ROM book not listed here, use the
+`ebappendix' command to format appendix data files.
+
+
+File: ebnetd.info,  Node: Start ebnetd,  Next: Start ndtpd,  Prev: Setup Your Environment,  Up: Top
+
+Start `ebnetd'
+**************
+
+   `ebnetd' can run as a standalone daemon, or as a child process of
+`inted'.  By default, `ebnetd' runs as a standalone daemon.
+
+   If connections aren't come frequently to the server, it may be better
+to run `ebnetd' as a child of `inetd' to save consumption of memory
+resource.  However, each time invoked by `inetd', `ebnetd' reads a
+configuration file and reads some data from CD-ROM books for
+initialization.  If connections are come frequently to the server, it
+may be better to run `ebnetd' as a standalone daemon.
+
+   If you don't have to run `ebnetd' on your system, skip rest of this
+chapter.
+
+* Menu:
+
+* ebnetd Standalone::           Run `ebnetd' as a standard daemon.
+* ebnetd Child of inetd::       Run `ebnetd' as a child of `inetd'.
+* ebnetd Child of xinetd::      Run `ebnetd' as a child of `xinetd'.
+* ebnetd Test with telnet::     Test `ebnetd' with `telnet'.
+* ebnetd Options::              Summary of options to `ebnetd'.
+
+
+File: ebnetd.info,  Node: ebnetd Standalone,  Next: ebnetd Child of inetd,  Prev: Start ebnetd,  Up: Start ebnetd
+
+Run `ebnetd' as a standard daemon
+=================================
+
+   To start `ebnetd' as a standalone daemon, type the following command.
+Super user's priviledge may be required.
+
+     % /usr/local/sbin/ebnetd
+
+It assumes that EBNETD has been installed under `/usr/local', and if a
+directory for system administrative executables (`sbindir') has not
+been changed at the installation.
+
+
+File: ebnetd.info,  Node: ebnetd Child of inetd,  Next: ebnetd Child of xinetd,  Prev: ebnetd Standalone,  Up: Start ebnetd
+
+Run `ebnetd' as a child of `inetd'.
+===================================
+
+   To start `ebnetd' from `inetd', following processes are needed.  Add
+the following entry to the `inetd.conf' file (usually
+`/etc/inetd.conf').  Don't forget to add the `--inetd' (or `-i') option.
+
+     ebnet  stream  tcp  nowait  root  /usr/local/sbin/ebnetd ebnetd --inetd
+
+It assumes that EBNETD has been installed under `/usr/local' and if a
+directory for system administrative executables (`sbindir') has not
+been changed at the installation.
+
+   Find the PID of the running `inetd' process.
+
+     % ps axuww | grep inetd
+
+(For details, please read the manual for your system.)
+If `inetd' is running, you can find a line like as below.
+
+     root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
+
+If found, send a hung-up signal (`SIGHUP') to `inetd' to re-read
+`inetd.conf'.  Super user's priviledge may be required.
+
+     % kill -HUP 79
+
+
+File: ebnetd.info,  Node: ebnetd Child of xinetd,  Next: ebnetd Test with telnet,  Prev: ebnetd Child of inetd,  Up: Start ebnetd
+
+Run `ebnetd' as a Child Proccess of `xinetd'
+============================================
+
+   Some Linux systems use `xinetd' instead of traditional `inetd'.  The
+configuration file format of `xinetd' is different from that of
+traditional `inetd'.
+
+   To start `ebnetd' from `xinetd', following processes are needed.
+Add the following entry to the configuration file (usually
+`/etc/xinetd.d/ebnet').  Don't forget to specify the `--inetd' (or
+`-i') option as `server_args'.
+
+     # default: off
+     # description: The ebnet server
+     service ebnet
+     {
+             disable = no
+             socket_type     = stream
+             wait            = no
+             user            = root
+             server          = /usr/local/sbin/ebnetd
+             server_args     = --inetd
+             log_on_failure  += USERID
+     }
+
+It assumes that EBNETD has been installed under `/usr/local' and if a
+directory for system administrative executables (`sbindir') has not
+been changed at the installation.
+
+   Find the PID of the running `xinetd' process.  In BSD based sytems,
+type the following.
+
+     % ps axuww | grep xinetd
+
+In SYSV based sytems, type the following.
+
+     % ps -ef | grep xinetd
+
+(For details, please read the manual for your system.)
+If `xinetd' is running, you can find a line like as below.
+
+     root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
+
+If found, send an USER2 signal (`SIGUSR2') to `xinetd' to re-read the
+configuration.  Super user's priviledge may be required.
+
+     % kill -USR2 79
+
+
+File: ebnetd.info,  Node: ebnetd Test with telnet,  Next: ebnetd Options,  Prev: ebnetd Child of xinetd,  Up: Start ebnetd
+
+Test `ebnetd' with `telnet'
+===========================
+
+   When all the setup has been completed, try to connect to `ebnetd'
+with the `telnet' command.
+
+   At first, type as follows.  In this example, we try to connect to
+`ebnetd' on localhost.
+
+     % telnet localhost ebnet
+
+The following message is displayed if `ebnetd' accepts a connection.
+
+     Connected to localhost.
+     Escape character is '^]'.
+
+Then, tpye <BOOKLIST> and <Enter>.
+
+     BOOKLIST
+
+If `ebnetd' is running correctly, it outputs a list of CD-ROM book
+names like this:
+
+     !OK; book list follows
+     chujiten
+     kojien
+     colloc
+     colloc.app
+
+To close the connection, type <QUIT> and <Enter>.
+
+     QUIT
+     Connection closed by foreign host.
+

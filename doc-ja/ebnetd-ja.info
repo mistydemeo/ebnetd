@@ -1,0 +1,88 @@
+This is ebnetd-ja.info, produced by makeinfo version 4.2 from
+ebnetd-ja.texi.
+
+INFO-DIR-SECTION CD-ROM Book Utilities
+START-INFO-DIR-ENTRY
+* EBNETD: (ebnetd).             Network EB Library server.
+* NDTPD: (ndtpd).               Server for accessing CD-ROM books with NDTP.
+* ebHTTPD: (ebhttpd).           Server for accessing CD-ROM books with HTTP.
+END-INFO-DIR-ENTRY
+
+   EBNETD: CD-ROM ΩÒ¿“•µ°º•–∑≤°¢≥ﬁ∏∂¥«∑
+
+   Copyright (C) 1997, 98, 99, 2000, 01, 03  Motoyuki Kasahara
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy and distribute modified versions of
+this manual under the conditions for verbatim copying, provided that
+the entire resulting derived work is distributed under the terms of a
+permission notice identical to this one.
+
+   Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions, except that this permission notice may be stated in a
+translation approved by Free Software Foundation, Inc.
+
+
+Indirect:
+ebnetd-ja.info-1: 1153
+ebnetd-ja.info-2: 50988
+
+Tag Table:
+(Indirect)
+Node: Top1153
+Node: Introduction4423
+Node: Installation7197
+Node: Basic Installation8314
+Node: Compilers and Options11447
+Node: Multiple Architectures12107
+Node: Installation Names13123
+Node: Optional Features14440
+Node: System Type15360
+Node: Sharing Defaults16530
+Node: Operation Controls17247
+Node: Optional Feature List18443
+Node: Configuration File19255
+Node: Single Directive20616
+Node: Single Directive List21242
+Node: Group Directive29640
+Node: Book Group Directive30929
+Node: Sample Configuration34358
+Node: Configuration Checker37428
+Node: Invoking ebncheck38182
+Node: ebncheck Options38870
+Node: Setup Your Environment39809
+Node: Services40375
+Node: Syslog41212
+Node: Working Directory42616
+Node: Mount CD-ROM Books43535
+Node: Appendix Package44082
+Node: Start ebnetd46633
+Node: ebnetd Standalone47746
+Node: ebnetd Child of inetd48298
+Node: ebnetd Child of xinetd49494
+Node: ebnetd Test with telnet50988
+Node: ebnetd Options51869
+Node: Start ndtpd53185
+Node: ndtpd Standalone53920
+Node: ndtpd Child of inetd54463
+Node: ndtpd Child of xinetd55649
+Node: ndtpd Test with telnet57132
+Node: ndtpd Options58162
+Node: Start ebhttpd58435
+Node: ebhttpd Standalone59199
+Node: ebhttpd Child of inetd59759
+Node: ebhttpd Child of xinetd60963
+Node: ebhttpd Test with telnet62462
+Node: ebhttpd Options63444
+Node: Terminate and Restart63729
+Node: Invoke Server Controler65732
+Node: ebncontrol Options67047
+Node: Daily Works67881
+Node: ebndaily Options70098
+Node: Network License72221
+
+End Tag Table

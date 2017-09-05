@@ -1,0 +1,235 @@
+#! @PERL@
+eval 'exec @PERL@ -S $0 ${1+"$@"}'
+    if 0;
+
+#                                                         -*- Perl -*-
+# Copyright (c) 1997 - 2003
+#    Motoyuki Kasahara
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+
+# Program name, program version and mailing address.
+$progname ='ndtpstat';
+$version = '@VERSION@';
+$mailing_address = '@MAILING_ADDRESS@';
+
+$help = "Usage: $progname [option...] [syslog-file...]
+Options:
+  -h  --help                 display this help, then exit
+  -v  --version              display version number, then exit
+
+Arguments:
+  syslog-file                syslog file
+
+Report bugs to $mailing_address.
+";
+
+# Copyright message.
+$copyright = "Copyright (c) 1997 - 2003
+   Motoyuki Kasahara
+";
+
+$tryhelp = "try \`$0 --help\' for more information\n";
+
+@option_list = ('-h --help    no-argument',
+		'-v --version no-argument');
+
+#
+# Parse command line options.
+#
+&getopt_initialize(@option_list);
+while (($opt, $arg) = &getopt_long) {
+    if ($opt eq '-h') {
+	print $help;
+	exit(0);
+    } elsif ($opt eq '-v') {
+	print "$progname (EBNETD) version $version\n";
+	exit(0);
+    } else {
+	die $tryhelp;
+    }
+}
+
+#
+# Scan logs.
+#
+while (<>) {
+    next unless (s/^.* ebhttpd\[\d+\]: ([^:]+): //);
+    $status = $1;
+    foreach $i (split(/ /)) {
+	next unless (($name, $value) = ($i =~ /^([^=]+)=(.*)$/));
+	if ($name eq 'host') {
+	    $value =~ s/^\?\((.*)\)$/$1/;
+	    $value =~ s/^(.*)\(.*\)$/$1/;
+	    $value = '(test-mode)' if ($value =~ /^\//);
+	}
+	$field{$name} = $value;
+    }
+
+    if ($status =~ /connected$/) {
+	$permconn{$field{'host'}}++;
+	$permconn_total++;
+
+    } elsif ($status =~ /connection denied$/) {
+	$denyconn{$field{'host'}}++;
+	$denyconn_total++;
+
+    } elsif ($status =~ /response$/) {
+	if ($field{'url'} =~ m|^/([^/]+)/|) {
+	    $book = $1;
+	} else {
+	    $book = '/';
+	}
+
+	if ($field{'code'} / 100 == 2 || $field{'code'} / 100 == 3) {
+	    if ($field{'method'} eq 'GET') {
+		$get_ok{$book}++;
+		$get_ok_total++;
+		$get_total++;
+	    } elsif ($field{'method'} eq 'HEAD') {
+		$head_ok{$book}++;
+		$head_ok_total++;
+		$head_total++;
+	    } else {
+		$unknown_ok{$book}++;
+		$unknown_ok_total++;
+		$unknown_total++;
+	    }
+	    $ok{$book}++;
+	    $ok_total++;
+	    $access_total++;
+
+	} elsif ($field{'code'} / 100 == 4) {
+	    if ($field{'method'} eq 'GET') {
+		$get_error{$book}++;
+		$get_error_total++;
+		$get_total++;
+	    } elsif ($field{'method'} eq 'HEAD') {
+		$head_error{$book}++;
+		$head_error_total++;
+		$head_total++;
+	    } else {
+		$unknown_error{$book}++;
+		$unknown_error_total++;
+		$unknown_total++;
+	    }
+	    $error{$book}++;
+	    $error_total++;
+	    $access_total++;
+
+	} else {
+	    if ($field{'method'} eq 'GET') {
+		$get_others{$book}++;
+		$get_others_total++;
+		$get_others++;
+	    } elsif ($field{'method'} eq 'HEAD') {
+		$head_others{$book}++;
+		$head_others_total++;
+		$head_others++;
+	    } else {
+		$unknown_others{$book}++;
+		$unknown_others_total++;
+		$unknown_total++;
+	    }
+	    $others{$book}++;
+	    $others_total++;
+	    $access_total++;
+	}
+    }
+}
+
+#
+# Output header.
+#
+print "############################################################################\n";
+print "# ebHTTPD statistics\n";
+print "############################################################################\n\n";
+
+if ($permconn_total == 0
+    && $denyconn_total == 0
+    && $access_total == 0) {
+    print "(no access from client)\n";
+    exit;
+}
+
+#
+# Output the `Permitted Connections to the server' list.
+#
+print "Permitted Connections to the server:\n\n";
+printf "%-32s  %7s\n", 'client', 'counts';
+print "-----------------------------------------\n";
+foreach $i (sort {$permconn{$b} <=> $permconn{$a}} keys(%permconn)) {
+    printf "%-32s  %7d\n", $i, $permconn{$i};
+}
+print "-----------------------------------------\n";
+printf "%-32s  %7d\n\n\n", 'total', $permconn_total;
+
+#
+# Output the `Denied connections to the server' list.
+#
+print "Denied connections to the server:\n\n";
+printf "%-32s  %7s\n", 'client', 'counts';
+print "-----------------------------------------\n";
+foreach $i (sort {$denyconn{$b} <=> $denyconn{$a}} keys(%denyconn)) {
+    printf "%-32s  %7d\n", $i, $denyconn{$i};
+}
+print "-----------------------------------------\n";
+printf "%-32s  %7d\n\n\n", 'total', $denyconn_total;
+
+#
+# Output the `Successful & Redirection Accesses' list.
+#
+print "Successful & Redirection Accesses:\n\n";
+printf "%-24s  %8s  (= %6s + %7s + %7s)\n", 'book', 'access',
+    'get', 'head', 'unknown';
+print "------------------------------------------------------------------\n";
+foreach $i (sort {$ok{$b} <=> $ok{$a}} keys(%ok)) {
+    printf "%-24s  %8d  (= %6d + %7d + %7d)\n", $i, $ok{$i},
+    $get_ok{$i}, $head_ok{$i}, $unknown_ok{$i};
+}
+print "------------------------------------------------------------------\n";
+printf "%-24s  %8d  (= %6d + %7d + %7d)\n\n\n", 'total', $ok_total,
+    $get_ok_total, $head_ok_total, $unknown_ok_total;
+
+#
+# Output the `Error Accesses' list.
+#
+print "Error Accesses:\n\n";
+printf "%-24s  %8s  (= %6s + %7s + %7s)\n", 'book', 'access',
+    'get', 'head', 'unknown';
+print "------------------------------------------------------------------\n";
+foreach $i (sort {$error{$b} <=> $error{$a}} keys(%error)) {
+    printf "%-24s  %8d  (= %6d + %7d + %7d)\n", $i, $error{$i},
+    $get_error{$i}, $head_error{$i}, $unknown_error{$i};
+}
+print "------------------------------------------------------------------\n";
+printf "%-24s  %8d  (= %6d + %7d + %7d)\n\n\n", 'total', $error_total,
+    $get_error_total, $head_error_total, $unknown_error_total;
+
+#
+# Output the `Other Accesses' list.
+#
+print "Other Accesses:\n\n";
+printf "%-24s  %8s  (= %6s + %7s + %7s)\n", 'book', 'access',
+    'get', 'head', 'unknown';
+print "------------------------------------------------------------------\n";
+foreach $i (sort {$others{$b} <=> $others{$a}} keys(%others)) {
+    printf "%-24s  %8d  (= %6d + %7d + %7d)\n", $i, $others{$i},
+    $get_others{$i}, $head_others{$i}, $unknown_others{$i};
+}
+print "------------------------------------------------------------------\n";
+printf "%-24s  %8d  (= %6d + %7d + %7d)\n\n\n", 'total', $others_total,
+    $get_others_total, $head_others_total, $unknown_others_total;
+
+# Local Variables: 
+# mode: perl
+# End: 

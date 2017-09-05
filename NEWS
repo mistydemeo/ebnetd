@@ -1,0 +1,5 @@
+Major changes in release 1.0beta0:
+
+* ndtpd no longer support `alias-eiwa', `alias-waei' or `alias-kojien'.
+* The defulat configuration file for ndtpd and ebhttpd is `ebnetd.conf',
+  not `ndtpd.conf'.

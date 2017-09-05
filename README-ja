@@ -1,0 +1,77 @@
+
+				EBNETD
+			 CD-ROM 書籍サーバ群
+
+
+本 EBNETD 配布パッケージには、ebnetd, ndtpd, ebhttpd という 3 つのサー
+バコマンドを収録しています。 これらはいずれも、TCP/IP を用いて遠隔ホス
+トの CD-ROM 書籍にアクセスするためのサーバです。 UNIX 系 OS のシステム
+上で動作させることができます。
+
+  * ebnetd
+    ebnetd は EBNET プロトコルのサーバで、EBNET は「EB ライブラリ」と
+    通信を行うために設計されたプロトコルです。
+
+    EB ライブラリは、CD-ROM 書籍のアクセスを行う、C 言語のライブラリで
+    す。 ndtpd, ebhttpd も EB ライブラリを使用しています。ebnetd を使
+    用すると、EB ライブラリのアプリケーションは、遠隔ホストの CD-ROM
+    書籍にアクセスできるようになります。 EB ライブラリについての詳細は、
+
+        http://www.sra.co.jp/m-kasahr/eb/
+
+    を参照して下さい。
+
+  * ndtpd
+    ndtpd は NDTP (Network Dictionary Transfer Protocol) サーバです。
+    NDTP を最初に実装したサーバは `dserver' で、ndtpd は dserver-2.2
+    と上位互換性があります。
+
+    Web ページ
+
+        http://www.sra.co.jp/m-kasahr/ndtpd/related.html
+
+    に ndtpd と通信可能な NDTP クライアントの一覧が載っています。
+
+  * ebhttpd
+    ebhttpd は WWW (World Wide Web) サーバです。 HTTP/1.0 および
+    HTTP/1.1 (Hypertext Transfer Protocol version 1.0 および 1.1) に対
+    応しています。
+
+EBNETD は UNIX 系 OS のシステム上で動作させることができます。EB, EBG,
+EBXA, EBXA-C, S-EBXA および EPWING 形式の CD-ROM 書籍に対応しています。
+これらの形式の CD-ROM 書籍は、日本で一般的に使われています。CD-ROM 書
+籍自体は ISO 9660 形式になっていますので、他の ISO 9660 形式と同じ要領
+でマウントすることができます。
+
+EBNETD は CD-ROM 書籍にアクセスするために、EB ライブラリを使用していま
+す。EBNETD をインストールする前に、EB ライブラリをインストールする必要
+があります。
+
+EBNETD はフリーソフトウェアです。あなたは、Free Software Foundation が
+公表した GNU General Public License (GNU 一般公有使用許諾) バージョン
+2 あるいはそれ以降の各バージョンの中からいずれかを選択し、そのバージョ
+ンが定める条項に従って本プログラムを再頒布または変更することができます。
+
+EBNETD は有用とは思いますが、頒布にあたっては、市場性及び特定目的適合性
+についての暗黙の保証を含めて、いかなる保証も行ないません。詳細について
+は GNU General Public License をお読みください。
+
+加えて、あなたは自分の所有する CD-ROM 書籍の使用許諾も守らなくてはいけ
+ません。EBNETD はフリーソフトウェアですが、あなたの書籍が自由に使えるも
+のであるとは限りません。使用を許されていないホストやユーザに対して、あ
+なたの書籍を公開しないで下さい。
+
+このバージョンのリリースにおける、主な変更点に付きましては、NEWS とい
+うファイルをご覧下さい。コンパイルおよびインストール方法については 
+INSTALL-ja というファイルをご覧下さい。以前のバージョンからアップグレー
+ドを行うときは、あわせて UPGRADE-ja というファイルもご覧下さい。
+
+最新の EBNETD は次のところから入手できます。
+	ftp://ftp.sra.co.jp/pub/misc/eb/
+
+EBNETD に関する情報は次のところから得ることができます。
+	http://www.sra.co.jp/people/m-kasahr/ebnetd/
+
+コメントやバグの報告は
+	m-kasahr@sra.co.jp
+宛に、日本語か英語でお送り下さい。

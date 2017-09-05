@@ -1,0 +1,1358 @@
+This is ebnetd-ja.info, produced by makeinfo version 4.2 from
+ebnetd-ja.texi.
+
+INFO-DIR-SECTION CD-ROM Book Utilities
+START-INFO-DIR-ENTRY
+* EBNETD: (ebnetd).             Network EB Library server.
+* NDTPD: (ndtpd).               Server for accessing CD-ROM books with NDTP.
+* ebHTTPD: (ebhttpd).           Server for accessing CD-ROM books with HTTP.
+END-INFO-DIR-ENTRY
+
+   EBNETD: CD-ROM 書籍サーバ群、笠原基之
+
+   Copyright (C) 1997, 98, 99, 2000, 01, 03  Motoyuki Kasahara
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy and distribute modified versions of
+this manual under the conditions for verbatim copying, provided that
+the entire resulting derived work is distributed under the terms of a
+permission notice identical to this one.
+
+   Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions, except that this permission notice may be stated in a
+translation approved by Free Software Foundation, Inc.
+
+
+File: ebnetd-ja.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
+
+   この文書は第 1.0beta0 版です。EBNETD バージョン 1.0beta0
+に対応しています。
+
+* Menu:
+
+* Introduction::                はじめに
+* Installation::                EBNETD のインストール
+* Configuration File::          設定ファイルの書き方
+* Configuration Checker::       設定ファイルの確認
+* Setup Your Environment::      環境設定
+* Start ebnetd::                `ebnetd' の起動
+* Start ndtpd::                 `ndtpd' の起動
+* Start ebhttpd::               `ebhttpd' の起動
+* Terminate and Restart::       `ndtpd' の終了および再始動
+* Daily Works::                 毎日の管理作業
+* Network License::             ネットワークライセンス
+
+ --- The Detailed Node Listing ---
+
+EBNETD のインストール
+
+* Basic Installation::          基本的なインストール方法
+* Compilers and Options::       コンパイラとコンパイルオプションの選択
+* Multiple Architectures::      複数のアーキテクチャでコンパイル
+* Installation Names::          インストール名の変更
+* Optional Features::           取捨選択の可能な機能
+* System Type::                 システムの種類
+* Sharing Defaults::            `configure' スクリプトのデフォルト
+                                を共通の値に設定するには
+* Operation Controls::          `configure' の動作の制御
+* Optional Feature List::       取捨選択の可能な機能の一覧
+
+設定ファイル
+
+* Single Directive::            単独指示子の一般形
+* Single Directive List::       単独指示子の一覧
+* Group Directive::             複合指示子の一般形
+* Book Group Directive::        複合指示子の一覧
+* Sample Configuration::        設定ファイルの例
+
+設定ファイルのチェックコマンド
+
+* Invoking ebncheck::           `ebncheck' の実行
+* ebncheck Options::            `ebncheck' のオプション
+
+環境設定
+
+* Services::                    `services' ファイルの設定
+* Syslog::                      `syslog.conf' ファイルの設定
+* Working Directory::           EBNETD の作業用ディレクトリ
+* Mount CD-ROM Books::          CD-ROM 書籍のマウント
+* Appendix Package::            appendix パッケージの用意
+
+`ebnetd' の起動
+
+* ebnetd Standalone::           `ebnetd' をスタンドアロンで起動
+* ebnetd Child of inetd::       `ebnetd' を `inetd' 経由で起動
+* ebnetd Child of xinetd::      `ebnetd' を `xinetd' 経由で起動
+* ebnetd Test with telnet::     `telnet' による `ebnetd' の確認
+* ebnetd Options::              `ebnetd' のオプション
+
+`ndtpd' の起動
+
+* ndtpd Standalone::            `ndtpd' をスタンドアロンで起動
+* ndtpd Child of inetd::        `ndtpd' を `inetd' 経由で起動
+* ndtpd Child of xinetd::       `ndtpd' を `xinetd' 経由で起動
+* ndtpd Test with telnet::      `telnet' による `ndtpd' の確認
+* ndtpd Options::               `ndtpd' のオプション
+
+`ebhttpd' の起動
+
+* ebhttpd Standalone::          `ebhttpd' をスタンドアロンで起動
+* ebhttpd Child of inetd::      `ebhttpd' を `inetd' 経由で起動
+* ebhttpd Child of xinetd::     `ebhttpd' を `xinetd' 経由で起動
+* ebhttpd Test with telnet::    `telnet' による `ebhttpd' の確認
+* ebhttpd Options::             `ebhttpd' のオプション
+
+サーバの終了および再始動
+
+* Invoke Server Controler::     サーバ制御コマンドの実行
+* ebncontrol Options::          サーバ制御コマンドのオプション
+
+毎日の管理作業
+
+* ebndaily Options::            `ebndaily' のオプション
+
+
+File: ebnetd-ja.info,  Node: Introduction,  Next: Installation,  Prev: Top,  Up: Top
+
+はじめに
+********
+
+   本 EBNETD 配布パッケージには、`ebnetd', `ndtpd', `ebhttpd' という 3
+つのサーバコマンドを収録しています。 これらはいずれも、TCP/IP
+を用いて遠隔ホストの CD-ROM 書籍にアクセスする ためのサーバです。 UNIX
+系 OS のシステム上で動作させることができます。
+
+`ebnetd'
+     `ebnetd' は EBNET プロトコルのサーバで、EBNET は "EB ライブラリ"
+     と通信を行うために設計されたプロトコルです。
+
+     EB ライブラリは、CD-ROM 書籍のアクセスを行う、C
+     言語のライブラリです。 `ndtpd', `ebhttpd' も EB
+     ライブラリを使用しています。 `ebnetd' を使用すると、EB
+     ライブラリのアプリケーションは、遠隔ホスト の CD-ROM
+     書籍にアクセスできるようになります。 EB
+     ライブラリについての詳細は、<http://www.sra.co.jp/m-kasahr/eb/>
+     を参照して下さい。
+
+`ndtpd'
+     `ndtpd' は NDTP (Network Dictionary Transfer Protocol) サーバです。
+     NDTP を最初に実装したサーバは "dserver" で、`ndtpd' は dserver-2.2
+     と上位互換性があります。
+
+     Web ページ <http://www.sra.co.jp/m-kasahr/ndtpd/related.html> に
+     `ndtpd' と通信可能な NDTP クライアントの一覧が載っています。
+
+`ebhttpd'
+     `ebhttpd' は WWW (World Wide Web) サーバです。 HTTP/1.0 および
+     HTTP/1.1 (Hypertext Transfer Protocol version 1.0 および 1.1)
+     に対応しています。
+
+   これらサーバ群は、EB, EBG, EBXA, EBXA-C, S-EBXA および EPWING 形式の
+CD-ROM 書籍に対応しています。 これらの形式の CD-ROM
+書籍は、日本で一般的に使われています。 CD-ROM 書籍自体は ISO 9660
+形式になっていますので、他の ISO 9660 形式
+と同じ要領でマウントすることができます。
+サーバは、デフォルトではスタンドアロンで動作しますが、`inetd'
+経由で起動するようにすることも可能です。
+
+   EBNETD はフリーソフトウェアです。あなたは、Free Software Foundation
+が 公表した GNU General Public License (GNU 一般公有使用許諾) バージョン
+2 あるいはそれ以降の各バージョンの中からいずれかを選択し、そのバージョ
+ンが定める条項に従って本プログラムを再頒布または変更することができます。
+
+   EBNETD
+は有用とは思いますが、頒布にあたっては、市場性及び特定目的適合性
+についての暗黙の保証を含めて、いかなる保証も行ないません。詳細について
+は GNU General Public License をお読み下さい。
+
+   加えて、あなたは自分の所有する CD-ROM
+書籍の使用許諾も守らなくてはいけ ません。 EBNETD
+はフリーソフトウェアですが、あなたの書籍が自由に使えるものである
+とは限りません。
+使用を許されていないホストやユーザに対して、あなたの書籍を公開しないで
+下さい。
+
+   この文書は EBNETD バージョン 1.0beta0 に対応しています。
+
+   最新の EBNETD は <ftp://ftp.sra.co.jp/pub/misc/eb/>
+から入手できます。
+
+   EBNETD に関する情報は <http://www.sra.co.jp/people/m-kasahr/ebnetd/>
+から得ることができます。
+
+   コメントやバグの報告は <m-kasahr@sra.co.jp>
+宛に、日本語か英語でお送り下さい。
+
+
+File: ebnetd-ja.info,  Node: Installation,  Next: Configuration File,  Prev: Introduction,  Up: Top
+
+EBNETD のインストール
+*********************
+
+   EBNETD は CD-ROM 書籍にアクセスするために、EB
+ライブラリを使用しています。 EBNETD をインストールする前に、EB
+ライブラリ 3.3 もしくはそれ以降の
+バージョンをインストールする必要があります。
+
+   最新の EB ライブラリは <ftp://ftp.sra.co.jp/pub/misc/eb/>
+から入手できます。
+
+   EB ライブラリに関する情報は
+<http://www.sra.co.jp/people/m-kasahr/eb/> から得ることができます。
+
+* Menu:
+
+* Basic Installation::          基本的なインストール方法
+* Compilers and Options::       コンパイラとコンパイルオプションの選択
+* Multiple Architectures::      複数のアーキテクチャでコンパイル
+* Installation Names::          インストール名の変更
+* Optional Features::           取捨選択の可能な機能
+* System Type::                 システムの種類
+* Sharing Defaults::            `configure' スクリプトのデフォルト
+                                を共通の値に設定するには
+* Operation Controls::          `configure' の動作の制御
+* Optional Feature List::       取捨選択の可能な機能の一覧
+
+
+File: ebnetd-ja.info,  Node: Basic Installation,  Next: Compilers and Options,  Prev: Installation,  Up: Installation
+
+基本的なインストール方法
+========================
+
+   以下に記したのは、一般的なインストールの方法です。
+
+   `configure' シェルスクリプトは、コンパイル中に使用される、システム
+依存のチェック項目の値を正しく推定しようと努めます。
+`configure'は、判定した値を利用してパッケージ中の各ディレクトリの
+`Makefile'を生成します。 加えて、システムに依存する定義内容を記した
+`.h' ファイルを一つ もしくはいくつか生成することもあります。
+最後に、`configure' は `config.status' というシェルスクリプト
+`config.cache'、`config.log' というファイルを生成します。
+`config.status' は、現在のコンフィグレーションを後で再度生成すると
+きに用います。 `config.cache'
+は、再度コンフィグレーションを行うときにスピードアップ
+を図るために、テストの結果を保存してあります。 `config.log' には、(主に
+`configure' のデバッグに役立つような)
+コンピュータの出力が記録されています。
+
+   あなたがパッケージをコンパイルするにあたって、特別なことをしなければ
+ならなかったときは、`configure' がどのような判定をしていたのかを
+調べてみて、`README' に記されたアドレスに宛てて、相違点や指摘を
+メールで送って下さい。
+そうすれば、次回のリリースに向けて検討されると思います。
+もし、`config.cache' に見られたくない結果が記録されている場合は、
+その部分を削除したり編集したりしても構いません。
+
+   `configure.in' というファイルは、`autoconf' というプログラムが
+`configure' を生成するときに参照します。 あなたにとって `configure.in'
+というファイルが必要になるのは、 `configure.in'
+の内容を変更したい場合か、`autoconf' のもっと 新しいバージョンで
+`configure' を生成したい場合の、いずれかだけです。
+
+パッケージの最も単純なコンパイル方法は次の通りです。
+
+  1. パッケージのソースコードが置かれているディレクトリに移動 (`cd')
+     し、 あなたのシステム向けのコンフィグレーションを行うために
+     `./configure' を実行します。 あなたが古いバージョンの System V で
+     `csh' を使用している場合は、 `csh'
+     自身がスクリプトを実行してしまわないように、 `sh. /configure'
+     とする必要があるかも知れません。
+
+     `configure' の実行には少々時間がかかります。
+     実行している間は、どのような項目をチェックしているのかを記したメッセージ
+     が出力されます。
+
+  2. `make' を実行してパッケージをコンパイルします。
+
+  3. 任意で、パッケージに付属しているセルフテストを実行する場合は、
+     `make check' を実行します。
+
+  4. `make install' を実行して、プログラムおよびデータファイル、
+     ドキュメントをインストールします。
+
+  5. `make clean' を実行すると、生成されたプログラムのバイナリファイルや
+     オブジェクトファイルを、ソースコードの置かれたディレクトリから消すことが
+     できます。 一緒に `configure' が生成したファイルも消すには
+     (こうすることで、
+     別の種類のコンピュータでパッケージをコンパイルできます)、 `make
+     distclean' を実行します。 `make maintainer-clean'
+     というターゲットも用意されていますが、
+     これは主にそのパッケージの開発者のためのものです。 `make
+     maintainer-clean' を実行してしまうと、パッケージに元々
+     含まれていたファイルを再生成するために、他のいろいろなプログラムを
+     入手しなくてはいけなくなるかも知れません。
+
+
+File: ebnetd-ja.info,  Node: Compilers and Options,  Next: Multiple Architectures,  Prev: Basic Installation,  Up: Installation
+
+コンパイラとコンパイルオプション
+================================
+
+   システムによっては、`configure' スクリプトが理解していない、
+コンパイルやリンクのための特別なオプションを与える必要があります。
+環境変数を通して、`configure' に対して初期値を与えることができます。
+Bourne
+シェルと互換性のあるシェルを使用している場合は、次のようにします。
+     CC=c89 CFLAGS=-O2 LIBS=-lposix ./configure
+
+`env' というコマンドがシステムにあるならば、次のようにすることも
+できます。
+     env CPPFLAGS=-I/usr/local/include LDFLAGS=-s ./configure
+
+
+File: ebnetd-ja.info,  Node: Multiple Architectures,  Next: Installation Names,  Prev: Compilers and Options,  Up: Installation
+
+複数のアーキテクチャでのインストール
+====================================
+
+オブジェクトファイルをアーキテクチャ毎に別々のディレクトリに置くように
+することにより、種類の異なる複数のコンピュータが、パッケージを同時に
+コンパイルできます。 これを行うには、GNU `make' のように、`VPATH'
+変数に対応した `make' を使用する必要があります。
+オブジェクトファイルや実行形式のファイルを置いておきたいディレクトリに
+移動 (`cd') して、そこで `configure' スクリプトを実行します。
+`configure' は、自身の存在するディレクトリおよび `..' に
+ソースコードがあるかどうかを自動的に調べます。
+
+   `VPATH' 変数に対応していない `make' を使用している場合は、
+ソースコードディレクトリの下で、一度に一つのアーキテクチャずつコンパイル
+していくしかありません。一つのアーキテクチャのコンパイルが終わったら、
+別のアーキテクチャでコンパイルするために再コンフィグレーションを行う
+前に `make distclean' を実行して下さい。
+
+
+File: ebnetd-ja.info,  Node: Installation Names,  Next: Optional Features,  Prev: Multiple Architectures,  Up: Installation
+
+インストール名
+==============
+
+   デフォルトでは、`make install' を実行すると、パッケージ中のファイル
+が `/usr/local/bin'、`/usr/local/man' などにインストール されます。
+`configure' に対して `--prefix=パス' オプションを指定
+することで、`/usr/local' 以外のインストール先を指定するとができます。
+
+アーキテクチャに依存したファイルとそうでないファイルを、それぞれ異なった
+インストール先にインストールすることも可能です。 `configure' に対して
+`--exec-prefix=パス' を指定すると、
+プログラムやライブラリなどのインストール先が パス に変わります。
+ドキュメントや、データファイルなどは、通常のインストール先にインストール
+されます。
+
+加えて、あなたが通常とは異なったディレクトリレイアウトを採用している場合
+は、`--bindir=パス' といったオプションを指定することで、特定
+の種類のファイルのインストール先だけを変えることができます。 `configure
+--help' を実行すると、どのようなディレクトリを変更できる
+のか、どのような種類のファイルがどのディレクトリにインストールされるのかが
+分かります。
+
+   パッケージがサポートしているならば、`configure' に
+`--program-prefix=接頭辞' や `--program-suffix=接尾辞'
+というオプションを与えることで、
+インストール時にプログラム名に接頭辞や接尾辞を付加することができます。
+
+
+File: ebnetd-ja.info,  Node: Optional Features,  Next: System Type,  Prev: Installation Names,  Up: Installation
+
+取捨選択の可能な機能
+====================
+
+   パッケージによっては、`configure' が `--enable-機能'
+オプションを認識することがあります。 ここで 機能
+は、パッケージにおいて取捨選択の可能な機能を表します。
+また、`--with-パッケージ' オプションを認識することもあります。 ここで
+パッケージ は、`gnu-as' や (X ウィンドウシステムの ための) `x'
+といったものです。 `README' ファイルでは、どのような
+`--enable-'、`--with-'
+オプションをパッケージが認識するのか、記しておくべきです。
+
+   一般に、X ウィンドウシステムを使用しているパッケージでは、`configure'
+は X の include ファイルとライブラリファイルを自動的に見つけ出すことが
+できますが、見つけられない場合は、`configure' のオプション
+`--x-includes=ディレクトリ' と `--x-libraries=ディレクトリ'
+を用いることでディレクトリの 位置を明示的に指定することができます。
+
+
+File: ebnetd-ja.info,  Node: System Type,  Next: Sharing Defaults,  Prev: Optional Features,  Up: Installation
+
+システムの種類の指定
+====================
+
+   設定項目によっては、`configure' が自動的に識別できなくても、
+パッケージが動作するホストの種類を基に決定しなければならないときもあります。
+通常、`configure' はそのホストの種類を識別することができますが、 もしも
+`configure' がホストの種類を識別できないという旨のメッセージ
+を出力してきたときは、`--host=種類' オプションを与えて下さい。 種類 は
+`sun4' のようなシステムの種類を表した短い名前か、 あるいは次のように 3
+つの項からなる正式名称のいずれかです。
+     CPU-社名-システム
+
+それぞれの項にどのような値が指定可能なのかについては、`config.sub'
+ファイルをご覧下さい。 パッケージが `config.sub'
+を含んでいないのであれば、そのパッケージ
+はホストの種類を識別する必要がないことを意味しています。
+
+あなたがクロスコンパイルのためのコンパイラツールをインストールしようと
+している場合は、`--target=種類' オプションを使用することで、
+どのホスト向けのコードを生成させるのかを指定できます。そして、
+`--build=種類' オプションを使用することで、パッケージを
+コンパイルしようとしているシステムの種類を指定することができます。
+
+
+File: ebnetd-ja.info,  Node: Sharing Defaults,  Next: Operation Controls,  Prev: System Type,  Up: Installation
+
+デフォルト値の共有
+==================
+
+   複数の `configure' スクリプトに対して共通のデフォルト値を設定したい
+ときは、サイト毎に `config.site' というシェルスクリプトを作成し、
+そこに `CC' や `cache_file'、`prefix' といった変数の
+デフォルト値を記述して下さい。 `configure' は
+`PREFIX/share/config.site' があれば、 それを調べ、次に
+`PREFIX/etc/config.site' があればそれを 調べます。 あるいは、環境変数
+`CONFIG_SITE' を設定することで、サイト固有の
+スクリプトの位置を指定することもできます。 ただし、すべての `configure'
+スクリプトがサイト固有のスクリプトを見
+に行くわけではありませんので、ご注意下さい。
+
+
+File: ebnetd-ja.info,  Node: Operation Controls,  Next: Optional Feature List,  Prev: Sharing Defaults,  Up: Installation
+
+`configure' の動作の制御
+========================
+
+   `configure' は次に記したオプションを認識します。
+
+`--cache-file=ファイル'
+     テストの結果の読み込みや書き出しに使用するファイルは、通常
+     `./config.cache' ですが、代わりに ファイル を用います。
+     `configure' をデバッグするときは、ファイル に `/dev/null'
+     を指定することで、キャッシュを抑制することができます。
+
+`--help'
+     `configure' のオプションの一覧を表示して、終了します。
+
+`--quiet'
+`--silent'
+`-q'
+     どのチェック項目を行っているのかを示すメッセージを出力しません。
+     通常のメッセージ出力をすべて抑制するには、`/dev/null' へ
+     リダイレクトして下さい
+     (ただし、エラーメッセージについては出力されて しまいますが)。
+
+`--srcdir=ディレクトリ'
+     パッケージのソースコードを探し出す際に、ディレクトリ を探します。
+     通常、`configure' は自動的にディレクトリを決定します。
+
+`--version'
+     `configure' スクリプトがどのバージョンの Autoconf
+     によって生成された のかを表示して、終了します。
+
+役に立つ場面は限られますが、`configure' には他にもいくつかの
+オプションが用意されています。
+
+
+File: ebnetd-ja.info,  Node: Optional Feature List,  Prev: Operation Controls,  Up: Installation
+
+選択可能な機能の一覧
+====================
+
+   本パッケージの `configure' は以下に記した `--enable-' および
+`--with-' オプションを認識します。
+
+`--with-logdir=DIR'
+     `ebndaily' がローテーションを行う syslog ファイル
+     が置かれるディレクトリのデフォルトとして DIR を指定します。
+     無指定時は、`LOCALSTATEDIR/ebnetd/log' です。
+
+`--with-eb-conf=FILE'
+     EB ライブラリの設定ファイルとして FILE を読み込みます。
+     デフォルトは、`SYSCONFDIR/eb.conf' です。
+
+`--with-gnu-ld'
+     C コンパイラが GNU ld を使用していると仮定します。
+     デフォルトは、`no' です。
+
+`--enable-ipv6'
+     IPv6 に対応させます。 システムが IPv6 に対応している場合、 The
+     default value is `yes' if the system supports IPv6.
+
+
+File: ebnetd-ja.info,  Node: Configuration File,  Next: Configuration Checker,  Prev: Installation,  Up: Top
+
+設定ファイル
+************
+
+   `ebnetd', `ndtpd', `ebhttpd' を始動させるためには、まず
+設定ファイルを編集する必要があります。
+サーバは、始動時および再始動時にこのファイルを読み込みます。
+このファイルの内容によって、サーバの様々な挙動が決定されます。 EBNETD
+を `/usr/local' 以下にインストールし、かつ、マシン固有の
+読み込み専用のデータを置くディレクトリ (`sysconfdir') の位置を
+変更していなければ、無指定時に読み込まれる設定ファイルは
+`/usr/local/etc/ebnetd.conf' になります。
+設定ファイルの位置は、コマンドラインオプション `--configuration-file'
+(あるいは `-c') を用いることで変更が可能です (*note `ebnetd'
+のオプション: ebnetd Options.)。
+
+   設定ファイルの中では、空行、および空白以外の最初の文字がハッシュ記号
+(`#') である行は無視されます。 他の行はすべて、"単独指示子 (single
+directive)" か "複合指示子 (group directive)"
+のいずれかでなくてはなりません。
+単独指示子と複合指示子は、どのような順序で定義しても差し支えありません。
+
+   各行は、改行文字を含め 511 文字を越えてはなりません。
+
+* Menu:
+
+* Single Directive::            単独指示子の一般形
+* Single Directive List::       単独指示子の一覧
+* Group Directive::             複合指示子の一般形
+* Book Group Directive::        複合指示子の一覧
+* Sample Configuration::        設定ファイルの例
+
+
+File: ebnetd-ja.info,  Node: Single Directive,  Next: Single Directive List,  Prev: Configuration File,  Up: Configuration File
+
+単独指示子の一般形
+==================
+
+   単独指示子とは、1 行で完結する指示子です。
+単独指示子の一般形は次の通りです。
+
+     指示子の名前    指示子の値
+
+以下の例では、`syslog-facility' が指示子の名前、`local0' が その値です。
+
+     syslog-facility    local0
+
+指示子名の大文字と小文字は区別されますので、`syslog-facility' を
+`Syslog-Facility' と書くことはできません。
+指示子の名前と値の区切りには、空白かタブを用います。
+連続した空白とタブが、行頭および行末にあった場合、それらは無視されます。
+
+
+File: ebnetd-ja.info,  Node: Single Directive List,  Next: Group Directive,  Prev: Single Directive,  Up: Configuration File
+
+単独指示子の一覧
+================
+
+   単独指示子には次のようなものがあります。
+
+`ebnet-port'
+     `ebnet-port' 指示子では、`ebnetd' が見張るポートの番号を指定
+     します。 指示子の値は、TCP のサービス名 (例: `EBNET')
+     か、ポート番号 (例: `22010') でなくてはいけません。 `ebnetd' を
+     `inetd' 経由で起動した場合は、この指示子は 無視されます。
+     この指示子は必ずしも定義する必要はありません。 また、2
+     度以上定義することはできません。 無指定時の値は `EBNET' です。
+
+     `ndtpd', `ebhttpd' はこの指示子を常に無視します。
+
+`ndtp-port'
+     `ndtp-port' 指示子では、`ndtpd' が見張るポートの番号を指定 します。
+     指示子の値は、TCP のサービス名 (例: `NDTP') か、ポート番号 (例:
+     `2010') でなくてはいけません。 `ebnetd' を `inetd'
+     経由で起動した場合は、この指示子は 無視されます。
+     この指示子は必ずしも定義する必要はありません。 また、2
+     度以上定義することはできません。 無指定時の値は `NDTP' です。
+
+     `ebnetd', `ebhttpd' はこの指示子を常に無視します。
+
+`http-port'
+     `http-port' 指示子では、`ebhttpd' が見張るポートの番号を
+     指定します。 指示子の値は、TCP のサービス名 (例: `HTTP')
+     か、ポート番号 (例: `80') でなくてはいけません。 `ebhttpd' を
+     `inetd' 経由で起動した場合は、この指示子は 無視されます。
+     この指示子は必ずしも定義する必要はありません。 また、2
+     度以上定義することはできません。 無指定時の値は `HTTP' です。
+
+     `ebnetd', `ebhttpd' はこの指示子を常に無視します。
+
+`user'
+     `user' 指示子では、サーバプロセスの実効ユーザを指定します。
+     指示子の値は、ユーザ名 (例: `nobody') か、ユーザ ID (例: `65535')
+     でなくてはいけません。
+     別のユーザに実効ユーザを変える場合は、スーパユーザ特権を有した状態で
+     サーバを起動しなくてはなりません。
+     実効ユーザの変更に失敗すると、サーバは走行の継続を断念します。
+     この指示子は必ずしも定義する必要はありません。 また、2
+     度以上定義することはできません。
+     この指示子を定義しなかった場合、サーバプロセスの実効ユーザは変化
+     しません。
+
+     `ndtpuser' のようなダミーのユーザアカウントを一つ作って、それを
+     この指示子で指定することをお薦めします。
+
+`group'
+     `group' 指示子では、サーバプロセスの実効グループを指定します。
+     指示子の値は、ユーザ名 (例: `nogroup') か、グループ ID (例:
+     `65534') でなくてはいけません。
+     実効グループの変更に失敗すると、サーバは走行の継続を断念します。
+     この指示子は必ずしも定義する必要はありません。 また、2
+     度以上定義することもできません。
+     この指示子を定義しなかった場合、サーバプロセスの実効グループは変化
+     しません。
+
+     `ndtpgrp' のようなダミーのグループアカウントを一つ作って、それを
+     この指示子で指定することをお薦めします。
+
+`max-clients'
+     `max-clients' 指示子では、同時にサーバに接続できるクライアントの
+     数の上限を指定します。 指示子の値は、0
+     以上の整数でなくてはいけません。
+     この指示子は必ずしも定義する必要はありません。 また、2
+     度以上定義することはできません。 無指定時の値は `1' です。
+     指示子の値を 0 に設定すると、無制限になります。
+
+`hosts'
+     `hosts' 指示子では、どのホストがサーバに接続でき、どのホストが
+     接続できないのかを指定します。 指示子の値は IP
+     アドレス、ホスト名、アドレス/ネットマスク の いずれかです。
+     加えて、直前に感嘆符 (`!') を付けることができます。
+     指示子の値が感嘆符で始まっていた場合は、それに続く IP
+     アドレスまたは
+     ホスト名にマッチするホストからの接続要求は拒否します。
+     感嘆符がない場合は、指示子の値にマッチするホストからの接続要求は許可
+     します。
+
+
+          # `host.xxx.yyy.jp' からの接続を許可する。
+          hosts host.xxx.yyy.jp
+          
+          # `127.0.0.1' からの接続を許可する。
+          hosts 127.0.0.1
+          
+          # `192.24.1.0/24'.からの接続を拒否する。
+          hosts !192.24.1.0/24
+
+     ホスト名に限り、アスタリスク (`*') と疑問符 (`?') を使う
+     ことができます。 アスタリスクは、先頭の感嘆符を除いた任意の 0
+     文字以上の文字列にマッチ します。
+
+
+          # `xxx.yyy.jp' ドメインのホストからの接続を拒否する。
+          hosts !*.xxx.yyy.jp
+          
+          # どのホストからの接続も許可する。
+          hosts *
+
+     疑問符は "未知のホスト名" を表します。
+
+
+          # ホスト名が分からないホストからの接続を拒否する。
+          hosts !?
+
+     この指示子は必ずしも定義する必要はありません。
+     また、何度でも定義することが可能です。 設定ファイルに `hosts'
+     指示子が無くてもエラーにはなりませんが、
+     どのクライアントもサーバにはアクセスできなくなります。 いずれの
+     `hosts' 指示子にもマッチしないホストからの接続要求は拒否 されます。
+     複数の `hosts' にマッチする場合は、設定ファイルの先頭に最も近い
+     ものが採用されます。
+
+     以下の例では、`sub1.xxx.yyy.jp' ドメインに属するホストからの
+     接続要求は拒否していますが、それ以外の `xxx.yyy.jp' ドメインに
+     属するホストからの接続要求は許可しています。
+
+
+          hosts !*.sub1.xxx.yyy.jp
+          hosts *.xxx.yyy.jp
+
+     この例では、指示子の順序は重要です。
+     順序を引っくり返してしまうと、`sub1.xxx.yyy.jp' を含め、
+     `xxx.yyy.jp' ドメインに属するすべてのホストがサーバに接続できて
+     しまいます。
+
+
+          # 間違い!!!
+          hosts *.xxx.yyy.jp
+          hosts !*.sub1.xxx.yyy.jp
+
+     ホスト名を比較する際、サーバは常にクライアントの正式ホスト名を使用
+     します。 ホスト名は、クライアントのアドレスから DNS
+     などの名前解決のサービス を利用して取得します。
+     別名は使用されませんので、注意して下さい。
+
+     IPv6 アドレスおよび IPV6 アドレス/ネットマスク パターンを指定
+     することも可能です。 IPv6
+     対応機能を有効にしてコンパイルされていないサーバは IPv4
+     クライアントとしか通信できませんが、設定ファイルに書かれた IPv6
+     アドレスを解釈することはできます。
+
+
+          # `12ab:0:0:cd3/60' と `::1' からの接続を許可する。
+          hosts ::1
+          hosts 12ab:0:0:cd3/60
+
+     `hosts' 指示子では、IPv4 アドレス (例 `192.168.1.1') とそれ
+     に対応する IPv4 射影 IPv6 アドレス (例 `::ffff:192.168.1.1') は
+     等価になります。 つまり、IPv4 クライアント `192.168.1.1' は
+     `hosts' 指示子 `::ffff:192.168.1.1' にマッチし、IPv6 クライアント
+     `::ffff:192.168.1.1' は `hosts' 指示子 `192.168.1.1'
+     にマッチします。
+
+`timeout'
+     `timeout' 指示子では、交信が途絶えたクライアントとの接続を
+     サーバが切断するまでの秒数を指定します。 指示子の値は、0
+     以上の整数でなくてはいけません。
+     この指示子は必ずしも定義する必要はありません。 また、2
+     度以上定義することはできません。 無指定時の値は `900' (15分) です。
+     指示子の値を 0 に設定すると、時間切れによる切断は行いません。
+
+`work-path'
+     `work-path' 指示子では、サーバの作業用ディレクトリ
+     のパスを指定します (*note 作業用ディレクトリ: Working Directory.)。
+     指示子の値は、絶対パスでなくてはいけません。
+     サーバはこのディレクトリの下に作業用のファイルをいくつか作成します。
+     また、異常終了によってコアファイルをダンプするときは、このディレクトリ
+     に作成します。 この指示子は必ずしも定義する必要はありません。
+     また、2 度以上定義することはできません。 EBNETD を `/usr/local'
+     以下にインストールし、かつ、マシン固有の
+     更新されうるデータを置くディレクトリ (`localstatedir') を変更して
+     いなければ、無指定時の値は `/usr/local/var/ebnetd/' になります。
+
+`max-hits'
+     `max-hits' 指示子では、一回の検索でサーバが返すヒット数の上限を
+     指定します。
+     サーバは、この指示子で指定された値と同じだけのヒット数を見つけた時点
+     で、ただちに検索を中止します。
+     この指示子は必ずしも定義する必要はありません。 また、2
+     度以上定義することはできません。 無指定時の値は `50' です。
+     指示子の値を 0 に設定すると、無制限になります。
+
+     `ebnetd' はこの指示子を常に無視します。
+
+`max-text-size'
+     `max-text-size' 指示子は、サーバがクライアントへの応答 1 回で
+     返すテキストのバイト数の上限を指定します。
+     この指示子は必ずしも定義する必要はありません。 また、2
+     度以上定義することはできません。 無指定時の値は `32768' です。
+     指示子の値を 0 に設定すると、無制限になります。
+
+     `ebnetd' はこの指示子を常に無視します。
+
+`syslog-facility'
+     `syslog-facility' 指示子では、syslog のファシリティを指定します
+     (例: `daemon', `local0' など)。
+     この指示子は必ずしも定義する必要はありません。 また、2
+     度以上定義することはできません。 無指定時は `daemon' を用います。
+     また、サーバが設定ファイルを読み込み終わるまでは、`daemon' が
+     用いられます。
+
+
+File: ebnetd-ja.info,  Node: Group Directive,  Next: Book Group Directive,  Prev: Single Directive List,  Up: Configuration File
+
+複合指示子の一般形
+==================
+
+   複合指示子 (指示命令)
+とは、記述が設定ファイル内の複数行に渡る指示子です。
+複合指示子の一般形は次の通りです。
+
+     begin 複合指示子の名前
+         副指示子の名前    副指示子の値
+                  :
+                  : (repeated)
+                  :
+     end
+
+キーワード `begin' は、複合指示子の開始を表します。 `begin' は後ろに
+複合指示子の名前 を引数として取ります。 `begin' と 複合指示子の名前
+は空白かタブで区切り、両方とも 同じ行の中に置きます。 キーワード `end'
+は、複合指示子の終了を表します。 `end' は、単独で 1 行にして置きます。
+
+   EBNETD バージョン 1.0beta0 では、使用できる複合指示子の名前は `book'
+だけです。 それぞれの "副指示子" は、`begin' と `end' の行の間に
+置きます。
+副指示子に関する記述の一般的な規則は、単独指示子と変わりません
+(たとえば、副指示子の名前と 副指示子の値 は空白かタブで
+区切ることなど)。
+
+   以下は、 `book' 複合指示子の記述例です。
+
+     begin book
+             name            EJDICT
+             title           English Japanese Dictionary
+             path            /mnt/cdrom
+             hosts           127.0.0.1
+             hosts           host.your.domain
+     end
+
+
+File: ebnetd-ja.info,  Node: Book Group Directive,  Next: Sample Configuration,  Prev: Group Directive,  Up: Configuration File
+
+`book' 複合指示子
+=================
+
+   一つの `book' 複合指示子 は一冊の CD-ROM 書籍に対応しますので、
+CD-ROM 書籍一冊ごとにこの複合指示子を定義しなくてはいけません。 `book'
+複合指示子の副指示子として、EBNETD が認識するものは次の通り です。
+
+`name'
+     `name' 副指示子では、その書籍の名前を指定します。
+     副指示子の値に用いることができるのは、英小文字 (`a'..`z')、 数字
+     (`0'..`9')、下線 (`_')、ハイフン (`-') だけで、 長さは 14
+     文字までです。
+     この名前は、書籍を識別するために使いますので、各書籍には異なる名前を
+     付けなくてはいけません。 この副指示子は、それぞれの `book'
+     複合指示子に必須です。 また、1 つの `book' 複合指示子で 2
+     度以上定義することはできません。
+
+`title'
+     `title' 副指示子では、その書籍の題名を指定します。
+     副指示子の値には、改行文字とナル文字 (`\0') を除く任意の文字を
+     使って指定することができますが、長さは 80 バイトまでです。 EUC
+     (Extended Unix Code) を用いれば日本語の文字も使用可能です。
+     副指示子の値の中に空白やタブを用いることも可能で、これらは他の文字と
+     同じく一文字として解釈されます。
+
+     この副指示子は、それぞれの `book' 複合指示子に必須です。 また、1
+     つの `book' 複合指示子で 2 度以上定義することはできません。
+
+`path'
+     `path' 副指示子では、その書籍の絶対パスを指定します。
+     パスはその書籍のトップディレクトリ、つまり `CATALOG' または
+     `CATALOGS' ファイルの存在するディレクトリを指してしなくては
+     いけません。
+
+     この副指示子は、それぞれの `book' 複合指示子に必須です。 また、1
+     つの `book' 複合指示子で 2 度以上定義することはできません。
+
+`appendix-path'
+     `appendix-path' 副指示子では、その書籍に対応する appendix (付録)
+     パッケージの絶対パスを指定します。 パスは appendix
+     パッケージのトップディレクトリ、つまり `CATALOG' または `CATALOGS'
+     ファイルの存在するディレクトリを指してしなくては いけません。
+
+     この副指示子は、必ずしも定義する必要はありません。 また、1 つの
+     `book' 複合指示子で 2 度以上定義することはできません。
+     書籍を使う上で、appendix
+     パッケージは必須ではありませんが、ないと外字が
+     識別不可能になるため、読みづらいかも知れません。
+
+`max-clients'
+     `max-clients' 副指示子には、この書籍を同時にいくつのクライアントが
+     使うことができるのかを指定します。 副指示子の値には、0
+     以上の整数を指定します。
+     この副指示子は、必ずしも定義する必要はありません。 また、1 つの
+     `book' 複合指示子で 2 度以上定義することはできません。
+     無指定時の値は `1' です。 0 を指定すると、無制限になります。
+
+     `work-path' (*note Working Directory::)
+     に共通の値をセットしておくと、 クライアントの数が `ebnetd',
+     `ndtpd', `ebhttpd' 間で 共有されます。
+     たとえば、ある瞬間にある書籍をアクセスしている `ebnetd'
+     クライアント が 2 つ、`ndtpd' クライアントが 3
+     つあったとすると、サーバは 5
+     つのクライアントが書籍にアクセスしているものと判断します。
+
+`hosts'
+     `hosts' 副指示子には、この書籍にどのホストがアクセスできて、どの
+     ホストができないのかを指定します。
+     この副指示子は、必ずしも定義する必要はありません。 また、1 つの
+     `book' 複合指示子で何度でも定義することが可能です。 `book'
+     複合指示子が `hosts' 副指示子を持たなくてもエラーには
+     なりませんが、その書籍はどのクライアントからもアクセスできません。
+
+     この副指示子の表記方法は、単独指示子の `hosts' と同じです。
+
+
+File: ebnetd-ja.info,  Node: Sample Configuration,  Prev: Book Group Directive,  Up: Configuration File
+
+設定ファイルの例
+================
+
+   EBNETD を `/usr/local' 以下にインストールし、かつ、マシン固有の
+読み込み専用のデータを置くディレクトリ (`sysconfdir') の位置を変更
+していなければ、この設定ファイルのサンプルは
+`/usr/local/etc/ebnetd.conf.sample' にインストールされています。
+
+     ######################################################################
+     # ebnetd/ndtpd/ebhttpd の設定ファイルのサンプル
+     # (このファイルを `ebnetd.conf' にコピーして、編集して下さい)
+     ######################################################################
+     
+     ### `ebnetd' が見張るポート番号
+     ### (無指定の場合: ebnet)
+     # ebnet-port	ebnet
+     
+     ### `ndtpd' が見張るポート番号
+     ### (無指定の場合: ndtp)
+     # ndtp-port	ndtp
+     
+     ### `ebhttpd' が見張るポート番号
+     ### (無指定の場合: http)
+     # http-port	http
+     
+     ### サーバのプロセスの所有ユーザ
+     ### (無指定の場合: なし)
+     user		ndtpuser
+     
+     ### サーバのプロセスのグループ
+     ### (無指定の場合: なし)
+     group		ndtpgrp
+     
+     ### サーバに同時に接続できるクライアントの数
+     ### (無指定の場合: 1)
+     # max-clients	1
+     
+     ### サーバに接続できるホスト、できないホスト
+     ### (無指定の場合: なし)
+     hosts		127.0.0.1
+     hosts		::1
+     hosts		!?
+     hosts		host.your.domain
+     
+     ### サーバが交信の途絶えたコネクションを切るまでの時間
+     ### (無指定の場合: 900)
+     # timeout		900
+     
+     ### 作業用ディレクトリのパス
+     ### サーバを起動する前に、このディレクトリを作り、サーバプロセスが
+     ### 書き込めるようにしておいて下さい。
+     ### (無指定の場合: /usr/local/var/ebnetd)
+     # work-path	/usr/local/var/ebnetd
+     
+     ### 一回の検索で、サーバが返す、ヒットしたエントリの最大個数
+     ### (無指定の場合: 50)
+     # max-hits	50
+     
+     ### クライアントへの一回の応答で、サーバが返すテキストの最大サイズ
+     ### (default: 32768)
+     # max-text-size		32768
+     
+     ### syslog のファシリティ
+     ### (無指定の場合: daemon)
+     syslog-facility	local0
+     
+     ###
+     ### 書籍のエントリ
+     ###
+     begin book
+         ### 書籍名
+         ### (必須)
+         name		JITENBAN97
+     
+         ### 書籍の題名
+         ### (必須)
+         title		Jitenban 97
+     
+         ### 書籍のトップディレクトリ
+         ### (必須)
+         path		/cdrom
+     
+         ### appendix (付録) パッケージのトップディレクトリ
+         ### (無指定の場合: なし)
+         appendix-path	/usr/local/share/eb/appendix/jitenban97-2.1
+     
+         ### 同時にアクセスできるクライアントの数
+         ### (無指定の場合: 1)
+         max-clients		1
+     
+         ### この書籍を利用できるホスト、できないホスト
+         ### (無指定の場合: なし)
+         hosts		127.0.0.1
+         hosts		::1
+         hosts		!?
+         hosts		host.your.domain
+     end
+     
+     ### もし、CD-ROM 書籍が他にもあるなら、`book' 複合指示子 (`begin book'
+     ### から `end' の間の行) を追加して下さい。`book' 複合指示子は、
+     ### 書籍一冊毎に必要です。
+
+
+File: ebnetd-ja.info,  Node: Configuration Checker,  Next: Setup Your Environment,  Prev: Configuration File,  Up: Top
+
+設定ファイルのチェックコマンド
+******************************
+
+   編集し終えた設定ファイルをチェックするには、`ebncheck' という
+チェックコマンドを使うと良いでしょう。 EBNETD を `/usr/local'
+以下にインストールし、かつ、システム管理用の コマンドを置くディレクトリ
+(`sbindir') の位置を変更していなければ、 `ebncheck' は
+`/usr/local/sbin' にインストールされています。
+
+   歴史的な経緯から、`ndtpd' のための `ndtpcheck', `ebhttpd' のための
+`ebhtcheck' というコマンドも合わせて用意されていますが、
+特に違いはありません。
+
+* Menu:
+
+* Invoking ebncheck::           `ebncheck' の実行
+* ebncheck Options::            `ebncheck' のオプション
+
+
+File: ebnetd-ja.info,  Node: Invoking ebncheck,  Next: ebncheck Options,  Prev: Configuration Checker,  Up: Configuration Checker
+
+`ebncheck' の実行
+=================
+
+   `ebncheck' コマンドは、`ebnetd' と同じ要領で設定ファイルを
+読み込んで、チェックします。 `ebncheck'
+コマンドの一般的な起動方法は次の通りです。
+
+     % /usr/local/sbin/ebncheck
+
+ただし、EBNETD を `/usr/local' 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (`sbindir') の位置を変更して
+いないと仮定しています。
+
+   記述の誤りが発見されると、`ebncheck' は標準エラー出力に以下のような
+メッセージを出力します。
+
+     /usr/local/etc/ebnetd.conf:12: unknown user: noboy
+     configuration failure
+
+
+File: ebnetd-ja.info,  Node: ebncheck Options,  Prev: Invoking ebncheck,  Up: Configuration Checker
+
+`ebncheck' のオプション
+=======================
+
+   `ebncheck' コマンドは、伝統的な一文字オプション名と覚えやすい長い
+オプション名の両方を扱うことができます。
+長いオプション名を表すには、`-' ではなく `--' を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
+
+   `ebncheck' コマンドは以下に挙げたオプションを解釈することが
+できます。
+
+`-c ファイル'
+`--configuration-file ファイル'
+     設定ファイルを指定します。
+     無指定時のファイル名は、ヘルプメッセージの中に記されています。
+
+`-d'
+`--debug'
+`--verbose'
+     デバッグ用の情報を標準エラー出力に出力します。
+     デバッグ用の情報は、設定ファイルの各行がどのように解釈されるのかを示して
+     くれます。
+
+`-h'
+`--help'
+     ヘルプメッセージを標準出力に出力して、終了します。
+
+`-v'
+`--version'
+     バージョン番号を標準出力に出力して、終了します。
+
+
+File: ebnetd-ja.info,  Node: Setup Your Environment,  Next: Start ebnetd,  Prev: Configuration Checker,  Up: Top
+
+環境設定
+********
+
+   サーバ周辺のシステムの環境を設定をする必要があるかも知れません。
+設定には、おそらくスーパーユーザの権限が必要になるでしょう。
+
+* Menu:
+
+* Services::                    `services' ファイルの設定
+* Syslog::                      `syslog.conf' ファイルの設定
+* Working Directory::           EBNETD の作業用ディレクトリ
+* Mount CD-ROM Books::          CD-ROM 書籍のマウント
+* Appendix Package::            appendix パッケージの用意
+
+
+File: ebnetd-ja.info,  Node: Services,  Next: Syslog,  Prev: Setup Your Environment,  Up: Setup Your Environment
+
+`services' ファイル
+===================
+
+   サービス名 `ebnet', `ndtp', `http' があなたのシステムの `services'
+ファイルに無ければ、追加しなくてはなりません (大抵の場合
+`/etc/services')。 もし、あなたのホストが NIS
+クライアントならば、代わりに NIS サーバ上に ある NIS
+のマップを修正しなくてはなりません。
+
+   もし、次の行が無ければ足します。
+
+     http          80/tcp
+     ndtp          2010/tcp
+     ebnet         22010/tcp
+
+次のように、システムの `services' ファイルには、すでに別のサービス
+名でエントリが入っているかも知れません。
+
+     search        2010/tcp
+
+この場合は、サービス名を別名としてその行に追加して下さい。
+
+     search        2010/tcp        ndtp
+
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
+
+
+File: ebnetd-ja.info,  Node: Syslog,  Next: Working Directory,  Prev: Services,  Up: Setup Your Environment
+
+`syslog.conf' ファイル
+======================
+
+   `ebnetd', `ndtpd', `ebhttpd' は syslog を使って
+ログメッセージを記録します。 `syslogd' の設定ファイル (大抵の場合
+`/etc/syslog.conf') に、 次のような行を追加して下さい。
+一般にフィールドの区切りにはタブしか許されていませんので、空白を
+使わないように注意して下さい。
+
+     local0.info   /usr/local/var/ebnetd/log/ebnetd.log
+
+`ebnetd' が使用する syslog のファシリティは、`ebnetd' の 設定ファイルの
+`syslog-facility' 指示子で決まることに留意して 下さい (*note
+`syslog-facility': Single Directive List.)。
+
+   もしログファイルが存在しなければ、空のファイルを作成します。
+
+     % touch /usr/local/var/ebnetd/log/ebnetd.log
+     % chmod 644 /usr/local/var/ebnetd/log/ebnetd.log
+
+現在走行している `syslogd' プロセスの PID を調べます。
+
+     % ps axuww | grep syslogd
+
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
+`syslogd' が走っているならば、次のような行が見つかるはずです。
+
+     root        63  0.0  1.1   188  316  ??  Is   10:04PM    0:00.16 syslogd
+
+ハングアップシグナル (`SIGHUP') を `syslogd' に送ると、 `syslogd' は
+`syslog.conf' を読み込み直します。
+
+     % kill -HUP 63
+
+あなたのシステムに `logger' コマンドがあれば、次のようにして `syslogd'
+にテストメッセージを送ることができます。
+
+     % logger -p local0.info "test message"
+
+
+File: ebnetd-ja.info,  Node: Working Directory,  Next: Mount CD-ROM Books,  Prev: Syslog,  Up: Setup Your Environment
+
+作業用ディレクトリ
+==================
+
+   `ebnetd', `ndtpd', `ebhttpd' は作業用のディレクトリの下に
+いくつかのファイルを作成します。 このディレクトリは、設定ファイルの中の
+`work-path' 指示子 で指定することができます (*note `work-path': Single
+Directive List.)。
+
+   このディレクトリを作り、サーバプロセスとスーパーユーザだけが書き
+込めるようにしておいて下さい。
+
+     # mkdir /usr/local/var/ebnetd
+     # chown ndtpuser /usr/local/var/ebnetd
+     # chmod 755 /usr/local/var/ebnetd
+
+(あなたのシステムでは、サーバプロセスを所有するユーザが `ndtpuser'
+であると仮定しています。)
+
+   ただし、サーバプロセスの所有ユーザとグループは、設定ファイルの中の
+`user', `group' 指示子でそれぞれ決まりますので、注意 して下さい (*note
+`user': Single Directive List., および *note `group': Single Directive
+List.)。
+
+
+File: ebnetd-ja.info,  Node: Mount CD-ROM Books,  Next: Appendix Package,  Prev: Working Directory,  Up: Setup Your Environment
+
+CD-ROM 書籍のマウント
+=====================
+
+   先に述べたように、CD-ROM 書籍自体は ISO 9660 形式に従っています。
+CD-ROM 書籍は、他の ISO 9660 形式のディスクと同じ方法でマウントすること
+ができます。 もし、ISO 9660 の CD-ROM
+ディスクのマウント方法が分からなければ、あなた
+のシステムのマニュアルを調べて下さい。
+
+   サーバは `ebzip' で圧縮された辞書をアクセスすることができます (*note
+圧縮: (ebzip-ja)Compression.)。
+
+
+File: ebnetd-ja.info,  Node: Appendix Package,  Prev: Mount CD-ROM Books,  Up: Setup Your Environment
+
+appendix パッケージの用意
+=========================
+
+   "appendix" ("付録") とは CD-ROM 書籍の補助データのことです。
+appendix は CD-ROM 書籍の出版社から提供されているものではなく、 EB
+ライブラリに固有のものです。
+
+   (本 EBNET 配布パッケージのサーバは、いずれも EB ライブラリに深く
+関係していることを思い出して下さい。 `ebnetd' は、EB
+ライブラリのための遠隔アクセスサーバです。 `ndtpd' と
+`ebhttpd'は、CD-ROM 書籍のアクセスに EB ライブラリ を使用しています。)
+
+   appendix は以下のデータを CD-ROM 書籍に対して提供します。
+
+本文の区切りコード
+     あなたが EB ライブラリを使って CD-ROM
+     辞書の中のある単語を引く際、その 単語の説明が終了する箇所で、EB
+     ライブラリが本文の出力を止めることを
+     あなたは期待するのではないでしょうか。 しかし、EB
+     ライブラリはそのような動作を保証することができません。
+     なぜなら、CD-ROM
+     書籍の本文には、項目の終わりを示す印が存在しないから です。
+
+     幸いにも、多くの CD-ROM 書籍には、項目の終わりを示す印の代替として
+     使える、"区切りコード" ("stop code") というものを持っています。
+     通常、EB ライブラリはこの区切りコードを自動的に推測するようになって
+     いるのですが、時々誤った区切りコードを導き出すことがあります。
+     appendix の区切りコードは、その書籍の正しい区切りコードを EB
+     ライブラリ に教えてやるために用います。
+
+外字の代替文字列
+     多くの CD-ROM 書籍は、外字 (独自に定義した文字)
+     を持っており、本文中で その外字を使っています。 CD-ROM
+     書籍では外字のビットマップフォントを用意しており、
+     クライアントアプリケーションが外字を出力するには、そのフォントを描画
+     しなくてはなりません。
+
+     appendix では、外字の "代替文字列" ("alternation text") を定義
+     することができます。
+     アプリケーションは、ビットマップフォントを描画する代わりに、その
+     代替文字列を出力することにしても良いでしょう。
+
+   appendix パッケージのレイアウトは CD-ROM 書籍のものとよく似ています。
+トップディレクトリには `CATALOG' もしくは `CATALOGS'
+ファイルが存在し、各副本のデータは対応するサブディレクトリに配置されて
+います。 appendx を使うには、設定ファイルの中の、複合指示子 `book' の
+`appendix-path' 副指示子で指定します (*note `appendix-path': Group
+Directive.)。
+
+   EB ライブラリの公式な FTP サイト
+(<ftp://ftp.sra.co.jp/pub/misc/eb/appendix/>) に、appendix
+パッケージがいくつか置いてあります。 ここに載っていない CD-ROM 書籍用の
+appendix パッケージを作成する場合は、 `ebappendix'
+コマンドを使いましょう。 appendix
+のデータファイルの整形を行うことができます。
+
+
+File: ebnetd-ja.info,  Node: Start ebnetd,  Next: Start ndtpd,  Prev: Setup Your Environment,  Up: Top
+
+`ebnetd' の起動
+***************
+
+   `ebnetd' は、スタンドアロンのデーモン、あるいは `inetd' の
+子プロセスとして起動することができます。
+指定がなければ、スタンドアロンのデーモンとして起動するようになっています。
+
+   サーバへコネクションが頻繁に来ないなら、メモリの消費を抑えるために
+`ebnetd' を `inetd' の子プロセスとして起動する方が良いでしょう。
+
+   しかし、`inetd' によって起動される度に、`ebnetd' は設定ファイル
+を読み込み、初期化のために CD-ROM 書籍からデータを部分的に読み込みます。
+コネクションが頻繁に来るようなら、`ebnetd' をスタンドアロンのデーモン
+として起動した方が良いでしょう。
+
+   あなたのシステムでは `ebnetd' を必要としないなら、この章の残りの
+部分は読み飛ばして下さい。
+
+* Menu:
+
+* ebnetd Standalone::           `ebnetd' をスタンドアロンで起動
+* ebnetd Child of inetd::       `ebnetd' を `inetd' 経由で起動
+* ebnetd Child of xinetd::      `ebnetd' を `xinetd' 経由で起動
+* ebnetd Test with telnet::     `telnet' による `ebnetd' の確認
+* ebnetd Options::              `ebnetd' のオプション
+
+
+File: ebnetd-ja.info,  Node: ebnetd Standalone,  Next: ebnetd Child of inetd,  Prev: Start ebnetd,  Up: Start ebnetd
+
+`ebnetd' をスタンドアロンで起動
+===============================
+
+   `ebnetd' をスタンドアロンのデーモンとして起動するには、次のように
+コマンドを実行して下さい。 スーパーユーザの権限が必要かも知れません。
+
+     % /usr/local/sbin/ebnetd
+
+EBNETD を `/usr/local' 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (`sbindir') の位置を変更していなければ、
+`ebnetd' は `/usr/local/sbin' にインストールされています。
+
+
+File: ebnetd-ja.info,  Node: ebnetd Child of inetd,  Next: ebnetd Child of xinetd,  Prev: ebnetd Standalone,  Up: Start ebnetd
+
+`ebnetd' を `inetd' 経由で起動
+==============================
+
+   `ebnetd' を `inetd' の子プロセスとして起動には、次の手順が必要
+になります。 次のエントリを `inetd.conf' ファイル (大抵の場合
+`/etc/inetd.conf') に加えます。 `--inetd' (または `-i')
+オプションを足すのを忘れないようにして 下さい。
+
+     ebnet  stream  tcp  nowait  root  /usr/local/sbin/ebnetd ebnetd --inetd
+
+(ただし、EBNETD を `/usr/local' 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (`sbindir') の位置を変更していない
+と仮定しています。)
+
+   走行している `inetd' プロセスの PID を探し出します。 BSD
+系のシステムでは、次のようにします。
+
+     % ps axuww | grep inetd
+
+SYSV 系のシステムなら、次のようにします。
+
+     % ps -ef | grep inetd
+
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
+`inetd' が走っているならば、次のような行が見つかるはずです。
+
+     root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
+
+見つかったならば、ハングアップシグナル (`SIGHUP') を `inetd'
+に送ります。 おそらく、スーパーユーザの権限が必要です。
+
+     % kill -HUP 79
+
+
+File: ebnetd-ja.info,  Node: ebnetd Child of xinetd,  Next: ebnetd Test with telnet,  Prev: ebnetd Child of inetd,  Up: Start ebnetd
+
+`ebnetd' を `xinetd' 経由で起動
+===============================
+
+   Linux システムには、伝統的な `inetd' の代わりに `xinetd' を
+使用しているものもあります。 `xinetd' の設定ファイルの文法は、伝統的な
+`inetd' の設定ファイル の文法とは異なります。
+
+   `ebnetd' を `xinetd' の子プロセスとして起動には、次の手順が必要
+になります。 次のエントリを設定ファイル (大抵の場合
+`/etc/xinetd.d/ebnet') に 加えます。 `--inetd' (または `-i')
+オプションを足すのを忘れないようにして 下さい。
+
+     # default: off
+     # description: The ebnet server
+     service ebnet
+     {
+             disable = no
+             socket_type     = stream
+             wait            = no
+             user            = root
+             server          = /usr/local/sbin/ebnetd
+             server_args     = --inetd
+             log_on_failure  += USERID
+     }
+
+(ただし、EBNETD を `/usr/local' 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (`sbindir') の位置を変更していな
+いと仮定しています。)
+
+   走行している `xinetd' プロセスの PID を探し出します。
+
+     % ps axuww | grep xinetd
+
+`xinetd' が走っているならば、次のような行が見つかるはずです。
+
+     root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
+
+見つかったならば、USER2 シグナル (`SIGUSR2') を `xinetd' に送ります。
+おそらく、スーパーユーザの権限が必要です。
+
+     % kill -USR2 79
+

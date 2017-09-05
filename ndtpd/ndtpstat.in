@@ -1,0 +1,182 @@
+#! @PERL@
+eval 'exec @PERL@ -S $0 ${1+"$@"}'
+    if 0;
+
+#                                                         -*- Perl -*-
+# Copyright (c) 1997 - 2003
+#    Motoyuki Kasahara
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+
+# Program name, program version and mailing address.
+$progname ='ndtpstat';
+$version = '@VERSION@';
+$mailing_address = '@MAILING_ADDRESS@';
+
+$help = "Usage: $progname [option...] [syslog-file...]
+Options:
+  -h  --help                 display this help, then exit
+  -v  --version              display version number, then exit
+
+Arguments:
+  syslog-file                syslog file
+
+Report bugs to $mailing_address.
+";
+
+# Copyright message.
+$copyright = "Copyright (c) 1997 - 2003
+   Motoyuki Kasahara
+";
+
+$tryhelp = "try \`$0 --help\' for more information\n";
+
+@option_list = ('-h --help    no-argument',
+		'-v --version no-argument');
+
+#
+# Parse command line options.
+#
+&getopt_initialize(@option_list);
+while (($opt, $arg) = &getopt_long) {
+    if ($opt eq '-h') {
+	print $help;
+	exit(0);
+    } elsif ($opt eq '-v') {
+	print "$progname (EBNETD) version $version\n";
+	print $copyright;
+	exit(0);
+    } else {
+	die $tryhelp;
+    }
+}
+
+#
+# Scan logs.
+#
+while (<>) {
+    next unless (s/^.* ndtpd\[\d+\]: ([^:]+): //);
+    $status = $1;
+    foreach $i (split(/, /)) {
+	next unless (($name, $value) = ($i =~ /^([^=]+)=(.*)$/));
+	if ($name eq 'host') {
+	    $value =~ s/^\?\((.*)\)$/$1/;
+	    $value =~ s/^(.*)\(.*\)$/$1/;
+	    $value = '(test-mode)' if ($value =~ /^\//);
+	}
+	$field{$name} = $value;
+    }
+    if ($status =~ /connected$/) {
+	$permconn{$field{'host'}}++;
+	$permconn_total++;
+    } elsif ($status =~ /connection denied$/) {
+	$denyconn{$field{'host'}}++;
+	$denyconn_total++;
+    } elsif ($status =~ /succeeded$/) {
+	if ($field{'command'} eq 'L') {
+	    $set{$field{'book'}}++;
+	    $access{$field{'book'}}++;
+	    $set_total++;
+	    $access_total++;
+	} elsif ($field{'command'} eq 'P') {
+	    $search{$field{'book'}}++;
+	    $access{$field{'book'}}++;
+	    $search_total++;
+	    $access_total++;
+	} elsif ($field{'command'} eq 'F' || $field{'command'} eq 'S'
+		 || $field{'command'} eq 'XF' || $field{'command'} eq 'XS') {
+	    $sendtext{$field{'book'}}++;
+	    $access{$field{'book'}}++;
+	    $sendtext_total++;
+	    $access_total++;
+	} elsif ($field{'command'} eq 'XI' || $field{'command'} eq 'XL'
+		 || $field{'command'} eq 'XB' || $field{'command'} eq 'Xb') {
+	    $others{$field{'book'}}++;
+	    $access{$field{'book'}}++;
+	    $others_total++;
+	    $access_total++;
+	}
+    } elsif ($status =~ /denied$/) {
+	$denybook{$field{'host'}}++;
+	$denybook_total++;
+    }
+}
+
+#
+# Output header.
+#
+print "############################################################################\n";
+print "# NDTPD statistics\n";
+print "############################################################################\n\n";
+
+if ($permconn_total == 0
+    && $denyconn_total == 0
+    && $access_total == 0
+    && $denybook_total == 0) {
+    print "(no access from client)\n";
+    exit;
+}
+
+#
+# Output the `Permitted Connections to the server' list.
+#
+print "Permitted Connections to the server:\n\n";
+printf "%-32s  %7s\n", 'client', 'counts';
+print "-----------------------------------------\n";
+foreach $i (sort {$permconn{$b} <=> $permconn{$a}} keys(%permconn)) {
+    printf "%-32s  %7d\n", $i, $permconn{$i};
+}
+print "-----------------------------------------\n";
+printf "%-32s  %7d\n\n\n", 'total', $permconn_total;
+
+#
+# Output the `Denied connections to the server' list.
+#
+print "Denied connections to the server:\n\n";
+printf "%-32s  %7s\n", 'client', 'counts';
+print "-----------------------------------------\n";
+foreach $i (sort {$denyconn{$b} <=> $denyconn{$a}} keys(%denyconn)) {
+    printf "%-32s  %7d\n", $i, $denyconn{$i};
+}
+print "-----------------------------------------\n";
+printf "%-32s  %7d\n\n\n", 'total', $denyconn_total;
+
+#
+# Output the `Accesses to book' list.
+#
+print "Accesses to book:\n\n";
+printf "%-24s  %8s  (= %6s + %7s + %7s + %7s)\n", 'book', 'access', 'set',
+    'search', 'text', 'others';
+print "----------------------------------------------------------------------------\n";
+foreach $i (sort {$access{$b} <=> $access{$a}} keys(%access)) {
+    printf "%-24s  %8d  (= %6d + %7d + %7d + %7d)\n", $i, $access{$i},
+    $set{$i}, $search{$i}, $sendtext{$i}, $others{$i};
+}
+print "----------------------------------------------------------------------------\n";
+printf "%-24s  %8d  (= %6d + %7d + %7d + %7d)\n\n\n", 'total', $access_total,
+    $set_total, $search_total, $sendtext_total, $others_total;
+
+#
+# Output the `Denied accesses to book' list.
+#
+print "Denied accesses to book:\n\n";
+printf "%-32s  %7s\n", 'client', 'counts';
+print "-----------------------------------------\n";
+foreach $i (sort {$denybook{$b} <=> $denybook{$a}} keys(%denybook)) {
+    printf "%-32s  %7d\n", $i, $denybook{$i};
+}
+print "-----------------------------------------\n";
+printf "%-32s  %7d\n\n\n", 'total', $denybook_total;
+
+# Local Variables: 
+# mode: perl
+# End: 

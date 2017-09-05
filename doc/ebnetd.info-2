@@ -1,0 +1,640 @@
+This is ebnetd.info, produced by makeinfo version 4.2 from ebnetd.texi.
+
+INFO-DIR-SECTION CD-ROM Book Utilities
+START-INFO-DIR-ENTRY
+* EBNETD: (ebnetd).             Network EB Library server.
+* NDTPD: (ndtpd).               Server for accessing CD-ROM books with NDTP.
+* ebHTTPD: (ebhttpd).           Server for accessing CD-ROM books with HTTP.
+END-INFO-DIR-ENTRY
+
+   EBNETD/NDTPD/ebHTTPD: CD-ROM Book Servers, by Motoyuki Kasahara.
+
+   Copyright (C) 1997, 98, 99, 2000, 01, 03  Motoyuki Kasahara
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy and distribute modified versions of
+this manual under the conditions for verbatim copying, provided that
+the entire resulting derived work is distributed under the terms of a
+permission notice identical to this one.
+
+   Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions, except that this permission notice may be stated in a
+translation approved by Free Software Foundation, Inc.
+
+
+File: ebnetd.info,  Node: ebnetd Options,  Prev: ebnetd Test with telnet,  Up: Start ebnetd
+
+Summary of options to `ebnetd'
+==============================
+
+   `ebnetd' supports both traditional single-letter options and
+mnemonic long option names.  Long option names are indicated with `--'
+instead of `-'.  Abbreviations for option names are allowed as long as
+they are unique.
+
+   `ebnetd' recognizes following command line options.
+
+`-c FILE'
+`--configuration-file FILE'
+     Specify a configuration file read by `ebnetd'.  The default
+     filename is shown in the help message.
+
+`-h'
+`--help'
+     Output help message to standard error, then exit.
+
+`-i'
+`--inetd'
+     `inetd' mode.  It must be specified when `ebnetd' is invoked by
+     `inetd'.
+
+`-t'
+`--test'
+     Test mode.  The `ebnetd' process runs in foreground, and never
+     forks.  Requests to the server are input from standard in and
+     responses to a client are output to srandard out.  Standard in and
+     out can be file descriptors associated with terminals.  In
+     addition, access permission is never checked, so that you can
+     access all CD-ROM books defined in a configuration file.
+
+`-v'
+`--version'
+     Output version number to standard error, then exit.
+
+
+File: ebnetd.info,  Node: Start ndtpd,  Next: Start ebhttpd,  Prev: Start ebnetd,  Up: Top
+
+Start `ndtpd'
+*************
+
+   If you don't have to run `ndtpd' on your system, skip this chapter.
+
+   Also `ndtpd' has two running mode, standalone daemon and child
+process of `inted'.  By default, `ndtpd' runs as a standalone daemon.
+
+* Menu:
+
+* ndtpd Standalone::            Run `ndtpd' as a standard daemon.
+* ndtpd Child of inetd::        Run `ndtpd' as a child of `inetd'.
+* ndtpd Child of xinetd::       Run `ndtpd' as a child of `xinetd'.
+* ndtpd Test with telnet::      Test `ndtpd' with `telnet'.
+* ndtpd Options::               Options to `ndtpd'.
+
+
+File: ebnetd.info,  Node: ndtpd Standalone,  Next: ndtpd Child of inetd,  Prev: Start ndtpd,  Up: Start ndtpd
+
+Run `ndtpd' as a standard daemon
+================================
+
+   To start `ndtpd' as a standalone daemon, type the following command.
+Super user's priviledge may be required.
+
+     % /usr/local/sbin/ndtpd
+
+It assumes that EBNETD has been installed under `/usr/local', and if a
+directory for system administrative executables (`sbindir') has not
+been changed at the installation.
+
+
+File: ebnetd.info,  Node: ndtpd Child of inetd,  Next: ndtpd Child of xinetd,  Prev: ndtpd Standalone,  Up: Start ndtpd
+
+Run `ndtpd' as a child of `inetd'
+=================================
+
+   To start `ndtpd' from `inetd', following processes are needed.  Add
+the following entry to the `inetd.conf' file (usually
+`/etc/inetd.conf').  Don't forget to add the `--inetd' (or `-i') option.
+
+     ndtp  stream  tcp  nowait  root  /usr/local/sbin/ndtpd ndtpd --inetd
+
+It assumes that EBNETD has been installed under `/usr/local' and if a
+directory for system administrative executables (`sbindir') has not
+been changed at the installation.
+
+   Find the PID of the running `inetd' process.
+
+     % ps axuww | grep inetd
+
+(For details, please read the manual for your system.)
+If `inetd' is running, you can find a line like as below.
+
+     root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
+
+If found, send a hung-up signal (`SIGHUP') to `inetd' to re-read
+`inetd.conf'.  Super user's priviledge may be required.
+
+     % kill -HUP 79
+
+
+File: ebnetd.info,  Node: ndtpd Child of xinetd,  Next: ndtpd Test with telnet,  Prev: ndtpd Child of inetd,  Up: Start ndtpd
+
+Run `ndtpd' as a child of `xinetd'
+==================================
+
+   Some Linux systems use `xinetd' instead of traditional `inetd'.  The
+configuration file format of `xinetd' is different from that of
+traditional `inetd'.
+
+   To start `ndtpd' from `xinetd', following processes are needed.  Add
+the following entry to the configuration file (usually
+`/etc/xinetd.d/ndtp').  Don't forget to specify the `--inetd' (or `-i')
+option as `server_args'.
+
+     # default: off
+     # description: The ndtp server
+     service ndtp
+     {
+             disable = no
+             socket_type     = stream
+             wait            = no
+             user            = root
+             server          = /usr/local/sbin/ndtpd
+             server_args     = --inetd
+             log_on_failure  += USERID
+     }
+
+It assumes that EBNETD has been installed under `/usr/local' and if a
+directory for system administrative executables (`sbindir') has not
+been changed at the installation.
+
+   Find the PID of the running `xinetd' process.  In BSD based sytems,
+type the following.
+
+     % ps axuww | grep xinetd
+
+In SYSV based sytems, type the following.
+
+     % ps -ef | grep xinetd
+
+(For details, please read the manual for your system.)
+If `xinetd' is running, you can find a line like as below.
+
+     root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
+
+If found, send an USER2 signal (`SIGUSR2') to `xinetd' to re-read the
+configuration.  Super user's priviledge may be required.
+
+     % kill -USR2 79
+
+
+File: ebnetd.info,  Node: ndtpd Test with telnet,  Next: ndtpd Options,  Prev: ndtpd Child of xinetd,  Up: Start ndtpd
+
+Test `ndtpd' with `telnet'
+==========================
+
+   When all the setup has been completed, try to connect to `ndtpd'
+with the `telnet' command.
+
+   At first, type as follows.  In this example, we try to connect to
+`ndtpd' on localhost.
+
+     % telnet localhost ndtp
+
+The following message is displayed if `ndtpd' accepts a connection.
+
+     Connected to localhost.
+     Escape character is '^]'.
+
+Then, tpye <t> and <Enter>.  If `ndtpd' is running correctly, it
+outputs a list of available CD-ROM books like this:
+
+     t
+     1   Oxford Dictionary/Thesaurus   edict/oxford   0   0   0
+     2   Quick Tour                    edict/quick    0   0   0
+     3   User's Guide                  edict/user     0   0   0
+     4   About This Disc               edict/about    0   0   0
+     $*
+
+To close the connection, type <Q> and <Enter>.
+
+     Q
+     Connection closed by foreign host.
+
+
+File: ebnetd.info,  Node: ndtpd Options,  Prev: ndtpd Test with telnet,  Up: Start ndtpd
+
+Options to `ndtpd'
+==================
+
+   The command line usage of `ndtpd' is the same as that of `ebnetd'.
+See *note Summary of `ebnetd' options: ebnetd Options., for more
+details.
+
+
+File: ebnetd.info,  Node: Start ebhttpd,  Next: Terminate and Restart,  Prev: Start ndtpd,  Up: Top
+
+Start `ebhttpd'
+***************
+
+   If you don't have to run `ebhttpd' on your system, skip this chapter.
+
+   Also `ebhttpd' has two running mode, standalone daemon and child
+process of `inted'.  By default, `ebhttpd' runs as a standalone daemon.
+
+* Menu:
+
+* ebhttpd Standalone::          Run `ebhttpd' as a standard daemon.
+* ebhttpd Child of inetd::      Run `ebhttpd' as a child of `inetd'.
+* ebhttpd Child of xinetd::     Run `ebhttpd' as a child of `xinetd'.
+* ebhttpd Test with telnet::    Test `ebhttpd' with `telnet'.
+* ebhttpd Options::             Options to `ebhttpd'.
+
+
+File: ebnetd.info,  Node: ebhttpd Standalone,  Next: ebhttpd Child of inetd,  Prev: Start ebhttpd,  Up: Start ebhttpd
+
+Run `ebhttpd' as a standard daemon
+==================================
+
+   To start `ebhttpd' as a standalone daemon, type the following
+command.  Super user's priviledge may be required.
+
+     % /usr/local/sbin/ebhttpd
+
+It assumes that EBNETD has been installed under `/usr/local', and if a
+directory for system administrative executables (`sbindir') has not
+been changed at the installation.
+
+
+File: ebnetd.info,  Node: ebhttpd Child of inetd,  Next: ebhttpd Child of xinetd,  Prev: ebhttpd Standalone,  Up: Start ebhttpd
+
+Run `ebhttpd' as a child of `inetd'
+===================================
+
+   To start `ebhttpd' from `inetd', following processes are needed.
+Add the following entry to the `inetd.conf' file (usually
+`/etc/inetd.conf').  Don't forget to add the `--inetd' (or `-i') option.
+
+     http  stream  tcp  nowait  root  /usr/local/sbin/ebhttpd ebhttpd --inetd
+
+It assumes that EBNETD has been installed under `/usr/local' and if a
+directory for system administrative executables (`sbindir') has not
+been changed at the installation.
+
+   Find the PID of the running `inetd' process.
+
+     % ps axuww | grep inetd
+
+(For details, please read the manual for your system.)
+If `inetd' is running, you can find a line like as below.
+
+     root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
+
+If found, send a hung-up signal (`SIGHUP') to `inetd' to re-read
+`inetd.conf'.  Super user's priviledge may be required.
+
+     % kill -HUP 79
+
+
+File: ebnetd.info,  Node: ebhttpd Child of xinetd,  Next: ebhttpd Test with telnet,  Prev: ebhttpd Child of inetd,  Up: Start ebhttpd
+
+Run `ebhttpd' as a child of `xinetd'
+====================================
+
+   Some Linux systems use `xinetd' instead of traditional `inetd'.  The
+configuration file format of `xinetd' is different from that of
+traditional `inetd'.
+
+   To start `ebhttpd' from `xinetd', following processes are needed.
+Add the following entry to the configuration file (usually
+`/etc/xinetd.d/ndtp').  Don't forget to specify the `--inetd' (or `-i')
+option as `server_args'.
+
+     # default: off
+     # description: The ndtp server
+     service http
+     {
+             disable = no
+             socket_type     = stream
+             wait            = no
+             user            = root
+             server          = /usr/local/sbin/ebhttpd
+             server_args     = --inetd
+             log_on_failure  += USERID
+     }
+
+It assumes that EBNETD has been installed under `/usr/local' and if a
+directory for system administrative executables (`sbindir') has not
+been changed at the installation.
+
+   Find the PID of the running `xinetd' process.  In BSD based sytems,
+type the following.
+
+     % ps axuww | grep xinetd
+
+In SYSV based sytems, type the following.
+
+     % ps -ef | grep xinetd
+
+(For details, please read the manual for your system.)
+If `xinetd' is running, you can find a line like as below.
+
+     root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
+
+If found, send an USER2 signal (`SIGUSR2') to `xinetd' to re-read the
+configuration.  Super user's priviledge may be required.
+
+     % kill -USR2 79
+
+
+File: ebnetd.info,  Node: ebhttpd Test with telnet,  Next: ebhttpd Options,  Prev: ebhttpd Child of xinetd,  Up: Start ebhttpd
+
+Test `ebhttpd' with `telnet'
+============================
+
+   When all the setup has been completed, try to connect to `ebhttpd'
+with the `telnet' command.
+
+   At first, type as follows.  In this example, we try to connect to
+`ebhttpd' on localhost.
+
+     % telnet localhost http
+
+The following message is displayed if `ebhttpd' accepts a connection.
+
+     Connected to localhost.
+     Escape character is '^]'.
+
+Then, tpye a request like:
+
+     GET / HTTP/1.0
+
+Note that the request consists of two lines and the second line is
+empty.
+
+   If `ebhttpd' accepts the request, the following response will be
+shown.
+
+     HTTP/1.1 200 Ok
+     Date: Fri, 16 May 2003 13:11:12 GMT
+     Server: ebHTTPD 0.0
+     Content-Type: text/html; charset="euc-jp"
+     
+     <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+     <html>
+     <head>
+      (snip)
+
+
+File: ebnetd.info,  Node: ebhttpd Options,  Prev: ebhttpd Test with telnet,  Up: Start ebhttpd
+
+Options to `ebhttpd'
+====================
+
+   The command line usage of `ebhttpd' is the same as that of `ebnetd'.
+See *Note Summary of `ebnetd' options: ndtpd Options, for more details.
+
+
+File: ebnetd.info,  Node: Terminate and Restart,  Next: Daily Works,  Prev: Start ebhttpd,  Up: Top
+
+Terminate and Restart the Servers
+*********************************
+
+   You can use the `ebncontrol' command to terminate, kill and restart
+the `ebnetd' precess running as a standalone daemon.  `ebncontrol' has
+been installed at `/usr/local/sbin', if EBNETD has been installed under
+`/usr/local', and if a directory for system administrative executables
+(`sbindir') has not been changed at the installation.  You can
+terminate the running `ebnetd' process like as follows:
+
+     % /usr/local/sbin/ebncontrol terminate
+
+   `ebnetd' logs its PID to the file `ebnetd.pid' at the working
+directory (*note Working Directory::).  `ebncontrol' reads contents of
+the PID file to get a PID of the running `ebnetd' process, and then
+`ebncontrol' sends a signal to the PID.
+
+   The PID file is deleted by `ebnetd' when it is terminated normally.
+However, the PID file is not deleted when `ebnetd' aborts.  The PID
+logged in the remained PID file will be assigned to another process, in
+this case.  Be careful invoking `ebncontrol'.  `ebncontrol' doesn't
+examine whether the `ebnetd' process really exists.  If the pid file is
+obsolete, `ebncontrol' may send a signal to another process.
+
+   `ebncontrol' reads the configuration file for `ebnetd' in order to
+get a location of the working directory.  It can be defined at the
+`work-path' single directive in the configuration file (*note
+`work-path': Single Directive List.).  The default filename of the
+configuration file and default value of the `work-path' single
+directive are the same as those of `ebnetd'.
+
+   Also the `ndtpcontrol' and `ebhtcontrol' commands are available to
+terminate `ndtpd' and `ebhttpd'.  Command line usage of `ndtpcontrol'
+and `ebhtcontrol' are the same as that of `ebncontrol'.
+
+* Menu:
+
+* Invoke Server Controler::     Invoke Server Control Commands
+* Server Controler Options::    Summary of Options to Server Control Commands
+
+
+File: ebnetd.info,  Node: Invoke Server Controler,  Next: Server Controler Options,  Prev: Terminate and Restart,  Up: Terminate and Restart
+
+Invoke Server Control Commands
+==============================
+
+   As described before, `ebncontrol', `ndtpcontrol' and `ebhtcontrol'
+take the same command line arguments.  The usual ways to invoke the
+commands are as follows:
+
+     % /usr/local/sbin/ebncontrol SUB-COMMAND
+     % /usr/local/sbin/ndtpcontrol SUB-COMMAND
+     % /usr/local/sbin/ebhtcontrol SUB-COMMAND
+
+   They recognize the following SUB-COMMANDS.  Abbreviations for
+sub-command names are allowed as long as they are unique.
+
+`kill'
+     Kill the running server process (send the `SIGKILL' signal).  It
+     also deletes the server's PID file.  Before trying the `kill'
+     sub-command, you should try `terminate' sub-command.
+
+`restart'
+     Restart the server.  (send the `SIGHUP' signal).  The server
+     process closes all connections, and reads a configuration file
+     again.
+
+`status'
+     Examine whether the server is running or not, and output the result
+     to standard error.  This sub-command doesn't send any signal to
+     the server.
+
+`terminate'
+     Terminate the running server process (send the `SIGTERM' signal).
+
+
+File: ebnetd.info,  Node: Server Controler Options,  Prev: Invoke Server Controler,  Up: Terminate and Restart
+
+Summary of Options to Server Control Commands
+=============================================
+
+   The `ebncontrol', `ndtpcontrol' and `ebhtcontrol' commands support
+both traditional single-letter options and mnemonic long option names.
+Long option names are indicated with `--' instead of `-'.
+Abbreviations for option names are allowed as long as they are unique.
+
+   `ebncontrol', `ndtpcontrol' and `ebhtcontrol' recognize the command
+line options below.
+
+`-c FILE'
+`--configuration-file FILE'
+     Specify a configuration file.  The default filename is shown in
+     the help message.
+
+`-h'
+`--help'
+     Output help message to standard error, then exit.
+
+`-v'
+`--version'
+     Output version number to standard error, then exit.
+
+
+File: ebnetd.info,  Node: Daily Works,  Next: Network License,  Prev: Terminate and Restart,  Up: Top
+
+Daily Administrative Works
+**************************
+
+   The `ebndaily' command generates statistics summary from a latest
+syslog file of the servers (`ebnetd', `ndtpd' and `ebhttpd'), rotates
+syslog files, and then mails the results to administrators specified by
+command line arguments.
+
+   `ebndaily' has been installed at `/usr/local/sbin', if EBNETD has
+been installed under `/usr/local', and if a directory for system
+administrative executables (`sbindir') has not been changed at the
+installation.  Its usual way to invoke `ebndaily' is as follows:
+
+     % /usr/local/sbin/ebndaily MAIL-ADDRESS...
+
+For example,
+
+     % /usr/local/sbin/ebndaily root@host.your.domain
+
+Two or more mail addresses can be accepted:
+
+     % /usr/local/sbin/ebndaily root@host.your.domain root@dept.your.domain
+
+
+   To execute `ebndaily' once a day automatically, add an entry like as
+follows on your `crontab'.
+
+     0 0 * * *    /usr/local/sbin/ebndaily root@host.your.domain
+
+(For details, please read the manual for your system.)
+By default, `ebndaily' keeps 7 ages of old syslog files.  If the
+current syslog file is `/usr/local/var/ebnetd/log/ebnetd.log', the old
+syslog files are kept as:
+
+     /usr/local/var/ebnetd/log/ebnetd.log.0
+     /usr/local/var/ebnetd/log/ebnetd.log.1
+     /usr/local/var/ebnetd/log/ebnetd.log.2
+     /usr/local/var/ebnetd/log/ebnetd.log.3
+     /usr/local/var/ebnetd/log/ebnetd.log.4
+     /usr/local/var/ebnetd/log/ebnetd.log.5
+     /usr/local/var/ebnetd/log/ebnetd.log.6
+
+These syslog files are rotated by the following processes:
+
+  1. The eldest syslog file `ebnetd.log.6' is removed.
+
+  2. Other `ebnetd.log.N' files are moved to `ebnetd.log.N+1'.
+
+  3. The current syslog file `ebnetd.log' is copied to `ebnetd.log.0'.
+
+  4. The current syslog file `ebnetd.log' is cleared.
+
+* Menu:
+
+* ebndaily Options::            Summary of options to `ebndaily'.
+
+
+File: ebnetd.info,  Node: ebndaily Options,  Prev: Daily Works,  Up: Daily Works
+
+Summary of Options to `ebndaily'
+================================
+
+   The `ebndaily' command supports both traditional single-letter
+options and mnemonic long option names.  Long option names are
+indicated with `--' instead of `-'.  Abbreviations for option names are
+allowed as long as they are unique.
+
+   The `ebndaily' command recognizes following command line options.
+
+`-a INTEGER'
+`--ages INTEGER'
+     Keep INTEGER ages of old syslog files.  The default value is `7'.
+
+`-c COMPRESSOR'
+`--compressor COMPRESSOR'
+     Specify a commpression program to compress old syslog files.  The
+     COMPRESSOR must be `compress', `gzip', `bzip2' or `none'.  The
+     default value is `none'.
+
+     When `compress' is specified or no `--compressor' (`-c') option is
+     specified, the `compress' command is used for compression and the
+     suffix `.Z' are added to the old syslog files.  When `gzip' is
+     specified, the `gzip' command is used for compression and the
+     suffix `.gz' are added to the old syslog files.  When `bzip2' is
+     specified, the `bzip2' command is used for compression and the
+     suffix `.bz2' are added to the old syslog files.  When `none' is
+     specified, no compression program is used and no suffix is added
+     to the old syslog files.
+
+`-l FILE'
+`--log-file FILE'
+     Specify the current syslog file.
+     The default value is `/usr/local/var/ebnetd/log/ebnetd.log', if
+     EBNETD has been installed under `/usr/local', and if a directory
+     for modifiable single-machine data (`localstatedir') and a
+     directory for log files (specified by `--with-logdir') have not
+     been changed at the installation.  The default filename is shown
+     in the help message.
+
+`-h'
+`--help'
+     Output help message to standard error, then exit.
+
+`-v'
+`--version'
+     Output version number to standard error, then exit.
+
+`-N'
+`--fast'
+`--best'
+     These options are passed to `gzip' and `bzip2' (*note Invoking
+     `gzip': (gzip)Invoking gzip., for more details).  If neither
+     `gzip' nor `bzip2' is used, these options are merely ignored.
+
+
+File: ebnetd.info,  Node: Network License,  Prev: Daily Works,  Up: Top
+
+Network License
+***************
+
+   Some CD-ROM book publishers optionally provide network license.  It
+allows multiple users on your LAN to access the book.  The license may
+limit the maximum number of users accessing to the book at the same
+time (since the contents of network license is various, please contact
+publishers of your book for more details).
+
+   In the configuration file (usually `ebnetd.conf'), there are two
+`max-clients' parameters.  One is single directive (*note
+`max-clients': Single Directive List.), and another is sub-directive in
+the `book' (*note `max-clients': Book Group Directive.).  group
+directive.  Both limits the maximum number of clients.
+
+   They help follow the the network license, but they are not perfect.
+The book should be readable to an user only while his client connects
+to a server, but neither server or client doesn't check connection
+status frequently.  For example, server closes the connection when idle
+timeout occurs.  However, client keeps displaying contents of the
+CD-ROM book until user requests another contents.
+
+   Setting `max-clients' for network license is still a good idea.  It
+is important that you don't overestimate the abilities of `max-clients'.
+
+

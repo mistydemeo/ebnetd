@@ -1,0 +1,36 @@
+
+		    Notes for Upgrade Installation
+
+======================================================================
+<< Generic Hints >>
+
+* Use `ebnugrade' to upgrade a configuration file.
+
+Use the `ebnupgrade' command if you want to upgrade a configuration
+file (ebnetd.conf or ndtpd.conf) with ease.  `ebnupgrade' reads a
+configuration file for earlier version of EBNETD, NDTPD or ebHTTPD,
+then generates a new one which is suitable for this version of EBNETD.
+
+`ebnupgrade' reads the default EBNETD configuration file, and outputs
+new configuration to the file `<default-configuration-file>.new'.  You
+can replace your configuration file by the sequence of commands.
+
+	/usr/local/sbin/ebnupgrade
+	mv /usr/local/etc/ebnetd.conf /usr/local/etc/ebnetd.conf.orig
+	mv /usr/local/etc/ebnetd.conf.new /usr/local/etc/ebnetd.conf
+
+It supposes that EBNETD has been installed under `/usr/local' and if 
+directories for system administrative executables (`sbindir') and for
+read-only single-machine data ('sysconfdir') have not been changed at
+the installation.
+
+`ebnupgrade' also reports how does it modify a configuration file.
+The reports are output to standard error.
+
+	ebnetd.conf: 8: server-name' is obsoleted (comment out)
+	ebnetd.conf: 38: ident-hosts' is obsoleted (comment out)
+	ebnetd.conf: 42: ident-timeout' is obsoleted (comment out)
+	ebnetd.conf: 89: netmask in `hosts' must be an integer. (fixed)
+
+Try `ebnupgrade --help' for information about command line options.
+

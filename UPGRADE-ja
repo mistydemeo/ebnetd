@@ -1,0 +1,36 @@
+
+		    アップグレードに関する注意事項
+
+======================================================================
+<< 一般的なヒント >>
+
+* 設定ファイルをアップグレードを `ebnugrade' で
+
+設定ファイル (ebnetd.conf, ndtpd.conf) を簡単にアップグレードしたいな
+ら、`ebnupgrade' コマンドを使いましょう。ebnupgrade は前のバージョンの
+EBNETD, NDTPD, ebHTTPD の設定ファイルを読み込み、本バージョンの EBNETD
+向けの設定ファイルを生成します。
+
+ebnupgrade は EBNETD の標準の設定ファイルを読み込み、新しい設定を
+`<標準の設定ファイル>.new' というファイルに出力します。設定ファイルの
+置き換えは次の一連のコマンドで行えます。
+
+	/usr/local/sbin/ebnupgrade
+	mv /usr/local/etc/ebnetd.conf /usr/local/etc/ebnetd.conf.orig
+	mv /usr/local/etc/ebnetd.conf.new /usr/local/etc/ebnetd.conf
+
+ただしこれは、EBNETD が /usr/local にインストールされ、システム管理用
+のコマンドを置くディレクトリ (`sbindir') およびマシン固有の読み込み専
+用のデータを置くディレクトリ (`sysconfdir') の位置がインストール時に変
+更されていないと仮定しています。
+
+ebnupgrade は設定ファイルをどのように修正したのかについても報告します。
+報告内容は標準エラー出力に出力されます。
+
+	ebnetd.conf: 8: server-name' is obsoleted. (comment out)
+	ebnetd.conf: 38: ident-hosts' is obsoleted. (comment out)
+	ebnetd.conf: 42: ident-timeout' is obsoleted. (comment out)
+	ebnetd.conf: 89: netmask in `hosts' must be an integer. (fixed)
+
+`ebnupgrade --help' でコマンド行オプションの情報が得られます。
+
