@@ -1,0 +1,143 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 28  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>ebNETD: Introduction</TITLE>
+
+<META NAME="description" CONTENT="ebNETD: Introduction">
+<META NAME="keywords" CONTENT="ebNETD: Introduction">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="EN" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC1"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<A NAME="Introduction"></A>
+<H1> 1. はじめに </H1>
+<!--docid::SEC1::-->
+<P>
+
+本 EBNETD 配布パッケージには、<CODE>ebnetd</CODE>, <CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE>
+という 3 つのサーバコマンドを収録しています。
+これらはいずれも、TCP/IP を用いて遠隔ホストの CD-ROM 書籍にアクセスする
+ためのサーバです。
+UNIX 系 OS のシステム上で動作させることができます。
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>ebnetd</CODE>
+<DD><CODE>ebnetd</CODE> は EBNET プロトコルのサーバで、EBNET は <EM>EB ライブラリ</EM>
+と通信を行うために設計されたプロトコルです。
+<P>
+
+EB ライブラリは、CD-ROM 書籍のアクセスを行う、C 言語のライブラリです。
+<CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE> も EB ライブラリを使用しています。
+<CODE>ebnetd</CODE> を使用すると、EB ライブラリのアプリケーションは、遠隔ホスト
+の CD-ROM 書籍にアクセスできるようになります。
+EB ライブラリについての詳細は、<A HREF="http://www.sra.co.jp/m-kasahr/eb/">http://www.sra.co.jp/m-kasahr/eb/</A>
+を参照して下さい。
+</P><P>
+
+<DT><CODE>ndtpd</CODE>
+<DD><CODE>ndtpd</CODE> は NDTP (Network Dictionary Transfer Protocol) サーバです。
+NDTP を最初に実装したサーバは <EM>dserver</EM> で、<CODE>ndtpd</CODE> は
+dserver-2.2 と上位互換性があります。
+<P>
+
+Web ページ
+<A HREF="http://www.sra.co.jp/m-kasahr/ndtpd/related.html">http://www.sra.co.jp/m-kasahr/ndtpd/related.html</A>
+に <CODE>ndtpd</CODE> と通信可能な NDTP クライアントの一覧が載っています。
+</P><P>
+
+<DT><CODE>ebhttpd</CODE>
+<DD><CODE>ebhttpd</CODE> は WWW (World Wide Web) サーバです。
+HTTP/1.0 および HTTP/1.1 (Hypertext Transfer Protocol version 1.0 
+および 1.1) に対応しています。
+</DL>
+<P>
+
+これらサーバ群は、EB, EBG, EBXA, EBXA-C, S-EBXA および EPWING 形式の
+CD-ROM 書籍に対応しています。
+これらの形式の CD-ROM 書籍は、日本で一般的に使われています。
+CD-ROM 書籍自体は ISO 9660 形式になっていますので、他の ISO 9660 形式
+と同じ要領でマウントすることができます。
+サーバは、デフォルトではスタンドアロンで動作しますが、<CODE>inetd</CODE> 
+経由で起動するようにすることも可能です。
+</P><P>
+
+EBNETD はフリーソフトウェアです。あなたは、Free Software Foundation が
+公表した GNU General Public License (GNU 一般公有使用許諾) バージョン 
+2 あるいはそれ以降の各バージョンの中からいずれかを選択し、そのバージョ
+ンが定める条項に従って本プログラムを再頒布または変更することができます。
+</P><P>
+
+EBNETD は有用とは思いますが、頒布にあたっては、市場性及び特定目的適合性
+についての暗黙の保証を含めて、いかなる保証も行ないません。詳細について
+は GNU General Public License をお読み下さい。
+</P><P>
+
+加えて、あなたは自分の所有する CD-ROM 書籍の使用許諾も守らなくてはいけ
+ません。
+EBNETD はフリーソフトウェアですが、あなたの書籍が自由に使えるものである
+とは限りません。
+使用を許されていないホストやユーザに対して、あなたの書籍を公開しないで
+下さい。
+</P><P>
+
+この文書は EBNETD バージョン 1.0 に対応しています。
+</P><P>
+
+最新の EBNETD は
+<A HREF="ftp://ftp.sra.co.jp/pub/misc/eb/">ftp://ftp.sra.co.jp/pub/misc/eb/</A> から入手できます。
+</P><P>
+
+EBNETD に関する情報は
+<A HREF="http://www.sra.co.jp/people/m-kasahr/ebnetd/">http://www.sra.co.jp/people/m-kasahr/ebnetd/</A> から得ることができます。
+</P><P>
+
+コメントやバグの報告は
+<A HREF="mailto:m-kasahr@sra.co.jp">m-kasahr@sra.co.jp</A> 宛に、日本語か英語でお送り下さい。
+</P><P>
+
+<A NAME="Installation"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Motoyuki Kasahara</I> on <I>December, 28  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

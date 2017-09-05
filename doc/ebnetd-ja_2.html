@@ -1,0 +1,516 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 28  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>ebNETD: Installation</TITLE>
+
+<META NAME="description" CONTENT="ebNETD: Installation">
+<META NAME="keywords" CONTENT="ebNETD: Installation">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="EN" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC2"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_1.html#SEC1"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC3"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_1.html#SEC1"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 2. EBNETD のインストール </H1>
+<!--docid::SEC2::-->
+<P>
+
+EBNETD は CD-ROM 書籍にアクセスするために、EB ライブラリを使用しています。
+EBNETD をインストールする前に、EB ライブラリ 3.3 もしくはそれ以降の
+バージョンをインストールする必要があります。
+</P><P>
+
+最新の EB ライブラリは
+<A HREF="ftp://ftp.sra.co.jp/pub/misc/eb/">ftp://ftp.sra.co.jp/pub/misc/eb/</A>
+から入手できます。
+</P><P>
+
+EB ライブラリに関する情報は
+<A HREF="http://www.sra.co.jp/people/m-kasahr/eb/">http://www.sra.co.jp/people/m-kasahr/eb/</A>
+から得ることができます。
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_2.html#SEC3">2.1 基本的なインストール方法</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_2.html#SEC4">2.2 コンパイラとコンパイルオプション</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_2.html#SEC5">2.3 複数のアーキテクチャでのインストール</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_2.html#SEC6">2.4 インストール名</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_2.html#SEC7">2.5 取捨選択の可能な機能</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_2.html#SEC8">2.6 システムの種類の指定</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_2.html#SEC9">2.7 デフォルト値の共有</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"><CODE>configure</CODE> スクリプトのデフォルト</TD></TR>
+</TABLE>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;を共通の値に設定するには
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_2.html#SEC10">2.8 <CODE>configure</CODE> の動作の制御</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_2.html#SEC11">2.9 選択可能な機能の一覧</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Basic Installation"></A>
+<HR SIZE="6">
+<A NAME="SEC3"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC4"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.1 基本的なインストール方法 </H2>
+<!--docid::SEC3::-->
+<P>
+
+以下に記したのは、一般的なインストールの方法です。
+</P><P>
+
+<CODE>configure</CODE> シェルスクリプトは、コンパイル中に使用される、システム
+依存のチェック項目の値を正しく推定しようと努めます。
+<CODE>configure</CODE>は、判定した値を利用してパッケージ中の各ディレクトリの 
+<TT>`Makefile'</TT>を生成します。
+加えて、システムに依存する定義内容を記した <TT>`.h'</TT> ファイルを一つ
+もしくはいくつか生成することもあります。
+最後に、<CODE>configure</CODE> は <CODE>config.status</CODE> というシェルスクリプト
+<TT>`config.cache'</TT>、<TT>`config.log'</TT> というファイルを生成します。
+<CODE>config.status</CODE> は、現在のコンフィグレーションを後で再度生成すると
+きに用います。
+<TT>`config.cache'</TT> は、再度コンフィグレーションを行うときにスピードアップ
+を図るために、テストの結果を保存してあります。
+<TT>`config.log'</TT> には、(主に <CODE>configure</CODE> のデバッグに役立つような)
+コンピュータの出力が記録されています。
+</P><P>
+
+あなたがパッケージをコンパイルするにあたって、特別なことをしなければ
+ならなかったときは、<CODE>configure</CODE> がどのような判定をしていたのかを
+調べてみて、<TT>`README'</TT> に記されたアドレスに宛てて、相違点や指摘を
+メールで送って下さい。
+そうすれば、次回のリリースに向けて検討されると思います。
+もし、<TT>`config.cache'</TT> に見られたくない結果が記録されている場合は、
+その部分を削除したり編集したりしても構いません。
+</P><P>
+
+<TT>`configure.in'</TT> というファイルは、<CODE>autoconf</CODE> というプログラムが 
+<TT>`configure'</TT> を生成するときに参照します。
+あなたにとって <TT>`configure.in'</TT> というファイルが必要になるのは、
+<TT>`configure.in'</TT> の内容を変更したい場合か、<CODE>autoconf</CODE> のもっと
+新しいバージョンで <TT>`configure'</TT> を生成したい場合の、いずれかだけです。
+</P><P>
+
+パッケージの最も単純なコンパイル方法は次の通りです。
+</P><P>
+
+<OL>
+<LI>
+パッケージのソースコードが置かれているディレクトリに移動 (<CODE>cd</CODE>) し、
+あなたのシステム向けのコンフィグレーションを行うために <SAMP>`./configure'</SAMP>
+を実行します。
+あなたが古いバージョンの System V で <CODE>csh</CODE> を使用している場合は、
+<CODE>csh</CODE> 自身がスクリプトを実行してしまわないように、
+<SAMP>`sh. /configure'</SAMP> とする必要があるかも知れません。
+<P>
+
+<CODE>configure</CODE> の実行には少々時間がかかります。
+実行している間は、どのような項目をチェックしているのかを記したメッセージ
+が出力されます。
+</P><P>
+
+<LI>
+<SAMP>`make'</SAMP> を実行してパッケージをコンパイルします。
+<P>
+
+<LI>
+任意で、パッケージに付属しているセルフテストを実行する場合は、
+<SAMP>`make check'</SAMP> を実行します。
+<P>
+
+<LI>
+<SAMP>`make install'</SAMP> を実行して、プログラムおよびデータファイル、
+ドキュメントをインストールします。
+<P>
+
+<LI>
+<SAMP>`make clean'</SAMP> を実行すると、生成されたプログラムのバイナリファイルや
+オブジェクトファイルを、ソースコードの置かれたディレクトリから消すことが
+できます。
+一緒に <CODE>configure</CODE> が生成したファイルも消すには (こうすることで、
+別の種類のコンピュータでパッケージをコンパイルできます)、
+<SAMP>`make distclean'</SAMP> を実行します。
+<SAMP>`make maintainer-clean'</SAMP> というターゲットも用意されていますが、
+これは主にそのパッケージの開発者のためのものです。
+<SAMP>`make maintainer-clean'</SAMP> を実行してしまうと、パッケージに元々
+含まれていたファイルを再生成するために、他のいろいろなプログラムを
+入手しなくてはいけなくなるかも知れません。
+</OL>
+<P>
+
+<A NAME="Compilers and Options"></A>
+<HR SIZE="6">
+<A NAME="SEC4"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC3"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC5"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.2 コンパイラとコンパイルオプション </H2>
+<!--docid::SEC4::-->
+<P>
+
+システムによっては、<CODE>configure</CODE> スクリプトが理解していない、
+コンパイルやリンクのための特別なオプションを与える必要があります。
+環境変数を通して、<CODE>configure</CODE> に対して初期値を与えることができます。
+Bourne シェルと互換性のあるシェルを使用している場合は、次のようにします。
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>CC=c89 CFLAGS=-O2 LIBS=-lposix ./configure
+</pre></td></tr></table></P><P>
+
+<CODE>env</CODE> というコマンドがシステムにあるならば、次のようにすることも
+できます。
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>env CPPFLAGS=-I/usr/local/include LDFLAGS=-s ./configure
+</pre></td></tr></table></P><P>
+
+<A NAME="Multiple Architectures"></A>
+<HR SIZE="6">
+<A NAME="SEC5"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC4"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC6"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.3 複数のアーキテクチャでのインストール </H2>
+<!--docid::SEC5::-->
+<P>
+
+オブジェクトファイルをアーキテクチャ毎に別々のディレクトリに置くように
+することにより、種類の異なる複数のコンピュータが、パッケージを同時に
+コンパイルできます。
+これを行うには、GNU <CODE>make</CODE> のように、<CODE>VPATH</CODE> 変数に対応した
+<CODE>make</CODE> を使用する必要があります。
+オブジェクトファイルや実行形式のファイルを置いておきたいディレクトリに
+移動 (<CODE>cd</CODE>) して、そこで <CODE>configure</CODE> スクリプトを実行します。
+<CODE>configure</CODE> は、自身の存在するディレクトリおよび <TT>`..'</TT> に
+ソースコードがあるかどうかを自動的に調べます。
+</P><P>
+
+<CODE>VPATH</CODE> 変数に対応していない <CODE>make</CODE> を使用している場合は、
+ソースコードディレクトリの下で、一度に一つのアーキテクチャずつコンパイル
+していくしかありません。一つのアーキテクチャのコンパイルが終わったら、
+別のアーキテクチャでコンパイルするために再コンフィグレーションを行う
+前に <SAMP>`make distclean'</SAMP> を実行して下さい。
+</P><P>
+
+<A NAME="Installation Names"></A>
+<HR SIZE="6">
+<A NAME="SEC6"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC5"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC7"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.4 インストール名 </H2>
+<!--docid::SEC6::-->
+<P>
+
+デフォルトでは、<SAMP>`make install'</SAMP> を実行すると、パッケージ中のファイル
+が <TT>`/usr/local/bin'</TT>、<TT>`/usr/local/man'</TT> などにインストール
+されます。
+<CODE>configure</CODE> に対して <SAMP>`--prefix=<VAR>パス</VAR>'</SAMP> オプションを指定
+することで、<TT>`/usr/local'</TT> 以外のインストール先を指定するとができます。
+</P><P>
+
+アーキテクチャに依存したファイルとそうでないファイルを、それぞれ異なった
+インストール先にインストールすることも可能です。
+<CODE>configure</CODE> に対して <SAMP>`--exec-prefix=<VAR>パス</VAR>'</SAMP> を指定すると、
+プログラムやライブラリなどのインストール先が <VAR>パス</VAR> に変わります。
+ドキュメントや、データファイルなどは、通常のインストール先にインストール
+されます。
+</P><P>
+
+加えて、あなたが通常とは異なったディレクトリレイアウトを採用している場合
+は、<SAMP>`--bindir=<VAR>パス</VAR>'</SAMP> といったオプションを指定することで、特定
+の種類のファイルのインストール先だけを変えることができます。
+<SAMP>`configure --help'</SAMP> を実行すると、どのようなディレクトリを変更できる
+のか、どのような種類のファイルがどのディレクトリにインストールされるのかが
+分かります。
+</P><P>
+
+パッケージがサポートしているならば、<CODE>configure</CODE> に 
+<SAMP>`--program-prefix=<VAR>接頭辞</VAR>'</SAMP> や
+<SAMP>`--program-suffix=<VAR>接尾辞</VAR>'</SAMP> というオプションを与えることで、
+インストール時にプログラム名に接頭辞や接尾辞を付加することができます。
+</P><P>
+
+<A NAME="Optional Features"></A>
+<HR SIZE="6">
+<A NAME="SEC7"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC6"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC8"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.5 取捨選択の可能な機能 </H2>
+<!--docid::SEC7::-->
+<P>
+
+パッケージによっては、<CODE>configure</CODE> が <SAMP>`--enable-<VAR>機能</VAR>'</SAMP> 
+オプションを認識することがあります。
+ここで <VAR>機能</VAR> は、パッケージにおいて取捨選択の可能な機能を表します。
+また、<SAMP>`--with-<VAR>パッケージ</VAR>'</SAMP> オプションを認識することもあります。
+ここで <VAR>パッケージ</VAR> は、<SAMP>`gnu-as'</SAMP> や (X ウィンドウシステムの
+ための) <SAMP>`x'</SAMP> といったものです。
+<TT>`README'</TT> ファイルでは、どのような <SAMP>`--enable-'</SAMP>、<SAMP>`--with-'</SAMP>
+オプションをパッケージが認識するのか、記しておくべきです。
+</P><P>
+
+一般に、X ウィンドウシステムを使用しているパッケージでは、<CODE>configure</CODE>
+は X の include ファイルとライブラリファイルを自動的に見つけ出すことが
+できますが、見つけられない場合は、<CODE>configure</CODE> のオプション
+<SAMP>`--x-includes=<VAR>ディレクトリ</VAR>'</SAMP> と
+<SAMP>`--x-libraries=<VAR>ディレクトリ</VAR>'</SAMP> を用いることでディレクトリの
+位置を明示的に指定することができます。
+</P><P>
+
+<A NAME="System Type"></A>
+<HR SIZE="6">
+<A NAME="SEC8"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC7"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC9"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.6 システムの種類の指定 </H2>
+<!--docid::SEC8::-->
+<P>
+
+設定項目によっては、<CODE>configure</CODE> が自動的に識別できなくても、
+パッケージが動作するホストの種類を基に決定しなければならないときもあります。
+通常、<CODE>configure</CODE> はそのホストの種類を識別することができますが、
+もしも <CODE>configure</CODE> がホストの種類を識別できないという旨のメッセージ
+を出力してきたときは、<SAMP>`--host=<VAR>種類</VAR>'</SAMP> オプションを与えて下さい。
+<VAR>種類</VAR> は <SAMP>`sun4'</SAMP> のようなシステムの種類を表した短い名前か、
+あるいは次のように 3 つの項からなる正式名称のいずれかです。
+<TABLE><tr><td>&nbsp;</td><td class=example><pre><VAR>CPU</VAR>-<VAR>社名</VAR>-<VAR>システム</VAR>
+</pre></td></tr></table>それぞれの項にどのような値が指定可能なのかについては、<TT>`config.sub'</TT>
+ファイルをご覧下さい。
+パッケージが <TT>`config.sub'</TT> を含んでいないのであれば、そのパッケージ
+はホストの種類を識別する必要がないことを意味しています。
+</P><P>
+
+あなたがクロスコンパイルのためのコンパイラツールをインストールしようと
+している場合は、<SAMP>`--target=<VAR>種類</VAR>'</SAMP> オプションを使用することで、
+どのホスト向けのコードを生成させるのかを指定できます。そして、
+<SAMP>`--build=<VAR>種類</VAR>'</SAMP> オプションを使用することで、パッケージを
+コンパイルしようとしているシステムの種類を指定することができます。
+</P><P>
+
+<A NAME="Sharing Defaults"></A>
+<HR SIZE="6">
+<A NAME="SEC9"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC8"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC10"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.7 デフォルト値の共有 </H2>
+<!--docid::SEC9::-->
+<P>
+
+複数の <CODE>configure</CODE> スクリプトに対して共通のデフォルト値を設定したい
+ときは、サイト毎に <TT>`config.site'</TT> というシェルスクリプトを作成し、
+そこに <CODE>CC</CODE> や <CODE>cache_file</CODE>、<CODE>prefix</CODE> といった変数の
+デフォルト値を記述して下さい。
+<CODE>configure</CODE> は <TT>`<VAR>prefix</VAR>/share/config.site'</TT> があれば、
+それを調べ、次に <TT>`<VAR>prefix</VAR>/etc/config.site'</TT> があればそれを
+調べます。
+あるいは、環境変数 <CODE>CONFIG_SITE</CODE> を設定することで、サイト固有の
+スクリプトの位置を指定することもできます。
+ただし、すべての <CODE>configure</CODE> スクリプトがサイト固有のスクリプトを見
+に行くわけではありませんので、ご注意下さい。
+</P><P>
+
+<A NAME="Operation Controls"></A>
+<HR SIZE="6">
+<A NAME="SEC10"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC9"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC11"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.8 <CODE>configure</CODE> の動作の制御 </H2>
+<!--docid::SEC10::-->
+<P>
+
+<CODE>configure</CODE> は次に記したオプションを認識します。
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>--cache-file=<VAR>ファイル</VAR></CODE>
+<DD>テストの結果の読み込みや書き出しに使用するファイルは、通常
+<TT>`./config.cache'</TT> ですが、代わりに <VAR>ファイル</VAR> を用います。
+<CODE>configure</CODE> をデバッグするときは、<VAR>ファイル</VAR> に <TT>`/dev/null'</TT>
+を指定することで、キャッシュを抑制することができます。
+<P>
+
+<DT><CODE>--help</CODE>
+<DD><CODE>configure</CODE> のオプションの一覧を表示して、終了します。
+<P>
+
+<DT><CODE>--quiet</CODE>
+<DD><DT><CODE>--silent</CODE>
+<DD><DT><CODE>-q</CODE>
+<DD>どのチェック項目を行っているのかを示すメッセージを出力しません。
+通常のメッセージ出力をすべて抑制するには、<TT>`/dev/null'</TT> へ
+リダイレクトして下さい (ただし、エラーメッセージについては出力されて
+しまいますが)。
+<P>
+
+<DT><CODE>--srcdir=<VAR>ディレクトリ</VAR></CODE>
+<DD>パッケージのソースコードを探し出す際に、<VAR>ディレクトリ</VAR> を探します。
+通常、<CODE>configure</CODE> は自動的にディレクトリを決定します。
+<P>
+
+<DT><CODE>--version</CODE>
+<DD><CODE>configure</CODE> スクリプトがどのバージョンの Autoconf によって生成された
+のかを表示して、終了します。
+</DL>
+<P>
+
+役に立つ場面は限られますが、<CODE>configure</CODE> には他にもいくつかの
+オプションが用意されています。
+</P><P>
+
+<A NAME="Optional Feature List"></A>
+<HR SIZE="6">
+<A NAME="SEC11"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC10"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.9 選択可能な機能の一覧 </H2>
+<!--docid::SEC11::-->
+<P>
+
+本パッケージの <CODE>configure</CODE> は以下に記した
+<SAMP>`--enable-'</SAMP> および <SAMP>`--with-'</SAMP> オプションを認識します。
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>--with-logdir=<VAR>dir</VAR></CODE>
+<DD><CODE>ebndaily</CODE> がローテーションを行う syslog ファイル
+が置かれるディレクトリのデフォルトとして <VAR>dir</VAR> を指定します。
+無指定時は、<SAMP>`<VAR>localstatedir</VAR>/ebnetd/log'</SAMP> です。
+<P>
+
+<DT><CODE>--with-eb-conf=<VAR>file</VAR></CODE>
+<DD>EB ライブラリの設定ファイルとして <VAR>file</VAR> を読み込みます。
+デフォルトは、<SAMP>`<VAR>sysconfdir</VAR>/eb.conf'</SAMP> です。
+<P>
+
+<DT><CODE>--with-gnu-ld</CODE>
+<DD>C コンパイラが GNU ld を使用していると仮定します。
+デフォルトは、<SAMP>`no'</SAMP> です。
+<P>
+
+<DT><CODE>--enable-ipv6</CODE>
+<DD>IPv6 に対応させます。
+システムが IPv6 に対応している場合、
+The default value is <SAMP>`yes'</SAMP> if the system supports IPv6.
+<P>
+
+</DL>
+<P>
+
+<A NAME="Configuration File"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Motoyuki Kasahara</I> on <I>December, 28  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

@@ -1,0 +1,372 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 28  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>EBNETD/ebHTTPD/NDTPD: Start ebnetd</TITLE>
+
+<META NAME="description" CONTENT="EBNETD/ebHTTPD/NDTPD: Start ebnetd">
+<META NAME="keywords" CONTENT="EBNETD/ebHTTPD/NDTPD: Start ebnetd">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="EN" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC27"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC26"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC28"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC21"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_7.html#SEC33"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 6. Start <CODE>ebnetd</CODE> </H1>
+<!--docid::SEC27::-->
+<P>
+
+<CODE>ebnetd</CODE> can run as a standalone daemon, or as a child process of
+<CODE>inted</CODE>.
+By default, <CODE>ebnetd</CODE> runs as a standalone daemon.
+</P><P>
+
+If connections aren't come frequently to the server, it may be better
+to run <CODE>ebnetd</CODE> as a child of <CODE>inetd</CODE> to save consumption
+of memory resource.
+However, each time invoked by <CODE>inetd</CODE>, <CODE>ebnetd</CODE> reads a
+configuration file and reads some data from CD-ROM books for initialization.
+If connections are come frequently to the server, it may be better
+to run <CODE>ebnetd</CODE> as a standalone daemon.
+</P><P>
+
+If you don't have to run <CODE>ebnetd</CODE> on your system, skip rest of
+this chapter.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_6.html#SEC28">6.1 Run <CODE>ebnetd</CODE> as a standard daemon</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_6.html#SEC29">6.2 Run <CODE>ebnetd</CODE> as a child of <CODE>inetd</CODE>.</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_6.html#SEC30">6.3 Run <CODE>ebnetd</CODE> as a Child Proccess of <CODE>xinetd</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Run <CODE>ebnetd</CODE> as a child of <CODE>xinetd</CODE>.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_6.html#SEC31">6.4 Test <CODE>ebnetd</CODE> with <CODE>telnet</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_6.html#SEC32">6.5 Summary of options to <CODE>ebnetd</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="ebnetd Standalone"></A>
+<HR SIZE="6">
+<A NAME="SEC28"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC29"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_7.html#SEC33"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 6.1 Run <CODE>ebnetd</CODE> as a standard daemon </H2>
+<!--docid::SEC28::-->
+<P>
+
+To start <CODE>ebnetd</CODE> as a standalone daemon, type the following command.
+Super user's priviledge may be required.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebnetd
+</pre></td></tr></table></P><P>
+
+It assumes that EBNETD has been installed under <TT>`/usr/local'</TT>, and
+if a directory for system administrative executables (<CODE>sbindir</CODE>)
+has not been changed at the installation.
+</P><P>
+
+<A NAME="ebnetd Child of inetd"></A>
+<HR SIZE="6">
+<A NAME="SEC29"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC28"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC30"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_7.html#SEC33"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 6.2 Run <CODE>ebnetd</CODE> as a child of <CODE>inetd</CODE>. </H2>
+<!--docid::SEC29::-->
+<P>
+
+To start <CODE>ebnetd</CODE> from <CODE>inetd</CODE>, following processes are needed.
+Add the following entry to the <TT>`inetd.conf'</TT> file (usually
+<TT>`/etc/inetd.conf'</TT>).
+Don't forget to add the <SAMP>`--inetd'</SAMP> (or <SAMP>`-i'</SAMP>) option.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>ebnet  stream  tcp  nowait  root  /usr/local/sbin/ebnetd ebnetd --inetd
+</pre></td></tr></table></P><P>
+
+It assumes that EBNETD has been installed under <TT>`/usr/local'</TT> and
+if a directory for system administrative executables (<CODE>sbindir</CODE>)
+has not been changed at the installation.
+</P><P>
+
+Find the PID of the running <CODE>inetd</CODE> process.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% ps axuww | grep inetd
+</pre></td></tr></table></P><P>
+
+(For details, please read the manual for your system.)
+<BR>
+If <CODE>inetd</CODE> is running, you can find a line like as below.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
+</pre></td></tr></table></P><P>
+
+If found, send a hung-up signal (<CODE>SIGHUP</CODE>) to <CODE>inetd</CODE> to
+re-read <TT>`inetd.conf'</TT>.
+Super user's priviledge may be required.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% kill -HUP 79
+</pre></td></tr></table></P><P>
+
+<A NAME="ebnetd Child of xinetd"></A>
+<HR SIZE="6">
+<A NAME="SEC30"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC29"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC31"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_7.html#SEC33"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 6.3 Run <CODE>ebnetd</CODE> as a Child Proccess of <CODE>xinetd</CODE> </H2>
+<!--docid::SEC30::-->
+<P>
+
+Some Linux systems use <CODE>xinetd</CODE> instead of traditional <CODE>inetd</CODE>.
+The configuration file format of <CODE>xinetd</CODE> is different from that
+of traditional <CODE>inetd</CODE>.
+</P><P>
+
+To start <CODE>ebnetd</CODE> from <CODE>xinetd</CODE>, following processes are needed.
+Add the following entry to the configuration file (usually
+<TT>`/etc/xinetd.d/ebnet'</TT>).
+Don't forget to specify the <SAMP>`--inetd'</SAMP> (or <SAMP>`-i'</SAMP>) option as 
+<CODE>server_args</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># default: off
+# description: The ebnet server
+service ebnet
+{
+        disable = no
+        socket_type     = stream
+        wait            = no
+        user            = root
+        server          = /usr/local/sbin/ebnetd
+        server_args     = --inetd
+        log_on_failure  += USERID
+}
+</pre></td></tr></table></P><P>
+
+It assumes that EBNETD has been installed under <TT>`/usr/local'</TT> and
+if a directory for system administrative executables (<CODE>sbindir</CODE>)
+has not been changed at the installation.
+</P><P>
+
+Find the PID of the running <CODE>xinetd</CODE> process.
+In BSD based sytems, type the following.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% ps axuww | grep xinetd
+</pre></td></tr></table></P><P>
+
+In SYSV based sytems, type the following.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% ps -ef | grep xinetd
+</pre></td></tr></table></P><P>
+
+(For details, please read the manual for your system.)
+<BR>
+If <CODE>xinetd</CODE> is running, you can find a line like as below.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
+</pre></td></tr></table></P><P>
+
+If found, send an USER2 signal (<CODE>SIGUSR2</CODE>) to <CODE>xinetd</CODE> to
+re-read the configuration.
+Super user's priviledge may be required.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% kill -USR2 79
+</pre></td></tr></table></P><P>
+
+<A NAME="ebnetd Test with telnet"></A>
+<HR SIZE="6">
+<A NAME="SEC31"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC30"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC32"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_7.html#SEC33"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 6.4 Test <CODE>ebnetd</CODE> with <CODE>telnet</CODE> </H2>
+<!--docid::SEC31::-->
+<P>
+
+When all the setup has been completed, try to connect to <CODE>ebnetd</CODE>
+with the <CODE>telnet</CODE> command.
+</P><P>
+
+At first, type as follows.
+In this example, we try to connect to <CODE>ebnetd</CODE> on localhost.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% telnet localhost ebnet
+</pre></td></tr></table></P><P>
+
+The following message is displayed if <CODE>ebnetd</CODE> accepts a
+connection.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Connected to localhost.
+Escape character is '^]'.
+</pre></td></tr></table></P><P>
+
+Then, tpye <KBD>BOOKLIST</KBD> and <KBD>Enter</KBD>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>BOOKLIST
+</pre></td></tr></table></P><P>
+
+If <CODE>ebnetd</CODE> is running correctly, it outputs a list of CD-ROM book
+names like this:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>!OK; book list follows
+chujiten
+kojien
+colloc
+colloc.app
+</pre></td></tr></table></P><P>
+
+To close the connection, type <KBD>QUIT</KBD> and <KBD>Enter</KBD>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>QUIT
+Connection closed by foreign host.
+</pre></td></tr></table></P><P>
+
+<A NAME="ebnetd Options"></A>
+<HR SIZE="6">
+<A NAME="SEC32"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC31"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_7.html#SEC33"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_7.html#SEC33"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 6.5 Summary of options to <CODE>ebnetd</CODE> </H2>
+<!--docid::SEC32::-->
+<P>
+
+<CODE>ebnetd</CODE> supports both traditional single-letter
+options and mnemonic long option names.
+Long option names are indicated with <SAMP>`--'</SAMP> instead of <SAMP>`-'</SAMP>.
+Abbreviations for option names are allowed as long as they are unique.
+</P><P>
+
+<CODE>ebnetd</CODE> recognizes following command line options.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>-c <VAR>file</VAR></CODE>
+<DD><DT><CODE>--configuration-file <VAR>file</VAR></CODE>
+<DD>Specify a configuration file read by <CODE>ebnetd</CODE>.
+The default filename is shown in the help message.
+<P>
+
+<DT><CODE>-h</CODE>
+<DD><DT><CODE>--help</CODE>
+<DD>Output help message to standard error, then exit.
+<P>
+
+<DT><CODE>-i</CODE>
+<DD><DT><CODE>--inetd</CODE>
+<DD><CODE>inetd</CODE> mode.
+It must be specified when <CODE>ebnetd</CODE> is invoked by <CODE>inetd</CODE>.
+<P>
+
+<DT><CODE>-t</CODE>
+<DD><DT><CODE>--test</CODE>
+<DD>Test mode.
+The <CODE>ebnetd</CODE> process runs in foreground, and never forks.
+Requests to the server are input from standard in and responses to
+a client are output to srandard out.
+Standard in and out can be file descriptors associated with terminals.
+In addition, access permission is never checked, so that you can access
+all CD-ROM books defined in a configuration file.
+<P>
+
+<DT><CODE>-v</CODE>
+<DD><DT><CODE>--version</CODE>
+<DD>Output version number to standard error, then exit.
+</DL>
+<P>
+
+<A NAME="Start ndtpd"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_7.html#SEC33"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Motoyuki Kasahara</I> on <I>December, 28  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

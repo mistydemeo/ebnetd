@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-2022-jp">
+<link rel="stylesheet" type="text/css" href="ebnetd.css">
+<title>EBNETD</title>
+</head>
+<body>
+
+<!-- ############################################################# -->
+<h1>EBNETD</h1>
+
+<p>
+これは EBNETD の公式ホームページです。<br>
+最新バージョンは 1.0 です。<br>
+</p>
+
+<!-- ############################################################# -->
+<h2>目次</h2>
+
+<ul>
+<li>EBNETD について
+  <ul>
+  <li><a href="#what-is">EBNETD とは</a>
+  <li><a href="#license">使用許諾</a>
+  </ul>
+<li>ダウンロード
+  <ul>
+  <li><a href="ftp://ftp.sra.co.jp/pub/misc/eb/ebnetd-1.0.tar.gz">バージョン 1.0 のソースコード</a>
+  <li><a href="ftp://ftp.sra.co.jp/pub/misc/eb/">ファイル一覧</a>
+  </ul>
+<li>ドキュメント
+  <ul>
+  <li><a href="doc/ebnetd-ja_toc.html">EBNETD のドキュメント</a>
+  <li><a href="protocol/dserver-protocol2.txt">dserver-2.2betapl2 付属の NDTP の仕様書 (doc/protocol2)</a>
+  <li><a href="protocol/gaiji-bitmap.txt">外字のビットマップデータに対応するための NDTP の拡張</a>
+  <li><a href="protocol/keyword-search.txt">条件検索に対応するための NDTP の拡張</a>
+  </ul>
+<li>履歴
+  <ul>
+  <li><a href="NEWS.html">NEWS (英語)</a>
+  <li><a href="ChangeLog.html">ChangeLog (英語)</a>
+  </ul>
+<li>その他
+  <ul>
+  <li><a href="ndtp-clients.html">NDTP クライアント一覧</a>
+  </ul>
+</ul>
+
+<p>
+<a href="../eb/index.html#supported">対応・非対応 CD-ROM 書籍一覧</a>
+は、<a href="../eb/index.html">EB ライブラリ</a> の WWW ページに
+掲載しています。
+</p>
+
+<!-- ############################################################# -->
+<h2><a name="what-is">EBNETD とは</a></h2>
+
+<p>
+本 EBNETD 配布パッケージには、ebnetd, ndtpd, ebhttpd という 3 つのサー
+バコマンドを収録しています。
+これらはいずれも、TCP/IP を用いて遠隔ホストの CD-ROM 書籍にアクセス
+するためのサーバです。
+ UNIX 系 OS のシステム上で動作させることができます。
+</p>
+
+<blockquote>
+<dl>
+<dt>ebnetd
+<dd>
+ebnetd は EBNET プロトコルのサーバで、EBNET は「EB ライブラリ」と
+通信を行うために設計されたプロトコルです。
+
+<p>
+EB ライブラリは、CD-ROM 書籍のアクセスを行う、C 言語のライブラリです。
+ndtpd, ebhttpd も EB ライブラリを使用しています。
+ebnetd を使用すると、EB ライブラリのアプリケーションは、遠隔ホストの
+CD-ROM 書籍にアクセスできるようになります。 
+</p>
+
+<p>
+EB ライブラリについての詳細は、
+<a href="../eb/index.html">http://www.sra.co.jp/m-kasahr/eb/index.html</a>.
+を参照して下さい。
+</p>
+
+<dt>ndtpd
+<dd>
+ndtpd は NDTP (Network Dictionary Transfer Protocol) サーバです。
+NDTP を最初に実装したサーバは `dserver' で、ndtpd は dserver-2.2 と
+上位互換性があります。
+
+<dt>ebhttpd
+<dd>
+ebhttpd は WWW (World Wide Web) サーバです。 
+HTTP/1.0 および HTTP/1.1 (Hypertext Transfer Protocol version 1.0 
+および 1.1) に対応しています。
+</dd>
+</dl>
+</blockquote>
+
+<p>
+EBNETD は UNIX 系 OS のシステム上で動作させることができます。
+EB, EBG, EBXA, EBXA-C, S-EBXA および EPWING 形式の CD-ROM 書籍に対応
+しています。
+これらの形式の CD-ROM 書籍は、日本で一般的に使われています。
+CD-ROM 書籍自体は ISO 9660 形式になっていますので、他の ISO 9660 形式
+と同じ要領でマウントすることができます。
+</p>
+
+<p>
+EBNETD は CD-ROM 書籍にアクセスするために、
+<a href="../eb/index.html">EB ライブラリ</a>
+を使用しています。
+EBNETD をインストールする前に、EB ライブラリをインストールする必要が
+あります。
+</p>
+
+<p>
+最新の EBNETD は
+<a href="ftp://ftp.sra.co.jp/pub/misc/eb/">ftp://ftp.sra.co.jp/pub/misc/eb/</a>
+から入手可能です。
+</p>
+
+<p>
+ご意見やバグのご報告に関するメールは、日本語か英語で
+m-kasahr@sra.co.jp 宛にお送り下さい。
+</p>
+
+<!-- ############################################################# -->
+<h2><a name="license">使用許諾</a></h2>
+
+<p>
+EBNETD はフリーソフトウェアです。
+あなたは、Free Software Foundation が公表した
+<a href="GPL.txt">GNU General Public License (GNU 一般公有使用許諾)</a>
+バージョン 2 或いはそれ以降の各バージョンの中からいずれかを選択し、
+そのバージョンが定める条項に従って本プログラムを再頒布または変更する
+ことができます。
+</p>
+
+<p>
+EBNETD は有用とは思いますが、頒布にあたっては、市場性及び特定目的適合性
+についての暗黙の保証を含めて、いかなる保証も行ないません。詳細については
+<a href="GPL.txt">GNU General Public License</a>
+をお読みください。
+</p>
+
+<!-- ############################################################# -->
+<hr>
+<p class="footer">
+<a href="index.html"><img class="banner" src="../eb/eb_b.png" alt="バナー"></a>
+Text by Motoyuki Kasahara<br>
+Banner by Sumiya Sakoda<br>
+</p>
+</body>
+</html>

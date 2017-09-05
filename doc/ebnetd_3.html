@@ -1,0 +1,674 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 28  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>EBNETD/ebHTTPD/NDTPD: Configuration File</TITLE>
+
+<META NAME="description" CONTENT="EBNETD/ebHTTPD/NDTPD: Configuration File">
+<META NAME="keywords" CONTENT="EBNETD/ebHTTPD/NDTPD: Configuration File">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="EN" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC12"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC11"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC13"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_4.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 3. Configuration File </H1>
+<!--docid::SEC12::-->
+<P>
+
+To start <CODE>ebnetd</CODE>, <CODE>ndtpd</CODE> or <CODE>ebhttpd</CODE>, you have to edit
+a configuration file.
+The server reads the file when it starts and restarts.
+The file determines various server behaviors.
+The configuration file is <TT>`/usr/local/etc/ebnetd.conf'</TT> by default,
+if EBNETD has been installed under <TT>`/usr/local'</TT>, and if a directory
+for read-only single-machine data (<CODE>sysconfdir</CODE>) has not been
+changed at the installation.
+It can be changed by the command line option <SAMP>`--configuration-file'</SAMP>
+(or <SAMP>`-c'</SAMP>) (see section <A HREF="ebnetd_6.html#SEC32">6.5 Summary of options to <CODE>ebnetd</CODE></A>).
+</P><P>
+
+In the configuration file, blank lines and lines whose first non-blank
+character is a hash (<SAMP>`#'</SAMP>) are ignored.
+Any other lines must be <EM>single directive</EM> or <EM>group directive</EM>.
+The order of single and group directives is not matter.
+</P><P>
+
+Each line including newline character must be 511 characters maximum.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_3.html#SEC13">3.1 Common Form of Single Directive</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Common form of single directive.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_3.html#SEC14">3.2 Single Directive List</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Single directive list.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_3.html#SEC15">3.3 Group Directive</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Common form of group directive.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_3.html#SEC16">3.4 <CODE>book</CODE> Group directive</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Book group directive list.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_3.html#SEC17">3.5 Sample Configuration File</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Sample configuration file.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Single Directive"></A>
+<HR SIZE="6">
+<A NAME="SEC13"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC14"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_4.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.1 Common Form of Single Directive </H2>
+<!--docid::SEC13::-->
+<P>
+
+Single directive is a directive terminated in a line.
+The common form of a single directive is:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre><VAR>directive-name</VAR>    <VAR>directive-value</VAR>
+</pre></td></tr></table></P><P>
+
+In the following example, <CODE>syslog-facility</CODE> is a directive name,
+and <TT>`local0'</TT> is a directive value.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>syslog-facility    local0
+</pre></td></tr></table></P><P>
+
+Since directive names are case sensitive, you cannot type
+<SAMP>`syslog-facility'</SAMP> instead of <SAMP>`Syslog-Facility'</SAMP>.
+Spaces and tabs separate a directive name with a directive value.
+A sequence of spaces and tabs in the head of a directive name and in
+the tail of a line are ignored.
+</P><P>
+
+<A NAME="Single Directive List"></A>
+<HR SIZE="6">
+<A NAME="SEC14"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC13"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC15"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_4.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.2 Single Directive List </H2>
+<!--docid::SEC14::-->
+<P>
+
+The following single directives are recognized.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>ebnet-port</CODE>
+<DD>The <CODE>ebnet-port</CODE> directive specifies a port number which <CODE>ebnetd</CODE>
+binds.
+The value of the directive must be a service name on TCP (e.g. <SAMP>`EBNET'</SAMP>)
+or a port number (e.g. <SAMP>`22010'</SAMP>).
+The directive is ignored when <CODE>ebnetd</CODE> is invoked by <CODE>inetd</CODE>.
+The directive is optional, and cannot be defined more than once.
+The default value is <SAMP>`EBNET'</SAMP>.
+<P>
+
+<CODE>ndtpd</CODE> and <CODE>ebhttpd</CODE> always ignore the directive.
+</P><P>
+
+<DT><CODE>ndtp-port</CODE>
+<DD>The <CODE>ndtp-port</CODE> directive specifies a port number which <CODE>ndtpd</CODE>
+binds.
+The value of the directive must be a service name on TCP (e.g. <SAMP>`NDTP'</SAMP>)
+or a port number (e.g. <SAMP>`2010'</SAMP>).
+The directive is ignored when <CODE>ndtpd</CODE> is invoked by <CODE>inetd</CODE>.
+The directive is optional, and cannot be defined more than once.
+The default value is <SAMP>`NDTP'</SAMP>.
+<P>
+
+<CODE>ebnetd</CODE> and <CODE>ebhttpd</CODE> always ignore the directive.
+</P><P>
+
+<DT><CODE>http-port</CODE>
+<DD>The <CODE>http-port</CODE> directive specifies a port number which <CODE>ebhttpd</CODE>
+binds.
+The value of the directive must be a service name on TCP (e.g. <SAMP>`HTTP'</SAMP>)
+or a port number (e.g. <SAMP>`80'</SAMP>).
+The directive is ignored when <CODE>ebhttpd</CODE> is invoked by <CODE>inetd</CODE>.
+The directive is optional, and cannot be defined more than once.
+The default value is <SAMP>`HTTP'</SAMP>.
+<P>
+
+<CODE>ebnetd</CODE> and <CODE>ndtpd</CODE> always ignore the directive.
+</P><P>
+
+<DT><CODE>user</CODE>
+<DD>The <CODE>user</CODE> directive specifies an owner of server processes.
+The value of the directive must be an user name (e.g. <SAMP>`nobody'</SAMP>)
+or an user ID (e.g. <SAMP>`65535'</SAMP>).
+To change an owner to another user, you must start a server process
+with super user's privilege.
+If a server fails to change an owner, it gives up running.
+The directive is optional, and cannot be defined more than once.
+If the directive is not defined, owner is unchanged.
+<P>
+
+We recommend you to create a dummy user account such as <SAMP>`ebnetuser'</SAMP>, 
+and use it for this directive.
+</P><P>
+
+<DT><CODE>group</CODE>
+<DD>The <CODE>group</CODE> directive specifies a group of server processes.
+The value of the directive must be an group name (e.g. <SAMP>`nogroup'</SAMP>)
+or a group ID (e.g. <SAMP>`65534'</SAMP>).
+The directive is optional, and cannot be defined more than once.
+If a server fails to change a group, it gives up running.
+If the directive is not defined, group ID is unchanged.
+<P>
+
+We recommend you to create a dummy group account such as <SAMP>`ebnetgrp'</SAMP>, 
+and use it for this directive.
+</P><P>
+
+<DT><CODE>max-clients</CODE>
+<DD>The <CODE>max-clients</CODE> directive specifies how many clients can be
+connected to a server at the same time.
+The value of the directive must be an integer not less than zero.
+The directive is optional, and cannot be defined more than once.
+The default value is <SAMP>`1'</SAMP>.
+If the value is set to <SAMP>`0'</SAMP>, the limitation is disabled.
+<P>
+
+<DT><CODE>hosts</CODE>
+<DD>The <CODE>hosts</CODE> directive specifies which hosts can or cannot connect
+to the servers.
+The value of the directive must be a hostname, IP address or
+<VAR>address/netmask</VAR> pattern.
+<P>
+
+In addition, you can insert a leading optional exclamation mark 
+(<SAMP>`!'</SAMP>) for each pattern.
+If the value of the directive starts with an exclamation mark, it means
+that hosts matched to the following IP address or hostsname are denied
+to connect to the servers.
+Otherwise, hosts matched to the value are permitted to connect to
+the servers.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># permit to connect from `host.xxx.yyy.jp'.
+hosts host.xxx.yyy.jp
+
+# permit to connect from `127.0.0.1'.
+hosts 127.0.0.1
+
+# deny to connect from `192.24.1.0/24.
+hosts !192.24.1.0/24
+</pre></td></tr></table></P><P>
+
+In a hostname pattern, you can use asterisk (<SAMP>`*'</SAMP>) and question
+mark (<SAMP>`?'</SAMP>).
+An asterisk matches to any sequence of zero or more characters
+except for a leading exclamation mark.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># deny to connect hosts under the `xxx.yyy.jp' domain
+hosts !*.xxx.yyy.jp
+
+# permit to connect from any hosts.
+hosts *
+</pre></td></tr></table></P><P>
+
+An question mark represents <EM>unknown hostname</EM>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># deny to connect from hosts with unknown hostname.
+hosts !?
+</pre></td></tr></table></P><P>
+
+The <CODE>host</CODE> directive is optional, and can be defined any number of
+times.
+A configuration file without <CODE>host</CODE> directive is valid, but nobody
+can connect to the servers!
+Please note that only one hostname, IP address or <VAR>address/netmask</VAR>
+pattern can be defined in a directive.
+Hosts not matched to any <CODE>hosts</CODE> directives are denied to connect.
+When a host matches to two or more <CODE>hosts</CODE> directives, nearest one
+to the top of the configuration file is chosen.
+</P><P>
+
+In the following example, hosts under the <SAMP>`sub1.xxx.yyy.jp'</SAMP> domain
+are denied to connect, but any other hosts under the <SAMP>`xxx.yyy.jp'</SAMP>
+domain are permitted to connect to the servers.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>hosts !*.sub1.xxx.yyy.jp
+hosts *.xxx.yyy.jp
+</pre></td></tr></table></P><P>
+
+In this example, the order of the directives are significant.
+If the order is reversed, all hosts under the <SAMP>`xxx.yyy.jp'</SAMP> domain
+including <SAMP>`sub1.xxx.yyy.jp'</SAMP> are permitted to connect to the servers.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># wrong!!!
+hosts *.xxx.yyy.jp
+hosts !*.sub1.xxx.yyy.jp
+</pre></td></tr></table></P><P>
+
+In comprison of hostnames, <CODE>ndptd</CODE> always uses canonical hostname
+of a client, which is gotten by an address of the client with name
+resolution service such as DNS.
+Please note that aliases of the client is never used.
+</P><P>
+
+Specifying IPv6 address and <VAR>IPv6 address/netmask</VAR> pattern are also
+permitted.
+The servers built without IPv6 support can talk to IPv4 clients only,
+but they can interpret IPv6 addresses specified in a configuration file.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># permit to connect from `12ab:0:0:cd3::/60' and `::1'.
+hosts ::1
+hosts 12ab:0:0:cd3::/60
+</pre></td></tr></table></P><P>
+
+In the <CODE>hosts</CODE> directive, IPv4 address (e.g. <SAMP>`192.168.1.1'</SAMP>)
+and the corresponding IPv4 mapped IPv6 address
+(e.g. <SAMP>`::ffff:192.168.1.1'</SAMP>) are eqeivalent.
+That is to say that IPv4 client <SAMP>`192.168.1.1'</SAMP> matches to
+<CODE>hosts</CODE> directive <SAMP>`::ffff:192.168.1.1'</SAMP>, and IPv6 client
+<SAMP>`::ffff:192.168.1.1'</SAMP> matches to <CODE>hosts</CODE> directive
+<SAMP>`192.168.1.1'</SAMP>.
+</P><P>
+
+<DT><CODE>timeout</CODE>
+<DD>The <CODE>timeout</CODE> directive specifies timeout seconds until a server
+disconnects an idle connection.
+The value of the directive must be an integer not less than zero.
+The directive is optional, and cannot be defined more than once.
+The default value is <SAMP>`900'</SAMP> (15 minutes).
+If the value is set to <SAMP>`0'</SAMP>, timeout never occurs.
+<P>
+
+<DT><CODE>work-path</CODE>
+<DD>The <CODE>work-path</CODE> directive specifies the path of a working directory
+for <CODE>ebnetd</CODE> (see section <A HREF="ebnetd_5.html#SEC24">5.3 Working Directory</A>).
+The value of the directive must be an absolute path.
+<CODE>ebnetd</CODE> creates some work files under the directory, and a core
+file is dumped at there when <CODE>ebnetd</CODE> aborts.
+The directive is optional, and cannot be defined more than once.
+The default value is <TT>`/usr/local/var/ebnetd'</TT>, if EBNETD has installed
+under <TT>`/usr/local'</TT>, and if a directory for modifiable single-machine
+data (<CODE>localstatedir</CODE>) has not been changed at the installation.
+<P>
+
+<DT><CODE>max-hits</CODE>
+<DD>The <CODE>max-hits</CODE> directive specifies how many hit entries
+<CODE>ebnetd</CODE> tries to find at a search.
+When <CODE>ebnetd</CODE> has find the number of hit entries specified by the
+directive, <CODE>ebnetd</CODE> stops searching immediately.
+The directive is optional, and cannot be defined more than once.
+The default value is <SAMP>`50'</SAMP>.
+If it is set to <SAMP>`0'</SAMP>, <CODE>ebnetd</CODE> tries to find all hit entires in
+a subbook.
+<P>
+
+<CODE>ebnetd</CODE> always ignores the directive.
+</P><P>
+
+<DT><CODE>max-text-size</CODE>
+<DD>The <CODE>max-text-size</CODE> directive restricts the maximum bytes of text
+which <CODE>ebnetd</CODE> sends to a client as a response to him.
+The directive is optional, and cannot be defined more than once.
+The default value is <SAMP>`32768'</SAMP>.
+If it is set to <SAMP>`0'</SAMP>, the size restriction is disabled.
+<P>
+
+<CODE>ebnetd</CODE> always ignores the directive.
+</P><P>
+
+<DT><CODE>syslog-facility</CODE>
+<DD>The <CODE>syslog-facility</CODE> directive specifies a syslog facility (e.g.
+<SAMP>`daemon'</SAMP>, <SAMP>`local0'</SAMP>, and so on).
+The directive is optional, and cannot be defined more than once.
+The facility <SAMP>`daemon'</SAMP> is used by default.
+Please note that syslog facility <SAMP>`daemon'</SAMP> is used until <CODE>ebnetd</CODE>
+finish reading a configuration file.
+</DL>
+<P>
+
+<A NAME="Group Directive"></A>
+<HR SIZE="6">
+<A NAME="SEC15"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC14"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC16"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_4.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.3 Group Directive </H2>
+<!--docid::SEC15::-->
+<P>
+
+Group directive is a directive whose description is across some lines
+in a configuration file.
+The common form of a group directive is:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>begin <VAR>group-name</VAR>
+    <VAR>sub-directive-name</VAR>    <VAR>sub-directive-value</VAR>
+             : 
+             : (repeated)
+             : 
+end
+</pre></td></tr></table></P><P>
+
+The keyword <CODE>begin</CODE> indicates the beginning of the group directive.
+It leads an argument <VAR>group-name</VAR>.
+They are separated by spaces or tabs, and they must be placed in
+a line.
+The keyword <CODE>end</CODE> indicates the end of the group directive.
+It is solely placed at a line.
+</P><P>
+
+In EBNETD version 1.0, only <CODE>book</CODE> can be prescribed
+as the group-name.
+Each <EM>sub-directive</EM> in the group is defined between <CODE>begin</CODE>
+and <CODE>end</CODE> lines.
+Generic description rules about sub-directive are the same as those 
+of single directives; <VAR>sub-directive-name</VAR> and
+<VAR>sub-directive-value</VAR> are separated by space or tabs, and so on.
+</P><P>
+
+This is an example of the <CODE>book</CODE> group directive.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>begin book
+        name            EJDICT
+        title           English Japanese Dictionary
+        path            /mnt/cdrom
+        hosts           127.0.0.1 
+        hosts           host.your.domain       
+end
+</pre></td></tr></table></P><P>
+
+<A NAME="Book Group Directive"></A>
+<HR SIZE="6">
+<A NAME="SEC16"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC15"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC17"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_4.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.4 <CODE>book</CODE> Group directive </H2>
+<!--docid::SEC16::-->
+<P>
+
+A <CODE>book</CODE> group directive corresponds to a CD-ROM book, so that
+you have to define the group directive for each CD-ROM book.
+EBNETD recognizes following sub-directives in the <CODE>book</CODE> group
+directives.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>name</CODE>
+<DD>The <CODE>name</CODE> sub-directive specifies a name of the book.
+The value of the sub-directive must consist of lower letters
+(<SAMP>`a'</SAMP>..<SAMP>`z'</SAMP>), digits (<SAMP>`0'</SAMP>..<SAMP>`9'</SAMP>), underscore (<SAMP>`_'</SAMP>)
+and hypen (<SAMP>`-'</SAMP>).
+Its length must be up to 14 bytes.
+Since the name is used to identify the book, each book name in a
+configuration file must be unique.
+The sub-directive is required in each <CODE>book</CODE> group directive, but
+cannot be defined more than once in a group directive.
+<P>
+
+<DT><CODE>title</CODE>
+<DD>The <CODE>title</CODE> sub-directive specifies a title of the book.
+The value of the sub-directive can be a sequences of any characters
+except for newline and NULL (<SAMP>`\0'</SAMP>) character.
+Its length must be up to 80 bytes.
+The title must be written in ISO 8859 1 or Japanese EUC (Extended Unix
+Code).
+Spaces or tabs are also accepted and they are taken literally.
+<P>
+
+The sub-directive is required in each <CODE>book</CODE> group directive, but
+cannot be defined more than once in a group directive.
+</P><P>
+
+<DT><CODE>path</CODE>
+<DD>The <CODE>path</CODE> sub-directive specifies an absolute path to the book.
+The path must point to the top directory of the book where the file
+<TT>`catalog'</TT> or <TT>`catalogs'</TT> resides.
+EBNET remote access identifier (e.g. <SAMP>`ebnet://host/book'</SAMP>) is
+not allowed.
+<P>
+
+The sub-directive is required in each <CODE>book</CODE> group directive, but
+cannot be defined more than once in a group directive.
+</P><P>
+
+<DT><CODE>appendix-path</CODE>
+<DD>The <CODE>appendix-path</CODE> sub-directive specifies an absolute path to
+the appendix data of the book (see section <A HREF="ebnetd_5.html#SEC26">5.5 Setup Appendix Package</A>).
+The path must point to the top directory of the appendix package where
+the file <TT>`catalog'</TT> or <TT>`catalogs'</TT> resides.
+EBNET remote access identifier (e.g. <SAMP>`ebnet://host/book.app'</SAMP>) is
+not allowed.
+<P>
+
+The sub-directive is optional and cannot be defined more than once
+in a <CODE>book</CODE> group directive.
+To use a book, appendix package is not required, but a book without
+appendix package may be difficult for users to read since some characters
+are unreadable.
+</P><P>
+
+<DT><CODE>max-clients</CODE>
+<DD>The <CODE>max-clients</CODE> sub-directive specifies how many clients can be
+accessed to the book at the same time.
+The value of the directive must be an integer not less than zero.
+The directive is optional, and cannot be defined more than once
+in a <CODE>book</CODE> group directive.
+The default value is <SAMP>`1'</SAMP>.
+If the value is set to <SAMP>`0'</SAMP>, the limitation is disabled.
+<P>
+
+Count of clients are shared by <CODE>ebnetd</CODE>, <CODE>ndtpd</CODE> and
+<CODE>ebhttpd</CODE>, if they use the same <CODE>work-path</CODE>
+(see section <A HREF="ebnetd_5.html#SEC24">5.3 Working Directory</A>).
+For example, if two <CODE>ebnetd</CODE> clients and three <CODE>ndtpd</CODE> clients
+access a book at the same time, the servers cosider the book is accessed
+by five clients.
+</P><P>
+
+<DT><CODE>hosts</CODE>
+<DD>The <CODE>hosts</CODE> sub-directive specifies which hosts can or cannot
+access the book.
+The sub-directive is optional, and can be defined any number of times.
+A <CODE>book</CODE> group directive without <CODE>hosts</CODE> sub-directive is
+valid, but nobody can access to the book!
+<P>
+
+The notation is same as the <CODE>hosts</CODE> single directive.
+</DL>
+<P>
+
+<A NAME="Sample Configuration"></A>
+<HR SIZE="6">
+<A NAME="SEC17"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC16"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_4.html#SEC18"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_4.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.5 Sample Configuration File </H2>
+<!--docid::SEC17::-->
+<P>
+
+The sample configuration file has been installed as
+<TT>`/usr/local/etc/ebnetd.conf.sample'</TT>, if EBNETD has been installed
+under <TT>`/usr/local'</TT>, and if a directory for read-only single-machine
+data (<CODE>sysconfdir</CODE>) has not been changed at the installation.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>######################################################################
+# Configuration file for ebnetd/ndtpd/ebhttpd.
+# (Copy this file to `ebnetd.conf', and edit it.)
+######################################################################
+
+### Port number `ebnetd' binds.
+### (default: ebnet)
+# ebnet-port	ebnet
+
+### Port number `ndtpd' binds.
+### (default: ndtp)
+# ndtp-port	ndtp
+
+### Port number `ebhttpd' binds.
+### (default: http)
+# http-port             http
+
+### Owner of the server process.
+### (default: none)
+user		ebnetuser
+
+### Group of the server process.
+### (default: none)
+group		ebnetgrp
+
+### How many clients can be connected to the server at the same time.
+### (default: 1)
+# max-clients	1
+
+### Which hosts can or cannot connect to the server.
+### (default: none)
+hosts		127.0.0.1
+hosts		::1
+hosts		!?
+hosts		host.your.domain
+
+### Timeout seconds until the server disconnects an idle connection.
+### (default: 900)
+# timeout		900
+
+### Path to a working directory.
+### Please create the directory and make it be writable for the server
+### processes before executing the server.
+### (default: /usr/local/var/ebnetd)
+# work-path	/usr/local/var/ebnetd
+
+### How many hit entries the server tries to find at a search.
+### (default: 50)
+# max-hits	50
+
+### Maxmimum size of tex the server may send to a client as a response
+### to him.
+### (default: 32768)
+# max-text-size		32768
+
+### Syslog facility
+### (default: daemon)
+syslog-facility	local0
+
+###
+### Book entry
+###
+begin book
+    ### Name of the book.
+    ### (required)
+    name		JITENBAN97
+
+    ### Title of the book.
+    ### (required)
+    title		Jitenban 97
+
+    ### Path to a top directory of the book.
+    ### (required)
+    path		/cdrom
+
+    ### Path to a top directory of the appdendix package of the book.
+    ### (default: none)
+    appendix-path	/usr/local/share/eb/appendix/jitenban97-2.1
+
+    ### How many clients can access the book at the same time.
+    ### (default: 1)
+    # max-clients		1
+
+    ### Which hosts can or cannot access to the book.
+    ### (default: none)
+    hosts		127.0.0.1
+    hosts		::1
+    hosts		!?
+    hosts		host.your.domain
+end
+
+### Add a book group directive (lines between `begin book' and `end'),
+### if you want to read another CD-ROM book.  A book group directive
+### is required for each book.
+</pre></td></tr></table></P><P>
+
+<A NAME="Configuration Checker"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_4.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Motoyuki Kasahara</I> on <I>December, 28  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

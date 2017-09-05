@@ -1,0 +1,476 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 28  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>EBNETD/ebHTTPD/NDTPD: Installation</TITLE>
+
+<META NAME="description" CONTENT="EBNETD/ebHTTPD/NDTPD: Installation">
+<META NAME="keywords" CONTENT="EBNETD/ebHTTPD/NDTPD: Installation">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="EN" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC2"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_1.html#SEC1"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC3"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_1.html#SEC1"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 2. Installation of EBNETD </H1>
+<!--docid::SEC2::-->
+<P>
+
+Before installing EBNETD, you need to install EB Library 3.3 or later
+version.
+</P><P>
+
+You can get the latest EB Library from
+<A HREF="ftp://ftp.sra.co.jp/pub/misc/eb/">ftp://ftp.sra.co.jp/pub/misc/eb/</A>.
+</P><P>
+
+You can get information about EB Library from
+<A HREF="http://www.sra.co.jp/people/m-kasahr/eb/">http://www.sra.co.jp/people/m-kasahr/eb/</A>.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC3">2.1 Basic Installation</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Basic installation.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC4">2.2 Compilers and Options</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Choose compilers and its options.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC5">2.3 Compiling For Multiple Architectures</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Compile EBNETD on multiple Architectures.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC6">2.4 Installation Names</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Change installation Names.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC7">2.5 Optional Features</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Selecting optional features.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC8">2.6 Specifying the System Type</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Specifying the system type.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC9">2.7 Sharing Defaults</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Set default values for <CODE>configure</CODE>
+                                scripts to share.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC10">2.8 Operation Controls</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Control <CODE>configure</CODE> operation.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC11">2.9 Optional Feature List</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Optional features this package supports.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Basic Installation"></A>
+<HR SIZE="6">
+<A NAME="SEC3"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC4"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.1 Basic Installation </H2>
+<!--docid::SEC3::-->
+<P>
+
+These are generic installation instructions.
+</P><P>
+
+The <CODE>configure</CODE> shell script attempts to guess correct values for
+various system-dependent variables used during compilation.  It uses
+those values to create a <TT>`Makefile'</TT> in each directory of the
+package.  It may also create one or more <TT>`.h'</TT> files containing
+system-dependent definitions.  Finally, it creates a shell script
+<TT>`config.status'</TT> that you can run in the future to recreate the
+current configuration, a file <TT>`config.cache'</TT> that saves the results
+of its tests to speed up reconfiguring, and a file <TT>`config.log'</TT>
+containing compiler output (useful mainly for debugging
+<CODE>configure</CODE>).
+</P><P>
+
+If you need to do unusual things to compile the package, please try to
+figure out how <CODE>configure</CODE> could check whether to do them, and mail
+diffs or instructions to the address given in the <TT>`README'</TT> so they
+can be considered for the next release.  If at some point
+<TT>`config.cache'</TT> contains results you don't want to keep, you may
+remove or edit it.
+</P><P>
+
+The file <TT>`configure.in'</TT> is used to create <TT>`configure'</TT> by a
+program called <CODE>autoconf</CODE>.  You only need <TT>`configure.in'</TT> if
+you want to change it or regenerate <TT>`configure'</TT> using a newer
+version of <CODE>autoconf</CODE>.
+</P><P>
+
+The simplest way to compile this package is:
+</P><P>
+
+<OL>
+<LI>
+<CODE>cd</CODE> to the directory containing the package's source code and type
+<SAMP>`./configure'</SAMP> to configure the package for your system.  If you're
+using <CODE>csh</CODE> on an old version of System V, you might need to type
+<SAMP>`sh ./configure'</SAMP> instead to prevent <CODE>csh</CODE> from trying to
+execute <CODE>configure</CODE> itself.
+<P>
+
+Running <CODE>configure</CODE> takes awhile.  While running, it prints some
+messages telling which features it is checking for.
+</P><P>
+
+<LI>
+Type <SAMP>`make'</SAMP> to compile the package.
+<P>
+
+<LI>
+Optionally, type <SAMP>`make check'</SAMP> to run any self-tests that come with
+the package.
+<P>
+
+<LI>
+Type <SAMP>`make install'</SAMP> to install the programs and any data files and
+documentation.
+<P>
+
+<LI>
+You can remove the program binaries and object files from the source code
+directory by typing <SAMP>`make clean'</SAMP>.  To also remove the files that
+<CODE>configure</CODE> created (so you can compile the package for a different
+kind of computer), type <SAMP>`make distclean'</SAMP>.  There is also a
+<SAMP>`make maintainer-clean'</SAMP> target, but that is intended mainly for the
+package's developers.  If you use it, you may have to get all sorts of
+other programs in order to regenerate files that came with the distribution.
+</OL>
+<P>
+
+<A NAME="Compilers and Options"></A>
+<HR SIZE="6">
+<A NAME="SEC4"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC3"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC5"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.2 Compilers and Options </H2>
+<!--docid::SEC4::-->
+<P>
+
+Some systems require unusual options for compilation or linking that
+the <CODE>configure</CODE> script does not know about.  You can give
+<CODE>configure</CODE> initial values for variables by setting them in the
+environment.  Using a Bourne-compatible shell, you can do that on the
+command line like this:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>CC=c89 CFLAGS=-O2 LIBS=-lposix ./configure
+</pre></td></tr></table></P><P>
+
+Or on systems that have the <CODE>env</CODE> program, you can do it like this:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>env CPPFLAGS=-I/usr/local/include LDFLAGS=-s ./configure
+</pre></td></tr></table></P><P>
+
+<A NAME="Multiple Architectures"></A>
+<HR SIZE="6">
+<A NAME="SEC5"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC4"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC6"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.3 Compiling For Multiple Architectures </H2>
+<!--docid::SEC5::-->
+<P>
+
+You can compile the package for more than one kind of computer at the
+same time, by placing the object files for each architecture in their
+own directory.  To do this, you must use a version of <CODE>make</CODE> that
+supports the <CODE>VPATH</CODE> variable, such as GNU <CODE>make</CODE>.  <CODE>cd</CODE>
+to the directory where you want the object files and executables to go
+and run the <CODE>configure</CODE> script.  <CODE>configure</CODE> automatically
+checks for the source code in the directory that <CODE>configure</CODE> is in
+and in <TT>`..'</TT>.
+</P><P>
+
+If you have to use a <CODE>make</CODE> that does not supports the <CODE>VPATH</CODE>
+variable, you have to compile the package for one architecture at a time
+in the source code directory.  After you have installed the package for
+one architecture, use <SAMP>`make distclean'</SAMP> before reconfiguring for
+another architecture.
+</P><P>
+
+<A NAME="Installation Names"></A>
+<HR SIZE="6">
+<A NAME="SEC6"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC5"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC7"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.4 Installation Names </H2>
+<!--docid::SEC6::-->
+<P>
+
+By default, <SAMP>`make install'</SAMP> will install the package's files in
+<TT>`/usr/local/bin'</TT>, <TT>`/usr/local/man'</TT>, etc.  You can specify an
+installation prefix other than <TT>`/usr/local'</TT> by giving
+<CODE>configure</CODE> the option <SAMP>`--prefix=<VAR>path</VAR>'</SAMP>.
+</P><P>
+
+You can specify separate installation prefixes for architecture-specific
+files and architecture-independent files.  If you give <CODE>configure</CODE>
+the option <SAMP>`--exec-prefix=<VAR>path</VAR>'</SAMP>, the package will use
+<VAR>path</VAR> as the prefix for installing programs and libraries.
+Documentation and other data files will still use the regular prefix.
+</P><P>
+
+In addition, if you use an unusual directory layout you can give options
+like <SAMP>`--bindir=<VAR>path</VAR>'</SAMP> to specify different values for
+particular kinds of files.  Run <SAMP>`configure --help'</SAMP> for a list of
+the directories you can set and what kinds of files go in them.
+</P><P>
+
+If the package supports it, you can cause programs to be installed with
+an extra prefix or suffix on their names by giving <CODE>configure</CODE> the
+option <SAMP>`--program-prefix=<VAR>PREFIX</VAR>'</SAMP> or
+<SAMP>`--program-suffix=<VAR>SUFFIX</VAR>'</SAMP>.
+</P><P>
+
+<A NAME="Optional Features"></A>
+<HR SIZE="6">
+<A NAME="SEC7"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC6"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC8"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.5 Optional Features </H2>
+<!--docid::SEC7::-->
+<P>
+
+Some packages pay attention to <SAMP>`--enable-<VAR>feature</VAR>'</SAMP> options to
+<CODE>configure</CODE>, where <VAR>feature</VAR> indicates an optional part of the
+package.  They may also pay attention to <SAMP>`--with-<VAR>package</VAR>'</SAMP>
+options, where <VAR>package</VAR> is something like <SAMP>`gnu-as'</SAMP> or <SAMP>`x'</SAMP>
+(for the X Window System).  The <TT>`README'</TT> should mention any
+<SAMP>`--enable-'</SAMP> and <SAMP>`--with-'</SAMP> options that the package recognizes.
+</P><P>
+
+For packages that use the X Window System, <CODE>configure</CODE> can usually
+find the X include and library files automatically, but if it doesn't,
+you can use the <CODE>configure</CODE> options <SAMP>`--x-includes=<VAR>dir</VAR>'</SAMP>
+and <SAMP>`--x-libraries=<VAR>dir</VAR>'</SAMP> to specify their locations.
+</P><P>
+
+<A NAME="System Type"></A>
+<HR SIZE="6">
+<A NAME="SEC8"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC7"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC9"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.6 Specifying the System Type </H2>
+<!--docid::SEC8::-->
+<P>
+
+There may be some features <CODE>configure</CODE> can not figure out
+automatically, but needs to determine by the type of host the package
+will run on.  Usually <CODE>configure</CODE> can figure that out, but if it
+prints a message saying it can not guess the host type, give it the
+<SAMP>`--host=<VAR>type</VAR>'</SAMP> option.  <VAR>type</VAR> can either be a short name
+for the system type, such as <SAMP>`sun4'</SAMP>, or a canonical name with three
+fields:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre><VAR>cpu</VAR>-<VAR>company</VAR>-<VAR>system</VAR>
+</pre></td></tr></table>See the file <TT>`config.sub'</TT> for the possible values of each field.
+If <TT>`config.sub'</TT> isn't included in this package, then this package
+doesn't need to know the host type.
+</P><P>
+
+If you are building compiler tools for cross-compiling, you can also use
+the <SAMP>`--target=<VAR>type</VAR>'</SAMP> option to select the type of system
+they will produce code for and the <SAMP>`--build=<VAR>type</VAR>'</SAMP> option
+to select the type of system on which you are compiling the package.
+</P><P>
+
+<A NAME="Sharing Defaults"></A>
+<HR SIZE="6">
+<A NAME="SEC9"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC8"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC10"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.7 Sharing Defaults </H2>
+<!--docid::SEC9::-->
+<P>
+
+If you want to set default values for <CODE>configure</CODE> scripts to share,
+you can create a site shell script called <TT>`config.site'</TT> that gives
+default values for variables like <CODE>CC</CODE>, <CODE>cache_file</CODE>, and
+<CODE>prefix</CODE>.  <CODE>configure</CODE> looks for
+<TT>`<VAR>prefix</VAR>/share/config.site'</TT> if it exists, then
+<TT>`<VAR>prefix</VAR>/etc/config.site'</TT> if it exists.  Or, you can set
+the <CODE>CONFIG_SITE</CODE> environment variable to the location of the site
+script.  A warning: not all <CODE>configure</CODE> scripts look for a site script.
+</P><P>
+
+<A NAME="Operation Controls"></A>
+<HR SIZE="6">
+<A NAME="SEC10"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC9"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC11"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.8 Operation Controls </H2>
+<!--docid::SEC10::-->
+<P>
+
+<CODE>configure</CODE> recognizes the following options to control how it
+operates.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>--cache-file=<VAR>file</VAR></CODE>
+<DD>Use and save the results of the tests in <VAR>file</VAR> instead of
+<TT>`./config.cache'</TT>.  Set <VAR>file</VAR> to <TT>`/dev/null'</TT> to disable
+caching, for debugging <CODE>configure</CODE>.
+<P>
+
+<DT><CODE>--help</CODE>
+<DD>Print a summary of the options to <CODE>configure</CODE>, and exit.
+<P>
+
+<DT><CODE>--quiet</CODE>
+<DD><DT><CODE>--silent</CODE>
+<DD><DT><CODE>-q</CODE>
+<DD>Do not print messages saying which checks are being made.
+<P>
+
+<DT><CODE>--srcdir=<VAR>dir</VAR></CODE>
+<DD>Look for the package's source code in directory <VAR>dir</VAR>.  Usually
+<CODE>configure</CODE> can determine that directory automatically.
+<P>
+
+<DT><CODE>--version</CODE>
+<DD>Print the version of Autoconf used to generate the <CODE>configure</CODE>
+script, and exit.
+</DL>
+<P>
+
+<A NAME="Optional Feature List"></A>
+<HR SIZE="6">
+<A NAME="SEC11"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC10"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.9 Optional Feature List </H2>
+<!--docid::SEC11::-->
+<P>
+
+<CODE>configure</CODE> in this package recognizes the following
+<SAMP>`--enable-'</SAMP> and <SAMP>`--with-'</SAMP> options.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>--with-logdir=<VAR>dir</VAR></CODE>
+<DD>Syslog files that <CODE>ebndaily</CODE> rotates by default are placed on
+<VAR>dir</VAR>.
+The default value is <SAMP>`<VAR>localstatedir</VAR>/ebnetd/log'</SAMP>.
+<P>
+
+<DT><CODE>--with-eb-conf=<VAR>file</VAR></CODE>
+<DD>Read EB Libfary configuration file in <VAR>file</VAR>.
+The default value is <SAMP>`<VAR>sysconfdir</VAR>/eb.conf'</SAMP>.
+<P>
+
+<DT><CODE>--with-gnu-ld</CODE>
+<DD>Assume the C compiler uses GNU ld.
+The default value is <SAMP>`no'</SAMP>.
+<P>
+
+<DT><CODE>--enable-ipv6</CODE>
+<DD>Support IPv6.
+The default value is <SAMP>`yes'</SAMP> if the system supports IPv6.
+<P>
+
+</DL>
+<P>
+
+<A NAME="Configuration File"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_3.html#SEC12"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Motoyuki Kasahara</I> on <I>December, 28  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

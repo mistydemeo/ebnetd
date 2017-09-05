@@ -1,0 +1,683 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 28  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>ebNETD: Configuration File</TITLE>
+
+<META NAME="description" CONTENT="ebNETD: Configuration File">
+<META NAME="keywords" CONTENT="ebNETD: Configuration File">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="EN" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC12"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC11"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC13"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_4.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 3. 設定ファイル </H1>
+<!--docid::SEC12::-->
+<P>
+
+<CODE>ebnetd</CODE>, <CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE> を始動させるためには、まず
+設定ファイルを編集する必要があります。
+サーバは、始動時および再始動時にこのファイルを読み込みます。
+このファイルの内容によって、サーバの様々な挙動が決定されます。
+EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、マシン固有の
+読み込み専用のデータを置くディレクトリ (<CODE>sysconfdir</CODE>) の位置を
+変更していなければ、無指定時に読み込まれる設定ファイルは
+<TT>`/usr/local/etc/ebnetd.conf'</TT> になります。
+設定ファイルの位置は、コマンドラインオプション <SAMP>`--configuration-file'</SAMP>
+(あるいは <SAMP>`-c'</SAMP>) を用いることで変更が可能です
+(「<A HREF="ebnetd-ja_6.html#SEC32"><CODE>ebnetd</CODE> のオプション</A>」節を参照)。
+</P><P>
+
+設定ファイルの中では、空行、および空白以外の最初の文字がハッシュ記号 
+(<SAMP>`#'</SAMP>) である行は無視されます。
+他の行はすべて、<EM>単独指示子 (single directive)</EM> か
+<EM>複合指示子 (group directive)</EM> のいずれかでなくてはなりません。
+単独指示子と複合指示子は、どのような順序で定義しても差し支えありません。
+</P><P>
+
+各行は、改行文字を含め 511 文字を越えてはなりません。
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_3.html#SEC13">3.1 単独指示子の一般形</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_3.html#SEC14">3.2 単独指示子の一覧</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_3.html#SEC15">3.3 複合指示子の一般形</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_3.html#SEC16">3.4 <CODE>book</CODE> 複合指示子</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">複合指示子の一覧</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_3.html#SEC17">3.5 設定ファイルの例</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Single Directive"></A>
+<HR SIZE="6">
+<A NAME="SEC13"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC14"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_4.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.1 単独指示子の一般形 </H2>
+<!--docid::SEC13::-->
+<P>
+
+単独指示子とは、1 行で完結する指示子です。
+単独指示子の一般形は次の通りです。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre><VAR>指示子の名前</VAR>    <VAR>指示子の値</VAR>
+</pre></td></tr></table></P><P>
+
+以下の例では、<CODE>syslog-facility</CODE> が指示子の名前、<SAMP>`local0'</SAMP> が
+その値です。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>syslog-facility    local0
+</pre></td></tr></table></P><P>
+
+指示子名の大文字と小文字は区別されますので、<SAMP>`syslog-facility'</SAMP>
+を <SAMP>`Syslog-Facility'</SAMP> と書くことはできません。
+指示子の名前と値の区切りには、空白かタブを用います。
+連続した空白とタブが、行頭および行末にあった場合、それらは無視されます。
+</P><P>
+
+<A NAME="Single Directive List"></A>
+<HR SIZE="6">
+<A NAME="SEC14"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC13"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC15"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_4.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.2 単独指示子の一覧 </H2>
+<!--docid::SEC14::-->
+<P>
+
+単独指示子には次のようなものがあります。
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>ebnet-port</CODE>
+<DD><CODE>ebnet-port</CODE> 指示子では、<CODE>ebnetd</CODE> が見張るポートの番号を指定
+します。
+指示子の値は、TCP のサービス名 (例: <SAMP>`EBNET'</SAMP>) か、ポート番号 
+(例: <SAMP>`22010'</SAMP>) でなくてはいけません。
+<CODE>ebnetd</CODE> を <CODE>inetd</CODE> 経由で起動した場合は、この指示子は
+無視されます。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は <SAMP>`EBNET'</SAMP> です。
+<P>
+
+<CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE> はこの指示子を常に無視します。
+</P><P>
+
+<DT><CODE>ndtp-port</CODE>
+<DD><CODE>ndtp-port</CODE> 指示子では、<CODE>ndtpd</CODE> が見張るポートの番号を指定
+します。
+指示子の値は、TCP のサービス名 (例: <SAMP>`NDTP'</SAMP>) か、ポート番号 
+(例: <SAMP>`2010'</SAMP>) でなくてはいけません。
+<CODE>ebnetd</CODE> を <CODE>inetd</CODE> 経由で起動した場合は、この指示子は
+無視されます。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は <SAMP>`NDTP'</SAMP> です。
+<P>
+
+<CODE>ebnetd</CODE>, <CODE>ebhttpd</CODE> はこの指示子を常に無視します。
+</P><P>
+
+<DT><CODE>http-port</CODE>
+<DD><CODE>http-port</CODE> 指示子では、<CODE>ebhttpd</CODE> が見張るポートの番号を
+指定します。
+指示子の値は、TCP のサービス名 (例: <SAMP>`HTTP'</SAMP>) か、ポート番号 
+(例: <SAMP>`80'</SAMP>) でなくてはいけません。
+<CODE>ebhttpd</CODE> を <CODE>inetd</CODE> 経由で起動した場合は、この指示子は
+無視されます。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は <SAMP>`HTTP'</SAMP> です。
+<P>
+
+<CODE>ebnetd</CODE>, <CODE>ebhttpd</CODE> はこの指示子を常に無視します。
+</P><P>
+
+<DT><CODE>user</CODE>
+<DD><CODE>user</CODE> 指示子では、サーバプロセスの実効ユーザを指定します。
+指示子の値は、ユーザ名 (例: <SAMP>`nobody'</SAMP>) か、ユーザ ID (例: <SAMP>`65535'</SAMP>)
+でなくてはいけません。
+別のユーザに実効ユーザを変える場合は、スーパユーザ特権を有した状態で
+サーバを起動しなくてはなりません。
+実効ユーザの変更に失敗すると、サーバは走行の継続を断念します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+この指示子を定義しなかった場合、サーバプロセスの実効ユーザは変化
+しません。
+<P>
+
+<SAMP>`ndtpuser'</SAMP> のようなダミーのユーザアカウントを一つ作って、それを
+この指示子で指定することをお薦めします。
+</P><P>
+
+<DT><CODE>group</CODE>
+<DD><CODE>group</CODE> 指示子では、サーバプロセスの実効グループを指定します。
+指示子の値は、ユーザ名 (例: <SAMP>`nogroup'</SAMP>) か、グループ ID
+(例: <SAMP>`65534'</SAMP>) でなくてはいけません。
+実効グループの変更に失敗すると、サーバは走行の継続を断念します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することもできません。
+この指示子を定義しなかった場合、サーバプロセスの実効グループは変化
+しません。
+<P>
+
+<SAMP>`ndtpgrp'</SAMP> のようなダミーのグループアカウントを一つ作って、それを
+この指示子で指定することをお薦めします。
+</P><P>
+
+<DT><CODE>max-clients</CODE>
+<DD><CODE>max-clients</CODE> 指示子では、同時にサーバに接続できるクライアントの
+数の上限を指定します。
+指示子の値は、0 以上の整数でなくてはいけません。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は <SAMP>`1'</SAMP> です。
+指示子の値を 0 に設定すると、無制限になります。
+<P>
+
+<DT><CODE>hosts</CODE>
+<DD><CODE>hosts</CODE> 指示子では、どのホストがサーバに接続でき、どのホストが
+接続できないのかを指定します。
+指示子の値は IP アドレス、ホスト名、<VAR>アドレス/ネットマスク</VAR> の
+いずれかです。
+加えて、直前に感嘆符 (<SAMP>`!'</SAMP>) を付けることができます。
+指示子の値が感嘆符で始まっていた場合は、それに続く IP アドレスまたは
+ホスト名にマッチするホストからの接続要求は拒否します。
+感嘆符がない場合は、指示子の値にマッチするホストからの接続要求は許可
+します。
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># `host.xxx.yyy.jp' からの接続を許可する。
+hosts host.xxx.yyy.jp
+
+# `127.0.0.1' からの接続を許可する。
+hosts 127.0.0.1
+
+# `192.24.1.0/24'.からの接続を拒否する。
+hosts !192.24.1.0/24
+</pre></td></tr></table></P><P>
+
+ホスト名に限り、アスタリスク (<SAMP>`*'</SAMP>) と疑問符 (<SAMP>`?'</SAMP>) を使う
+ことができます。
+アスタリスクは、先頭の感嘆符を除いた任意の 0 文字以上の文字列にマッチ
+します。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># `xxx.yyy.jp' ドメインのホストからの接続を拒否する。
+hosts !*.xxx.yyy.jp
+
+# どのホストからの接続も許可する。
+hosts *
+</pre></td></tr></table></P><P>
+
+疑問符は <EM>未知のホスト名</EM> を表します。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># ホスト名が分からないホストからの接続を拒否する。
+hosts !?
+</pre></td></tr></table></P><P>
+
+この指示子は必ずしも定義する必要はありません。
+また、何度でも定義することが可能です。
+設定ファイルに <CODE>hosts</CODE> 指示子が無くてもエラーにはなりませんが、
+どのクライアントもサーバにはアクセスできなくなります。
+いずれの <CODE>hosts</CODE> 指示子にもマッチしないホストからの接続要求は拒否
+されます。
+複数の <CODE>hosts</CODE> にマッチする場合は、設定ファイルの先頭に最も近い
+ものが採用されます。
+</P><P>
+
+以下の例では、<SAMP>`sub1.xxx.yyy.jp'</SAMP> ドメインに属するホストからの
+接続要求は拒否していますが、それ以外の <SAMP>`xxx.yyy.jp'</SAMP> ドメインに
+属するホストからの接続要求は許可しています。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>hosts !*.sub1.xxx.yyy.jp
+hosts *.xxx.yyy.jp
+</pre></td></tr></table></P><P>
+
+この例では、指示子の順序は重要です。
+順序を引っくり返してしまうと、<SAMP>`sub1.xxx.yyy.jp'</SAMP> を含め、
+<SAMP>`xxx.yyy.jp'</SAMP> ドメインに属するすべてのホストがサーバに接続できて
+しまいます。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># 間違い!!!
+hosts *.xxx.yyy.jp
+hosts !*.sub1.xxx.yyy.jp
+</pre></td></tr></table></P><P>
+
+ホスト名を比較する際、サーバは常にクライアントの正式ホスト名を使用
+します。
+ホスト名は、クライアントのアドレスから DNS などの名前解決のサービス
+を利用して取得します。
+別名は使用されませんので、注意して下さい。
+</P><P>
+
+IPv6 アドレスおよび <VAR>IPv6 アドレス/ネットマスク</VAR> パターンを指定
+することも可能です。
+IPv6 対応機能を有効にしてコンパイルされていないサーバは IPv4
+クライアントとしか通信できませんが、設定ファイルに書かれた IPv6
+アドレスを解釈することはできます。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># `12ab:0:0:cd3::/60' と `::1' からの接続を許可する。
+hosts ::1
+hosts 12ab:0:0:cd3::/60
+</pre></td></tr></table></P><P>
+
+<CODE>hosts</CODE> 指示子では、IPv4 アドレス (例 <SAMP>`192.168.1.1'</SAMP>) とそれ
+に対応する IPv4 射影 IPv6 アドレス (例 <SAMP>`::ffff:192.168.1.1'</SAMP>) は
+等価になります。
+つまり、IPv4 クライアント <SAMP>`192.168.1.1'</SAMP> は <CODE>hosts</CODE> 指示子
+<SAMP>`::ffff:192.168.1.1'</SAMP> にマッチし、IPv6 クライアント
+<SAMP>`::ffff:192.168.1.1'</SAMP> は <CODE>hosts</CODE> 指示子 <SAMP>`192.168.1.1'</SAMP>
+にマッチします。
+</P><P>
+
+<DT><CODE>timeout</CODE>
+<DD><CODE>timeout</CODE> 指示子では、交信が途絶えたクライアントとの接続を
+サーバが切断するまでの秒数を指定します。
+指示子の値は、0 以上の整数でなくてはいけません。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は <SAMP>`900'</SAMP> (15分) です。
+指示子の値を 0 に設定すると、時間切れによる切断は行いません。
+<P>
+
+<DT><CODE>work-path</CODE>
+<DD><CODE>work-path</CODE> 指示子では、サーバの作業用ディレクトリ
+のパスを指定します (「<A HREF="ebnetd-ja_5.html#SEC24">作業用ディレクトリ</A>」節を参照)。
+指示子の値は、絶対パスでなくてはいけません。
+サーバはこのディレクトリの下に作業用のファイルをいくつか作成します。
+また、異常終了によってコアファイルをダンプするときは、このディレクトリ
+に作成します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、マシン固有の
+更新されうるデータを置くディレクトリ (<CODE>localstatedir</CODE>) を変更して
+いなければ、無指定時の値は <TT>`/usr/local/var/ebnetd/'</TT> になります。
+<P>
+
+<DT><CODE>max-hits</CODE>
+<DD><CODE>max-hits</CODE> 指示子では、一回の検索でサーバが返すヒット数の上限を
+指定します。
+サーバは、この指示子で指定された値と同じだけのヒット数を見つけた時点
+で、ただちに検索を中止します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は <SAMP>`50'</SAMP> です。
+指示子の値を 0 に設定すると、無制限になります。
+<P>
+
+<CODE>ebnetd</CODE> はこの指示子を常に無視します。
+</P><P>
+
+<DT><CODE>max-text-size</CODE>
+<DD><CODE>max-text-size</CODE> 指示子は、サーバがクライアントへの応答 1 回で
+返すテキストのバイト数の上限を指定します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は <SAMP>`32768'</SAMP> です。
+指示子の値を 0 に設定すると、無制限になります。
+<P>
+
+<CODE>ebnetd</CODE> はこの指示子を常に無視します。
+</P><P>
+
+<DT><CODE>syslog-facility</CODE>
+<DD><CODE>syslog-facility</CODE> 指示子では、syslog のファシリティを指定します
+(例: <SAMP>`daemon'</SAMP>, <SAMP>`local0'</SAMP> など)。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時は <SAMP>`daemon'</SAMP> を用います。
+また、サーバが設定ファイルを読み込み終わるまでは、<SAMP>`daemon'</SAMP> が
+用いられます。
+</DL>
+<P>
+
+<A NAME="Group Directive"></A>
+<HR SIZE="6">
+<A NAME="SEC15"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC14"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC16"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_4.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.3 複合指示子の一般形 </H2>
+<!--docid::SEC15::-->
+<P>
+
+複合指示子 (指示命令) とは、記述が設定ファイル内の複数行に渡る指示子です。
+複合指示子の一般形は次の通りです。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>begin <VAR>複合指示子の名前</VAR>
+    <VAR>副指示子の名前</VAR>    <VAR>副指示子の値</VAR>
+             : 
+             : (繰り返し)
+             : 
+end
+</pre></td></tr></table></P><P>
+
+キーワード <CODE>begin</CODE> は、複合指示子の開始を表します。
+<CODE>begin</CODE> は後ろに <VAR>複合指示子の名前</VAR> を引数として取ります。
+<CODE>begin</CODE> と <VAR>複合指示子の名前</VAR> は空白かタブで区切り、両方とも
+同じ行の中に置きます。
+キーワード <CODE>end</CODE> は、複合指示子の終了を表します。
+<CODE>end</CODE> は、単独で 1 行にして置きます。
+</P><P>
+
+EBNETD バージョン 1.0 では、使用できる複合指示子の名前は
+<CODE>book</CODE> だけです。
+それぞれの <EM>副指示子</EM> は、<CODE>begin</CODE> と <CODE>end</CODE> の行の間に
+置きます。
+副指示子に関する記述の一般的な規則は、単独指示子と変わりません
+(たとえば、<VAR>副指示子の名前</VAR>と <VAR>副指示子の値</VAR> は空白かタブで
+区切ることなど)。
+</P><P>
+
+以下は、 <CODE>book</CODE> 複合指示子の記述例です。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>begin book
+        name            EJDICT
+        title           English Japanese Dictionary
+        path            /mnt/cdrom
+        hosts           127.0.0.1 
+        hosts           host.your.domain       
+end
+</pre></td></tr></table></P><P>
+
+<A NAME="Book Group Directive"></A>
+<HR SIZE="6">
+<A NAME="SEC16"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC15"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC17"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_4.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.4 <CODE>book</CODE> 複合指示子 </H2>
+<!--docid::SEC16::-->
+<P>
+
+一つの <CODE>book</CODE> 複合指示子 は一冊の CD-ROM 書籍に対応しますので、
+CD-ROM 書籍一冊ごとにこの複合指示子を定義しなくてはいけません。
+<CODE>book</CODE> 複合指示子の副指示子として、EBNETD が認識するものは次の通り
+です。
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>name</CODE>
+<DD><CODE>name</CODE> 副指示子では、その書籍の名前を指定します。
+副指示子の値に用いることができるのは、英小文字 (<SAMP>`a'</SAMP>..<SAMP>`z'</SAMP>)、
+数字 (<SAMP>`0'</SAMP>..<SAMP>`9'</SAMP>)、下線 (<SAMP>`_'</SAMP>)、ハイフン (<SAMP>`-'</SAMP>) だけで、
+長さは 14 文字までです。
+この名前は、書籍を識別するために使いますので、各書籍には異なる名前を
+付けなくてはいけません。
+この副指示子は、それぞれの <CODE>book</CODE> 複合指示子に必須です。
+また、1 つの <CODE>book</CODE> 複合指示子で 2 度以上定義することはできません。
+<P>
+
+<DT><CODE>title</CODE>
+<DD><CODE>title</CODE> 副指示子では、その書籍の題名を指定します。
+副指示子の値には、改行文字とナル文字 (<SAMP>`\0'</SAMP>) を除く任意の文字を
+使って指定することができますが、長さは 80 バイトまでです。
+EUC (Extended Unix Code) を用いれば日本語の文字も使用可能です。
+副指示子の値の中に空白やタブを用いることも可能で、これらは他の文字と
+同じく一文字として解釈されます。
+<P>
+
+この副指示子は、それぞれの <CODE>book</CODE> 複合指示子に必須です。
+また、1 つの <CODE>book</CODE> 複合指示子で 2 度以上定義することはできません。
+</P><P>
+
+<DT><CODE>path</CODE>
+<DD><CODE>path</CODE> 副指示子では、その書籍の絶対パスを指定します。
+パスはその書籍のトップディレクトリ、つまり <TT>`catalog'</TT> または
+<TT>`catalogs'</TT> ファイルの存在するディレクトリを指してしなくては
+いけません。
+<P>
+
+この副指示子は、それぞれの <CODE>book</CODE> 複合指示子に必須です。
+また、1 つの <CODE>book</CODE> 複合指示子で 2 度以上定義することはできません。
+</P><P>
+
+<DT><CODE>appendix-path</CODE>
+<DD><CODE>appendix-path</CODE> 副指示子では、その書籍に対応する appendix (付録) 
+パッケージの絶対パスを指定します。
+パスは appendix パッケージのトップディレクトリ、つまり <TT>`catalog'</TT> 
+または <TT>`catalogs'</TT> ファイルの存在するディレクトリを指してしなくては
+いけません。
+<P>
+
+この副指示子は、必ずしも定義する必要はありません。
+また、1 つの <CODE>book</CODE> 複合指示子で 2 度以上定義することはできません。
+書籍を使う上で、appendix パッケージは必須ではありませんが、ないと外字が
+識別不可能になるため、読みづらいかも知れません。
+</P><P>
+
+<DT><CODE>max-clients</CODE>
+<DD><CODE>max-clients</CODE> 副指示子には、この書籍を同時にいくつのクライアントが
+使うことができるのかを指定します。
+副指示子の値には、0 以上の整数を指定します。
+この副指示子は、必ずしも定義する必要はありません。
+また、1 つの <CODE>book</CODE> 複合指示子で 2 度以上定義することはできません。
+無指定時の値は <SAMP>`1'</SAMP> です。
+0 を指定すると、無制限になります。
+<P>
+
+<CODE>work-path</CODE> (「<A HREF="ebnetd-ja_5.html#SEC24">5.3 作業用ディレクトリ</A>」節を参照) に共通の値をセットしておくと、
+クライアントの数が <CODE>ebnetd</CODE>, <CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE> 間で
+共有されます。
+たとえば、ある瞬間にある書籍をアクセスしている <CODE>ebnetd</CODE> クライアント
+が 2 つ、<CODE>ndtpd</CODE> クライアントが 3 つあったとすると、サーバは
+5 つのクライアントが書籍にアクセスしているものと判断します。
+</P><P>
+
+<DT><CODE>hosts</CODE>
+<DD><CODE>hosts</CODE> 副指示子には、この書籍にどのホストがアクセスできて、どの
+ホストができないのかを指定します。
+この副指示子は、必ずしも定義する必要はありません。
+また、1 つの <CODE>book</CODE> 複合指示子で何度でも定義することが可能です。
+<CODE>book</CODE> 複合指示子が <CODE>hosts</CODE> 副指示子を持たなくてもエラーには
+なりませんが、その書籍はどのクライアントからもアクセスできません。
+<P>
+
+この副指示子の表記方法は、単独指示子の <CODE>hosts</CODE> と同じです。
+</DL>
+<P>
+
+<A NAME="Sample Configuration"></A>
+<HR SIZE="6">
+<A NAME="SEC17"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC16"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_4.html#SEC18"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_4.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.5 設定ファイルの例 </H2>
+<!--docid::SEC17::-->
+<P>
+
+EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、マシン固有の
+読み込み専用のデータを置くディレクトリ (<CODE>sysconfdir</CODE>) の位置を変更
+していなければ、この設定ファイルのサンプルは
+<TT>`/usr/local/etc/ebnetd.conf.sample'</TT> にインストールされています。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>######################################################################
+# ebnetd/ndtpd/ebhttpd の設定ファイルのサンプル
+# (このファイルを `ebnetd.conf' にコピーして、編集して下さい)
+######################################################################
+
+### `ebnetd' が見張るポート番号
+### (無指定の場合: ebnet)
+# ebnet-port	ebnet
+
+### `ndtpd' が見張るポート番号
+### (無指定の場合: ndtp)
+# ndtp-port	ndtp
+
+### `ebhttpd' が見張るポート番号
+### (無指定の場合: http)
+# http-port	http
+
+### サーバのプロセスの所有ユーザ
+### (無指定の場合: なし)
+user		ndtpuser
+
+### サーバのプロセスのグループ
+### (無指定の場合: なし)
+group		ndtpgrp
+
+### サーバに同時に接続できるクライアントの数
+### (無指定の場合: 1)
+# max-clients	1
+
+### サーバに接続できるホスト、できないホスト
+### (無指定の場合: なし)
+hosts		127.0.0.1
+hosts		::1
+hosts		!?
+hosts		host.your.domain
+
+### サーバが交信の途絶えたコネクションを切るまでの時間
+### (無指定の場合: 900)
+# timeout		900
+
+### 作業用ディレクトリのパス
+### サーバを起動する前に、このディレクトリを作り、サーバプロセスが
+### 書き込めるようにしておいて下さい。
+### (無指定の場合: /usr/local/var/ebnetd)
+# work-path	/usr/local/var/ebnetd
+
+### 一回の検索で、サーバが返す、ヒットしたエントリの最大個数
+### (無指定の場合: 50)
+# max-hits	50
+
+### クライアントへの一回の応答で、サーバが返すテキストの最大サイズ
+### (default: 32768)
+# max-text-size		32768
+
+### syslog のファシリティ
+### (無指定の場合: daemon)
+syslog-facility	local0
+
+###
+### 書籍のエントリ
+###
+begin book
+    ### 書籍名
+    ### (必須)
+    name		JITENBAN97
+
+    ### 書籍の題名
+    ### (必須)
+    title		Jitenban 97
+
+    ### 書籍のトップディレクトリ
+    ### (必須)
+    path		/cdrom
+
+    ### appendix (付録) パッケージのトップディレクトリ
+    ### (無指定の場合: なし)
+    appendix-path	/usr/local/share/eb/appendix/jitenban97-2.1
+
+    ### 同時にアクセスできるクライアントの数
+    ### (無指定の場合: 1)
+    max-clients		1
+
+    ### この書籍を利用できるホスト、できないホスト
+    ### (無指定の場合: なし)
+    hosts		127.0.0.1
+    hosts		::1
+    hosts		!?
+    hosts		host.your.domain
+end
+
+### もし、CD-ROM 書籍が他にもあるなら、`book' 複合指示子 (`begin book'
+### から `end' の間の行) を追加して下さい。`book' 複合指示子は、
+### 書籍一冊毎に必要です。
+</pre></td></tr></table></P><P>
+
+<A NAME="Configuration Checker"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_3.html#SEC12"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_4.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Motoyuki Kasahara</I> on <I>December, 28  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

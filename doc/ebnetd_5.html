@@ -1,0 +1,346 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 28  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>EBNETD/ebHTTPD/NDTPD: Setup Your Environment</TITLE>
+
+<META NAME="description" CONTENT="EBNETD/ebHTTPD/NDTPD: Setup Your Environment">
+<META NAME="keywords" CONTENT="EBNETD/ebHTTPD/NDTPD: Setup Your Environment">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="EN" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC21"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_4.html#SEC20"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC22"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_4.html#SEC18"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 5. Setup Your Environment </H1>
+<!--docid::SEC21::-->
+<P>
+
+You may have to setup system environment around the server.
+Super user's priviledge may be required to do it.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_5.html#SEC22">5.1 <TT>`services'</TT> File</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Setup your <TT>`services'</TT> file.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_5.html#SEC23">5.2 <TT>`syslog.conf'</TT> File</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Setup your <TT>`syslog.conf'</TT> file.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_5.html#SEC24">5.3 Working Directory</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Make a working directory.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_5.html#SEC25">5.4 Mount Your CD-ROM Books</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Mount your CD-ROM books.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_5.html#SEC26">5.5 Setup Appendix Package</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Copy appendix package.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Services"></A>
+<HR SIZE="6">
+<A NAME="SEC22"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC21"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC23"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC21"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC21"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.1 <TT>`services'</TT> File </H2>
+<!--docid::SEC22::-->
+<P>
+
+The service names <SAMP>`ebnet'</SAMP>, <SAMP>`ndtp'</SAMP> and <SAMP>`http'</SAMP> must be
+added to your <TT>`services'</TT> file (usually, <TT>`/etc/services'</TT>),
+if missing.
+If your host runs as NIS client, you have to edit the NIS map on the
+NIS server, instead.
+</P><P>
+
+This lines shuold be added, if missing:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>http           80/tcp
+ndtp           2010/tcp
+ebnet          22010/tcp
+</pre></td></tr></table></P><P>
+
+The configuration file on your system may have had the line with
+a different service name, like that:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>search        2010/tcp
+</pre></td></tr></table></P><P>
+
+In this case, please add the service name as an alias:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>search        2010/tcp        ebnet
+</pre></td></tr></table></P><P>
+
+(For details, please read the manual for your system.)
+</P><P>
+
+<A NAME="Syslog"></A>
+<HR SIZE="6">
+<A NAME="SEC23"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC22"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC24"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC21"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC21"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.2 <TT>`syslog.conf'</TT> File </H2>
+<!--docid::SEC23::-->
+<P>
+
+<CODE>ebnetd</CODE>, <CODE>ndtpd</CODE> and <CODE>ebhttpd</CODE> use <CODE>syslog</CODE> to
+record their log messages.
+Insert a line like as below into the configuration file for <CODE>syslogd</CODE>
+(usually <TT>`/etc/syslog.conf'</TT>).
+Care must be taken not to use space to separete fields, because only
+TAB is allowed in general.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>local0.info   /usr/local/var/ebnetd/log/ebnetd.log
+</pre></td></tr></table></P><P>
+
+Please remember that the syslog facility of the servers can be
+determined at the <CODE>syslog-facility</CODE> directive in the configuration
+file for <CODE>ebnetd</CODE>
+(see section <A HREF="ebnetd_3.html#SEC14"><CODE>syslog-facility</CODE></A>).
+</P><P>
+
+Create an empty log file if missing.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% touch /usr/local/var/ebnetd/log/ebnetd.log
+% chmod 644 /usr/local/var/ebnetd/log/ebnetd.log
+</pre></td></tr></table></P><P>
+
+Find the PID of the running <CODE>syslogd</CODE> process.
+In BSD based sytems, type the following.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% ps axuww | grep syslogd
+</pre></td></tr></table></P><P>
+
+In SYSV based sytems, type the following.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% ps -ef | grep syslogd
+</pre></td></tr></table></P><P>
+
+(For details, please read the manual for your system.)
+<BR>
+If <CODE>syslogd</CODE> is running, you can find a line like as below.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>root        63  0.0  1.1   188  316  ??  Is   10:04PM    0:00.16 syslogd
+</pre></td></tr></table></P><P>
+
+Send a hung-up signal (<CODE>SIGHUP</CODE>) to <CODE>syslogd</CODE>, and then
+<CODE>syslogd</CODE> re-reads <TT>`syslog.conf'</TT>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% kill -HUP 63
+</pre></td></tr></table></P><P>
+
+If your system has the <CODE>logger</CODE> command, you can send a test
+message to <CODE>syslogd</CODE> like as follows:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% logger -p local0.info "test message"
+</pre></td></tr></table></P><P>
+
+<A NAME="Working Directory"></A>
+<HR SIZE="6">
+<A NAME="SEC24"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC23"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC25"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC21"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC21"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.3 Working Directory </H2>
+<!--docid::SEC24::-->
+<P>
+
+<CODE>ebnetd</CODE>, <CODE>ndtpd</CODE> and <CODE>ebhttpd</CODE> create some files under
+a working directory.
+The directory can be specified by <CODE>work-path</CODE> in the configuration
+file (see section <A HREF="ebnetd_3.html#SEC14"><CODE>work-path</CODE></A>).
+</P><P>
+
+Please create the directory and make it be writable for the server
+processes and super user only.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># mkdir /usr/local/var/ebnetd
+# chown ebnetuser /usr/local/var/ebnetd
+# chmod 755 /usr/local/var/ebnetd
+</pre></td></tr></table></P><P>
+
+It assumes that owner of server processes on your system is
+<SAMP>`ebnetuser'</SAMP>.
+</P><P>
+
+Please remember that owner and group of the server processes are
+defined at the <CODE>user</CODE> and <CODE>group</CODE> directives in the
+configuration file (see section <A HREF="ebnetd_3.html#SEC14"><CODE>user</CODE></A>, and
+see section <A HREF="ebnetd_3.html#SEC14"><CODE>group</CODE></A>).
+</P><P>
+
+<A NAME="Mount CD-ROM Books"></A>
+<HR SIZE="6">
+<A NAME="SEC25"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC24"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC26"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC21"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC21"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.4 Mount Your CD-ROM Books </H2>
+<!--docid::SEC25::-->
+<P>
+
+As mentioned before, CD-ROM books themseves are stands on ISO 9660 format.
+You can mount your CD-ROM books by the same way as other ISO 9660 discs.
+Please read the manual for your system, if you don't know the way of
+mounting ISO 9660 discs on your system.
+</P><P>
+
+The servers can access CD-ROM books compressed by <CODE>ebzip</CODE>.
+See See section `Compression' in <CITE>ebzip</CITE>, for more details.
+</P><P>
+
+<A NAME="Appendix Package"></A>
+<HR SIZE="6">
+<A NAME="SEC26"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC25"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC21"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC21"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.5 Setup Appendix Package </H2>
+<!--docid::SEC26::-->
+<P>
+
+<EM>appendix</EM> is supplementary data for CD-ROM book.
+It is not provided by publishers of CD-ROM Book.
+It is peculiar to EB Library.
+</P><P>
+
+(Remember that all the servers in the EBNET distribution are related
+closely to EB Library.
+<CODE>ebnetd</CODE> is remote access server for EB Library.
+<CODE>ndtpd</CODE> and <CODE>ebhttpd</CODE> use EB Library to access CD-ROM Books.)
+</P><P>
+
+Appendix provides the following data for CD-ROM book:
+</P><P>
+
+<DL COMPACT>
+<DT>Text stop code
+<DD>When you look up a word in a CD-ROM dictionary using EB Library,
+you might wish EB Library stops displaying dictionary's text at the
+point where explanation of the word ends.
+Howerver, the software cannot ensure it, since CD-ROM book has no marker
+in its text which indicates end of paragraph.
+<P>
+
+Fortunately, many CD-ROM books have a <EM>text stop code</EM> which
+could be used for substitute for end of paragraph.
+EB Library guesses text stop code automatically by default, but sometimes
+takes a false code.
+Appanedix's stop code is used to tell EB Library a correct stop code of
+the CD-ROM book.
+</P><P>
+
+<DT>Alternation text for local defined characters
+<DD>Many CD-ROM books define their local characters, and use them in text.
+To display the local character, client applications have to draw its
+bitmap font provided by the CD-ROM book.
+<P>
+
+Appendix can define alternation text for each local defined character.
+Instead of drawing the bitmap font, application may output the alternation
+text.
+</DL>
+<P>
+
+The layout of appendix package is similar to that of CD-ROM book.
+It has the <CODE>catalog</CODE> or <CODE>catalogs</CODE> file at its top
+directory, and data for each subbook are arranged in the corresponding
+sub-directory.
+To use an appendix, set the <CODE>appendix-path</CODE> sub-directive of the
+<CODE>book</CODE> group directive in a configuration file
+(see section <A HREF="ebnetd_3.html#SEC15"><CODE>appendix-path</CODE></A>).
+</P><P>
+
+There are some appendix packages in the EB Library official FTP site
+(<A HREF="ftp://ftp.sra.co.jp/pub/misc/eb/appendix/">ftp://ftp.sra.co.jp/pub/misc/eb/appendix/</A>).
+If you want to create an appendx package for a CD-ROM book not listed here,
+use the <CODE>ebappendix</CODE> command to format appendix data files.
+</P><P>
+
+<A NAME="Start ebnetd"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_5.html#SEC21"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_6.html#SEC27"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Motoyuki Kasahara</I> on <I>December, 28  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

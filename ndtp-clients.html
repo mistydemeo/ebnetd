@@ -1,0 +1,268 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-2022-jp">
+<link rel="stylesheet" type="text/css" href="ndtpd.css">
+<link rel="icon" type="image/png" href="ndtpd_i.png">
+<title>EBNETD (NDTP client list)</title>
+</head>
+<body>
+
+<!-- ############################################################# -->
+<h1>NDTP クライアント一覧</h1>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="booklet">Booklet</a></h2>
+
+<p>
+Booklet は Servelet 形式の NDTP クライアントです。
+</p>
+
+<dl>
+<dt>公式 FTP サイト:
+<dd><a href="http://www.ne.jp/asahi/user/hisama2/booklet/index.html">http://www.ne.jp/asahi/user/hisama2/booklet/index.html</a>
+</dl>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="bookview">BookView</a></h2>
+
+<p>
+BookView はグラフィックベースの NDTP クラアントで Tcl/Tk で書かれて
+います。
+</p>
+
+<dl>
+<dt>公式 FTP サイト:
+<dd><a href="ftp://ftp.sra.co.jp/pub/net/ndtp/bookview/">ftp://ftp.sra.co.jp/pub/net/ndtp/bookview/</a>
+<dt>公式 WWW ホームページ:
+<dd><a href="../bookview/">http://www.sra.co.jp/people/m-kasahr/bookview/</a>
+</dl>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="dictionary-app">Dictionary.app</a></h2>
+
+<p>
+Dictionary.app はグラフィックベースのクライアントで、NEXTSTEP と OPENSTEP
+上で動作します。
+</p>
+
+<dl>
+<dt>公式 FTP サイト:
+<dd><a href="ftp://ftp.ecip.osaka-u.ac.jp/pub/NEXTSTEP/">ftp://ftp.ecip.osaka-u.ac.jp/pub/NEXTSTEP/</a>
+</dl>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="diclookup-mule">diclookup-mule</a></h2>
+
+<p>
+diclookup-mule は、Emacs, Mule, XEmacs 上で動作する NDTP クライア
+ントです。
+</p>
+
+<dl>
+<dt>公式 FTP サイト:
+<dd><a href="ftp://ftp.math.s.chiba-u.ac.jp/tools/diclookup-mule/">ftp://ftp.math.s.chiba-u.ac.jp/tools/diclookup-mule/</a>
+</dl>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="ebdic">ebdic</a></h2>
+
+<p>
+ebdic は X ウィンドウシステム上で動作する辞書検索アプリケーションです。
+単体でも動作しますが、NDTP クライアントとしても動作します。
+</p>
+
+<dl>
+<dt>公式 FTP サイト:
+<dd><a href="http://www2c.biglobe.ne.jp/~tnemoto/programs/index.cgi">http://www2c.biglobe.ne.jp/~tnemoto/programs/index.cgi</a>
+</dl>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="forest">Forest</a></h2>
+
+<p>
+Forest は CGI スクリプトとして動作する NDTP クライアントです。
+</p>
+
+<dl>
+<dt>公式 WWW ホームページ:
+<dd><a href="http://developer.hima.gr.jp/forest/">http://developer.hima.gr.jp/forest/</a>
+</dl>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="idictionary">iDictionary.app</a></h2>
+
+<p>
+iDictionary.app は MacOS X サーバ上で動作する NDTP クライアントです。
+</p>
+
+<dl>
+<dt>公式 WWW ホームページ:
+<dd><a href="http://mosxs.tripod.co.jp/HS/iDictionary/index.html">http://mosxs.tripod.co.jp/HS/iDictionary/index.html</a>
+</dl>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="jibikiami">辞引網</a></h2>
+
+<p>
+辞引網は CGI プログラムとして動作する NDTP クライアントです。
+Perl 5 で書かれています。
+</p>
+
+<dl>
+<dt>公式 WWW ホームページ:
+<dd><a href="http://home.att.ne.jp/red/daemon/webdict/">http://home.att.ne.jp/red/daemon/webdict/</a>
+</dl>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="jisho">JISHO</a></h2>
+
+<p>
+JISHO は Plan 9 上で動作する NDTP クライアントです。
+</p>
+
+<dl>
+<dt>公式 WWW ホームページ:
+<dd><a href="http://basalt.cias.osakafu-u.ac.jp/plan9_doc/s15.html">http://basalt.cias.osakafu-u.ac.jp/plan9_doc/s15.html</a>
+</dl>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="kenjiro">kenjiro</a></h2>
+
+<p>
+kenjiro は文字ベースのクライアントで、UNIX 系 OS のシステム上で動作
+します。ソースコードは dserver の配布物に含まれています。
+</p>
+
+<p>
+kenjiro にはバグがありますので、そのままでは NDTPD と通信することが
+できませんが、このバグを直すパッチファイルが
+<a href="ftp://ftp.sra.co.jp/pub/net/ndtp/misc/kenjiro-ndtpd.diff">ftp://ftp.sra.co.jp/pub/net/ndtp/misc/kenjiro-ndtpd.diff</a>
+にあります。
+kenjiro を使用したければ、このパッチを当ててインストールし直して下さい。
+パッチを当てた kenjiro は、dserver とも正しく通信することができます。
+</p>
+
+<p>
+元の kenjiro は古いタイプのクライアントで、<code>eiwa</code>,
+<code>waei</code>, <code>kojien</code> という 3 つの決まった書籍名しか
+扱えません。
+<a href="ftp://ftp.sra.co.jp/pub/net/ndtp/misc/kenjiro-dictlist.diff">ftp://ftp.sra.co.jp/pub/net/ndtp/misc/kenjiro-dictlist.diff</a>
+にあるパッチを当てることによって、任意の書籍名を理解するようになります。
+</p>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="lookup">Lookup</a></h2>
+
+<p>
+Lookup は、Emacs, Mule, XEmacs 上で動作する NDTP クライアントです。
+</p>
+
+<dl>
+<dt>公式 WWW ホームページ:
+<dd><a href="http://openlab.ring.gr.jp/lookup/">http://openlab.ring.gr.jp/lookup/</a>
+</dl>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="monoshiri-fukurou">ものしりフクロウ</a></h2>
+
+<p>
+ものしりフクロウ Macintosh 上で動作する NDTP クライアントです。
+</p>
+
+<dl>
+<dt>公式 WWW ホームページ:
+<dd><a href="http://hp.vector.co.jp/authors/VA009278/owl/">http://hp.vector.co.jp/authors/VA009278/owl/</a>
+</dl>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="ndtpc">ndtpc</a></h2>
+
+<p>
+ndtpc は <a href="http://www.perl.org">Perl</a> で書かれた
+NDTP クライアントです。
+</p>
+
+<dl>
+<dt>公式 WWW ホームページ:
+<dd><a href="http://www.tanu.org/~sakane/doc/public/howto-ndtp.html#ndtpc">http://www.tanu.org/~sakane/doc/public/howto-ndtp.html#ndtpc</a>
+</dl>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="ndtplib">ndtplib</a></h2>
+
+<p>
+ndtplib は <a href="http://www.python.org">Python</a> 用の
+NDTP クライアントモジュールです。
+</p>
+
+<dl>
+<dt>公式 WWW ホームページ:
+<dd><a href="http://python-ndtplib.sourceforge.jp/">http://python-ndtplib.sourceforge.jp/</a>
+</dl>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="odictionary-app">oDictionary.app</a></h2>
+
+<p>
+oDictionary.app は OPENSTEP 4.2J 上で動作する NDTP クライアントです。
+</p>
+
+<dl>
+<dt>公式 WWW ホームページ:
+<dd><a href="http://www.hi-ho.ne.jp/sato-akira/odictionary/intro.html">http://www.hi-ho.ne.jp/sato-akira/odictionary/intro.html</a>
+</dl>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="pydic">pydic</a></h2>
+
+<p>
+pydic は文字ベースの NDTP クライアントです。
+pydic は <a href="#ndtplib">ndtplib</a> モジュールを使っています。
+</p>
+
+<dl>
+<dt>公式 WWW ホームページ:
+<dd><a href="http://python-ndtplib.sourceforge.jp/pydic.html">http://python-ndtplib.sourceforge.jp/pydic.html</a>
+</dl>
+
+<!-- ############################################################# -->
+<hr>
+<h2><a name="xpopdic">xpopdic</a></h2>
+
+<p>
+xpopdic は C++ で書かれた NDTP クライアントです。
+xpopdic は、X のカットバッファ "0" およびセレクション "PRIMARY" を
+見張り、バッファに単語が入力されると、NDTP デーモンに接続してその単
+語を検索します。
+検索結果は、ウィンドウをポップアップしてそこに表示します。
+</p>
+
+<dl>
+<dt>公式 WWW ホームページ:
+<dd><a href="http://www.sfc.wide.ad.jp/~hiddy/software/xpopdic/">http://www.sfc.wide.ad.jp/~hiddy/software/xpopdic/</a>
+</dl>
+
+<!-- ############################################################# -->
+<hr>
+<p class="footer">
+<a href="index.html">ホームページ (日本語版)</a>に戻る。
+</p>
+</body>
+</html>

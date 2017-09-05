@@ -1,0 +1,221 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 28  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>EBNETD/ebHTTPD/NDTPD: Daily Works</TITLE>
+
+<META NAME="description" CONTENT="EBNETD/ebHTTPD/NDTPD: Daily Works">
+<META NAME="keywords" CONTENT="EBNETD/ebHTTPD/NDTPD: Daily Works">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="EN" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC48"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_9.html#SEC47"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_10.html#SEC49"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_9.html#SEC45"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_11.html#SEC50"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 10. Daily Administrative Works </H1>
+<!--docid::SEC48::-->
+<P>
+
+The <CODE>ebndaily</CODE> command generates statistics summary from a latest
+syslog file of the servers (<CODE>ebnetd</CODE>, <CODE>ndtpd</CODE> and <CODE>ebhttpd</CODE>),
+rotates syslog files, and then mails the results to administrators
+specified by command line arguments.
+</P><P>
+
+<CODE>ebndaily</CODE> has been installed at <TT>`/usr/local/sbin'</TT>, if EBNETD
+has been installed under <TT>`/usr/local'</TT>, and if a directory for system
+administrative executables (<CODE>sbindir</CODE>) has not been changed at
+the installation.
+Its usual way to invoke <CODE>ebndaily</CODE> is as follows:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebndaily <VAR>mail-address</VAR>...
+</pre></td></tr></table></P><P>
+
+For example,
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebndaily root@host.your.domain
+</pre></td></tr></table></P><P>
+
+Two or more mail addresses can be accepted:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebndaily root@host.your.domain root@dept.your.domain
+</pre></td></tr></table></P><P>
+
+To execute <CODE>ebndaily</CODE> once a day automatically, add an entry
+like as follows on your <TT>`crontab'</TT>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>0 0 * * *    /usr/local/sbin/ebndaily root@host.your.domain
+</pre></td></tr></table></P><P>
+
+(For details, please read the manual for your system.)
+<BR>
+By default, <CODE>ebndaily</CODE> keeps 7 ages of old syslog files.
+If the current syslog file is <TT>`/usr/local/var/ebnetd/log/ebnetd.log'</TT>,
+the old syslog files are kept as:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>/usr/local/var/ebnetd/log/ebnetd.log.0
+/usr/local/var/ebnetd/log/ebnetd.log.1
+/usr/local/var/ebnetd/log/ebnetd.log.2
+/usr/local/var/ebnetd/log/ebnetd.log.3
+/usr/local/var/ebnetd/log/ebnetd.log.4
+/usr/local/var/ebnetd/log/ebnetd.log.5
+/usr/local/var/ebnetd/log/ebnetd.log.6
+</pre></td></tr></table></P><P>
+
+These syslog files are rotated by the following processes:
+</P><P>
+
+<OL>
+<LI>The eldest syslog file <TT>`ebnetd.log.6'</TT> is removed.
+<P>
+
+<LI>Other <TT>`ebnetd.log.<VAR>n</VAR>'</TT> files are moved to
+<TT>`ebnetd.log.<VAR>n+1</VAR>'</TT>.
+<P>
+
+<LI>The current syslog file <TT>`ebnetd.log'</TT> is copied to
+<TT>`ebnetd.log.0'</TT>.
+<P>
+
+<LI>The current syslog file <TT>`ebnetd.log'</TT> is cleared.
+</OL>
+<P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_10.html#SEC49">10.1 Summary of Options to <CODE>ebndaily</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Summary of options to <CODE>ebndaily</CODE>.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="ebndaily Options"></A>
+<HR SIZE="6">
+<A NAME="SEC49"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_10.html#SEC48"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_11.html#SEC50"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_10.html#SEC48"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_10.html#SEC48"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_11.html#SEC50"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 10.1 Summary of Options to <CODE>ebndaily</CODE> </H2>
+<!--docid::SEC49::-->
+<P>
+
+The <CODE>ebndaily</CODE> command supports both traditional single-letter
+options and mnemonic long option names.
+Long option names are indicated with <SAMP>`--'</SAMP> instead of <SAMP>`-'</SAMP>.
+Abbreviations for option names are allowed as long as they are unique.
+</P><P>
+
+The <CODE>ebndaily</CODE> command recognizes following command line options.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>-a <VAR>integer</VAR></CODE>
+<DD><DT><CODE>--ages <VAR>integer</VAR></CODE>
+<DD>Keep <VAR>integer</VAR> ages of old syslog files.
+The default value is <SAMP>`7'</SAMP>.
+<P>
+
+<DT><CODE>-c <VAR>compressor</VAR></CODE>
+<DD><DT><CODE>--compressor <VAR>compressor</VAR></CODE>
+<DD>Specify a commpression program to compress old syslog files.
+The <VAR>compressor</VAR> must be <SAMP>`compress'</SAMP>, <SAMP>`gzip'</SAMP>, <SAMP>`bzip2'</SAMP>
+or <SAMP>`none'</SAMP>.
+The default value is <SAMP>`none'</SAMP>.
+<P>
+
+When <SAMP>`compress'</SAMP> is specified or no <SAMP>`--compressor'</SAMP> (<SAMP>`-c'</SAMP>)
+option is specified, the <SAMP>`compress'</SAMP> command is used for compression
+and the suffix <TT>`.Z'</TT> are added to the old syslog files.
+When <SAMP>`gzip'</SAMP> is specified, the <CODE>gzip</CODE> command is used for
+compression and the suffix <TT>`.gz'</TT> are added to the old syslog files.
+When <SAMP>`bzip2'</SAMP> is specified, the <CODE>bzip2</CODE> command is used for
+compression and the suffix <TT>`.bz2'</TT> are added to the old syslog files.
+When <SAMP>`none'</SAMP> is specified, no compression program is used and 
+no suffix is added to the old syslog files.
+</P><P>
+
+<DT><CODE>-l <VAR>file</VAR></CODE>
+<DD><DT><CODE>--log-file <VAR>file</VAR></CODE>
+<DD>Specify the current syslog file.
+<BR>
+The default value is <TT>`/usr/local/var/ebnetd/log/ebnetd.log'</TT>, if
+EBNETD has been installed under <TT>`/usr/local'</TT>, and if a directory
+for modifiable single-machine data (<CODE>localstatedir</CODE>) and 
+a directory for log files (specified by <CODE>--with-logdir</CODE>) have
+not been changed at the installation.
+The default filename is shown in the help message.
+<P>
+
+<DT><CODE>-h</CODE>
+<DD><DT><CODE>--help</CODE>
+<DD>Output help message to standard error, then exit.
+<P>
+
+<DT><CODE>-v</CODE>
+<DD><DT><CODE>--version</CODE>
+<DD>Output version number to standard error, then exit.
+<P>
+
+<DT><CODE>-<VAR>n</VAR></CODE>
+<DD><DT><CODE>--fast</CODE>
+<DD><DT><CODE>--best</CODE>
+<DD>These options are passed to <CODE>gzip</CODE> and <CODE>bzip2</CODE>
+(see section `Invoking <CODE>gzip</CODE>' in <CITE>Gzip User's Manual</CITE>,
+for more details).
+If neither <CODE>gzip</CODE> nor <CODE>bzip2</CODE> is used, these options are merely
+ignored.
+</DL>
+<P>
+
+<A NAME="Network License"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_10.html#SEC48"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_11.html#SEC50"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Motoyuki Kasahara</I> on <I>December, 28  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

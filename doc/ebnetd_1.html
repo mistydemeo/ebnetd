@@ -1,0 +1,145 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 28  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>EBNETD/ebHTTPD/NDTPD: Introduction</TITLE>
+
+<META NAME="description" CONTENT="EBNETD/ebHTTPD/NDTPD: Introduction">
+<META NAME="keywords" CONTENT="EBNETD/ebHTTPD/NDTPD: Introduction">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="EN" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC1"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<A NAME="Introduction"></A>
+<H1> 1. Introduction </H1>
+<!--docid::SEC1::-->
+<P>
+
+This EBNETD distribution contains three server commands: <CODE>ebnetd</CODE>,
+<CODE>ndtpd</CODE> and <CODE>ebhttpd</CODE>.
+They are servers for accessing CD-ROM book on remote host via TCP/IP.
+They can run on UNIX derived systems.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>ebnetd</CODE>
+<DD><CODE>ebnetd</CODE> is a server of EBNET protocol which is designed to
+communicate with <EM>EB Library</EM>.
+<P>
+
+EB Library is a C library for accessing CD-ROM book.
+Also <CODE>ndtpd</CODE> and <CODE>ebhttpd</CODE> use EB Library.
+Using <CODE>ebnetd</CODE>, EB Library applications can access CD-ROM books
+on a remote server.
+For more details about EB Library, see
+<A HREF="http://www.sra.co.jp/m-kasahr/eb/">http://www.sra.co.jp/m-kasahr/eb/</A>.
+</P><P>
+
+<DT><CODE>ndtpd</CODE>
+<DD><CODE>ndtpd</CODE> is an NDTP (Network Dictionary Transfer Protocol) server.
+The first implementation of the NDTP server is <EM>dserver</EM>.
+<CODE>ndtpd</CODE> has upper compatibility with dserver-2.2.
+<P>
+
+The web page
+<A HREF="http://www.sra.co.jp/m-kasahr/ndtpd/related.html">http://www.sra.co.jp/m-kasahr/ndtpd/related.html</A>
+lists NDTP clients which can talk with <CODE>ndtpd</CODE>.
+</P><P>
+
+<DT><CODE>ebhttpd</CODE>
+<DD><CODE>ebhttpd</CODE> is a WWW (World Wide Web) server.
+It supprts HTTP/1.0 and HTTP/1.1 (Hypertext Transfer Protocol version
+1.0 and 1.1).
+</DL>
+<P>
+
+The servers support CD-ROM books of EB, EBG, EBXA, EBXA-C, S-EBXA and
+EPWING formats.
+CD-ROM books of those formats are popular in Japan.
+Since CD-ROM books themseves are stands on the ISO 9660 format, you can
+mount the discs by the same way as other ISO 9660 discs.
+The servers can run as a standalone daemons by default, but can also
+run as children of <CODE>inetd</CODE>.
+</P><P>
+
+EBNETD is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2, or (at your option)
+any later version.
+</P><P>
+
+EBNETD is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+</P><P>
+
+In addition, you must follow the licenses of your CD-ROM books.
+Though EBNETD is free software, your books may not be free.  Don't
+open your books to unlicensed hosts nor users.
+</P><P>
+
+In addition, you must follow the licenses of your CD-ROM books.
+EBNETD is free software, your books may not be free.
+Don't open your books to unlicensed hosts nor users.
+</P><P>
+
+This edition corresponds to version 1.0 of EBNETD.
+</P><P>
+
+You can get the latest EBNETD from
+<A HREF="ftp://ftp.sra.co.jp/pub/misc/eb/">ftp://ftp.sra.co.jp/pub/misc/eb/</A>.
+</P><P>
+
+You can get information about EBNETD from
+<A HREF="http://www.sra.co.jp/people/m-kasahr/ebnetd/">http://www.sra.co.jp/people/m-kasahr/ebnetd/</A>.
+</P><P>
+
+Mail comments and bug reports to
+<A HREF="mailto:m-kasahr@sra.co.jp">m-kasahr@sra.co.jp</A> in Japanese or English.
+</P><P>
+
+<A NAME="Installation"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_2.html#SEC2"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Motoyuki Kasahara</I> on <I>December, 28  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

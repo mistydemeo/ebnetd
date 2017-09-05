@@ -1,0 +1,226 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 28  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>ebNETD: Daily Works</TITLE>
+
+<META NAME="description" CONTENT="ebNETD: Daily Works">
+<META NAME="keywords" CONTENT="ebNETD: Daily Works">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="EN" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC48"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_9.html#SEC47"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_10.html#SEC49"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_9.html#SEC45"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_11.html#SEC50"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 10. 毎日の管理作業 </H1>
+<!--docid::SEC48::-->
+<P>
+
+<CODE>ebndaily</CODE> コマンドは、<CODE>ebnetd</CODE>, <CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE>
+の syslog ファイルのうち、最も新しいものを調べて統計情報を生成し、syslog
+ファイルのローテーションを行います。
+その結果は、コマンド行の引数に指定された管理者に宛てて、メールで
+送られます。
+</P><P>
+
+EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (<CODE>sbindir</CODE>) の位置を変更していなければ、
+<CODE>ebndaily</CODE> は <TT>`/usr/local/sbin'</TT> にインストールされています。
+<CODE>ebndaily</CODE> を実行する一般的な方法は次の通りです。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebndaily <VAR>メールアドレス</VAR>...
+</pre></td></tr></table></P><P>
+
+以下は実行例です。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebndaily root@host.your.domain
+</pre></td></tr></table></P><P>
+
+2 つ以上のメールアドレスを書くこともできます。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebndaily root@host.your.domain root@dept.your.domain
+</pre></td></tr></table></P><P>
+
+<CODE>ebndaily</CODE> を毎日一回、自動的に実行するには、以下のようなエントリ
+をあなたのシステムの <TT>`crontab'</TT> に加えて下さい。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>0 0 * * *    /usr/local/sbin/ebndaily root@host.your.domain
+</pre></td></tr></table></P><P>
+
+(詳しくは、あたなのシステムのマニュアルをご覧下さい。)
+<BR>
+とくに変更の指定がなければ、<CODE>ebndaily</CODE> は、古くなった 
+syslog ファイルを <CODE>compress</CODE> コマンドで圧縮し、7 世代分保存します。
+現在の syslog ファイルが <TT>`/usr/local/var/ebnetd/log/ebnetd.log'</TT> 
+だとすると、古くなった syslog ファイルは次のように保存されます。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>/usr/local/var/ebnetd/log/ebnetd.log.0.Z
+/usr/local/var/ebnetd/log/ebnetd.log.1.Z
+/usr/local/var/ebnetd/log/ebnetd.log.2.Z
+/usr/local/var/ebnetd/log/ebnetd.log.3.Z
+/usr/local/var/ebnetd/log/ebnetd.log.4.Z
+/usr/local/var/ebnetd/log/ebnetd.log.5.Z
+/usr/local/var/ebnetd/log/ebnetd.log.6.Z
+</pre></td></tr></table></P><P>
+
+これらの syslog は次の要領でローテーションされます。
+</P><P>
+
+<OL>
+<LI>もっとも古い syslog ファイル <TT>`ebnetd.log.6.Z'</TT> が削除されます。
+<P>
+
+<LI>他の <TT>`ebnetd.log.<VAR>n</VAR>.Z'</TT> ファイルは、
+<TT>`ebnetd.log.<VAR>n+1</VAR>.Z'</TT> に改名されます。
+<P>
+
+<LI>現在の syslog ファイル <TT>`ebnetd.log'</TT> は <TT>`ebnetd.log.0'</TT> に
+コピーされます。
+<P>
+
+<LI><TT>`ebnetd.log.0'</TT> は、<CODE>compress</CODE> で圧縮され、ファイル名が
+<TT>`ebnetd.log.0.Z'</TT> に変わります。
+<P>
+
+<LI>現在の syslog file <TT>`ebnetd.log'</TT> の内容がクリアされます。
+</OL>
+<P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_10.html#SEC49">10.1 <CODE>ebndaily</CODE> のオプション</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="ebndaily Options"></A>
+<HR SIZE="6">
+<A NAME="SEC49"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_10.html#SEC48"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_11.html#SEC50"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_10.html#SEC48"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_10.html#SEC48"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_11.html#SEC50"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 10.1 <CODE>ebndaily</CODE> のオプション </H2>
+<!--docid::SEC49::-->
+<P>
+
+<CODE>ebndaily</CODE> コマンドは、伝統的な一文字オプション名と覚えやすい長い
+オプション名の両方を扱うことができます。
+長いオプション名を表すには、<SAMP>`-'</SAMP> ではなく <SAMP>`--'</SAMP> を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
+</P><P>
+
+<CODE>ebndaily</CODE> コマンドは以下に挙げたオプションを解釈することが
+できます。
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>-a <VAR>整数</VAR></CODE>
+<DD><DT><CODE>--ages <VAR>整数</VAR></CODE>
+<DD>古い syslog ファイルを <VAR>整数</VAR> 世代分だけ保存します。
+無指定時は <SAMP>`7'</SAMP> です。
+<P>
+
+<DT><CODE>-c <VAR>圧縮プログラム</VAR></CODE>
+<DD><DT><CODE>--compressor <VAR>圧縮プログラム</VAR></CODE>
+<DD>古くなった syslog ファイルを圧縮するプログラムを指定します。
+<VAR>圧縮プログラム</VAR> は、<SAMP>`compress'</SAMP>、<SAMP>`gzip'</SAMP>、<SAMP>`bzip2'</SAMP>、
+<SAMP>`none'</SAMP> のうちのいずれかでなくてはなりません。
+無指定時は、<SAMP>`compress'</SAMP> です。
+<P>
+
+<SAMP>`compress'</SAMP> を指定するか、<SAMP>`--compressor'</SAMP> (<SAMP>`-c'</SAMP>) オプション
+を用いなかった場合は、<SAMP>`compress'</SAMP> コマンドによる圧縮が行われ、
+圧縮されたファイルには拡張子 <TT>`.Z'</TT> が付加されます。
+<SAMP>`gzip'</SAMP> を指定した場合は、<SAMP>`gzip'</SAMP> コマンドによる圧縮が行われ、
+圧縮されたファイルには拡張子 <TT>`.gz'</TT> が付加されます。
+<SAMP>`bzip2'</SAMP> を指定した場合は、<SAMP>`bzip2'</SAMP> コマンドによる圧縮が行われ、
+圧縮されたファイルには拡張子 <TT>`.bz2'</TT> が付加されます。
+<SAMP>`none'</SAMP> を指定した場合は、圧縮は行われず、ファイルの拡張子も
+変わりません。
+</P><P>
+
+<DT><CODE>-l <VAR>ファイル</VAR></CODE>
+<DD><DT><CODE>--log-file <VAR>ファイル</VAR></CODE>
+<DD>現在の syslog ファイルを指定します。
+<BR>
+EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、マシン固有の更新
+されうるデータを置くディレクトリ (<CODE>localstatedir</CODE>) および
+ログファイルが置かれるディレクトリ (<CODE>--with-logdir</CODE> で指定) を変更
+していなければ、無指定時では <TT>`/usr/local/var/ebnetd/log/ebnetd.log'</TT>
+になります。
+無指定時のファイル名は、ヘルプメッセージの中に記されています。
+<P>
+
+<DT><CODE>-h</CODE>
+<DD><DT><CODE>--help</CODE>
+<DD>ヘルプメッセージを標準出力に出力して、終了します。
+<P>
+
+<DT><CODE>-v</CODE>
+<DD><DT><CODE>--version</CODE>
+<DD>バージョン番号を標準出力に出力して、終了します。
+<P>
+
+<DT><CODE>-<VAR>n</VAR></CODE>
+<DD><DT><CODE>--fast</CODE>
+<DD><DT><CODE>--best</CODE>
+<DD>これらのオプションは <CODE>gzip</CODE>, <CODE>bzip2</CODE> に渡されます
+(<CITE>Gzip User's Manual</CITE> の「Invoking <CODE>gzip</CODE>」節を参照)。
+<CODE>gzip</CODE>, <CODE>bzip2</CODE> を使用しないときは、たんに無視されます。
+</DL>
+<P>
+
+<A NAME="Network License"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_10.html#SEC48"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_11.html#SEC50"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Motoyuki Kasahara</I> on <I>December, 28  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

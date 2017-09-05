@@ -1,0 +1,91 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 28  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>ebNETD: Network License</TITLE>
+
+<META NAME="description" CONTENT="ebNETD: Network License">
+<META NAME="keywords" CONTENT="ebNETD: Network License">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="EN" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC50"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_10.html#SEC49"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_10.html#SEC48"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> A. ネットワークライセンス </H1>
+<!--docid::SEC50::-->
+<P>
+
+CD-ROM 書籍の出版社はオプションでネットワークライセンスを用意している
+ことがあります。
+これは、あなたの LAN 上の複数のユーザに対して書籍へのアクセスを許可する
+ものです。
+ネットワークライセンスでは、同時にその書籍へアクセスするユーザの最大数
+が制限されることがあります (ライセンスの形態は様々ですので、詳しくは
+出版社にお問い合わせ下さい)。
+</P><P>
+
+設定ファイル (通常 <CODE>ebnetd.conf</CODE>) には、2 つの <CODE>max-clients</CODE>
+というパラメタがあります。
+一つは単独指示子で
+(「<A HREF="ebnetd-ja_3.html#SEC14"><CODE>max-clients</CODE></A>」節を参照)、
+もう一つは <CODE>book</CODE> 複合指示子の副指示子です
+(「<A HREF="ebnetd-ja_3.html#SEC16"><CODE>max-clients</CODE></A>」節を参照)。
+どちらもクライアントの最大数を制限します。
+</P><P>
+
+これらはネットワークライセンスの順守を補助しますが、完璧なものでは
+ありません。
+たとえば、書籍がアクセスできるのは、ユーザの使用しているクライアントが
+サーバに接続している間だけにすべきですが、サーバにしてもクライアントに
+しても、接続状態を頻繁にチェックするわけではありません。
+たとえば、サーバはタイムアウトが発生すると、クライアントとの接続を
+切ります。
+けれども、クライアントは CD-ROM 書籍の中身を表示し続け、ユーザが別の
+コンテンツの表示を要求するまでこの状態が続くのです。
+</P><P>
+
+それでも、ネットワークライセンスのために <CODE>max-clients</CODE> を設定する
+ことは良いことです。
+重要なのは <CODE>max-clients</CODE> の能力を過信しないことです。
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_10.html#SEC48"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Motoyuki Kasahara</I> on <I>December, 28  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

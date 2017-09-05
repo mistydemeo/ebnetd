@@ -1,0 +1,218 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 28  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>EBNETD/ebHTTPD/NDTPD: Terminate and Restart</TITLE>
+
+<META NAME="description" CONTENT="EBNETD/ebHTTPD/NDTPD: Terminate and Restart">
+<META NAME="keywords" CONTENT="EBNETD/ebHTTPD/NDTPD: Terminate and Restart">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="EN" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC45"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_8.html#SEC44"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_9.html#SEC46"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_8.html#SEC39"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_10.html#SEC48"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 9. Terminate and Restart the Servers </H1>
+<!--docid::SEC45::-->
+<P>
+
+You can use the <CODE>ebncontrol</CODE> command to terminate, kill and
+restart the <CODE>ebnetd</CODE> precess running as a standalone daemon.
+<CODE>ebncontrol</CODE> has been installed at <TT>`/usr/local/sbin'</TT>, if
+EBNETD has been installed under <TT>`/usr/local'</TT>, and if a directory
+for system administrative executables (<CODE>sbindir</CODE>) has not been
+changed at the installation.
+You can terminate the running <CODE>ebnetd</CODE> process like as follows:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebncontrol terminate
+</pre></td></tr></table></P><P>
+
+<CODE>ebnetd</CODE> logs its PID to the file <TT>`ebnetd.pid'</TT> at the working
+directory (see section <A HREF="ebnetd_5.html#SEC24">5.3 Working Directory</A>).
+<CODE>ebncontrol</CODE> reads contents of the PID file to get a PID of
+the running <CODE>ebnetd</CODE> process, and then <CODE>ebncontrol</CODE> sends
+a signal to the PID.
+</P><P>
+
+The PID file is deleted by <CODE>ebnetd</CODE> when it is terminated normally.
+However, the PID file is not deleted when <CODE>ebnetd</CODE> aborts.
+The PID logged in the remained PID file will be assigned to another
+process, in this case.
+Be careful invoking <CODE>ebncontrol</CODE>.
+<CODE>ebncontrol</CODE> doesn't examine whether the <CODE>ebnetd</CODE> process
+really exists.
+If the pid file is obsolete, <CODE>ebncontrol</CODE> may send a signal to 
+another process.
+</P><P>
+
+<CODE>ebncontrol</CODE> reads the configuration file for <CODE>ebnetd</CODE> in
+order to get a location of the working directory.
+It can be defined at the <CODE>work-path</CODE> single directive in the
+configuration file (see section <A HREF="ebnetd_3.html#SEC14"><CODE>work-path</CODE></A>).
+The default filename of the configuration file and default value
+of the <CODE>work-path</CODE> single directive are the same as those of
+<CODE>ebnetd</CODE>.
+</P><P>
+
+Also the <CODE>ndtpcontrol</CODE> and <CODE>ebhtcontrol</CODE> commands are
+available to terminate <CODE>ndtpd</CODE> and <CODE>ebhttpd</CODE>.
+Command line usage of <CODE>ndtpcontrol</CODE> and <CODE>ebhtcontrol</CODE> are
+the same as that of <CODE>ebncontrol</CODE>.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_9.html#SEC46">9.1 Invoke Server Control Commands</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_9.html#SEC47">9.2 Summary of Options to Server Control Commands</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Invoke Server Controler"></A>
+<HR SIZE="6">
+<A NAME="SEC46"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_9.html#SEC45"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_9.html#SEC47"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_9.html#SEC45"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_9.html#SEC45"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_10.html#SEC48"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 9.1 Invoke Server Control Commands </H2>
+<!--docid::SEC46::-->
+<P>
+
+As described before, <CODE>ebncontrol</CODE>, <CODE>ndtpcontrol</CODE> and
+<CODE>ebhtcontrol</CODE> take the same command line arguments.
+The usual ways to invoke the commands are as follows:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebncontrol <VAR>sub-command</VAR>
+% /usr/local/sbin/ndtpcontrol <VAR>sub-command</VAR>
+% /usr/local/sbin/ebhtcontrol <VAR>sub-command</VAR>
+</pre></td></tr></table></P><P>
+
+They recognize the following <VAR>sub-commands</VAR>.
+Abbreviations for sub-command names are allowed as long as they are
+unique.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>kill</CODE>
+<DD>Kill the running server process (send the <CODE>SIGKILL</CODE> signal).
+It also deletes the server's PID file.
+Before trying the <CODE>kill</CODE> sub-command, you should try <CODE>terminate</CODE>
+sub-command.
+<P>
+
+<DT><CODE>restart</CODE>
+<DD>Restart the server.
+(send the <CODE>SIGHUP</CODE> signal).
+The server process closes all connections, and reads a configuration
+file again.
+<P>
+
+<DT><CODE>status</CODE>
+<DD>Examine whether the server is running or not, and output the result
+to standard error.
+This sub-command doesn't send any signal to the server.
+<P>
+
+<DT><CODE>terminate</CODE>
+<DD>Terminate the running server process
+(send the <CODE>SIGTERM</CODE> signal).
+</DL>
+<P>
+
+<A NAME="Server Controler Options"></A>
+<HR SIZE="6">
+<A NAME="SEC47"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_9.html#SEC46"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_10.html#SEC48"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_9.html#SEC45"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_9.html#SEC45"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_10.html#SEC48"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 9.2 Summary of Options to Server Control Commands </H2>
+<!--docid::SEC47::-->
+<P>
+
+The <CODE>ebncontrol</CODE>, <CODE>ndtpcontrol</CODE> and <CODE>ebhtcontrol</CODE>
+commands support both traditional single-letter options and mnemonic
+long option names.
+Long option names are indicated with <SAMP>`--'</SAMP> instead of <SAMP>`-'</SAMP>.
+Abbreviations for option names are allowed as long as they are unique.
+</P><P>
+
+<CODE>ebncontrol</CODE>, <CODE>ndtpcontrol</CODE> and <CODE>ebhtcontrol</CODE> recognize
+the command line options below.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>-c <VAR>file</VAR></CODE>
+<DD><DT><CODE>--configuration-file <VAR>file</VAR></CODE>
+<DD>Specify a configuration file.
+The default filename is shown in the help message.
+<P>
+
+<DT><CODE>-h</CODE>
+<DD><DT><CODE>--help</CODE>
+<DD>Output help message to standard error, then exit.
+<P>
+
+<DT><CODE>-v</CODE>
+<DD><DT><CODE>--version</CODE>
+<DD>Output version number to standard error, then exit.
+</DL>
+<P>
+
+<A NAME="Daily Works"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_9.html#SEC45"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_10.html#SEC48"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Motoyuki Kasahara</I> on <I>December, 28  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

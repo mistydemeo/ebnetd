@@ -1,0 +1,179 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 28  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>EBNETD/ebHTTPD/NDTPD: EBNETD/ebHTTPD/NDTPD</TITLE>
+
+<META NAME="description" CONTENT="EBNETD/ebHTTPD/NDTPD: EBNETD/ebHTTPD/NDTPD">
+<META NAME="keywords" CONTENT="EBNETD/ebHTTPD/NDTPD: EBNETD/ebHTTPD/NDTPD">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="EN" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC_Top"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1>EBNETD/ebHTTPD/NDTPD</H1>This is edition 1.0, for EBNETD version 1.0.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_1.html#SEC1">1. Introduction</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC2">2. Installation of EBNETD</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Installation of NDTPD.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_3.html#SEC12">3. Configuration File</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to write a configuration file.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_4.html#SEC18">4. Configuration Checker</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to check a configuration file.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_5.html#SEC21">5. Setup Your Environment</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Setup your environment.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_6.html#SEC27">6. Start <CODE>ebnetd</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_7.html#SEC33">7. Start <CODE>ndtpd</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_8.html#SEC39">8. Start <CODE>ebhttpd</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_9.html#SEC45">9. Terminate and Restart the Servers</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to terminate and restart <CODE>ebnetd</CODE>.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_10.html#SEC48">10. Daily Administrative Works</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Daily administrative works.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_11.html#SEC50">11. Network License</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE>
+
+<br>
+&nbsp;--&nbsp;The&nbsp;Detailed&nbsp;Node&nbsp;Listing&nbsp;---
+<br>
+
+<br>
+Installation&nbsp;of&nbsp;EBNETD
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC3">2.1 Basic Installation</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Basic installation.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC4">2.2 Compilers and Options</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Choose compilers and its options.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC5">2.3 Compiling For Multiple Architectures</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Compile EBNETD on multiple Architectures.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC6">2.4 Installation Names</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Change installation Names.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC7">2.5 Optional Features</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Selecting optional features.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC8">2.6 Specifying the System Type</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Specifying the system type.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC9">2.7 Sharing Defaults</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Set default values for <CODE>configure</CODE>
+                                scripts to share.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC10">2.8 Operation Controls</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Control <CODE>configure</CODE> operation.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_2.html#SEC11">2.9 Optional Feature List</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Optional features this package supports.</TD></TR>
+</TABLE>
+
+<br>
+Configuration&nbsp;File
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_3.html#SEC13">3.1 Common Form of Single Directive</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Common form of single directive.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_3.html#SEC14">3.2 Single Directive List</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Single directive list.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_3.html#SEC15">3.3 Group Directive</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Common form of group directive.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_3.html#SEC16">3.4 <CODE>book</CODE> Group directive</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Book group directive list.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_3.html#SEC17">3.5 Sample Configuration File</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Sample configuration file.</TD></TR>
+</TABLE>
+
+<br>
+Configuration&nbsp;Checker
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_4.html#SEC19">4.1 Invoking <CODE>ebncheck</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_4.html#SEC20">4.2 Summary of options to <CODE>ebncheck</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE>
+
+<br>
+Setup&nbsp;Your&nbsp;Environment
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_5.html#SEC22">5.1 <TT>`services'</TT> File</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Setup your <TT>`services'</TT> file.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_5.html#SEC23">5.2 <TT>`syslog.conf'</TT> File</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Setup your <TT>`syslog.conf'</TT> file.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_5.html#SEC24">5.3 Working Directory</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Make a working directory.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_5.html#SEC25">5.4 Mount Your CD-ROM Books</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Mount your CD-ROM books.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_5.html#SEC26">5.5 Setup Appendix Package</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Copy appendix package.</TD></TR>
+</TABLE>
+
+<br>
+Start&nbsp;<CODE>ebnetd</CODE>
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_6.html#SEC28">6.1 Run <CODE>ebnetd</CODE> as a standard daemon</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_6.html#SEC29">6.2 Run <CODE>ebnetd</CODE> as a child of <CODE>inetd</CODE>.</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_6.html#SEC30">6.3 Run <CODE>ebnetd</CODE> as a Child Proccess of <CODE>xinetd</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Run <CODE>ebnetd</CODE> as a child of <CODE>xinetd</CODE>.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_6.html#SEC31">6.4 Test <CODE>ebnetd</CODE> with <CODE>telnet</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_6.html#SEC32">6.5 Summary of options to <CODE>ebnetd</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE>
+
+<br>
+Start&nbsp;<CODE>ndtpd</CODE>
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_7.html#SEC34">7.1 Run <CODE>ndtpd</CODE> as a standard daemon</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_7.html#SEC35">7.2 Run <CODE>ndtpd</CODE> as a child of <CODE>inetd</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_7.html#SEC36">7.3 Run <CODE>ndtpd</CODE> as a child of <CODE>xinetd</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_7.html#SEC37">7.4 Test <CODE>ndtpd</CODE> with <CODE>telnet</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_7.html#SEC38">7.5 Options to <CODE>ndtpd</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE>
+
+<br>
+Start&nbsp;<CODE>ebhttpd</CODE>
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_8.html#SEC40">8.1 Run <CODE>ebhttpd</CODE> as a standard daemon</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_8.html#SEC41">8.2 Run <CODE>ebhttpd</CODE> as a child of <CODE>inetd</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_8.html#SEC42">8.3 Run <CODE>ebhttpd</CODE> as a child of <CODE>xinetd</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_8.html#SEC43">8.4 Test <CODE>ebhttpd</CODE> with <CODE>telnet</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_8.html#SEC44">8.5 Options to <CODE>ebhttpd</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE>
+
+<br>
+Terminate&nbsp;and&nbsp;Restart&nbsp;the&nbsp;Servers
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_9.html#SEC46">9.1 Invoke Server Control Commands</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_9.html#SEC47">9.2 Summary of Options to Server Control Commands</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE>
+
+<br>
+Daily&nbsp;Administrative&nbsp;Works
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd_10.html#SEC49">10.1 Summary of Options to <CODE>ebndaily</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Summary of options to <CODE>ebndaily</CODE>.</TD></TR>
+</TABLE>
+
+<br>
+</BLOCKQUOTE>
+<P>
+
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Motoyuki Kasahara</I> on <I>December, 28  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

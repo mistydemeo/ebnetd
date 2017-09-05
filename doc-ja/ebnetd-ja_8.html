@@ -1,0 +1,327 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 28  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>ebNETD: Start ebhttpd</TITLE>
+
+<META NAME="description" CONTENT="ebNETD: Start ebhttpd">
+<META NAME="keywords" CONTENT="ebNETD: Start ebhttpd">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="EN" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC39"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_7.html#SEC38"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC40"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_7.html#SEC33"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_9.html#SEC45"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 8. <CODE>ebhttpd</CODE> の起動 </H1>
+<!--docid::SEC39::-->
+<P>
+
+あなたのシステムでは <CODE>ebhttpd</CODE> を必要としないなら、この章は
+読み飛ばして下さい。
+</P><P>
+
+<CODE>ebhttpd</CODE> も、スタンドアロンのデーモンとして起動するやり方と
+<CODE>inted</CODE> の子プロセスとして起動するやり方の、2 つの実行モードを
+持っています。
+指定がなければ、<CODE>ebhttpd</CODE> はスタンドアロンのデーモンとして起動します。
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_8.html#SEC40">8.1 <CODE>ebhttpd</CODE> をスタンドアロンで起動</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_8.html#SEC41">8.2 <CODE>ebhttpd</CODE> を <CODE>inetd</CODE> 経由で起動</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_8.html#SEC42">8.3 <CODE>ebhttpd</CODE> を <CODE>xinetd</CODE> 経由で起動</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_8.html#SEC43">8.4 <CODE>telnet</CODE> による <CODE>ebhttpd</CODE> の確認</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_8.html#SEC44">8.5 <CODE>ebhttpd</CODE> のオプション</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="ebhttpd Standalone"></A>
+<HR SIZE="6">
+<A NAME="SEC40"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC39"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC41"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC39"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC39"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_9.html#SEC45"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.1 <CODE>ebhttpd</CODE> をスタンドアロンで起動 </H2>
+<!--docid::SEC40::-->
+<P>
+
+<CODE>ebhttpd</CODE> をスタンドアロンのデーモンとして起動するには、次のように
+コマンドを実行して下さい。スーパーユーザの権限が必要かも知れません。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebhttpd
+</pre></td></tr></table></P><P>
+
+EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (<CODE>sbindir</CODE>) の位置を変更していなければ、
+<CODE>ebhttpd</CODE> は <TT>`/usr/local/sbin'</TT> にインストールされています。
+</P><P>
+
+<A NAME="ebhttpd Child of inetd"></A>
+<HR SIZE="6">
+<A NAME="SEC41"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC40"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC42"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC39"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC39"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_9.html#SEC45"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.2 <CODE>ebhttpd</CODE> を <CODE>inetd</CODE> 経由で起動 </H2>
+<!--docid::SEC41::-->
+<P>
+
+<CODE>ebhttpd</CODE> を <CODE>inetd</CODE> の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを <TT>`inetd.conf'</TT> ファイル (大抵の場合 <TT>`/etc/inetd.conf'</TT>)
+に加えます。
+<SAMP>`--inetd'</SAMP> (または <SAMP>`-i'</SAMP>) オプションを足すのを忘れないようにして
+下さい。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>http  stream  tcp  nowait  root  /usr/local/sbin/ebhttpd ebhttpd --inetd
+</pre></td></tr></table></P><P>
+
+(ただし、EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (<CODE>sbindir</CODE>) の位置を変更していない
+と仮定しています。)
+</P><P>
+
+走行している <CODE>inetd</CODE> プロセスの PID を探し出します。
+BSD 系のシステムでは、次のようにします。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% ps axuww | grep inetd
+</pre></td></tr></table></P><P>
+
+SYSV 系のシステムなら、次のようにします。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% ps -ef | grep inetd
+</pre></td></tr></table></P><P>
+
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
+<BR>
+<CODE>inetd</CODE> が走っているならば、次のような行が見つかるはずです。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
+</pre></td></tr></table></P><P>
+
+見つかったならば、ハングアップシグナル (<CODE>SIGHUP</CODE>) を <CODE>inetd</CODE>
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% kill -HUP 79
+</pre></td></tr></table></P><P>
+
+<A NAME="ebhttpd Child of xinetd"></A>
+<HR SIZE="6">
+<A NAME="SEC42"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC41"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC43"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC39"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC39"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_9.html#SEC45"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.3 <CODE>ebhttpd</CODE> を <CODE>xinetd</CODE> 経由で起動 </H2>
+<!--docid::SEC42::-->
+<P>
+
+Linux システムには、伝統的な <CODE>inetd</CODE> の代わりに <CODE>xinetd</CODE> を
+使用しているものもあります。
+<CODE>xinetd</CODE> の設定ファイルの文法は、伝統的な <CODE>inetd</CODE> の設定ファイル
+の文法とは異なります。
+</P><P>
+
+<CODE>ebhttpd</CODE> を <CODE>xinetd</CODE> の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを設定ファイル (大抵の場合 <TT>`/etc/xinetd.d/http'</TT>) に
+加えます。
+<SAMP>`--inetd'</SAMP> (または <SAMP>`-i'</SAMP>) オプションを足すのを忘れないようにして
+下さい。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># default: off
+# description: The http server
+service http
+{
+        disable = no
+        socket_type     = stream
+        wait            = no
+        user            = root
+        server          = /usr/local/sbin/ebhttpd
+        server_args     = --inetd
+        log_on_failure  += USERID
+}
+</pre></td></tr></table></P><P>
+
+(ただし、EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (<CODE>sbindir</CODE>) の位置を変更していな
+いと仮定しています。)
+</P><P>
+
+走行している <CODE>xinetd</CODE> プロセスの PID を探し出します。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% ps axuww | grep xinetd
+</pre></td></tr></table></P><P>
+
+<BR>
+<CODE>xinetd</CODE> が走っているならば、次のような行が見つかるはずです。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
+</pre></td></tr></table></P><P>
+
+見つかったならば、USER2 シグナル (<CODE>SIGUSR2</CODE>) を <CODE>xinetd</CODE>
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% kill -USR2 79
+</pre></td></tr></table></P><P>
+
+<A NAME="ebhttpd Test with telnet"></A>
+<HR SIZE="6">
+<A NAME="SEC43"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC42"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC44"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC39"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC39"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_9.html#SEC45"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.4 <CODE>telnet</CODE> による <CODE>ebhttpd</CODE> の確認 </H2>
+<!--docid::SEC43::-->
+<P>
+
+セットアップがすべて完了したら、<CODE>telnet</CODE> コマンドを用いて 
+<CODE>ebhttpd</CODE> に接続してみましょう。
+</P><P>
+
+まず、次のように入力します。
+この例では、localhost 上の <CODE>ebhttpd</CODE> に接続しています。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% telnet localhost http
+</pre></td></tr></table></P><P>
+
+<CODE>ebhttpd</CODE> が接続を受け付ければ、次のようなメッセージが表示されます。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Connected to localhost.
+Escape character is '^]'.
+</pre></td></tr></table></P><P>
+
+ここで、次のようにリクエストを入力します。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>GET / HTTP/1.0
+
+</pre></td></tr></table></P><P>
+
+このリクエストは 2 行からなり、2 行目は空行ですので、注意して下さい。
+</P><P>
+
+<CODE>ebhttpd</CODE> が正常に動いていれば、次のような応答が得られます。
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>HTTP/1.1 200 Ok
+Date: Fri, 16 May 2003 13:11:12 GMT
+Server: ebHTTPD 0.0
+Content-Type: text/html; charset="euc-jp"
+
+&#60;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"&#62;
+&#60;html&#62;
+&#60;head&#62;
+ (以下略)
+</pre></td></tr></table></P><P>
+
+<A NAME="ebhttpd Options"></A>
+<HR SIZE="6">
+<A NAME="SEC44"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC43"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_9.html#SEC45"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC39"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC39"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_9.html#SEC45"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.5 <CODE>ebhttpd</CODE> のオプション </H2>
+<!--docid::SEC44::-->
+<P>
+
+<CODE>ebhttpd</CODE> のコマンド行の指定方法は、<CODE>ebnetd</CODE> と同じです。
+詳しくは、「<A HREF="ebnetd-ja_6.html#SEC32"><CODE>ebnetd</CODE> のオプション</A>」節を参照 を
+参照して下さい。
+</P><P>
+
+<A NAME="Terminate and Restart"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_8.html#SEC39"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_9.html#SEC45"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Motoyuki Kasahara</I> on <I>December, 28  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

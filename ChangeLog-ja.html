@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-2022-jp">
+<link rel="stylesheet" type="text/css" href="ebnetd.css">
+<link rel="icon" type="image/png" href="ebnetd_i.png">
+<title>EBNETD (ChangeLog)</title>
+</head>
+<body>
+
+<p class="header">
+<img src="ebnetd_s.png" alt="logo">
+</p>
+
+<!-- ############################################################# -->
+<h1>ChangeLog</h1>
+<pre>
+2003-12-28  Motoyuki Kasahara  &lt;m-kasahr@sra.co.jp&gt;
+
+	* ebhttpd/httpdate.c, ebhttpd/httpdate.h, ebhttpd/generator.c,
+	ebhttpd/httprequest.c, ebhttpd/httprequest.h: Fix TIME_WITH_SYS_TIME
+	check.
+
+2003-12-22  Motoyuki Kasahara  &lt;m-kasahr@sra.co.jp&gt;
+
+	* configure.ac (EB_LIB_eb3): Call EB_LIB_eb4 instead.
+	* m4/eb3.m4: Substitute the file with `eb4.m4'.
+	* m4/Makefile.am (EXTRA_DIST): Distribute `eb4.m4' instead of `eb3.m4'.
+
+	* Use Autoconf-2.59, Automake-1.8 and Libtool-1.5.
+	* m4/eb4.m4, m4/herrno.m4, m4/in6addr.m4, m4/libtool.m4,
+	m4/sockaddrin6.m4, m4/sockinttypes.m4, m4/unionwait.m4,
+	m4/utimbuf.m4: Quote function name to be defined in AC_DEFUN.
+
+2003-11-23  Motoyuki Kasahara  &lt;m-kasahr@sra.co.jp&gt;
+
+	* config.guess, config.sub, depcomp, install-sh, missing,
+	mkinstalldirs, doc/mdate-sh, doc-ja/mdate-sh:
+	Import from Autocomake-1.7.9.
+
+2003-11-17  Motoyuki Kasahara  &lt;m-kasahr@sra.co.jp&gt;
+
+	* ebhttpd/httpmisc.c (http_parse_connection,
+	http_parse_transfer_coding, http_parse_content_length,
+	http_parse_host): Ensure parsing result is initialized even when
+	input string has not a valid form.
+
+2003-10-04  Motoyuki Kasahara  &lt;m-kasahr@sra.co.jp&gt;
+
+	* ebnetd/Makefile.am, ndtpd/Makefile.am, ebhttpd/Makefile.am:
+	Insert a comment "automatically generated from defs.h.in" into defs.h.
+
+2003-09-21  Motoyuki Kasahara  &lt;m-kasahr@sra.co.jp&gt;
+
+	* libebutils/getopt.c: Include &lt;stdlib.h&gt; if exists.
+
+2003-09-15  Motoyuki Kasahara  &lt;m-kasahr@sra.co.jp&gt;
+
+	* ebnetd/fdcache.h, ebnetd/fdcache.c: Add `path_hash' to FDCache_Entry
+	in order to find file descriptor in a cache table quickly.
+
+2003-09-14  Motoyuki Kasahara  &lt;m-kasahr@sra.co.jp&gt;
+
+	* ebnetd/fdcache.h, ebnetd/fdcache.c: New files.
+	* ebnetd/Makefile.am (ebnetd_SOURCES): Add fdcache.c.
+	* ebnetd/Makefile.am (noinst_HEADERS): Add fdcache.h.
+	* ebnetd/ebnet.c: Use the fdcache module.
+
+2003-06-09  Motoyuki Kasahara  &lt;m-kasahr@sra.co.jp&gt;
+
+	* Version 1.0beta0.
+
+	* ndtpd/ndtpstat.in: Output a special message if there is no access.
+
+2003-06-01  Motoyuki Kasahara  &lt;m-kasahr@sra.co.jp&gt;
+
+	* ndtpd/global.c, ndtpd/defs.h.in (alias_eiwa, alias_waei,
+	alias_kojien): Removed.
+	* ndtpd/config.c (cf_book_alias_eiwa, cf_book_alias_waei,
+	cf_book_alias_kojien): Removed.
+
+2003-05-24  Motoyuki Kasahara  &lt;m-kasahr@sra.co.jp&gt;
+
+	* lib/linebuf.c (read_line_buffer): Fix a bug that timeout never
+	occurs.
+
+2003-05-03  Motoyuki Kasahara  &lt;m-kasahr@sra.co.jp&gt;
+
+	* lib/ioall.h: (write_string_all): Fix the function declaration.
+
+2003-04-29  Motoyuki Kasahara  &lt;m-kasahr@sra.co.jp&gt;
+
+	* lib/ticket.c, lib/ticket.h (have_ticket): New function.
+	
+2003-04-19  Motoyuki Kasahara  &lt;m-kasahr@sra.co.jp&gt;
+
+	* lib/confutil.c (parse_tcp_port, parse_udp_port): Check if
+	the string string represents an integer in 0...65535.
+
+	* ebhttpd/httpmisc.c, ebhttpd/httprequest.h, ebnetd/config.c,
+	ebnetd/global.c, lib/confutil.c, lib/confutil.h, lib/getaddrinfo.c,
+	lib/dummyin6.h: Use `in_port_t' rather than `int'.
+
+	* lib/serverport.c, lib/serverport.h, lib/dummyin6.h:
+	Use `sa_family_t' rather than `int'.
+
+	
+</pre>
+<!-- ############################################################# -->
+<hr>
+<p class="footer">
+<a href="index-ja.html"><img class="banner" src="ebnetd_b.png" alt="banner"></a>
+<a href="index-ja.html">ホームページ (日本語版)</a>に戻る。
+</p>
+
+</body>
+</html>
