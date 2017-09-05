@@ -17,7 +17,7 @@
     用すると、EB ライブラリのアプリケーションは、遠隔ホストの CD-ROM
     書籍にアクセスできるようになります。 EB ライブラリについての詳細は、
 
-        http://www.sra.co.jp/m-kasahr/eb/
+        http://www.mistys-internet.website/eb/
 
     を参照して下さい。
 
@@ -28,7 +28,7 @@
 
     Web ページ
 
-        http://www.sra.co.jp/people/m-kasahr/ebnetd/ndtp-clients-ja.html
+        http://www.mistys-internet.website/ebnetd/ndtp-clients.html
 
     に ndtpd と通信可能な NDTP クライアントの一覧が載っています。
 
@@ -67,10 +67,10 @@ INSTALL-ja というファイルをご覧下さい。以前のバージョンからアップグレー
 ドを行うときは、あわせて UPGRADE-ja というファイルもご覧下さい。
 
 最新の EBNETD は次のところから入手できます。
-	ftp://ftp.sra.co.jp/pub/misc/eb/
+	https://github.com/mistydemeo/ebnetd/releases
 
 EBNETD に関する情報は次のところから得ることができます。
-	http://www.sra.co.jp/people/m-kasahr/ebnetd/
+	http://www.mistys-internet.website/ebnetd/
 
 コメントやバグの報告は
 	m-kasahr@sra.co.jp

@@ -176,7 +176,7 @@ Also @code{ndtpd} and @code{ebhttpd} use EB Library.
 Using @code{ebnetd}, EB Library applications can access CD-ROM books
 on a remote server.
 For more details about EB Library, see
-@url{http://www.sra.co.jp/m-kasahr/eb/}.
+@url{http://www.mistys-internet.website/eb/index-en.html}.
 
 @item ndtpd
 @code{ndtpd} is an NDTP (Network Dictionary Transfer Protocol) server.
@@ -222,10 +222,10 @@ Don't open your books to unlicensed hosts nor users.
 This edition corresponds to version @value{VERSION} of EBNETD.
 
 You can get the latest EBNETD from
-@url{ftp://ftp.sra.co.jp/pub/misc/eb/}.
+@url{https://github.com/mistydemeo/ebnetd/releases}.
 
 You can get information about EBNETD from
-@url{http://www.sra.co.jp/people/m-kasahr/ebnetd/}.
+@url{http://www.mistys-internet.website/ebnetd/}.
 
 Mail comments and bug reports to
 @email{m-kasahr@@sra.co.jp} in Japanese or English.
@@ -238,10 +238,10 @@ Before installing EBNETD, you need to install EB Library 3.3 or later
 version.
 
 You can get the latest EB Library from
-@url{ftp://ftp.sra.co.jp/pub/misc/eb/}.
+@url{https://github.com/mistydemeo/eb/releases}.
 
 You can get information about EB Library from
-@url{http://www.sra.co.jp/people/m-kasahr/eb/}.
+@url{http://www.mistys-internet.website/eb/index-en.html}.
 
 @menu
 * Basic Installation::          Basic installation.

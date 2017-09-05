@@ -131,7 +131,7 @@ remote host via TCP/IP.  They can run on UNIX derived systems.
      EB Library is a C library for accessing CD-ROM book.  Also `ndtpd'
      and `ebhttpd' use EB Library.  Using `ebnetd', EB Library
      applications can access CD-ROM books on a remote server.  For more
-     details about EB Library, see <http://www.sra.co.jp/m-kasahr/eb/>.
+     details about EB Library, see <http://www.mistys-internet.website/eb/index-en.html>.
 
 `ndtpd'
      `ndtpd' is an NDTP (Network Dictionary Transfer Protocol) server.
@@ -173,10 +173,10 @@ books to unlicensed hosts nor users.
    This edition corresponds to version 1.0 of EBNETD.
 
    You can get the latest EBNETD from
-<ftp://ftp.sra.co.jp/pub/misc/eb/>.
+<https://github.com/mistydemeo/ebnetd/releases>.
 
    You can get information about EBNETD from
-<http://www.sra.co.jp/people/m-kasahr/ebnetd/>.
+<http://www.mistys-internet.website/ebnetd/>.
 
    Mail comments and bug reports to <m-kasahr@sra.co.jp> in Japanese or
 English.
@@ -191,10 +191,10 @@ Installation of EBNETD
 version.
 
    You can get the latest EB Library from
-<ftp://ftp.sra.co.jp/pub/misc/eb/>.
+<https://github.com/mistydemeo/eb/releases>.
 
    You can get information about EB Library from
-<http://www.sra.co.jp/people/m-kasahr/eb/>.
+<http://www.mistys-internet.website/eb/index-en.html>.
 
 * Menu:
 

@@ -177,7 +177,7 @@ EB ライブラリは、CD-ROM 書籍のアクセスを行う、C 言語のライブラリです。
 @code{ndtpd}, @code{ebhttpd} も EB ライブラリを使用しています。
 @code{ebnetd} を使用すると、EB ライブラリのアプリケーションは、遠隔ホスト
 の CD-ROM 書籍にアクセスできるようになります。
-EB ライブラリについての詳細は、@url{http://www.sra.co.jp/m-kasahr/eb/}
+EB ライブラリについての詳細は、@url{http://www.mistys-internet.website/eb/}
 を参照して下さい。
 
 @item ndtpd
@@ -222,10 +222,10 @@ EBNETD はフリーソフトウェアですが、あなたの書籍が自由に使えるものである
 この文書は EBNETD バージョン @value{VERSION} に対応しています。
 
 最新の EBNETD は
-@url{ftp://ftp.sra.co.jp/pub/misc/eb/} から入手できます。
+@url{https://github.com/mistydemeo/ebnetd/releases} から入手できます。
 
 EBNETD に関する情報は
-@url{http://www.sra.co.jp/people/m-kasahr/ebnetd/} から得ることができます。
+@url{http://www.mistys-internet.website/ebnetd/} から得ることができます。
 
 コメントやバグの報告は
 @email{m-kasahr@@sra.co.jp} 宛に、日本語か英語でお送り下さい。
@@ -239,11 +239,11 @@ EBNETD をインストールする前に、EB ライブラリ 3.3 もしくはそれ以降の
 バージョンをインストールする必要があります。
 
 最新の EB ライブラリは
-@url{ftp://ftp.sra.co.jp/pub/misc/eb/}
+@url{https://github.com/mistydemeo/eb/releases}
 から入手できます。
 
 EB ライブラリに関する情報は
-@url{http://www.sra.co.jp/people/m-kasahr/eb/}
+@url{http://www.mistys-internet.website/eb/}
 から得ることができます。
 
 @menu

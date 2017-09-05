@@ -134,7 +134,7 @@ File: ebnetd-ja.info,  Node: Introduction,  Next: Installation,  Prev: Top,  Up:
      ライブラリを使用しています。 `ebnetd' を使用すると、EB
      ライブラリのアプリケーションは、遠隔ホスト の CD-ROM
      書籍にアクセスできるようになります。 EB
-     ライブラリについての詳細は、<http://www.sra.co.jp/m-kasahr/eb/>
+     ライブラリについての詳細は、<http://www.mistys-internet.website/eb/>
      を参照して下さい。
 
 `ndtpd'
@@ -177,10 +177,10 @@ CD-ROM 書籍に対応しています。 これらの形式の CD-ROM
 
    この文書は EBNETD バージョン 1.0 に対応しています。
 
-   最新の EBNETD は <ftp://ftp.sra.co.jp/pub/misc/eb/>
+   最新の EBNETD は <https://github.com/mistydemeo/ebnetd/releases>
 から入手できます。
 
-   EBNETD に関する情報は <http://www.sra.co.jp/people/m-kasahr/ebnetd/>
+   EBNETD に関する情報は <http://www.mistys-internet.website/ebnetd/>
 から得ることができます。
 
    コメントやバグの報告は <m-kasahr@sra.co.jp>
@@ -197,11 +197,11 @@ EBNETD のインストール
 ライブラリ 3.3 もしくはそれ以降の
 バージョンをインストールする必要があります。
 
-   最新の EB ライブラリは <ftp://ftp.sra.co.jp/pub/misc/eb/>
+   最新の EB ライブラリは <https://github.com/mistydemeo/eb/releases>
 から入手できます。
 
    EB ライブラリに関する情報は
-<http://www.sra.co.jp/people/m-kasahr/eb/> から得ることができます。
+<http://www.mistys-internet.website/eb/> から得ることができます。
 
 * Menu:
 

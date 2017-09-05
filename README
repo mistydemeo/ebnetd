@@ -16,14 +16,14 @@ host via TCP/IP.  They can run on UNIX derived systems.
     can access CD-ROM books on a remote server.  For more details
     about EB Library, see:
 
-        http://www.sra.co.jp/m-kasahr/eb/.
+        http://www.mistys-internet.website/eb/.
 
   * ndtpd
     ndtpd is an NDTP (Network Dictionary Transfer Protocol) server.
     The first implementation of the NDTP esrver is `dserver'.  ndtpd
     has upper compatibility with dserver-2.2.  The web page
 
-	http://www.sra.co.jp/people/m-kasahr/ebnetd/ndtp-clients.html
+	http://www.mistys-internet.website/ebnetd/ndtp-clients.html
 
     lists NDTP clients which can talk with ndtpd.
 
@@ -60,10 +60,10 @@ See the file INSTALL for compilation and installation instructions.
 See also the file UPGRADE for upgrading from an earlier version.
 
 You can get the latest EBNETD from
-	ftp://ftp.sra.co.jp/pub/misc/eb/
+	https://github.com/mistydemeo/ebnetd/releases
 
 You can get information about EBNETD from
-	http://www.sra.co.jp/people/m-kasahr/ebnetd/
+	http://www.mistys-internet.website/ebnetd/
 
 Mail comments and bug reports to
 	m-kasahr@sra.co.jp
