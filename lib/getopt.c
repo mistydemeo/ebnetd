@@ -59,6 +59,10 @@
 #include <strings.h>
 #endif /* not STDC_HEADERS and not HAVE_STRING_H */
 
+#ifdef HAVE_STDLIB_H
+#include <stdlib.h>
+#endif
+
 #ifdef ENABLE_NLS
 #include <libintl.h>
 #endif

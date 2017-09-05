@@ -726,9 +726,9 @@ but they can interpret IPv6 addresses specified in a configuration file.
 @sp 1
 @example
 @group
-# permit to connect from `12ab:0:0:cd3/60' and `::1'.
+# permit to connect from `12ab:0:0:cd3::/60' and `::1'.
 hosts ::1
-hosts 12ab:0:0:cd3/60
+hosts 12ab:0:0:cd3::/60
 @end group
 @end example
 
@@ -875,7 +875,7 @@ cannot be defined more than once in a group directive.
 @item path
 The @code{path} sub-directive specifies an absolute path to the book.
 The path must point to the top directory of the book where the file
-@file{CATALOG} or @file{CATALOGS} resides.
+@file{catalog} or @file{catalogs} resides.
 EBNET remote access identifier (e.g. @samp{ebnet://host/book}) is
 not allowed.
 
@@ -886,7 +886,7 @@ cannot be defined more than once in a group directive.
 The @code{appendix-path} sub-directive specifies an absolute path to
 the appendix data of the book (@pxref{Appendix Package}).
 The path must point to the top directory of the appendix package where
-the file @file{CATALOG} or @file{CATALOGS} resides.
+the file @file{catalog} or @file{catalogs} resides.
 EBNET remote access identifier (e.g. @samp{ebnet://host/book.app}) is
 not allowed.
 
@@ -1308,7 +1308,7 @@ text.
 @end table
 
 The layout of appendix package is similar to that of CD-ROM book.
-It has the @code{CATALOG} or @code{CATALOGS} file at its top
+It has the @code{catalog} or @code{catalogs} file at its top
 directory, and data for each subbook are arranged in the corresponding
 sub-directory.
 To use an appendix, set the @code{appendix-path} sub-directive of the

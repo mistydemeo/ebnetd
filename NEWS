@@ -1,3 +1,8 @@
+Major changes in release 1.0:
+
+* ebnetd has a table of file descriptor cache now.
+* ebhttpd is more robust against HTTP request with corrupt header.
+
 Major changes in release 1.0beta0:
 
 * ndtpd no longer support `alias-eiwa', `alias-waei' or `alias-kojien'.

@@ -1,4 +1,5 @@
-This is ebnetd.info, produced by makeinfo version 4.2 from ebnetd.texi.
+This is ./ebnetd.info, produced by makeinfo version 4.2 from
+./ebnetd.texi.
 
 INFO-DIR-SECTION CD-ROM Book Utilities
 START-INFO-DIR-ENTRY
@@ -28,7 +29,7 @@ translation approved by Free Software Foundation, Inc.
 
 File: ebnetd.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
 
-   This is edition 1.0beta0, for EBNETD version 1.0beta0.
+   This is edition 1.0, for EBNETD version 1.0.
 
 * Menu:
 
@@ -169,7 +170,7 @@ your books to unlicensed hosts nor users.
 EBNETD is free software, your books may not be free.  Don't open your
 books to unlicensed hosts nor users.
 
-   This edition corresponds to version 1.0beta0 of EBNETD.
+   This edition corresponds to version 1.0 of EBNETD.
 
    You can get the latest EBNETD from
 <ftp://ftp.sra.co.jp/pub/misc/eb/>.
@@ -632,9 +633,9 @@ Single Directive List
      in a configuration file.
 
 
-          # permit to connect from `12ab:0:0:cd3/60' and `::1'.
+          # permit to connect from `12ab:0:0:cd3::/60' and `::1'.
           hosts ::1
-          hosts 12ab:0:0:cd3/60
+          hosts 12ab:0:0:cd3::/60
 
      In the `hosts' directive, IPv4 address (e.g. `192.168.1.1') and
      the corresponding IPv4 mapped IPv6 address (e.g.
@@ -708,7 +709,7 @@ leads an argument GROUP-NAME.  They are separated by spaces or tabs,
 and they must be placed in a line.  The keyword `end' indicates the end
 of the group directive.  It is solely placed at a line.
 
-   In EBNETD version 1.0beta0, only `book' can be prescribed as the
+   In EBNETD version 1.0, only `book' can be prescribed as the
 group-name.  Each "sub-directive" in the group is defined between
 `begin' and `end' lines.  Generic description rules about sub-directive
 are the same as those of single directives; SUB-DIRECTIVE-NAME and
@@ -757,7 +758,7 @@ recognizes following sub-directives in the `book' group directives.
 `path'
      The `path' sub-directive specifies an absolute path to the book.
      The path must point to the top directory of the book where the file
-     `CATALOG' or `CATALOGS' resides.  EBNET remote access identifier
+     `catalog' or `catalogs' resides.  EBNET remote access identifier
      (e.g. `ebnet://host/book') is not allowed.
 
      The sub-directive is required in each `book' group directive, but
@@ -767,7 +768,7 @@ recognizes following sub-directives in the `book' group directives.
      The `appendix-path' sub-directive specifies an absolute path to
      the appendix data of the book (*note Appendix Package::).  The
      path must point to the top directory of the appendix package where
-     the file `CATALOG' or `CATALOGS' resides.  EBNET remote access
+     the file `catalog' or `catalogs' resides.  EBNET remote access
      identifier (e.g. `ebnet://host/book.app') is not allowed.
 
      The sub-directive is optional and cannot be defined more than once
@@ -1146,7 +1147,7 @@ Alternation text for local defined characters
      output the alternation text.
 
    The layout of appendix package is similar to that of CD-ROM book.
-It has the `CATALOG' or `CATALOGS' file at its top directory, and data
+It has the `catalog' or `catalogs' file at its top directory, and data
 for each subbook are arranged in the corresponding sub-directory.  To
 use an appendix, set the `appendix-path' sub-directive of the `book'
 group directive in a configuration file (*note `appendix-path': Group

@@ -34,7 +34,7 @@
 #include <stdlib.h>
 #endif
 
-#if TIME_WITH_SYS_TIME
+#ifdef TIME_WITH_SYS_TIME
 #include <sys/time.h>
 #include <time.h>
 #else
@@ -505,9 +505,8 @@ http_receive_request_headers(request, line_buffer)
 	 * If the first character of the received line is not a whitespace,
 	 * it terminates a privous header field.  Parse the header.
 	 */
-	if (*line != ' ' && *line != '\t' && 0 < header_length) {
+	if (*line != ' ' && *line != '\t' && 0 < header_length)
 	    http_parse_header(request, header);
-	}
 
 	/*
 	 * An empty line means the end of header fields.

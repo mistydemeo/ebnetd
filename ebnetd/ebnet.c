@@ -115,6 +115,7 @@ long strtol();
 
 #include "defs.h"
 #include "fakelog.h"
+#include "fdcache.h"
 #include "ioall.h"
 #include "linebuf.h"
 #include "ticket.h"
@@ -146,6 +147,11 @@ long strtol();
  * Suffix for appendix.
  */
 #define EBNET_APPENDIX_SUFFIX		"app"
+
+/*
+ * The maximum number of file descriptors to be cached.
+ */
+#define EBNET_MAX_FDCACHE		20
 
 
 /*
@@ -227,9 +233,7 @@ static char *read_buffer = NULL;
 /*
  * File descriptor cache for the READ command.
  */
-static int cache_file = -1;
-static char cache_book_name[MAX_BOOK_NAME_LENGTH + 4];  /* +4 for ".app" */
-static char cache_file_path[EBNET_MAX_PATH_LENGTH + 1];
+static FDCache_Table fdcache_table;
 
 /*
  * Unexported functions.
@@ -288,6 +292,9 @@ protocol_main()
     char *arguments[EBNET_MAX_LINE_ARGUMENTS + 2];
     int argument_count;
     const EBNet_Command *command;
+
+    fdcache_initialize_table(&fdcache_table, O_RDONLY);
+    fdcache_set_max_entry_count(&fdcache_table, EBNET_MAX_FDCACHE);
 
     initialize_line_buffer(&line_buffer);
     bind_file_to_line_buffer(&line_buffer, accepted_in_file);
@@ -388,6 +395,7 @@ protocol_main()
 
     free(read_buffer);
     read_buffer = NULL;
+    fdcache_finalize_table(&fdcache_table);
     finalize_line_buffer(&line_buffer);
     return 0;
 
@@ -396,10 +404,7 @@ protocol_main()
 	free(read_buffer);
 	read_buffer = NULL;
     }
-    if (0 <= cache_file) {
-	close(cache_file);
-	cache_file = -1;
-    }
+    fdcache_finalize_table(&fdcache_table);
     finalize_line_buffer(&line_buffer);
     return -1;
 }
@@ -900,21 +905,10 @@ command_read(argument_count, arguments)
     /*
      * Open and seek the file.
      */
-    if (0 <= cache_file
-	&& strcmp(arguments[1], cache_book_name) == 0
-	&& strcmp(arguments[2], cache_file_path) == 0) {
-	file = cache_file;
-    } else {
-	file = open(absolute_path, O_RDONLY);
-	if (file < 0) {
-	    error_code = EBNET_ERROR_FAIL_OPEN_FILE;
-	    goto error;
-	}
-	if (0 <= cache_file)
-	    close(cache_file);
-	cache_file = file;
-	strcpy(cache_book_name, arguments[1]);
-	strcpy(cache_file_path, arguments[2]);
+    file = fdcache_open(&fdcache_table, absolute_path);
+    if (file < 0) {
+	error_code = EBNET_ERROR_FAIL_OPEN_FILE;
+	goto error;
     }
     if (lseek(file, offset, SEEK_SET) < 0) {
 	error_code = EBNET_ERROR_FAIL_SEEK_FILE;
@@ -931,8 +925,6 @@ command_read(argument_count, arguments)
 
     if (write_string_all(accepted_out_file, idle_timeout,
 	"!OK; read data follows\r\n") <= 0) {
-	close(file);
-	cache_file = -1;
 	return -1;
     }
 
@@ -956,16 +948,12 @@ command_read(argument_count, arguments)
 		continue;
 	    if (write_string_all(accepted_out_file, idle_timeout,
 		"*-1\r\n") <= 0) {
-		close(file);
-		cache_file = -1;
 		return -1;
 	    }
 	    break;
 	} else if (read_result == 0) {
 	    if (write_string_all(accepted_out_file, idle_timeout,
 		"*0\r\n") <= 0) {
-		close(file);
-		cache_file = -1;
 		return -1;
 	    }
 	    break;
@@ -975,17 +963,11 @@ command_read(argument_count, arguments)
 	 * Send data to client.
 	 */
 	sprintf(message, "*%ld\r\n", (long)read_result);
-	if (write_string_all(accepted_out_file, idle_timeout, message) <= 0) {
-	    close(file);
-	    cache_file = -1;
+	if (write_string_all(accepted_out_file, idle_timeout, message) <= 0)
 	    return -1;
-	}
 	if (write_all(accepted_out_file, idle_timeout, read_buffer,
-	    read_result) <= 0) {
-	    close(file);
-	    cache_file = -1;
+	    read_result) <= 0)
 	    return -1;
-	}
 	total_sent_length += read_result;
     }
 
@@ -995,12 +977,6 @@ command_read(argument_count, arguments)
      * An error occurs...
      */
   error:
-    if (0 <= file) {
-	if (file == cache_file)
-	    cache_file = -1;
-	close(file);
-    }
-
     /* +4 for ".app" */
     truncate_string(arguments[1], MAX_BOOK_NAME_LENGTH + 4);
     truncate_string(arguments[2], EBNET_MAX_PATH_LENGTH);

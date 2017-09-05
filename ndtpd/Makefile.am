@@ -36,9 +36,11 @@ defs.h: stamp-defs-h
 
 stamp-defs-h: defs.h.in Makefile
 	rm -f defs.h.tmp
+	echo '/* automatically generated from defs.h.in. */' \
+	   > defs.h.tmp
 	sed -e 's;\@sysconfdir\@;$(sysconfdir);' \
 	   -e 's;\@pkglocalstatedir\@;$(pkglocalstatedir);' \
-	   defs.h.in > defs.h.tmp
+	   defs.h.in >> defs.h.tmp
 	$(top_srcdir)/move-if-change defs.h.tmp defs.h
 	@echo timestamp > stamp-defs-h
 

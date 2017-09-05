@@ -9,7 +9,7 @@ sbin_SCRIPTS = ebndaily ebnupgrade
 libexec_SCRIPTS = ebnstat
 
 ebnetd_SOURCES = book.c config.c global.c misc.c ebnetd.c \
-	ebnet.c
+	ebnet.c fdcache.c
 ebnetd_LDADD = $(LIBEBNETD) $(LIBEBTINY)
 ebnetd_DEPENDENCIES = $(LIBEBNETD) $(LIBEBTINY)
 
@@ -28,14 +28,17 @@ EXTRA_DIST = ebndaily.in ebnstat.in ebnupgrade.in defs.h.in getopt_long.pl
 CLEANFILES = defs.h stamp-defs-h defs.h.tmp ebnstat ebnstat.tmp \
 	ebndaily ebndaily.tmp ebnupgrade ebnupgrade.tmp
 BUILT_SOURCES = defs.h
+noinst_HEADERS = fdcache.h
 
 defs.h: stamp-defs-h
 
 stamp-defs-h: defs.h.in Makefile
 	rm -f defs.h.tmp
+	echo '/* automatically generated from defs.h.in. */' \
+	   > defs.h.tmp
 	sed -e 's;\@sysconfdir\@;$(sysconfdir);' \
 	   -e 's;\@pkglocalstatedir\@;$(pkglocalstatedir);' \
-	   $(srcdir)/defs.h.in > defs.h.tmp
+	   $(srcdir)/defs.h.in >> defs.h.tmp
 	$(top_srcdir)/move-if-change defs.h.tmp defs.h
 	@echo timestamp > stamp-defs-h
 

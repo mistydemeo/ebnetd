@@ -175,6 +175,10 @@ http_parse_connection(connection_string, connection_codes)
 {
     const char *string_p = connection_string;
     const char *end_p;
+    int i;
+
+    for (i = 0; i < HTTP_MAX_CONNECTIONS; i++)
+	connection_codes[i] = 0;
 
     for (;;) {
 	if (http_skip_token(string_p, (char **)&end_p) < 0)
@@ -218,6 +222,10 @@ http_parse_transfer_coding(transfer_string, transfer_codes)
 {
     const char *string_p = transfer_string;
     const char *end_p;
+    int i;
+
+    for (i = 0; i < HTTP_MAX_TRANSFER_CODINGS; i++)
+	transfer_codes[i] = 0;
 
     for (;;) {
 	if (http_skip_token(string_p, (char **)&end_p) < 0)
@@ -261,14 +269,17 @@ http_parse_content_length(length_string, length)
     size_t *length;
 {
     const char *string_p = length_string;
+    size_t n = 0;
 
     *length = 0;
     while (isdigit(*string_p)) {
-	*length = *length * 10 + (*string_p - '0');
+	n = n * 10 + (*string_p - '0');
 	string_p++;
     }
+
     if (*string_p != '\0')
 	return -1;
+    *length = n;
 
     return 0;
 }
@@ -295,9 +306,10 @@ http_parse_host(host_and_port, host, port)
     char *host;
     in_port_t *port;
 {
+    const char *host_start_p = NULL;
+    const char *host_end_p   = NULL;
+    const char *port_start_p = NULL;
     size_t host_length;
-    const char *colon;
-    const char *port_p;
 
     /*
      * We initially set `port' to 80, and `host' to empty string.
@@ -305,40 +317,72 @@ http_parse_host(host_and_port, host, port)
     *port = 80;
     *host = '\0';
 
-    colon = strchr(host_and_port, ':');
-    if (colon == NULL) {
+    /*
+     * Parse host.
+     */
+    if (*host_and_port == '[') {
 	/*
-	 * There is no colon (`:') in `host_and_port'.
-	 * The header field has host name only.
+	 * IPv6 address surrounded by `[' and `]'.
 	 */
-	host_length = strlen(host_and_port);
-
+	host_start_p = host_and_port + 1;
+	host_end_p = strchr(host_and_port + 1, ']');
+	if (host_end_p == NULL)
+	    goto error;
+	if (*(host_end_p + 1) == ':')
+	    port_start_p = host_end_p + 2;
+	else if (*(host_end_p + 1) == '\0')
+	    port_start_p = NULL;
+	else
+	    goto error;
     } else {
 	/*
-	 * There is a colon (`:') in `host_and_port'.
-	 * The header field has both host name and port number.
+	 * IPv4 address or host name.
 	 */
-	host_length = colon - host_and_port;
+	const char *colon;
 
-	port_p = colon + 1;
-	*port = 0;
-	while (isdigit(*port_p)) {
-	    *port = *port * 10 + (*port_p - '0');
-	    port_p++;
+	host_start_p = host_and_port;
+	colon = strchr(host_and_port, ':');
+	if (colon == NULL) {
+	    host_end_p = host_and_port + strlen(host_and_port);
+	    port_start_p = NULL;
+	} else {
+	    host_end_p = colon;
+	    port_start_p = colon + 1;
 	}
-	if (*port_p != '\0')
-	    return -1;
+    }
+
+    /*
+     * Parse port number if the header has it.
+     */
+    if (port_start_p != NULL && *port_start_p != '\0') {
+	const char *p;
+	in_port_t n;
+	
+	for (p = port_start_p, n = 0; isdigit(*p); p++)
+	    n = n * 10 + (*p - '0');
+	if (*p != '\0')
+	    goto error;
+	*port = n;
     }
 
     /*
      * Copy the host name to `host'.
      */
+    host_length = host_end_p - host_start_p;
     if (host_length == 0 || HTTP_MAX_HOST_NAME_LENGTH < host_length)
-	return -1;
-    memcpy(host, host_and_port, host_length);
+	goto error;
+    memcpy(host, host_start_p, host_length);
     *(host + host_length) = '\0';
 
     return 0;
+
+    /*
+     * An error occurs...
+     */
+  error:
+    *port = 80;
+    *host = '\0';
+    return -1;
 }
 
 

@@ -1,3 +1,54 @@
+2003-12-28  Motoyuki Kasahara  <m-kasahr@sra.co.jp>
+
+	* ebhttpd/httpdate.c, ebhttpd/httpdate.h, ebhttpd/generator.c,
+	ebhttpd/httprequest.c, ebhttpd/httprequest.h: Fix TIME_WITH_SYS_TIME
+	check.
+
+2003-12-22  Motoyuki Kasahara  <m-kasahr@sra.co.jp>
+
+	* configure.ac (EB_LIB_eb3): Call EB_LIB_eb4 instead.
+	* m4/eb3.m4: Substitute the file with `eb4.m4'.
+	* m4/Makefile.am (EXTRA_DIST): Distribute `eb4.m4' instead of `eb3.m4'.
+
+	* Use Autoconf-2.59, Automake-1.8 and Libtool-1.5.
+	* m4/eb4.m4, m4/herrno.m4, m4/in6addr.m4, m4/libtool.m4,
+	m4/sockaddrin6.m4, m4/sockinttypes.m4, m4/unionwait.m4,
+	m4/utimbuf.m4: Quote function name to be defined in AC_DEFUN.
+
+2003-11-23  Motoyuki Kasahara  <m-kasahr@sra.co.jp>
+
+	* config.guess, config.sub, depcomp, install-sh, missing,
+	mkinstalldirs, doc/mdate-sh, doc-ja/mdate-sh:
+	Import from Autocomake-1.7.9.
+
+2003-11-17  Motoyuki Kasahara  <m-kasahr@sra.co.jp>
+
+	* ebhttpd/httpmisc.c (http_parse_connection,
+	http_parse_transfer_coding, http_parse_content_length,
+	http_parse_host): Ensure parsing result is initialized even when
+	input string has not a valid form.
+
+2003-10-04  Motoyuki Kasahara  <m-kasahr@sra.co.jp>
+
+	* ebnetd/Makefile.am, ndtpd/Makefile.am, ebhttpd/Makefile.am:
+	Insert a comment "automatically generated from defs.h.in" into defs.h.
+
+2003-09-21  Motoyuki Kasahara  <m-kasahr@sra.co.jp>
+
+	* libebutils/getopt.c: Include <stdlib.h> if exists.
+
+2003-09-15  Motoyuki Kasahara  <m-kasahr@sra.co.jp>
+
+	* ebnetd/fdcache.h, ebnetd/fdcache.c: Add `path_hash' to FDCache_Entry
+	in order to find file descriptor in a cache table quickly.
+
+2003-09-14  Motoyuki Kasahara  <m-kasahr@sra.co.jp>
+
+	* ebnetd/fdcache.h, ebnetd/fdcache.c: New files.
+	* ebnetd/Makefile.am (ebnetd_SOURCES): Add fdcache.c.
+	* ebnetd/Makefile.am (noinst_HEADERS): Add fdcache.h.
+	* ebnetd/ebnet.c: Use the fdcache module.
+
 2003-06-09  Motoyuki Kasahara  <m-kasahr@sra.co.jp>
 
 	* Version 1.0beta0.

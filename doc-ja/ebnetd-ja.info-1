@@ -1,5 +1,5 @@
-This is ebnetd-ja.info, produced by makeinfo version 4.2 from
-ebnetd-ja.texi.
+This is ./ebnetd-ja.info, produced by makeinfo version 4.2 from
+./ebnetd-ja.texi.
 
 INFO-DIR-SECTION CD-ROM Book Utilities
 START-INFO-DIR-ENTRY
@@ -29,8 +29,7 @@ translation approved by Free Software Foundation, Inc.
 
 File: ebnetd-ja.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
 
-   この文書は第 1.0beta0 版です。EBNETD バージョン 1.0beta0
-に対応しています。
+   この文書は第 1.0 版です。EBNETD バージョン 1.0 に対応しています。
 
 * Menu:
 
@@ -176,7 +175,7 @@ CD-ROM 書籍に対応しています。 これらの形式の CD-ROM
 使用を許されていないホストやユーザに対して、あなたの書籍を公開しないで
 下さい。
 
-   この文書は EBNETD バージョン 1.0beta0 に対応しています。
+   この文書は EBNETD バージョン 1.0 に対応しています。
 
    最新の EBNETD は <ftp://ftp.sra.co.jp/pub/misc/eb/>
 から入手できます。
@@ -684,9 +683,9 @@ File: ebnetd-ja.info,  Node: Single Directive List,  Next: Group Directive,  Pre
      アドレスを解釈することはできます。
 
 
-          # `12ab:0:0:cd3/60' と `::1' からの接続を許可する。
+          # `12ab:0:0:cd3::/60' と `::1' からの接続を許可する。
           hosts ::1
-          hosts 12ab:0:0:cd3/60
+          hosts 12ab:0:0:cd3::/60
 
      `hosts' 指示子では、IPv4 アドレス (例 `192.168.1.1') とそれ
      に対応する IPv4 射影 IPv6 アドレス (例 `::ffff:192.168.1.1') は
@@ -756,7 +755,7 @@ File: ebnetd-ja.info,  Node: Group Directive,  Next: Book Group Directive,  Prev
      begin 複合指示子の名前
          副指示子の名前    副指示子の値
                   :
-                  : (repeated)
+                  : (繰り返し)
                   :
      end
 
@@ -765,7 +764,7 @@ File: ebnetd-ja.info,  Node: Group Directive,  Next: Book Group Directive,  Prev
 は空白かタブで区切り、両方とも 同じ行の中に置きます。 キーワード `end'
 は、複合指示子の終了を表します。 `end' は、単独で 1 行にして置きます。
 
-   EBNETD バージョン 1.0beta0 では、使用できる複合指示子の名前は `book'
+   EBNETD バージョン 1.0 では、使用できる複合指示子の名前は `book'
 だけです。 それぞれの "副指示子" は、`begin' と `end' の行の間に
 置きます。
 副指示子に関する記述の一般的な規則は、単独指示子と変わりません
@@ -815,8 +814,8 @@ CD-ROM 書籍一冊ごとにこの複合指示子を定義しなくてはいけません。 `book'
 
 `path'
      `path' 副指示子では、その書籍の絶対パスを指定します。
-     パスはその書籍のトップディレクトリ、つまり `CATALOG' または
-     `CATALOGS' ファイルの存在するディレクトリを指してしなくては
+     パスはその書籍のトップディレクトリ、つまり `catalog' または
+     `catalogs' ファイルの存在するディレクトリを指してしなくては
      いけません。
 
      この副指示子は、それぞれの `book' 複合指示子に必須です。 また、1
@@ -825,7 +824,7 @@ CD-ROM 書籍一冊ごとにこの複合指示子を定義しなくてはいけません。 `book'
 `appendix-path'
      `appendix-path' 副指示子では、その書籍に対応する appendix (付録)
      パッケージの絶対パスを指定します。 パスは appendix
-     パッケージのトップディレクトリ、つまり `CATALOG' または `CATALOGS'
+     パッケージのトップディレクトリ、つまり `catalog' または `catalogs'
      ファイルの存在するディレクトリを指してしなくては いけません。
 
      この副指示子は、必ずしも定義する必要はありません。 また、1 つの
@@ -1218,7 +1217,7 @@ appendix は CD-ROM 書籍の出版社から提供されているものではなく、 EB
      代替文字列を出力することにしても良いでしょう。
 
    appendix パッケージのレイアウトは CD-ROM 書籍のものとよく似ています。
-トップディレクトリには `CATALOG' もしくは `CATALOGS'
+トップディレクトリには `catalog' もしくは `catalogs'
 ファイルが存在し、各副本のデータは対応するサブディレクトリに配置されて
 います。 appendx を使うには、設定ファイルの中の、複合指示子 `book' の
 `appendix-path' 副指示子で指定します (*note `appendix-path': Group

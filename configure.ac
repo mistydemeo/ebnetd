@@ -1,7 +1,7 @@
 dnl *
 dnl * Process this file with autoconf to produce a configure script.
 dnl *
-AC_INIT(ebnetd, 1.0beta0)
+AC_INIT(ebnetd, 1.0)
 AC_CONFIG_SRCDIR(ebnetd/ebnetd.c)
 AC_PREREQ(2.54)
 AM_INIT_AUTOMAKE
@@ -47,9 +47,9 @@ AC_HELP_STRING([--with-logdir=DIR],
 AC_SUBST(logdir)
 
 dnl *
-dnl * EB Library 3.x.
+dnl * EB Library 4.x.
 dnl *
-eb_LIB_EB3
+eb_LIB_EB4
 
 dnl * 
 dnl * Alternative Programs.

@@ -29,7 +29,7 @@
 #include <strings.h>
 #endif /* not STDC_HEADERS and not HAVE_STRING_H */
 
-#if TIME_WITH_SYS_TIME
+#ifdef TIME_WITH_SYS_TIME
 #include <sys/time.h>
 #include <time.h>
 #else

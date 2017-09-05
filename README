@@ -23,7 +23,7 @@ host via TCP/IP.  They can run on UNIX derived systems.
     The first implementation of the NDTP esrver is `dserver'.  ndtpd
     has upper compatibility with dserver-2.2.  The web page
 
-	http://www.sra.co.jp/m-kasahr/ndtpd/related.htm
+	http://www.sra.co.jp/people/m-kasahr/ebnetd/ndtp-clients.html
 
     lists NDTP clients which can talk with ndtpd.
 
@@ -37,6 +37,9 @@ Since CD-ROM books themseves are stands on the ISO 9660 format, you can
 mount the discs by the same way as other ISO 9660 discs.  The servers
 can run as a standalone daemons by default, but can also run as children
 of `inetd'.
+
+EBNETD uses EB Library to access CD-ROM book.
+Before install EBNETD, you have to install EB Library into your machine.
 
 EBNETD is free software; you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the

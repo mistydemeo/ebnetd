@@ -1,7 +1,7 @@
 dnl * 
 dnl * Check for union wait (taken from GNU make 3.75).
 dnl *
-AC_DEFUN(AC_UNION_WAIT,
+AC_DEFUN([AC_UNION_WAIT],
 [AC_CHECK_FUNCS(waitpid)
 AC_CACHE_CHECK(for union wait, ac_cv_union_wait,
 [AC_TRY_LINK([
@@ -27,6 +27,5 @@ pid = waitpid (-1, &status, 0);
 ], [ac_cv_union_wait=yes], [ac_cv_union_wait=no])])
 if test "$ac_cv_union_wait" = yes; then
   AC_DEFINE(HAVE_UNION_WAIT, 1,
-[Define this if you have the \`union wait' type in <sys/wait.h>.])
-fi
-])
+[Define to 1 if you have the `union wait' type in <sys/wait.h>.])
+fi])

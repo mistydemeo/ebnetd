@@ -1,7 +1,7 @@
 dnl *
-dnl * Make ready to link EB Library 3.x.
+dnl * Make ready to link EB Library 3.x or 4.x.
 dnl *
-dnl * Copyright (c) 2000, 01
+dnl * Copyright (c) 2000 - 2003
 dnl *    Motoyuki Kasahara
 dnl *
 dnl * This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@ dnl * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 dnl * GNU General Public License for more details.
 dnl *
 
-AC_DEFUN(eb_LIB_EB3,
+AC_DEFUN([eb_LIB_EB4],
 [dnl
 dnl *
 dnl * Requirements.
@@ -23,6 +23,7 @@ dnl *
 AC_REQUIRE([AC_PROG_CC])
 AC_REQUIRE([AC_PROG_LIBTOOL])
 AC_REQUIRE([AC_C_CONST])
+AC_REQUIRE([AC_C_PROTOTYPES])
 AC_REQUIRE([AC_TYPE_OFF_T])
 AC_REQUIRE([AC_TYPE_SIZE_T])
 AC_REQUIRE([AC_HEADER_TIME])
@@ -63,6 +64,10 @@ fi
 if test X$EBCONF_ENABLE_NLS = Xyes ; then
    AC_DEFINE(EBCONF_ENABLE_NLS, 1,
       [Define if EB Library supports native language.])
+fi
+if test X$EBCONF_ENABLE_EBNET = Xyes ; then
+   AC_DEFINE(EBCONF_ENABLE_EBNET, 1,
+      [Define if EB Library supports remote access.])
 fi
 
 AC_SUBST(EBCONF_EBINCS)

@@ -1,5 +1,8 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Define if EB Library supports remote access. */
+#undef EBCONF_ENABLE_EBNET
+
 /* Define if EB Library supports native language. */
 #undef EBCONF_ENABLE_NLS
 
@@ -137,16 +140,16 @@
 /* Define to 1 if you have the `strtol' function. */
 #undef HAVE_STRTOL
 
-/* Define if <netinet/in.h> defines \`struct in6_addr' */
+/* Define to 1 if <netinet/in.h> defines `struct in6_addr' */
 #undef HAVE_STRUCT_IN6_ADDR
 
-/* Define if <netinet/in.h> defines \`struct sockaddr_in6' */
+/* Define to 1 if <netinet/in.h> defines `struct sockaddr_in6' */
 #undef HAVE_STRUCT_SOCKADDR_IN6
 
-/* Define if <netinet/in.h> defines \`struct sockaddr_storage' */
+/* Define to 1 if <netinet/in.h> defines `struct sockaddr_storage' */
 #undef HAVE_STRUCT_SOCKADDR_STORAGE
 
-/* Define if \`struct utimbuf' is declared -- usually in <utime.h>. */
+/* Define to 1 if `struct utimbuf' is declared -- usually in <utime.h>. */
 #undef HAVE_STRUCT_UTIMBUF
 
 /* Define to 1 if you have the `sysconf' function. */
@@ -178,7 +181,7 @@
 /* Define to 1 if you have the <sys/wait.h> header file. */
 #undef HAVE_SYS_WAIT_H
 
-/* Define this if you have the \`union wait' type in <sys/wait.h>. */
+/* Define to 1 if you have the `union wait' type in <sys/wait.h>. */
 #undef HAVE_UNION_WAIT
 
 /* Define to 1 if you have the <unistd.h> header file. */
@@ -202,13 +205,13 @@
 /* Define to 1 if you have the `waitpid' function. */
 #undef HAVE_WAITPID
 
-/* Define if \`h_errno' is declared by <netdb.h> */
+/* Define to 1 if `h_errno' is declared by <netdb.h> */
 #undef H_ERRNO_DECLARED
 
-/* Define if \`in6addr_any' is declared by <netinet/in.h> */
+/* Define to 1 if `in6addr_any' is declared by <netinet/in.h> */
 #undef IN6ADDR_ANY_DECLARED
 
-/* Define if \`in6addr_loopback' is declared by <netinet/in.h> */
+/* Define to 1 if `in6addr_loopback' is declared by <netinet/in.h> */
 #undef IN6ADDR_LOOPBACK_DECLARED
 
 /* Mailing address */
@@ -231,6 +234,9 @@
 
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
+
+/* Define to 1 if the C compiler supports function prototypes. */
+#undef PROTOTYPES
 
 /* Define as the return type of signal handlers (`int' or `void'). */
 #undef RETSIGTYPE
@@ -270,13 +276,19 @@
 /* Define to 1 if you need to in order for `stat' and other things to work. */
 #undef _POSIX_SOURCE
 
+/* Define like PROTOTYPES; this can be used by system headers. */
+#undef __PROTOTYPES
+
 /* Define to empty if `const' does not conform to ANSI C. */
 #undef const
 
 /* Define to `int' if <sys/types.h> doesn't define. */
 #undef gid_t
 
-/* Define to \`int' if <sys/types.h> or <sys/socket.h> does not define. */
+/* Define to `unsigned char', `unsigned short', `unsigned int' or `unsigned
+   long' according with size of `sin_port' in `struct sockaddr_in', if
+   <sys/types.h>, <sys/socket.h> or <netinet/in.h> does not define
+   `in_port_t'. */
 #undef in_port_t
 
 /* Define to `int' if <sys/types.h> does not define. */
@@ -288,13 +300,15 @@
 /* Define to `int' if <sys/types.h> does not define. */
 #undef pid_t
 
-/* Define to \`int' if <sys/types.h> or <sys/socket.h> does not define. */
+/* Define to `unsigned char', `unsigned short', `unsigned int' or `unsigned
+   long' according with size of `sa_family' in `struct sockaddr', if
+   <sys/types.h> or <sys/socket.h> does not define `sa_family_t'. */
 #undef sa_family_t
 
 /* Define to `unsigned' if <sys/types.h> does not define. */
 #undef size_t
 
-/* Define to \`int' if <sys/types.h> or <sys/socket.h> does not define. */
+/* Define to `int' if <sys/types.h> or <sys/socket.h> does not define. */
 #undef socklen_t
 
 /* Define to `int' if <sys/types.h> does not define. */

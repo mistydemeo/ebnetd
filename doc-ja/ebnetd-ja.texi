@@ -575,7 +575,7 @@ EBNETD を @file{/usr/local} 以下にインストールし、かつ、マシン固有の
 @end example
 
 @noindent
-以下の例では、@code{syslog-facility} が指示子の名前、@file{local0} が
+以下の例では、@code{syslog-facility} が指示子の名前、@samp{local0} が
 その値です。
 
 @example
@@ -775,9 +775,9 @@ IPv6 対応機能を有効にしてコンパイルされていないサーバは IPv4
 @sp 1
 @example
 @group
-# `12ab:0:0:cd3/60' と `::1' からの接続を許可する。
+# `12ab:0:0:cd3::/60' と `::1' からの接続を許可する。
 hosts ::1
-hosts 12ab:0:0:cd3/60
+hosts 12ab:0:0:cd3::/60
 @end group
 @end example
 
@@ -856,7 +856,7 @@ EBNETD を @file{/usr/local} 以下にインストールし、かつ、マシン固有の
 begin @var{複合指示子の名前}
     @var{副指示子の名前}    @var{副指示子の値}
              : 
-             : (repeated)
+             : (繰り返し)
              : 
 end
 @end group
@@ -925,8 +925,8 @@ EUC (Extended Unix Code) を用いれば日本語の文字も使用可能です。
 
 @item path
 @code{path} 副指示子では、その書籍の絶対パスを指定します。
-パスはその書籍のトップディレクトリ、つまり @file{CATALOG} または
-@file{CATALOGS} ファイルの存在するディレクトリを指してしなくては
+パスはその書籍のトップディレクトリ、つまり @file{catalog} または
+@file{catalogs} ファイルの存在するディレクトリを指してしなくては
 いけません。
 
 この副指示子は、それぞれの @code{book} 複合指示子に必須です。
@@ -935,8 +935,8 @@ EUC (Extended Unix Code) を用いれば日本語の文字も使用可能です。
 @item appendix-path
 @code{appendix-path} 副指示子では、その書籍に対応する appendix (付録) 
 パッケージの絶対パスを指定します。
-パスは appendix パッケージのトップディレクトリ、つまり @file{CATALOG} 
-または @file{CATALOGS} ファイルの存在するディレクトリを指してしなくては
+パスは appendix パッケージのトップディレクトリ、つまり @file{catalog} 
+または @file{catalogs} ファイルの存在するディレクトリを指してしなくては
 いけません。
 
 この副指示子は、必ずしも定義する必要はありません。
@@ -1353,7 +1353,7 @@ appendix では、外字の @dfn{代替文字列} (@dfn{alternation text}) を定義
 @end table
 
 appendix パッケージのレイアウトは CD-ROM 書籍のものとよく似ています。
-トップディレクトリには @code{CATALOG} もしくは @code{CATALOGS}
+トップディレクトリには @code{catalog} もしくは @code{catalogs}
 ファイルが存在し、各副本のデータは対応するサブディレクトリに配置されて
 います。
 appendx を使うには、設定ファイルの中の、複合指示子 @code{book} の
