@@ -35,20 +35,20 @@ Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H1> 5. �Ķ����� </H1>
+<H1> 5. 環境設定 </H1>
 <!--docid::SEC21::-->
 <P>
 
-�����м��դΥ����ƥ�δĶ�������򤹤�ɬ�פ����뤫���Τ�ޤ���
-����ˤϡ������餯�����ѡ��桼���θ��¤�ɬ�פˤʤ�Ǥ��礦��
+サーバ周辺のシステムの環境を設定をする必要があるかも知れません。
+設定には、おそらくスーパーユーザの権限が必要になるでしょう。
 </P><P>
 
 <BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_5.html#SEC22">5.1 <TT>`services'</TT> �ե�����</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_5.html#SEC23">5.2 <TT>`syslog.conf'</TT> �ե�����</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_5.html#SEC24">5.3 ����ѥǥ��쥯�ȥ�</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">EBNETD �κ���ѥǥ��쥯�ȥ�</TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_5.html#SEC25">5.4 CD-ROM ���ҤΥޥ����</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_5.html#SEC26">5.5 appendix �ѥå��������Ѱ�</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_5.html#SEC22">5.1 <TT>`services'</TT> ファイル</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_5.html#SEC23">5.2 <TT>`syslog.conf'</TT> ファイル</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_5.html#SEC24">5.3 作業用ディレクトリ</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">EBNETD の作業用ディレクトリ</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_5.html#SEC25">5.4 CD-ROM 書籍のマウント</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_5.html#SEC26">5.5 appendix パッケージの用意</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
 </TABLE></BLOCKQUOTE>
 <P>
 
@@ -66,18 +66,18 @@ Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 5.1 <TT>`services'</TT> �ե����� </H2>
+<H2> 5.1 <TT>`services'</TT> ファイル </H2>
 <!--docid::SEC22::-->
 <P>
 
-�����ӥ�̾ <SAMP>`ebnet'</SAMP>, <SAMP>`ndtp'</SAMP>, <SAMP>`http'</SAMP> �����ʤ��Υ����ƥ��
-<TT>`services'</TT> �ե������̵����С��ɲä��ʤ��ƤϤʤ�ޤ���
-(����ξ�� <TT>`/etc/services'</TT>)��
-�⤷�����ʤ��Υۥ��Ȥ� NIS ���饤����Ȥʤ�С������ NIS �����о��
-���� NIS �Υޥåפ������ʤ��ƤϤʤ�ޤ���
+サービス名 <SAMP>`ebnet'</SAMP>, <SAMP>`ndtp'</SAMP>, <SAMP>`http'</SAMP> があなたのシステムの
+<TT>`services'</TT> ファイルに無ければ、追加しなくてはなりません
+(大抵の場合 <TT>`/etc/services'</TT>)。
+もし、あなたのホストが NIS クライアントならば、代わりに NIS サーバ上に
+ある NIS のマップを修正しなくてはなりません。
 </P><P>
 
-�⤷�����ιԤ�̵�����­���ޤ���
+もし、次の行が無ければ足します。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>http          80/tcp
@@ -85,20 +85,20 @@ ndtp          2010/tcp
 ebnet         22010/tcp
 </pre></td></tr></table></P><P>
 
-���Τ褦�ˡ������ƥ�� <TT>`services'</TT> �ե�����ˤϡ����Ǥ��̤Υ����ӥ�
-̾�ǥ���ȥ꤬���äƤ��뤫���Τ�ޤ���
+次のように、システムの <TT>`services'</TT> ファイルには、すでに別のサービス
+名でエントリが入っているかも知れません。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>search        2010/tcp
 </pre></td></tr></table></P><P>
 
-���ξ��ϡ������ӥ�̾����̾�Ȥ��Ƥ��ιԤ��ɲä��Ʋ�������
+この場合は、サービス名を別名としてその行に追加して下さい。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>search        2010/tcp        ndtp
 </pre></td></tr></table></P><P>
 
-(�ܤ����ϡ����ʤ��Υ����ƥ�Υޥ˥奢�������������)
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
 </P><P>
 
 <A NAME="Syslog"></A>
@@ -115,56 +115,56 @@ ebnet         22010/tcp
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 5.2 <TT>`syslog.conf'</TT> �ե����� </H2>
+<H2> 5.2 <TT>`syslog.conf'</TT> ファイル </H2>
 <!--docid::SEC23::-->
 <P>
 
-<CODE>ebnetd</CODE>, <CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE> �� syslog ��Ȥä�
-������å�������Ͽ���ޤ���
-<CODE>syslogd</CODE> ������ե����� (����ξ�� <TT>`/etc/syslog.conf'</TT>) �ˡ�
-���Τ褦�ʹԤ��ɲä��Ʋ�������
-���̤˥ե�����ɤζ��ڤ�ˤϥ��֤���������Ƥ��ޤ���Τǡ������
-�Ȥ�ʤ��褦�����դ��Ʋ�������
+<CODE>ebnetd</CODE>, <CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE> は syslog を使って
+ログメッセージを記録します。
+<CODE>syslogd</CODE> の設定ファイル (大抵の場合 <TT>`/etc/syslog.conf'</TT>) に、
+次のような行を追加して下さい。
+一般にフィールドの区切りにはタブしか許されていませんので、空白を
+使わないように注意して下さい。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>local0.info   /usr/local/var/ebnetd/log/ebnetd.log
 </pre></td></tr></table></P><P>
 
-<CODE>ebnetd</CODE> �����Ѥ��� syslog �Υե�����ƥ��ϡ�<CODE>ebnetd</CODE> ��
-����ե������ <CODE>syslog-facility</CODE> �ؼ��ҤǷ�ޤ뤳�Ȥ�α�դ���
-������ (��<A HREF="ebnetd-ja_3.html#SEC14"><CODE>syslog-facility</CODE></A>����򻲾�)��
+<CODE>ebnetd</CODE> が使用する syslog のファシリティは、<CODE>ebnetd</CODE> の
+設定ファイルの <CODE>syslog-facility</CODE> 指示子で決まることに留意して
+下さい (「<A HREF="ebnetd-ja_3.html#SEC14"><CODE>syslog-facility</CODE></A>」節を参照)。
 </P><P>
 
-�⤷�����ե����뤬¸�ߤ��ʤ���С����Υե������������ޤ���
+もしログファイルが存在しなければ、空のファイルを作成します。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% touch /usr/local/var/ebnetd/log/ebnetd.log
 % chmod 644 /usr/local/var/ebnetd/log/ebnetd.log
 </pre></td></tr></table></P><P>
 
-�������Ԥ��Ƥ��� <CODE>syslogd</CODE> �ץ������� PID ��Ĵ�٤ޤ���
+現在走行している <CODE>syslogd</CODE> プロセスの PID を調べます。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% ps axuww | grep syslogd
 </pre></td></tr></table></P><P>
 
-(�ܤ����ϡ����ʤ��Υ����ƥ�Υޥ˥奢�������������)
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
 <BR>
-<CODE>syslogd</CODE> �����äƤ���ʤ�С����Τ褦�ʹԤ����Ĥ���Ϥ��Ǥ���
+<CODE>syslogd</CODE> が走っているならば、次のような行が見つかるはずです。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>root        63  0.0  1.1   188  316  ??  Is   10:04PM    0:00.16 syslogd
 </pre></td></tr></table></P><P>
 
-�ϥ󥰥��åץ����ʥ� (<CODE>SIGHUP</CODE>) �� <CODE>syslogd</CODE> ������ȡ�
-<CODE>syslogd</CODE> �� <TT>`syslog.conf'</TT> ���ɤ߹���ľ���ޤ���
+ハングアップシグナル (<CODE>SIGHUP</CODE>) を <CODE>syslogd</CODE> に送ると、
+<CODE>syslogd</CODE> は <TT>`syslog.conf'</TT> を読み込み直します。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% kill -HUP 63
 </pre></td></tr></table></P><P>
 
-���ʤ��Υ����ƥ�� <CODE>logger</CODE> ���ޥ�ɤ�����С����Τ褦�ˤ���
-<CODE>syslogd</CODE> �˥ƥ��ȥ�å����������뤳�Ȥ��Ǥ��ޤ���
+あなたのシステムに <CODE>logger</CODE> コマンドがあれば、次のようにして
+<CODE>syslogd</CODE> にテストメッセージを送ることができます。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% logger -p local0.info "test message"
@@ -184,18 +184,18 @@ ebnet         22010/tcp
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 5.3 ����ѥǥ��쥯�ȥ� </H2>
+<H2> 5.3 作業用ディレクトリ </H2>
 <!--docid::SEC24::-->
 <P>
 
-<CODE>ebnetd</CODE>, <CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE> �Ϻ���ѤΥǥ��쥯�ȥ�β���
-�����Ĥ��Υե������������ޤ���
-���Υǥ��쥯�ȥ�ϡ�����ե��������� <CODE>work-path</CODE> �ؼ���
-�ǻ��ꤹ�뤳�Ȥ��Ǥ��ޤ� (��<A HREF="ebnetd-ja_3.html#SEC14"><CODE>work-path</CODE></A>����򻲾�)��
+<CODE>ebnetd</CODE>, <CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE> は作業用のディレクトリの下に
+いくつかのファイルを作成します。
+このディレクトリは、設定ファイルの中の <CODE>work-path</CODE> 指示子
+で指定することができます (「<A HREF="ebnetd-ja_3.html#SEC14"><CODE>work-path</CODE></A>」節を参照)。
 </P><P>
 
-���Υǥ��쥯�ȥ���ꡢ�����Хץ������ȥ����ѡ��桼����������
-�����褦�ˤ��Ƥ����Ʋ�������
+このディレクトリを作り、サーバプロセスとスーパーユーザだけが書き
+込めるようにしておいて下さい。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre># mkdir /usr/local/var/ebnetd
@@ -203,14 +203,14 @@ ebnet         22010/tcp
 # chmod 755 /usr/local/var/ebnetd
 </pre></td></tr></table></P><P>
 
-(���ʤ��Υ����ƥ�Ǥϡ������Хץ��������ͭ����桼����
-<SAMP>`ndtpuser'</SAMP> �Ǥ���Ȳ��ꤷ�Ƥ��ޤ���)
+(あなたのシステムでは、サーバプロセスを所有するユーザが
+<SAMP>`ndtpuser'</SAMP> であると仮定しています。)
 </P><P>
 
-�������������Хץ������ν�ͭ�桼���ȥ��롼�פϡ�����ե���������
-<CODE>user</CODE>, <CODE>group</CODE> �ؼ��ҤǤ��줾���ޤ�ޤ��Τǡ�����
-���Ʋ����� (��<A HREF="ebnetd-ja_3.html#SEC14"><CODE>user</CODE></A>����򻲾�, �����
-��<A HREF="ebnetd-ja_3.html#SEC14"><CODE>group</CODE></A>����򻲾�)��
+ただし、サーバプロセスの所有ユーザとグループは、設定ファイルの中の
+<CODE>user</CODE>, <CODE>group</CODE> 指示子でそれぞれ決まりますので、注意
+して下さい (「<A HREF="ebnetd-ja_3.html#SEC14"><CODE>user</CODE></A>」節を参照, および
+「<A HREF="ebnetd-ja_3.html#SEC14"><CODE>group</CODE></A>」節を参照)。
 </P><P>
 
 <A NAME="Mount CD-ROM Books"></A>
@@ -227,19 +227,19 @@ ebnet         22010/tcp
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 5.4 CD-ROM ���ҤΥޥ���� </H2>
+<H2> 5.4 CD-ROM 書籍のマウント </H2>
 <!--docid::SEC25::-->
 <P>
 
-��˽Ҥ٤��褦�ˡ�CD-ROM ���Ҽ��Τ� ISO 9660 �����˽��äƤ��ޤ���
-CD-ROM ���Ҥϡ�¾�� ISO 9660 �����Υǥ�������Ʊ����ˡ�ǥޥ���Ȥ��뤳��
-���Ǥ��ޤ���
-�⤷��ISO 9660 �� CD-ROM �ǥ������Υޥ������ˡ��ʬ����ʤ���С����ʤ�
-�Υ����ƥ�Υޥ˥奢���Ĵ�٤Ʋ�������
+先に述べたように、CD-ROM 書籍自体は ISO 9660 形式に従っています。
+CD-ROM 書籍は、他の ISO 9660 形式のディスクと同じ方法でマウントすること
+ができます。
+もし、ISO 9660 の CD-ROM ディスクのマウント方法が分からなければ、あなた
+のシステムのマニュアルを調べて下さい。
 </P><P>
 
-�����Ф� <CODE>ebzip</CODE> �ǰ��̤��줿����򥢥��������뤳�Ȥ��Ǥ��ޤ�
-(<CITE>ebzip</CITE> �Ρְ��̡���򻲾�)��
+サーバは <CODE>ebzip</CODE> で圧縮された辞書をアクセスすることができます
+(<CITE>ebzip</CITE> の「圧縮」節を参照)。
 </P><P>
 
 <A NAME="Appendix Package"></A>
@@ -256,73 +256,73 @@ CD-ROM ���Ҥϡ�¾�� ISO 9660 �����Υǥ�������Ʊ����ˡ�ǥޥ���Ȥ��뤳��
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 5.5 appendix �ѥå��������Ѱ� </H2>
+<H2> 5.5 appendix パッケージの用意 </H2>
 <!--docid::SEC26::-->
 <P>
 
-<EM>appendix</EM> (<EM>��Ͽ</EM>) �Ȥ� CD-ROM ���Ҥ�����ǡ����Τ��ȤǤ���
-appendix �� CD-ROM ���Ҥν��ǼҤ����󶡤���Ƥ����ΤǤϤʤ���
-EB �饤�֥��˸�ͭ�Τ�ΤǤ���
+<EM>appendix</EM> (<EM>付録</EM>) とは CD-ROM 書籍の補助データのことです。
+appendix は CD-ROM 書籍の出版社から提供されているものではなく、
+EB ライブラリに固有のものです。
 </P><P>
 
-(�� EBNET ���ۥѥå������Υ����Фϡ�������� EB �饤�֥��˿���
-�ط����Ƥ��뤳�Ȥ�פ��Ф��Ʋ�������
-<CODE>ebnetd</CODE> �ϡ�EB �饤�֥��Τ���α�֥������������ФǤ���
-<CODE>ndtpd</CODE> �� <CODE>ebhttpd</CODE>�ϡ�CD-ROM ���ҤΥ��������� EB �饤�֥��
-����Ѥ��Ƥ��ޤ���)
+(本 EBNET 配布パッケージのサーバは、いずれも EB ライブラリに深く
+関係していることを思い出して下さい。
+<CODE>ebnetd</CODE> は、EB ライブラリのための遠隔アクセスサーバです。
+<CODE>ndtpd</CODE> と <CODE>ebhttpd</CODE>は、CD-ROM 書籍のアクセスに EB ライブラリ
+を使用しています。)
 </P><P>
 
-appendix �ϰʲ��Υǡ����� CD-ROM ���Ҥ��Ф����󶡤��ޤ���
+appendix は以下のデータを CD-ROM 書籍に対して提供します。
 </P><P>
 
 <DL COMPACT>
-<DT>��ʸ�ζ��ڤꥳ����
-<DD>���ʤ��� EB �饤�֥���Ȥä� CD-ROM �������Τ���ñ�������ݡ�����
-ñ�����������λ����ս�ǡ�EB �饤�֥�꤬��ʸ�ν��Ϥ�ߤ�뤳�Ȥ�
-���ʤ��ϴ��Ԥ���ΤǤϤʤ��Ǥ��礦����
-��������EB �饤�֥��Ϥ��Τ褦��ư����ݾڤ��뤳�Ȥ��Ǥ��ޤ���
-�ʤ��ʤ顢CD-ROM ���Ҥ���ʸ�ˤϡ����ܤν����򼨤�����¸�ߤ��ʤ�����
-�Ǥ���
+<DT>本文の区切りコード
+<DD>あなたが EB ライブラリを使って CD-ROM 辞書の中のある単語を引く際、その
+単語の説明が終了する箇所で、EB ライブラリが本文の出力を止めることを
+あなたは期待するのではないでしょうか。
+しかし、EB ライブラリはそのような動作を保証することができません。
+なぜなら、CD-ROM 書籍の本文には、項目の終わりを示す印が存在しないから
+です。
 <P>
 
-�����ˤ⡢¿���� CD-ROM ���Ҥˤϡ����ܤν����򼨤��������ؤȤ���
-�Ȥ��롢<EM>���ڤꥳ����</EM> (<EM>stop code</EM>) �Ȥ�����Τ���äƤ��ޤ���
-�̾EB �饤�֥��Ϥ��ζ��ڤꥳ���ɤ�ưŪ�˿�¬����褦�ˤʤä�
-����ΤǤ������������ä����ڤꥳ���ɤ�Ƴ���Ф����Ȥ�����ޤ���
-appendix �ζ��ڤꥳ���ɤϡ����ν��Ҥ����������ڤꥳ���ɤ� EB �饤�֥��
-�˶����Ƥ�뤿����Ѥ��ޤ���
+幸いにも、多くの CD-ROM 書籍には、項目の終わりを示す印の代替として
+使える、<EM>区切りコード</EM> (<EM>stop code</EM>) というものを持っています。
+通常、EB ライブラリはこの区切りコードを自動的に推測するようになって
+いるのですが、時々誤った区切りコードを導き出すことがあります。
+appendix の区切りコードは、その書籍の正しい区切りコードを EB ライブラリ
+に教えてやるために用います。
 </P><P>
 
-<DT>����������ʸ����
-<DD>¿���� CD-ROM ���Ҥϡ����� (�ȼ����������ʸ��) ����äƤ��ꡢ��ʸ���
-���γ�����ȤäƤ��ޤ���
-CD-ROM ���ҤǤϳ����Υӥåȥޥåץե���Ȥ��Ѱդ��Ƥ��ꡢ
-���饤����ȥ��ץꥱ������󤬳�������Ϥ���ˤϡ����Υե���Ȥ�����
-���ʤ��ƤϤʤ�ޤ���
+<DT>外字の代替文字列
+<DD>多くの CD-ROM 書籍は、外字 (独自に定義した文字) を持っており、本文中で
+その外字を使っています。
+CD-ROM 書籍では外字のビットマップフォントを用意しており、
+クライアントアプリケーションが外字を出力するには、そのフォントを描画
+しなくてはなりません。
 <P>
 
-appendix �Ǥϡ������� <EM>����ʸ����</EM> (<EM>alternation text</EM>) �����
-���뤳�Ȥ��Ǥ��ޤ���
-���ץꥱ�������ϡ��ӥåȥޥåץե���Ȥ����褹������ˡ�����
-����ʸ�������Ϥ��뤳�Ȥˤ��Ƥ��ɤ��Ǥ��礦��
+appendix では、外字の <EM>代替文字列</EM> (<EM>alternation text</EM>) を定義
+することができます。
+アプリケーションは、ビットマップフォントを描画する代わりに、その
+代替文字列を出力することにしても良いでしょう。
 </DL>
 <P>
 
-appendix �ѥå������Υ쥤�����Ȥ� CD-ROM ���ҤΤ�ΤȤ褯���Ƥ��ޤ���
-�ȥåץǥ��쥯�ȥ�ˤ� <CODE>catalog</CODE> �⤷���� <CODE>catalogs</CODE>
-�ե����뤬¸�ߤ��������ܤΥǡ������б����륵�֥ǥ��쥯�ȥ�����֤����
-���ޤ���
-appendx ��Ȥ��ˤϡ�����ե��������Ρ�ʣ��ؼ��� <CODE>book</CODE> ��
-<CODE>appendix-path</CODE> ���ؼ��Ҥǻ��ꤷ�ޤ�
-(��<A HREF="ebnetd-ja_3.html#SEC15"><CODE>appendix-path</CODE></A>����򻲾�)��
+appendix パッケージのレイアウトは CD-ROM 書籍のものとよく似ています。
+トップディレクトリには <CODE>catalog</CODE> もしくは <CODE>catalogs</CODE>
+ファイルが存在し、各副本のデータは対応するサブディレクトリに配置されて
+います。
+appendx を使うには、設定ファイルの中の、複合指示子 <CODE>book</CODE> の
+<CODE>appendix-path</CODE> 副指示子で指定します
+(「<A HREF="ebnetd-ja_3.html#SEC15"><CODE>appendix-path</CODE></A>」節を参照)。
 </P><P>
 
-EB �饤�֥��θ����� FTP ������
+EB ライブラリの公式な FTP サイト
 (<A HREF="ftp://ftp.sra.co.jp/pub/misc/eb/appendix/">ftp://ftp.sra.co.jp/pub/misc/eb/appendix/</A>)
-�ˡ�appendix �ѥå������������Ĥ��֤��Ƥ���ޤ���
-�����˺ܤäƤ��ʤ� CD-ROM �����Ѥ� appendix �ѥå����������������ϡ�
-<CODE>ebappendix</CODE> ���ޥ�ɤ�Ȥ��ޤ��礦��
-appendix �Υǡ����ե������������Ԥ����Ȥ��Ǥ��ޤ���
+に、appendix パッケージがいくつか置いてあります。
+ここに載っていない CD-ROM 書籍用の appendix パッケージを作成する場合は、
+<CODE>ebappendix</CODE> コマンドを使いましょう。
+appendix のデータファイルの整形を行うことができます。
 </P><P>
 
 <A NAME="Start ebnetd"></A>

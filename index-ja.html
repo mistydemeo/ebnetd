@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="ja">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-2022-jp">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="ebnetd.css">
 <title>EBNETD</title>
 </head>
@@ -15,149 +15,149 @@
 </p>
 
 <p>
-$B$3$l$O(B EBNETD $B$N8x<0%[!<%`%Z!<%8(B ($BF|K\8lHG(B) $B$G$9!#(B<br>
-$B:G?7%P!<%8%g%s$O(B 1.0 $B$G$9!#(B<br>
+これは EBNETD の公式ホームページ (日本語版) です。<br>
+最新バージョンは 1.0 です。<br>
 </p>
 
 <!-- ############################################################# -->
-<h2>$BL\<!(B</h2>
+<h2>目次</h2>
 
 <ul>
-<li>EBNETD $B$K$D$$$F(B
+<li>EBNETD について
   <ul>
-  <li><a href="#what-is">EBNETD $B$H$O(B</a>
-  <li><a href="ftp://ftp.sra.co.jp/pub/misc/eb/">$B%=!<%9%3!<%I$N%@%&%s%m!<%I(B</a>
+  <li><a href="#what-is">EBNETD とは</a>
+  <li><a href="ftp://ftp.sra.co.jp/pub/misc/eb/">ソースコードのダウンロード</a>
   </ul>
-<li>$B%I%-%e%a%s%H(B
+<li>ドキュメント
   <ul>
-  <li><a href="doc-ja/ebnetd-ja_toc.html">EBNETD $B$N%I%-%e%a%s%H(B</a>
-  <li><a href="protocol/dserver-protocol2.txt">dserver-2.2betapl2 $BIUB0$N(B NDTP $B$N;EMM=q(B (doc/protocol2)</a>
-  <li><a href="protocol/gaiji-bitmap.txt">$B30;z$N%S%C%H%^%C%W%G!<%?$KBP1~$9$k$?$a$N(B NDTP $B$N3HD%(B</a>
-  <li><a href="protocol/keyword-search.txt">$B>r7o8!:w$KBP1~$9$k$?$a$N(B NDTP $B$N3HD%(B</a>
+  <li><a href="doc-ja/ebnetd-ja_toc.html">EBNETD のドキュメント</a>
+  <li><a href="protocol/dserver-protocol2.txt">dserver-2.2betapl2 付属の NDTP の仕様書 (doc/protocol2)</a>
+  <li><a href="protocol/gaiji-bitmap.txt">外字のビットマップデータに対応するための NDTP の拡張</a>
+  <li><a href="protocol/keyword-search.txt">条件検索に対応するための NDTP の拡張</a>
   </ul>
-<li>$BMzNr(B
+<li>履歴
   <ul>
-  <li><a href="NEWS-ja.html">NEWS ($B1Q8l(B)</a>
-  <li><a href="ChangeLog-ja.html">ChangeLog ($B1Q8l(B)</a>
+  <li><a href="NEWS-ja.html">NEWS (英語)</a>
+  <li><a href="ChangeLog-ja.html">ChangeLog (英語)</a>
   </ul>
-<li>$B%a!<%j%s%0%j%9%H(B
+<li>メーリングリスト
   <ul>
-  <li><a href="ml-ja.html">$B>pJs(B</a>
-  <li><a href="ml-help-ja.txt">$B%X%k%W(B</a>
-  <li><a href="../ndtpd/ml-archives/index.html">$B%"!<%+%$%V(B</a>
+  <li><a href="ml-ja.html">情報</a>
+  <li><a href="ml-help-ja.txt">ヘルプ</a>
+  <li><a href="../ndtpd/ml-archives/index.html">アーカイブ</a>
   </ul>
-<li>$B$=$NB>(B
+<li>その他
   <ul>
-  <li><a href="ndtp-clients-ja.html">NDTP $B%/%i%$%"%s%H0lMw(B</a>
+  <li><a href="ndtp-clients-ja.html">NDTP クライアント一覧</a>
   </ul>
 </ul>
 
 <p>
-<a href="../eb/index-ja.html#supported">$BBP1~!&HsBP1~(B CD-ROM $B=q@R0lMw(B</a>
-$B$O!"(B<a href="../eb/index-ja.html">EB $B%i%$%V%i%j(B</a> $B$N(B WWW $B%Z!<%8$K(B
-$B7G:\$7$F$$$^$9!#(B
+<a href="../eb/index-ja.html#supported">対応・非対応 CD-ROM 書籍一覧</a>
+は、<a href="../eb/index-ja.html">EB ライブラリ</a> の WWW ページに
+掲載しています。
 </p>
 
 <!-- ############################################################# -->
-<h2><a name="what-is">EBNETD $B$H$O(B</a></h2>
+<h2><a name="what-is">EBNETD とは</a></h2>
 
 <p>
-$BK\(B EBNETD $BG[I[%Q%C%1!<%8$K$O!"(Bebnetd, ndtpd, ebhttpd $B$H$$$&(B 3 $B$D$N%5!<(B
-$B%P%3%^%s%I$r<}O?$7$F$$$^$9!#(B
-$B$3$l$i$O$$$:$l$b!"(BTCP/IP $B$rMQ$$$F1s3V%[%9%H$N(B CD-ROM $B=q@R$K%"%/%;%9(B
-$B$9$k$?$a$N%5!<%P$G$9!#(B
- UNIX $B7O(B OS $B$N%7%9%F%`>e$GF0:n$5$;$k$3$H$,$G$-$^$9!#(B
+本 EBNETD 配布パッケージには、ebnetd, ndtpd, ebhttpd という 3 つのサー
+バコマンドを収録しています。
+これらはいずれも、TCP/IP を用いて遠隔ホストの CD-ROM 書籍にアクセス
+するためのサーバです。
+ UNIX 系 OS のシステム上で動作させることができます。
 </p>
 
 <blockquote>
 <dl>
 <dt>ebnetd
 <dd>
-ebnetd $B$O(B EBNET $B%W%m%H%3%k$N%5!<%P$G!"(BEBNET $B$O!V(BEB $B%i%$%V%i%j!W$H(B
-$BDL?.$r9T$&$?$a$K@_7W$5$l$?%W%m%H%3%k$G$9!#(B
+ebnetd は EBNET プロトコルのサーバで、EBNET は「EB ライブラリ」と
+通信を行うために設計されたプロトコルです。
 
 <p>
-EB $B%i%$%V%i%j$O!"(BCD-ROM $B=q@R$N%"%/%;%9$r9T$&!"(BC $B8@8l$N%i%$%V%i%j$G$9!#(B
-ndtpd, ebhttpd $B$b(B EB $B%i%$%V%i%j$r;HMQ$7$F$$$^$9!#(B
-ebnetd $B$r;HMQ$9$k$H!"(BEB $B%i%$%V%i%j$N%"%W%j%1!<%7%g%s$O!"1s3V%[%9%H$N(B
-CD-ROM $B=q@R$K%"%/%;%9$G$-$k$h$&$K$J$j$^$9!#(B 
+EB ライブラリは、CD-ROM 書籍のアクセスを行う、C 言語のライブラリです。
+ndtpd, ebhttpd も EB ライブラリを使用しています。
+ebnetd を使用すると、EB ライブラリのアプリケーションは、遠隔ホストの
+CD-ROM 書籍にアクセスできるようになります。 
 </p>
 
 <p>
-EB $B%i%$%V%i%j$K$D$$$F$N>\:Y$O!"(B
+EB ライブラリについての詳細は、
 <a href="../eb/index-ja.html">http://www.sra.co.jp/m-kasahr/eb/index-ja.html</a>.
-$B$r;2>H$7$F2<$5$$!#(B
+を参照して下さい。
 </p>
 
 <dt>ndtpd
 <dd>
-ndtpd $B$O(B NDTP (Network Dictionary Transfer Protocol) $B%5!<%P$G$9!#(B
-NDTP $B$r:G=i$K<BAu$7$?%5!<%P$O(B `dserver' $B$G!"(Bndtpd $B$O(B dserver-2.2 $B$H(B
-$B>e0L8_49@-$,$"$j$^$9!#(B
+ndtpd は NDTP (Network Dictionary Transfer Protocol) サーバです。
+NDTP を最初に実装したサーバは `dserver' で、ndtpd は dserver-2.2 と
+上位互換性があります。
 
 <dt>ebhttpd
 <dd>
-ebhttpd $B$O(B WWW (World Wide Web) $B%5!<%P$G$9!#(B 
-HTTP/1.0 $B$*$h$S(B HTTP/1.1 (Hypertext Transfer Protocol version 1.0 
-$B$*$h$S(B 1.1) $B$KBP1~$7$F$$$^$9!#(B
+ebhttpd は WWW (World Wide Web) サーバです。 
+HTTP/1.0 および HTTP/1.1 (Hypertext Transfer Protocol version 1.0 
+および 1.1) に対応しています。
 </dd>
 </dl>
 </blockquote>
 
 <p>
-EBNETD $B$O(B UNIX $B7O(B OS $B$N%7%9%F%`>e$GF0:n$5$;$k$3$H$,$G$-$^$9!#(B
-EB, EBG, EBXA, EBXA-C, S-EBXA $B$*$h$S(B EPWING $B7A<0$N(B CD-ROM $B=q@R$KBP1~(B
-$B$7$F$$$^$9!#(B
-$B$3$l$i$N7A<0$N(B CD-ROM $B=q@R$O!"F|K\$G0lHLE*$K;H$o$l$F$$$^$9!#(B
-CD-ROM $B=q@R<+BN$O(B ISO 9660 $B7A<0$K$J$C$F$$$^$9$N$G!"B>$N(B ISO 9660 $B7A<0(B
-$B$HF1$8MWNN$G%^%&%s%H$9$k$3$H$,$G$-$^$9!#(B
+EBNETD は UNIX 系 OS のシステム上で動作させることができます。
+EB, EBG, EBXA, EBXA-C, S-EBXA および EPWING 形式の CD-ROM 書籍に対応
+しています。
+これらの形式の CD-ROM 書籍は、日本で一般的に使われています。
+CD-ROM 書籍自体は ISO 9660 形式になっていますので、他の ISO 9660 形式
+と同じ要領でマウントすることができます。
 </p>
 
 <p>
-EBNETD $B$O(B CD-ROM $B=q@R$K%"%/%;%9$9$k$?$a$K!"(B
-<a href="../eb/index-ja.html">EB $B%i%$%V%i%j(B</a>
-$B$r;HMQ$7$F$$$^$9!#(B
-EBNETD $B$r%$%s%9%H!<%k$9$kA0$K!"(BEB $B%i%$%V%i%j$r%$%s%9%H!<%k$9$kI,MW$,(B
-$B$"$j$^$9!#(B
+EBNETD は CD-ROM 書籍にアクセスするために、
+<a href="../eb/index-ja.html">EB ライブラリ</a>
+を使用しています。
+EBNETD をインストールする前に、EB ライブラリをインストールする必要が
+あります。
 </p>
 
 <p>
-EBNETD $B$O%U%j!<%=%U%H%&%'%"$G$9!#(B
-$B$"$J$?$O!"(BFree Software Foundation $B$,8xI=$7$?(B
-<a href="GPL.txt">GNU General Public License (GNU $B0lHL8xM-;HMQ5vBz(B)</a>
-$B%P!<%8%g%s(B 2 $B0?$$$O$=$l0J9_$N3F%P!<%8%g%s$NCf$+$i$$$:$l$+$rA*Br$7!"(B
-$B$=$N%P!<%8%g%s$,Dj$a$k>r9`$K=>$C$FK\%W%m%0%i%`$r:FHRI[$^$?$OJQ99$9$k(B
-$B$3$H$,$G$-$^$9!#(B
+EBNETD はフリーソフトウェアです。
+あなたは、Free Software Foundation が公表した
+<a href="GPL.txt">GNU General Public License (GNU 一般公有使用許諾)</a>
+バージョン 2 或いはそれ以降の各バージョンの中からいずれかを選択し、
+そのバージョンが定める条項に従って本プログラムを再頒布または変更する
+ことができます。
 </p>
 
 <p>
-EBNETD $B$OM-MQ$H$O;W$$$^$9$,!"HRI[$K$"$?$C$F$O!";T>l@-5Z$SFCDjL\E*E,9g@-(B
-$B$K$D$$$F$N0EL[$NJ]>Z$r4^$a$F!"$$$+$J$kJ]>Z$b9T$J$$$^$;$s!#>\:Y$K$D$$$F$O(B
+EBNETD は有用とは思いますが、頒布にあたっては、市場性及び特定目的適合性
+についての暗黙の保証を含めて、いかなる保証も行ないません。詳細については
 <a href="GPL.txt">GNU General Public License</a>
-$B$r$*FI$_$/$@$5$$!#(B
+をお読みください。
 </p>
 
 <p>
-$B:G?7$N(B EBNETD $B$O(B
+最新の EBNETD は
 <a href="ftp://ftp.sra.co.jp/pub/misc/eb/">ftp://ftp.sra.co.jp/pub/misc/eb/</a>
-$B$+$iF~<j2DG=$G$9!#(B
+から入手可能です。
 </p>
 
 <p>
-EBNETD $B$K4X$9$k>pJs$O(B
+EBNETD に関する情報は
 <a href="index-ja.html">http://www.sra.co.jp/people/m-kasahr/ebnetd/index-ja.html</a>
-$B$+$iF@$k$3$H$,$G$-$^$9!#(B
+から得ることができます。
 </p>
 
 <p>
-$B$40U8+$d%P%0$N$4Js9p$K4X$9$k%a!<%k$O!"F|K\8l$+1Q8l$G(B
-m-kasahr@sra.co.jp $B08$K$*Aw$j2<$5$$!#(B
+ご意見やバグのご報告に関するメールは、日本語か英語で
+m-kasahr@sra.co.jp 宛にお送り下さい。
 </p>
 
 <!-- ############################################################# -->
 <hr>
 <p class="footer">
-<a href="index-ja.html"><img class="banner" src="../eb/eb_b.png" alt="$B%P%J!<(B"></a>
+<a href="index-ja.html"><img class="banner" src="../eb/eb_b.png" alt="バナー"></a>
 Text by Motoyuki Kasahara<br>
 Banner by Sumiya Sakoda<br>
 </p>

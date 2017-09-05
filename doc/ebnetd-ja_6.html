@@ -35,35 +35,35 @@ Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H1> 6. <CODE>ebnetd</CODE> �ε�ư </H1>
+<H1> 6. <CODE>ebnetd</CODE> の起動 </H1>
 <!--docid::SEC27::-->
 <P>
 
-<CODE>ebnetd</CODE> �ϡ�������ɥ�����Υǡ���󡢤��뤤�� <CODE>inetd</CODE> ��
-�ҥץ������Ȥ��Ƶ�ư���뤳�Ȥ��Ǥ��ޤ���
-���꤬�ʤ���С�������ɥ�����Υǡ����Ȥ��Ƶ�ư����褦�ˤʤäƤ��ޤ���
+<CODE>ebnetd</CODE> は、スタンドアロンのデーモン、あるいは <CODE>inetd</CODE> の
+子プロセスとして起動することができます。
+指定がなければ、スタンドアロンのデーモンとして起動するようになっています。
 </P><P>
 
-�����Фإ��ͥ���������ˤ���ʤ��ʤ顢����ξ�����ޤ��뤿���
-<CODE>ebnetd</CODE> �� <CODE>inetd</CODE> �λҥץ������Ȥ��Ƶ�ư���������ɤ��Ǥ��礦��
+サーバへコネクションが頻繁に来ないなら、メモリの消費を抑えるために
+<CODE>ebnetd</CODE> を <CODE>inetd</CODE> の子プロセスとして起動する方が良いでしょう。
 </P><P>
 
-��������<CODE>inetd</CODE> �ˤ�äƵ�ư������٤ˡ�<CODE>ebnetd</CODE> ������ե�����
-���ɤ߹��ߡ�������Τ���� CD-ROM ���Ҥ���ǡ�������ʬŪ���ɤ߹��ߤޤ���
-���ͥ���������ˤ����褦�ʤ顢<CODE>ebnetd</CODE> �򥹥���ɥ�����Υǡ����
-�Ȥ��Ƶ�ư���������ɤ��Ǥ��礦��
+しかし、<CODE>inetd</CODE> によって起動される度に、<CODE>ebnetd</CODE> は設定ファイル
+を読み込み、初期化のために CD-ROM 書籍からデータを部分的に読み込みます。
+コネクションが頻繁に来るようなら、<CODE>ebnetd</CODE> をスタンドアロンのデーモン
+として起動した方が良いでしょう。
 </P><P>
 
-���ʤ��Υ����ƥ�Ǥ� <CODE>ebnetd</CODE> ��ɬ�פȤ��ʤ��ʤ顢���ξϤλĤ��
-��ʬ���ɤ����Ф��Ʋ�������
+あなたのシステムでは <CODE>ebnetd</CODE> を必要としないなら、この章の残りの
+部分は読み飛ばして下さい。
 </P><P>
 
 <BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_6.html#SEC28">6.1 <CODE>ebnetd</CODE> �򥹥���ɥ�����ǵ�ư</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_6.html#SEC29">6.2 <CODE>ebnetd</CODE> �� <CODE>inetd</CODE> ��ͳ�ǵ�ư</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_6.html#SEC30">6.3 <CODE>ebnetd</CODE> �� <CODE>xinetd</CODE> ��ͳ�ǵ�ư</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_6.html#SEC31">6.4 <CODE>telnet</CODE> �ˤ�� <CODE>ebnetd</CODE> �γ�ǧ</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_6.html#SEC32">6.5 <CODE>ebnetd</CODE> �Υ��ץ����</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_6.html#SEC28">6.1 <CODE>ebnetd</CODE> をスタンドアロンで起動</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_6.html#SEC29">6.2 <CODE>ebnetd</CODE> を <CODE>inetd</CODE> 経由で起動</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_6.html#SEC30">6.3 <CODE>ebnetd</CODE> を <CODE>xinetd</CODE> 経由で起動</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_6.html#SEC31">6.4 <CODE>telnet</CODE> による <CODE>ebnetd</CODE> の確認</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_6.html#SEC32">6.5 <CODE>ebnetd</CODE> のオプション</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
 </TABLE></BLOCKQUOTE>
 <P>
 
@@ -81,21 +81,21 @@ Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 6.1 <CODE>ebnetd</CODE> �򥹥���ɥ�����ǵ�ư </H2>
+<H2> 6.1 <CODE>ebnetd</CODE> をスタンドアロンで起動 </H2>
 <!--docid::SEC28::-->
 <P>
 
-<CODE>ebnetd</CODE> �򥹥���ɥ�����Υǡ����Ȥ��Ƶ�ư����ˤϡ����Τ褦��
-���ޥ�ɤ�¹Ԥ��Ʋ�������
-�����ѡ��桼���θ��¤�ɬ�פ����Τ�ޤ���
+<CODE>ebnetd</CODE> をスタンドアロンのデーモンとして起動するには、次のように
+コマンドを実行して下さい。
+スーパーユーザの権限が必要かも知れません。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebnetd
 </pre></td></tr></table></P><P>
 
-EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�����Ѥ�
-���ޥ�ɤ��֤��ǥ��쥯�ȥ� (<CODE>sbindir</CODE>) �ΰ��֤��ѹ����Ƥ��ʤ���С�
-<CODE>ebnetd</CODE> �� <TT>`/usr/local/sbin'</TT> �˥��󥹥ȡ��뤵��Ƥ��ޤ���
+EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (<CODE>sbindir</CODE>) の位置を変更していなければ、
+<CODE>ebnetd</CODE> は <TT>`/usr/local/sbin'</TT> にインストールされています。
 </P><P>
 
 <A NAME="ebnetd Child of inetd"></A>
@@ -112,50 +112,50 @@ EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�����Ѥ�
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 6.2 <CODE>ebnetd</CODE> �� <CODE>inetd</CODE> ��ͳ�ǵ�ư </H2>
+<H2> 6.2 <CODE>ebnetd</CODE> を <CODE>inetd</CODE> 経由で起動 </H2>
 <!--docid::SEC29::-->
 <P>
 
-<CODE>ebnetd</CODE> �� <CODE>inetd</CODE> �λҥץ������Ȥ��Ƶ�ư�ˤϡ����μ�礬ɬ��
-�ˤʤ�ޤ���
-���Υ���ȥ�� <TT>`inetd.conf'</TT> �ե����� (����ξ�� <TT>`/etc/inetd.conf'</TT>)
-�˲ä��ޤ���
-<SAMP>`--inetd'</SAMP> (�ޤ��� <SAMP>`-i'</SAMP>) ���ץ�����­���Τ�˺��ʤ��褦�ˤ���
-��������
+<CODE>ebnetd</CODE> を <CODE>inetd</CODE> の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを <TT>`inetd.conf'</TT> ファイル (大抵の場合 <TT>`/etc/inetd.conf'</TT>)
+に加えます。
+<SAMP>`--inetd'</SAMP> (または <SAMP>`-i'</SAMP>) オプションを足すのを忘れないようにして
+下さい。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>ebnet  stream  tcp  nowait  root  /usr/local/sbin/ebnetd ebnetd --inetd
 </pre></td></tr></table></P><P>
 
-(��������EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�
-�����ѤΥ��ޥ�ɤ��֤��ǥ��쥯�ȥ� (<CODE>sbindir</CODE>) �ΰ��֤��ѹ����Ƥ��ʤ�
-�Ȳ��ꤷ�Ƥ��ޤ���)
+(ただし、EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (<CODE>sbindir</CODE>) の位置を変更していない
+と仮定しています。)
 </P><P>
 
-���Ԥ��Ƥ��� <CODE>inetd</CODE> �ץ������� PID ��õ���Ф��ޤ���
-BSD �ϤΥ����ƥ�Ǥϡ����Τ褦�ˤ��ޤ���
+走行している <CODE>inetd</CODE> プロセスの PID を探し出します。
+BSD 系のシステムでは、次のようにします。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% ps axuww | grep inetd
 </pre></td></tr></table></P><P>
 
-SYSV �ϤΥ����ƥ�ʤ顢���Τ褦�ˤ��ޤ���
+SYSV 系のシステムなら、次のようにします。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% ps -ef | grep inetd
 </pre></td></tr></table></P><P>
 
-(�ܤ����ϡ����ʤ��Υ����ƥ�Υޥ˥奢�������������)
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
 <BR>
-<CODE>inetd</CODE> �����äƤ���ʤ�С����Τ褦�ʹԤ����Ĥ���Ϥ��Ǥ���
+<CODE>inetd</CODE> が走っているならば、次のような行が見つかるはずです。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
 </pre></td></tr></table></P><P>
 
-���Ĥ��ä��ʤ�С��ϥ󥰥��åץ����ʥ� (<CODE>SIGHUP</CODE>) �� <CODE>inetd</CODE>
-������ޤ���
-�����餯�������ѡ��桼���θ��¤�ɬ�פǤ���
+見つかったならば、ハングアップシグナル (<CODE>SIGHUP</CODE>) を <CODE>inetd</CODE>
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% kill -HUP 79
@@ -175,22 +175,22 @@ SYSV �ϤΥ����ƥ�ʤ顢���Τ褦�ˤ��ޤ���
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 6.3 <CODE>ebnetd</CODE> �� <CODE>xinetd</CODE> ��ͳ�ǵ�ư </H2>
+<H2> 6.3 <CODE>ebnetd</CODE> を <CODE>xinetd</CODE> 経由で起動 </H2>
 <!--docid::SEC30::-->
 <P>
 
-Linux �����ƥ�ˤϡ�����Ū�� <CODE>inetd</CODE> ������� <CODE>xinetd</CODE> ��
-���Ѥ��Ƥ����Τ⤢��ޤ���
-<CODE>xinetd</CODE> ������ե������ʸˡ�ϡ�����Ū�� <CODE>inetd</CODE> ������ե�����
-��ʸˡ�Ȥϰۤʤ�ޤ���
+Linux システムには、伝統的な <CODE>inetd</CODE> の代わりに <CODE>xinetd</CODE> を
+使用しているものもあります。
+<CODE>xinetd</CODE> の設定ファイルの文法は、伝統的な <CODE>inetd</CODE> の設定ファイル
+の文法とは異なります。
 </P><P>
 
-<CODE>ebnetd</CODE> �� <CODE>xinetd</CODE> �λҥץ������Ȥ��Ƶ�ư�ˤϡ����μ�礬ɬ��
-�ˤʤ�ޤ���
-���Υ���ȥ������ե����� (����ξ�� <TT>`/etc/xinetd.d/ebnet'</TT>) ��
-�ä��ޤ���
-<SAMP>`--inetd'</SAMP> (�ޤ��� <SAMP>`-i'</SAMP>) ���ץ�����­���Τ�˺��ʤ��褦�ˤ���
-��������
+<CODE>ebnetd</CODE> を <CODE>xinetd</CODE> の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを設定ファイル (大抵の場合 <TT>`/etc/xinetd.d/ebnet'</TT>) に
+加えます。
+<SAMP>`--inetd'</SAMP> (または <SAMP>`-i'</SAMP>) オプションを足すのを忘れないようにして
+下さい。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre># default: off
@@ -207,27 +207,27 @@ service ebnet
 }
 </pre></td></tr></table></P><P>
 
-(��������EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�
-�����ѤΥ��ޥ�ɤ��֤��ǥ��쥯�ȥ� (<CODE>sbindir</CODE>) �ΰ��֤��ѹ����Ƥ���
-���Ȳ��ꤷ�Ƥ��ޤ���)
+(ただし、EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (<CODE>sbindir</CODE>) の位置を変更していな
+いと仮定しています。)
 </P><P>
 
-���Ԥ��Ƥ��� <CODE>xinetd</CODE> �ץ������� PID ��õ���Ф��ޤ���
+走行している <CODE>xinetd</CODE> プロセスの PID を探し出します。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% ps axuww | grep xinetd
 </pre></td></tr></table></P><P>
 
 <BR>
-<CODE>xinetd</CODE> �����äƤ���ʤ�С����Τ褦�ʹԤ����Ĥ���Ϥ��Ǥ���
+<CODE>xinetd</CODE> が走っているならば、次のような行が見つかるはずです。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
 </pre></td></tr></table></P><P>
 
-���Ĥ��ä��ʤ�С�USER2 �����ʥ� (<CODE>SIGUSR2</CODE>) �� <CODE>xinetd</CODE>
-������ޤ���
-�����餯�������ѡ��桼���θ��¤�ɬ�פǤ���
+見つかったならば、USER2 シグナル (<CODE>SIGUSR2</CODE>) を <CODE>xinetd</CODE>
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% kill -USR2 79
@@ -247,36 +247,36 @@ service ebnet
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 6.4 <CODE>telnet</CODE> �ˤ�� <CODE>ebnetd</CODE> �γ�ǧ </H2>
+<H2> 6.4 <CODE>telnet</CODE> による <CODE>ebnetd</CODE> の確認 </H2>
 <!--docid::SEC31::-->
 <P>
 
-���åȥ��åפ����٤ƴ�λ�����顢<CODE>telnet</CODE> ���ޥ�ɤ��Ѥ��� 
-<CODE>ebnetd</CODE> ����³���Ƥߤޤ��礦��
+セットアップがすべて完了したら、<CODE>telnet</CODE> コマンドを用いて 
+<CODE>ebnetd</CODE> に接続してみましょう。
 </P><P>
 
-�ޤ������Τ褦�����Ϥ��ޤ���
-������Ǥϡ�localhost ��� <CODE>ebnetd</CODE> ����³���Ƥ��ޤ���
+まず、次のように入力します。
+この例では、localhost 上の <CODE>ebnetd</CODE> に接続しています。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% telnet localhost ebnet
 </pre></td></tr></table></P><P>
 
-<CODE>ebnetd</CODE> ����³������դ���С����Τ褦�ʥ�å�������ɽ������ޤ���
+<CODE>ebnetd</CODE> が接続を受け付ければ、次のようなメッセージが表示されます。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>Connected to localhost.
 Escape character is '^]'.
 </pre></td></tr></table></P><P>
 
-�����ǡ�<KBD>BOOKLIST</KBD> ��³���� <KBD>Enter</KBD> �����Ϥ��ޤ���
+ここで、<KBD>BOOKLIST</KBD> に続けて <KBD>Enter</KBD> を入力します。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>BOOKLIST
 </pre></td></tr></table></P><P>
 
-<CODE>ebnetd</CODE> �������ư���Ƥ���С����Τ褦�����Ѳ�ǽ�� CD-ROM 
-���Ҥΰ�������Ϥ��ޤ���
+<CODE>ebnetd</CODE> が正常に動いていれば、次のように利用可能な CD-ROM 
+書籍の一覧を出力します。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>!OK; book list follows
@@ -287,7 +287,7 @@ colloc.app
 
 </pre></td></tr></table></P><P>
 
-��³�򽪤���ˤϡ�<KBD>QUIT</KBD> ��³���� <KBD>Enter</KBD> �����Ϥ��ޤ���
+接続を終えるには、<KBD>QUIT</KBD> に続けて <KBD>Enter</KBD> を入力します。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>QUIT
@@ -308,55 +308,55 @@ Connection closed by foreign host.
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 6.5 <CODE>ebnetd</CODE> �Υ��ץ���� </H2>
+<H2> 6.5 <CODE>ebnetd</CODE> のオプション </H2>
 <!--docid::SEC32::-->
 <P>
 
-<CODE>ebnetd</CODE> ���ޥ�ɤϡ�����Ū�ʰ�ʸ�����ץ����̾�ȳФ��䤹��Ĺ��
-���ץ����̾��ξ���򰷤����Ȥ��Ǥ��ޤ���
-Ĺ�����ץ����̾��ɽ���ˤϡ�<SAMP>`-'</SAMP> �ǤϤʤ� <SAMP>`--'</SAMP> ���Ѥ��ޤ���
-���ץ����̾����դ˷�ޤ��ϰ���ǡ�̾���θ�����ʬ���ά���뤳�Ȥ�
-�Ǥ��ޤ���
+<CODE>ebnetd</CODE> コマンドは、伝統的な一文字オプション名と覚えやすい長い
+オプション名の両方を扱うことができます。
+長いオプション名を表すには、<SAMP>`-'</SAMP> ではなく <SAMP>`--'</SAMP> を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
 </P><P>
 
-<CODE>ebnetd</CODE> ���ޥ�ɤϰʲ��˵󤲤����ץ������᤹�뤳�Ȥ��Ǥ��ޤ���
+<CODE>ebnetd</CODE> コマンドは以下に挙げたオプションを解釈することができます。
 </P><P>
 
 <DL COMPACT>
-<DT><CODE>-c <VAR>�ե�����</VAR></CODE>
-<DD><DT><CODE>--configuration-file <VAR>�ե�����</VAR></CODE>
-<DD>����ե��������ꤷ�ޤ���
-̵������Υե�����̾�ϡ��إ�ץ�å���������˵�����Ƥ��ޤ���
+<DT><CODE>-c <VAR>ファイル</VAR></CODE>
+<DD><DT><CODE>--configuration-file <VAR>ファイル</VAR></CODE>
+<DD>設定ファイルを指定します。
+無指定時のファイル名は、ヘルプメッセージの中に記されています。
 <P>
 
 <DT><CODE>-h</CODE>
 <DD><DT><CODE>--help</CODE>
-<DD>�إ�ץ�å�������ɸ����Ϥ˽��Ϥ��ơ���λ���ޤ���
+<DD>ヘルプメッセージを標準出力に出力して、終了します。
 <P>
 
 <DT><CODE>-i</CODE>
 <DD><DT><CODE>--inetd</CODE>
-<DD><CODE>inetd</CODE> �⡼�ɡ�
-<CODE>ebnetd</CODE> �� <CODE>inetd</CODE> ���鵯ư������Ȥ��ϡ����Υ��ץ��������
-����ɬ�פ�����ޤ���
+<DD><CODE>inetd</CODE> モード。
+<CODE>ebnetd</CODE> を <CODE>inetd</CODE> から起動させるときは、このオプションを指定
+する必要があります。
 <P>
 
 <DT><CODE>-t</CODE>
 <DD><DT><CODE>--test</CODE>
-<DD>�ƥ��ȥ⡼�ɡ�
-<CODE>ebnetd</CODE> �ϥե������饦��ɥץ������Ȥ��Ƶ�ư���졢�褷�� fork ��
-�Ԥ��ޤ���
-�����ФؤΥꥯ�����Ȥ�ɸ�����Ϥ����ɤ߹��ޤ졢���饤����ȤؤΥ쥹�ݥ�
-��ɸ����Ϥؽ��Ϥ���ޤ���
-ɸ�����Ϥ����ɸ����Ϥϡ�ü���ȷ���դ���줿�ե����뵭�һҤǤ��äƤ�
-�����ޤ���
-�ޤ��������������Ф��뼱�̥����å��ϹԤ��ޤ���Τǡ����٤Ƥ� CD-ROM ����
-�˥���������ǽ�Ǥ���
+<DD>テストモード。
+<CODE>ebnetd</CODE> はフォアグラウンドプロセスとして起動され、決して fork を
+行いません。
+サーバへのリクエストは標準入力から読み込まれ、クライアントへのレスポンス
+は標準出力へ出力されます。
+標準入力および標準出力は、端末と結び付けられたファイル記述子であっても
+構いません。
+また、アクセスに対する識別チェックは行いませんので、すべての CD-ROM 書籍
+にアクセス可能です。
 <P>
 
 <DT><CODE>-v</CODE>
 <DD><DT><CODE>--version</CODE>
-<DD>�С�������ֹ��ɸ�२�顼���Ϥ˽��Ϥ��ơ���λ���ޤ���
+<DD>バージョン番号を標準エラー出力に出力して、終了します。
 </DL>
 <P>
 

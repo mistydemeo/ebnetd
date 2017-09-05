@@ -35,25 +35,25 @@ Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H1> 4. ����ե�����Υ����å����ޥ�� </H1>
+<H1> 4. 設定ファイルのチェックコマンド </H1>
 <!--docid::SEC18::-->
 <P>
 
-�Խ�������������ե����������å�����ˤϡ�<CODE>ebncheck</CODE> �Ȥ���
-�����å����ޥ�ɤ�Ȥ����ɤ��Ǥ��礦��
-EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�����Ѥ�
-���ޥ�ɤ��֤��ǥ��쥯�ȥ� (<CODE>sbindir</CODE>) �ΰ��֤��ѹ����Ƥ��ʤ���С�
-<CODE>ebncheck</CODE> �� <TT>`/usr/local/sbin'</TT> �˥��󥹥ȡ��뤵��Ƥ��ޤ���
+編集し終えた設定ファイルをチェックするには、<CODE>ebncheck</CODE> という
+チェックコマンドを使うと良いでしょう。
+EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (<CODE>sbindir</CODE>) の位置を変更していなければ、
+<CODE>ebncheck</CODE> は <TT>`/usr/local/sbin'</TT> にインストールされています。
 </P><P>
 
-���Ū�ʷаޤ��顢<CODE>ndtpd</CODE> �Τ���� <CODE>ndtpcheck</CODE>, <CODE>ebhttpd</CODE>
-�Τ���� <CODE>ebhtcheck</CODE> �Ȥ������ޥ�ɤ��碌���Ѱդ���Ƥ��ޤ�����
-�ä˰㤤�Ϥ���ޤ���
+歴史的な経緯から、<CODE>ndtpd</CODE> のための <CODE>ndtpcheck</CODE>, <CODE>ebhttpd</CODE>
+のための <CODE>ebhtcheck</CODE> というコマンドも合わせて用意されていますが、
+特に違いはありません。
 </P><P>
 
 <BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_4.html#SEC19">4.1 <CODE>ebncheck</CODE> �μ¹�</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_4.html#SEC20">4.2 <CODE>ebncheck</CODE> �Υ��ץ����</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_4.html#SEC19">4.1 <CODE>ebncheck</CODE> の実行</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_4.html#SEC20">4.2 <CODE>ebncheck</CODE> のオプション</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
 </TABLE></BLOCKQUOTE>
 <P>
 
@@ -71,25 +71,25 @@ EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�����Ѥ�
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 4.1 <CODE>ebncheck</CODE> �μ¹� </H2>
+<H2> 4.1 <CODE>ebncheck</CODE> の実行 </H2>
 <!--docid::SEC19::-->
 <P>
 
-<CODE>ebncheck</CODE> ���ޥ�ɤϡ�<CODE>ebnetd</CODE> ��Ʊ�����Τ�����ե������
-�ɤ߹���ǡ������å����ޤ���
-<CODE>ebncheck</CODE> ���ޥ�ɤΰ���Ū�ʵ�ư��ˡ�ϼ����̤�Ǥ���
+<CODE>ebncheck</CODE> コマンドは、<CODE>ebnetd</CODE> と同じ要領で設定ファイルを
+読み込んで、チェックします。
+<CODE>ebncheck</CODE> コマンドの一般的な起動方法は次の通りです。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebncheck
 </pre></td></tr></table></P><P>
 
-��������EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�
-�����ѤΥ��ޥ�ɤ��֤��ǥ��쥯�ȥ� (<CODE>sbindir</CODE>) �ΰ��֤��ѹ�����
-���ʤ��Ȳ��ꤷ�Ƥ��ޤ���
+ただし、EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (<CODE>sbindir</CODE>) の位置を変更して
+いないと仮定しています。
 </P><P>
 
-���Ҥθ��꤬ȯ�������ȡ�<CODE>ebncheck</CODE> ��ɸ�२�顼���Ϥ˰ʲ��Τ褦��
-��å���������Ϥ��ޤ���
+記述の誤りが発見されると、<CODE>ebncheck</CODE> は標準エラー出力に以下のような
+メッセージを出力します。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>/usr/local/etc/ebnetd.conf:12: unknown user: noboy
@@ -110,44 +110,44 @@ configuration failure
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 4.2 <CODE>ebncheck</CODE> �Υ��ץ���� </H2>
+<H2> 4.2 <CODE>ebncheck</CODE> のオプション </H2>
 <!--docid::SEC20::-->
 <P>
 
-<CODE>ebncheck</CODE> ���ޥ�ɤϡ�����Ū�ʰ�ʸ�����ץ����̾�ȳФ��䤹��Ĺ��
-���ץ����̾��ξ���򰷤����Ȥ��Ǥ��ޤ���
-Ĺ�����ץ����̾��ɽ���ˤϡ�<SAMP>`-'</SAMP> �ǤϤʤ� <SAMP>`--'</SAMP> ���Ѥ��ޤ���
-���ץ����̾����դ˷�ޤ��ϰ���ǡ�̾���θ�����ʬ���ά���뤳�Ȥ�
-�Ǥ��ޤ���
+<CODE>ebncheck</CODE> コマンドは、伝統的な一文字オプション名と覚えやすい長い
+オプション名の両方を扱うことができます。
+長いオプション名を表すには、<SAMP>`-'</SAMP> ではなく <SAMP>`--'</SAMP> を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
 </P><P>
 
-<CODE>ebncheck</CODE> ���ޥ�ɤϰʲ��˵󤲤����ץ������᤹�뤳�Ȥ�
-�Ǥ��ޤ���
+<CODE>ebncheck</CODE> コマンドは以下に挙げたオプションを解釈することが
+できます。
 </P><P>
 
 <DL COMPACT>
-<DT><CODE>-c <VAR>�ե�����</VAR></CODE>
-<DD><DT><CODE>--configuration-file <VAR>�ե�����</VAR></CODE>
-<DD>����ե��������ꤷ�ޤ���
-̵������Υե�����̾�ϡ��إ�ץ�å���������˵�����Ƥ��ޤ���
+<DT><CODE>-c <VAR>ファイル</VAR></CODE>
+<DD><DT><CODE>--configuration-file <VAR>ファイル</VAR></CODE>
+<DD>設定ファイルを指定します。
+無指定時のファイル名は、ヘルプメッセージの中に記されています。
 <P>
 
 <DT><CODE>-d</CODE>
 <DD><DT><CODE>--debug</CODE>
 <DD><DT><CODE>--verbose</CODE>
-<DD>�ǥХå��Ѥξ����ɸ�२�顼���Ϥ˽��Ϥ��ޤ���
-�ǥХå��Ѥξ���ϡ�����ե�����γƹԤ��ɤΤ褦�˲�ᤵ���Τ��򼨤���
-����ޤ���
+<DD>デバッグ用の情報を標準エラー出力に出力します。
+デバッグ用の情報は、設定ファイルの各行がどのように解釈されるのかを示して
+くれます。
 <P>
 
 <DT><CODE>-h</CODE>
 <DD><DT><CODE>--help</CODE>
-<DD>�إ�ץ�å�������ɸ����Ϥ˽��Ϥ��ơ���λ���ޤ���
+<DD>ヘルプメッセージを標準出力に出力して、終了します。
 <P>
 
 <DT><CODE>-v</CODE>
 <DD><DT><CODE>--version</CODE>
-<DD>�С�������ֹ��ɸ����Ϥ˽��Ϥ��ơ���λ���ޤ���
+<DD>バージョン番号を標準出力に出力して、終了します。
 </DL>
 <P>
 

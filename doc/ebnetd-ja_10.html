@@ -35,51 +35,51 @@ Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H1> 10. �����δ������ </H1>
+<H1> 10. 毎日の管理作業 </H1>
 <!--docid::SEC48::-->
 <P>
 
-<CODE>ebndaily</CODE> ���ޥ�ɤϡ�<CODE>ebnetd</CODE>, <CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE>
-�� syslog �ե�����Τ������Ǥ⿷������Τ�Ĵ�٤����׾������������syslog
-�ե�����Υ����ơ�������Ԥ��ޤ���
-���η�̤ϡ����ޥ�ɹԤΰ����˻��ꤵ�줿�����Ԥ˰��Ƥơ��᡼���
-�����ޤ���
+<CODE>ebndaily</CODE> コマンドは、<CODE>ebnetd</CODE>, <CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE>
+の syslog ファイルのうち、最も新しいものを調べて統計情報を生成し、syslog
+ファイルのローテーションを行います。
+その結果は、コマンド行の引数に指定された管理者に宛てて、メールで
+送られます。
 </P><P>
 
-EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�����Ѥ�
-���ޥ�ɤ��֤��ǥ��쥯�ȥ� (<CODE>sbindir</CODE>) �ΰ��֤��ѹ����Ƥ��ʤ���С�
-<CODE>ebndaily</CODE> �� <TT>`/usr/local/sbin'</TT> �˥��󥹥ȡ��뤵��Ƥ��ޤ���
-<CODE>ebndaily</CODE> ��¹Ԥ������Ū����ˡ�ϼ����̤�Ǥ���
+EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (<CODE>sbindir</CODE>) の位置を変更していなければ、
+<CODE>ebndaily</CODE> は <TT>`/usr/local/sbin'</TT> にインストールされています。
+<CODE>ebndaily</CODE> を実行する一般的な方法は次の通りです。
 </P><P>
 
-<TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebndaily <VAR>�᡼�륢�ɥ쥹</VAR>...
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebndaily <VAR>メールアドレス</VAR>...
 </pre></td></tr></table></P><P>
 
-�ʲ��ϼ¹���Ǥ���
+以下は実行例です。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebndaily root@host.your.domain
 </pre></td></tr></table></P><P>
 
-2 �İʾ�Υ᡼�륢�ɥ쥹��񤯤��Ȥ�Ǥ��ޤ���
+2 つ以上のメールアドレスを書くこともできます。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebndaily root@host.your.domain root@dept.your.domain
 </pre></td></tr></table></P><P>
 
-<CODE>ebndaily</CODE> ��������󡢼�ưŪ�˼¹Ԥ���ˤϡ��ʲ��Τ褦�ʥ���ȥ�
-�򤢤ʤ��Υ����ƥ�� <TT>`crontab'</TT> �˲ä��Ʋ�������
+<CODE>ebndaily</CODE> を毎日一回、自動的に実行するには、以下のようなエントリ
+をあなたのシステムの <TT>`crontab'</TT> に加えて下さい。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>0 0 * * *    /usr/local/sbin/ebndaily root@host.your.domain
 </pre></td></tr></table></P><P>
 
-(�ܤ����ϡ������ʤΥ����ƥ�Υޥ˥奢�������������)
+(詳しくは、あたなのシステムのマニュアルをご覧下さい。)
 <BR>
-�Ȥ����ѹ��λ��꤬�ʤ���С�<CODE>ebndaily</CODE> �ϡ��Ť��ʤä� 
-syslog �ե������ <CODE>compress</CODE> ���ޥ�ɤǰ��̤���7 ����ʬ��¸���ޤ���
-���ߤ� syslog �ե����뤬 <TT>`/usr/local/var/ebnetd/log/ebnetd.log'</TT> 
-���Ȥ���ȡ��Ť��ʤä� syslog �ե�����ϼ��Τ褦����¸����ޤ���
+とくに変更の指定がなければ、<CODE>ebndaily</CODE> は、古くなった 
+syslog ファイルを <CODE>compress</CODE> コマンドで圧縮し、7 世代分保存します。
+現在の syslog ファイルが <TT>`/usr/local/var/ebnetd/log/ebnetd.log'</TT> 
+だとすると、古くなった syslog ファイルは次のように保存されます。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>/usr/local/var/ebnetd/log/ebnetd.log.0.Z
@@ -91,31 +91,31 @@ syslog �ե������ <CODE>compress</CODE> ���ޥ�ɤǰ��̤���7 ����ʬ��¸���ޤ���
 /usr/local/var/ebnetd/log/ebnetd.log.6.Z
 </pre></td></tr></table></P><P>
 
-������ syslog �ϼ������Τǥ����ơ�����󤵤�ޤ���
+これらの syslog は次の要領でローテーションされます。
 </P><P>
 
 <OL>
-<LI>��äȤ�Ť� syslog �ե����� <TT>`ebnetd.log.6.Z'</TT> ���������ޤ���
+<LI>もっとも古い syslog ファイル <TT>`ebnetd.log.6.Z'</TT> が削除されます。
 <P>
 
-<LI>¾�� <TT>`ebnetd.log.<VAR>n</VAR>.Z'</TT> �ե�����ϡ�
-<TT>`ebnetd.log.<VAR>n+1</VAR>.Z'</TT> �˲�̾����ޤ���
+<LI>他の <TT>`ebnetd.log.<VAR>n</VAR>.Z'</TT> ファイルは、
+<TT>`ebnetd.log.<VAR>n+1</VAR>.Z'</TT> に改名されます。
 <P>
 
-<LI>���ߤ� syslog �ե����� <TT>`ebnetd.log'</TT> �� <TT>`ebnetd.log.0'</TT> ��
-���ԡ�����ޤ���
+<LI>現在の syslog ファイル <TT>`ebnetd.log'</TT> は <TT>`ebnetd.log.0'</TT> に
+コピーされます。
 <P>
 
-<LI><TT>`ebnetd.log.0'</TT> �ϡ�<CODE>compress</CODE> �ǰ��̤��졢�ե�����̾��
-<TT>`ebnetd.log.0.Z'</TT> ���Ѥ��ޤ���
+<LI><TT>`ebnetd.log.0'</TT> は、<CODE>compress</CODE> で圧縮され、ファイル名が
+<TT>`ebnetd.log.0.Z'</TT> に変わります。
 <P>
 
-<LI>���ߤ� syslog file <TT>`ebnetd.log'</TT> �����Ƥ����ꥢ����ޤ���
+<LI>現在の syslog file <TT>`ebnetd.log'</TT> の内容がクリアされます。
 </OL>
 <P>
 
 <BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_10.html#SEC49">10.1 <CODE>ebndaily</CODE> �Υ��ץ����</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_10.html#SEC49">10.1 <CODE>ebndaily</CODE> のオプション</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
 </TABLE></BLOCKQUOTE>
 <P>
 
@@ -133,75 +133,75 @@ syslog �ե������ <CODE>compress</CODE> ���ޥ�ɤǰ��̤���7 ����ʬ��¸���ޤ���
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 10.1 <CODE>ebndaily</CODE> �Υ��ץ���� </H2>
+<H2> 10.1 <CODE>ebndaily</CODE> のオプション </H2>
 <!--docid::SEC49::-->
 <P>
 
-<CODE>ebndaily</CODE> ���ޥ�ɤϡ�����Ū�ʰ�ʸ�����ץ����̾�ȳФ��䤹��Ĺ��
-���ץ����̾��ξ���򰷤����Ȥ��Ǥ��ޤ���
-Ĺ�����ץ����̾��ɽ���ˤϡ�<SAMP>`-'</SAMP> �ǤϤʤ� <SAMP>`--'</SAMP> ���Ѥ��ޤ���
-���ץ����̾����դ˷�ޤ��ϰ���ǡ�̾���θ�����ʬ���ά���뤳�Ȥ�
-�Ǥ��ޤ���
+<CODE>ebndaily</CODE> コマンドは、伝統的な一文字オプション名と覚えやすい長い
+オプション名の両方を扱うことができます。
+長いオプション名を表すには、<SAMP>`-'</SAMP> ではなく <SAMP>`--'</SAMP> を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
 </P><P>
 
-<CODE>ebndaily</CODE> ���ޥ�ɤϰʲ��˵󤲤����ץ������᤹�뤳�Ȥ�
-�Ǥ��ޤ���
+<CODE>ebndaily</CODE> コマンドは以下に挙げたオプションを解釈することが
+できます。
 </P><P>
 
 <DL COMPACT>
-<DT><CODE>-a <VAR>����</VAR></CODE>
-<DD><DT><CODE>--ages <VAR>����</VAR></CODE>
-<DD>�Ť� syslog �ե������ <VAR>����</VAR> ����ʬ������¸���ޤ���
-̵������� <SAMP>`7'</SAMP> �Ǥ���
+<DT><CODE>-a <VAR>整数</VAR></CODE>
+<DD><DT><CODE>--ages <VAR>整数</VAR></CODE>
+<DD>古い syslog ファイルを <VAR>整数</VAR> 世代分だけ保存します。
+無指定時は <SAMP>`7'</SAMP> です。
 <P>
 
-<DT><CODE>-c <VAR>���̥ץ������</VAR></CODE>
-<DD><DT><CODE>--compressor <VAR>���̥ץ������</VAR></CODE>
-<DD>�Ť��ʤä� syslog �ե�����򰵽̤���ץ���������ꤷ�ޤ���
-<VAR>���̥ץ������</VAR> �ϡ�<SAMP>`compress'</SAMP>��<SAMP>`gzip'</SAMP>��<SAMP>`bzip2'</SAMP>��
-<SAMP>`none'</SAMP> �Τ����Τ����줫�Ǥʤ��ƤϤʤ�ޤ���
-̵������ϡ�<SAMP>`compress'</SAMP> �Ǥ���
+<DT><CODE>-c <VAR>圧縮プログラム</VAR></CODE>
+<DD><DT><CODE>--compressor <VAR>圧縮プログラム</VAR></CODE>
+<DD>古くなった syslog ファイルを圧縮するプログラムを指定します。
+<VAR>圧縮プログラム</VAR> は、<SAMP>`compress'</SAMP>、<SAMP>`gzip'</SAMP>、<SAMP>`bzip2'</SAMP>、
+<SAMP>`none'</SAMP> のうちのいずれかでなくてはなりません。
+無指定時は、<SAMP>`compress'</SAMP> です。
 <P>
 
-<SAMP>`compress'</SAMP> ����ꤹ�뤫��<SAMP>`--compressor'</SAMP> (<SAMP>`-c'</SAMP>) ���ץ����
-���Ѥ��ʤ��ä����ϡ�<SAMP>`compress'</SAMP> ���ޥ�ɤˤ�밵�̤��Ԥ�졢
-���̤��줿�ե�����ˤϳ�ĥ�� <TT>`.Z'</TT> ���ղä���ޤ���
-<SAMP>`gzip'</SAMP> ����ꤷ�����ϡ�<SAMP>`gzip'</SAMP> ���ޥ�ɤˤ�밵�̤��Ԥ�졢
-���̤��줿�ե�����ˤϳ�ĥ�� <TT>`.gz'</TT> ���ղä���ޤ���
-<SAMP>`bzip2'</SAMP> ����ꤷ�����ϡ�<SAMP>`bzip2'</SAMP> ���ޥ�ɤˤ�밵�̤��Ԥ�졢
-���̤��줿�ե�����ˤϳ�ĥ�� <TT>`.bz2'</TT> ���ղä���ޤ���
-<SAMP>`none'</SAMP> ����ꤷ�����ϡ����̤ϹԤ�줺���ե�����γ�ĥ�Ҥ�
-�Ѥ��ޤ���
+<SAMP>`compress'</SAMP> を指定するか、<SAMP>`--compressor'</SAMP> (<SAMP>`-c'</SAMP>) オプション
+を用いなかった場合は、<SAMP>`compress'</SAMP> コマンドによる圧縮が行われ、
+圧縮されたファイルには拡張子 <TT>`.Z'</TT> が付加されます。
+<SAMP>`gzip'</SAMP> を指定した場合は、<SAMP>`gzip'</SAMP> コマンドによる圧縮が行われ、
+圧縮されたファイルには拡張子 <TT>`.gz'</TT> が付加されます。
+<SAMP>`bzip2'</SAMP> を指定した場合は、<SAMP>`bzip2'</SAMP> コマンドによる圧縮が行われ、
+圧縮されたファイルには拡張子 <TT>`.bz2'</TT> が付加されます。
+<SAMP>`none'</SAMP> を指定した場合は、圧縮は行われず、ファイルの拡張子も
+変わりません。
 </P><P>
 
-<DT><CODE>-l <VAR>�ե�����</VAR></CODE>
-<DD><DT><CODE>--log-file <VAR>�ե�����</VAR></CODE>
-<DD>���ߤ� syslog �ե��������ꤷ�ޤ���
+<DT><CODE>-l <VAR>ファイル</VAR></CODE>
+<DD><DT><CODE>--log-file <VAR>ファイル</VAR></CODE>
+<DD>現在の syslog ファイルを指定します。
 <BR>
-EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ��ޥ����ͭ�ι���
-���줦��ǡ������֤��ǥ��쥯�ȥ� (<CODE>localstatedir</CODE>) �����
-�����ե����뤬�֤����ǥ��쥯�ȥ� (<CODE>--with-logdir</CODE> �ǻ���) ���ѹ�
-���Ƥ��ʤ���С�̵������Ǥ� <TT>`/usr/local/var/ebnetd/log/ebnetd.log'</TT>
-�ˤʤ�ޤ���
-̵������Υե�����̾�ϡ��إ�ץ�å���������˵�����Ƥ��ޤ���
+EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、マシン固有の更新
+されうるデータを置くディレクトリ (<CODE>localstatedir</CODE>) および
+ログファイルが置かれるディレクトリ (<CODE>--with-logdir</CODE> で指定) を変更
+していなければ、無指定時では <TT>`/usr/local/var/ebnetd/log/ebnetd.log'</TT>
+になります。
+無指定時のファイル名は、ヘルプメッセージの中に記されています。
 <P>
 
 <DT><CODE>-h</CODE>
 <DD><DT><CODE>--help</CODE>
-<DD>�إ�ץ�å�������ɸ����Ϥ˽��Ϥ��ơ���λ���ޤ���
+<DD>ヘルプメッセージを標準出力に出力して、終了します。
 <P>
 
 <DT><CODE>-v</CODE>
 <DD><DT><CODE>--version</CODE>
-<DD>�С�������ֹ��ɸ����Ϥ˽��Ϥ��ơ���λ���ޤ���
+<DD>バージョン番号を標準出力に出力して、終了します。
 <P>
 
 <DT><CODE>-<VAR>n</VAR></CODE>
 <DD><DT><CODE>--fast</CODE>
 <DD><DT><CODE>--best</CODE>
-<DD>�����Υ��ץ����� <CODE>gzip</CODE>, <CODE>bzip2</CODE> ���Ϥ���ޤ�
-(<CITE>Gzip User's Manual</CITE> �Ρ�Invoking <CODE>gzip</CODE>����򻲾�)��
-<CODE>gzip</CODE>, <CODE>bzip2</CODE> ����Ѥ��ʤ��Ȥ��ϡ������̵�뤵��ޤ���
+<DD>これらのオプションは <CODE>gzip</CODE>, <CODE>bzip2</CODE> に渡されます
+(<CITE>Gzip User's Manual</CITE> の「Invoking <CODE>gzip</CODE>」節を参照)。
+<CODE>gzip</CODE>, <CODE>bzip2</CODE> を使用しないときは、たんに無視されます。
 </DL>
 <P>
 

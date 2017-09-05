@@ -35,58 +35,58 @@ Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H1> 9. �����Фν�λ����Ӻƻ�ư </H1>
+<H1> 9. サーバの終了および再始動 </H1>
 <!--docid::SEC45::-->
 <P>
 
-<CODE>ebncontrol</CODE> ���ޥ�ɤ��Ѥ��뤳�Ȥǡ����ߥ�����ɥ�����Υǡ����
-�Ȥ������äƤ��� <CODE>ebnetd</CODE> �ץ�������λ�������ꡢ������λ���ƻ�ư
-�������ꤹ�뤳�Ȥ��Ǥ��ޤ���
-EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�����Ѥ�
-���ޥ�ɤ��֤��ǥ��쥯�ȥ� (<CODE>sbindir</CODE>) �ΰ��֤��ѹ����Ƥ��ʤ���С�
-<CODE>ebncontrol</CODE> �� <TT>`/usr/local/sbin'</TT> �˥��󥹥ȡ��뤵��Ƥ��ޤ���
-������� <CODE>ebnetd</CODE> ��λ������ˤϼ��Τ褦�ˤ��ޤ���
+<CODE>ebncontrol</CODE> コマンドを用いることで、現在スタンドアロンのデーモン
+として走っている <CODE>ebnetd</CODE> プロセスを終了させたり、強制終了、再始動
+させたりすることができます。
+EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (<CODE>sbindir</CODE>) の位置を変更していなければ、
+<CODE>ebncontrol</CODE> は <TT>`/usr/local/sbin'</TT> にインストールされています。
+走行中の <CODE>ebnetd</CODE> を終了させるには次のようにします。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebncontrol terminate
 </pre></td></tr></table></P><P>
 
-<CODE>ebnetd</CODE> �ϼ��Ȥ� PID �����ѥǥ��쥯�ȥ�β��Υե����� 
-<TT>`ebnetd.pid'</TT> �˵�Ͽ���ޤ�
-(��<A HREF="ebnetd-ja_5.html#SEC24">��ȥǥ��쥯�ȥ�</A>����򻲾�)��
-<CODE>ebncontrol</CODE> �ϡ�������� <CODE>ebnetd</CODE> �ץ������� PID ���Τ뤿���
-���� PID �ե��������Ȥ��ɤߡ����� PID ���Ф��ƥ����ʥ������ޤ���
+<CODE>ebnetd</CODE> は自身の PID を作業用ディレクトリの下のファイル 
+<TT>`ebnetd.pid'</TT> に記録します
+(「<A HREF="ebnetd-ja_5.html#SEC24">作業ディレクトリ</A>」節を参照)。
+<CODE>ebncontrol</CODE> は、走行中の <CODE>ebnetd</CODE> プロセスの PID を知るために
+この PID ファイルの中身を読み、その PID に対してシグナルを送ります。
 </P><P>
 
-<CODE>ebnetd</CODE> ������˽�λ����С�PID �ե������ <CODE>ebnetd</CODE> ���Ȥ�
-��äƺ������ޤ���
-�������ʤ��顢<CODE>ebnetd</CODE> ���۾ｪλ�����Ȥ��ϡ�PID �ե�����Ϻ��
-����ޤ���
-���ξ�硢�Ĥ��줿 PID �ե�����˵��Ҥ��줿 PID �ϡ����¾�Υץ�������
-������Ƥ����ǽ��������ޤ���
-<CODE>ebncontrol</CODE> �μ¹ԤϿ��Ť˹ԤäƲ�������
-<CODE>ebncontrol</CODE> �ϡ������� <CODE>ebnetd</CODE> �ץ�������¸�ߤ��뤫�ɤ�����
-�Ĥ��Ƥϡ��Τ���ޤ���
-<CODE>ebnetd</CODE> �ץ�������¸�ߤ��ʤ��Τ� PID �ե���������ĤäƤ���ȡ�
-<CODE>ebncontrol</CODE> ��¾�Υץ������˥����ʥ�����äƤ��ޤ������Τ�ޤ���
+<CODE>ebnetd</CODE> が正常に終了すれば、PID ファイルは <CODE>ebnetd</CODE> 自身に
+よって削除されます。
+しかしながら、<CODE>ebnetd</CODE> が異常終了したときは、PID ファイルは削除
+されません。
+この場合、残された PID ファイルに記述された PID は、後で他のプロセスに
+割り当てられる可能性があります。
+<CODE>ebncontrol</CODE> の実行は慎重に行って下さい。
+<CODE>ebncontrol</CODE> は、本当に <CODE>ebnetd</CODE> プロセスが存在するかどうかに
+ついては、確かめません。
+<CODE>ebnetd</CODE> プロセスが存在しないのに PID ファイルだけ残っていると、
+<CODE>ebncontrol</CODE> は他のプロセスにシグナルを送ってしまうかも知れません。
 </P><P>
 
-<CODE>ebncontrol</CODE> �� <CODE>ebnetd</CODE> ������ե�������ɤ߹��ߡ������
-�ǥ��쥯�ȥ�ΰ��֤�Ĵ�٤ޤ���
-�ǥ��쥯�ȥ�ΰ��֤ϡ�����ե��������ñ�Ȼؼ��� <CODE>work-path</CODE>
-��������뤳�Ȥ��Ǥ��ޤ� (��<A HREF="ebnetd-ja_3.html#SEC14"><CODE>work-path</CODE></A>����򻲾�)��
-̵�����������ե�����Υե�����̾�������ñ�Ȼؼ��� <CODE>work-path</CODE>
-���ͤ� <CODE>ebnetd</CODE> ��Ʊ���Ǥ���
+<CODE>ebncontrol</CODE> は <CODE>ebnetd</CODE> の設定ファイルを読み込み、作業用
+ディレクトリの位置を調べます。
+ディレクトリの位置は、設定ファイル中の単独指示子 <CODE>work-path</CODE>
+で定義することができます (「<A HREF="ebnetd-ja_3.html#SEC14"><CODE>work-path</CODE></A>」節を参照)。
+無指定時の設定ファイルのファイル名、および単独指示子 <CODE>work-path</CODE>
+の値は <CODE>ebnetd</CODE> と同じです。
 </P><P>
 
-�ޤ���<CODE>ndtpd</CODE> ����� <CODE>ebhttpd</CODE> �Τ���� <CODE>ndtpcontrol</CODE>,
-<CODE>ebhtcontrol</CODE> �����줾���Ѱդ���Ƥ��ޤ���
-������ˡ�ϡ�<CODE>ebncontrol</CODE> ��Ʊ���Ǥ���
+また、<CODE>ndtpd</CODE> および <CODE>ebhttpd</CODE> のために <CODE>ndtpcontrol</CODE>,
+<CODE>ebhtcontrol</CODE> がそれぞれ用意されています。
+使用方法は、<CODE>ebncontrol</CODE> と同じです。
 </P><P>
 
 <BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_9.html#SEC46">9.1 ���������楳�ޥ�ɤμ¹�</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_9.html#SEC47">9.2 <CODE>ebncontrol</CODE> �Υ��ץ����</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">���������楳�ޥ�ɤΥ��ץ����</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_9.html#SEC46">9.1 サーバ制御コマンドの実行</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_9.html#SEC47">9.2 <CODE>ebncontrol</CODE> のオプション</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">サーバ制御コマンドのオプション</TD></TR>
 </TABLE></BLOCKQUOTE>
 <P>
 
@@ -104,48 +104,48 @@ EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�����Ѥ�
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 9.1 ���������楳�ޥ�ɤμ¹� </H2>
+<H2> 9.1 サーバ制御コマンドの実行 </H2>
 <!--docid::SEC46::-->
 <P>
 
-���ҤΤ褦�ˡ�<CODE>ebncontrol</CODE>, <CODE>ndtpcontrol</CODE>, <CODE>ebhtcontrol</CODE>
-�ϡ����٤�Ʊ�����ޥ�ɹ԰�����Ȥ�褦�ˤʤäƤ��ޤ���
-�����Υ��ޥ�ɤΰ���Ū�ʼ¹���ˡ�ϡ������̤�Ǥ���
+前述のように、<CODE>ebncontrol</CODE>, <CODE>ndtpcontrol</CODE>, <CODE>ebhtcontrol</CODE>
+は、すべて同じコマンド行引数をとるようになっています。
+これらのコマンドの一般的な実行方法は、次の通りです。
 </P><P>
 
-<TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebncontrol <VAR>�����ޥ��</VAR>
-% /usr/local/sbin/ndtpcontrol <VAR>�����ޥ��</VAR>
-% /usr/local/sbin/ebhtcontrol <VAR>�����ޥ��</VAR>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebncontrol <VAR>副コマンド</VAR>
+% /usr/local/sbin/ndtpcontrol <VAR>副コマンド</VAR>
+% /usr/local/sbin/ebhtcontrol <VAR>副コマンド</VAR>
 </pre></td></tr></table></P><P>
 
-�����ޥ�ɤϡ��ʲ��Τ�Τ��᤹�뤳�Ȥ��Ǥ��ޤ���
-�����ޥ��̾����դ˷�ޤ��ϰ���ǡ�̾���θ�����ʬ���ά���뤳�Ȥ�
-�Ǥ��ޤ���
+副コマンドは、以下のものを解釈することができます。
+副コマンド名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
 </P><P>
 
 <DL COMPACT>
 <DT><CODE>kill</CODE>
-<DD>�������äƤ��륵���Хץ�����������λ�����ޤ� (<CODE>SIGKILL</CODE> �����ʥ�
-������ޤ�)��
-�ޤ������������楳�ޥ�ɤ��������Хץ������� PID �ե������õ�ޤ���
-���������ޥ�ɤ����ˡ��ޤ� <CODE>terminate</CODE> ����˻�٤��Ǥ���
+<DD>現在走っているサーバプロセスを強制終了させます (<CODE>SIGKILL</CODE> シグナル
+を送ります)。
+また、サーバ制御コマンドが、サーバプロセスの PID ファイルを消去します。
+この副コマンドを試す前に、まず <CODE>terminate</CODE> を先に試すべきです。
 <P>
 
 <DT><CODE>restart</CODE>
-<DD>�������äƤ��륵���Хץ�������ƻ�ư�����ޤ�
-(<CODE>SIGHUP</CODE> �����ʥ������ޤ�)��
-�����Хץ������Ϥ��٤Ƥ� TCP ���ͥ��������Ĥ�������ե������
-�ɤ߹���ľ���ޤ���
+<DD>現在走っているサーバプロセスを再始動させます
+(<CODE>SIGHUP</CODE> シグナルを送ります)。
+サーバプロセスはすべての TCP コネクションを閉じ、設定ファイルを
+読み込み直します。
 <P>
 
 <DT><CODE>status</CODE>
-<DD>�����Хץ����������äƤ��뤫�ɤ���Ĵ�١���̤�ɸ�२�顼���Ϥ˽��Ϥ��ޤ���
-���������ޥ�ɤϡ������Ф˥����ʥ�����뤳�ȤϤ��ޤ���
+<DD>サーバプロセスが走っているかどうか調べ、結果を標準エラー出力に出力します。
+この副コマンドは、サーバにシグナルを送ることはしません。
 <P>
 
 <DT><CODE>terminate</CODE>
-<DD>�������äƤ��� �����Хץ�������λ�����ޤ�
-(<CODE>SIGTERM</CODE> �����ʥ������ޤ�)��
+<DD>現在走っている サーバプロセスを終了させます
+(<CODE>SIGTERM</CODE> シグナルを送ります)。
 </DL>
 <P>
 
@@ -163,37 +163,37 @@ EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�����Ѥ�
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 9.2 <CODE>ebncontrol</CODE> �Υ��ץ���� </H2>
+<H2> 9.2 <CODE>ebncontrol</CODE> のオプション </H2>
 <!--docid::SEC47::-->
 <P>
 
-<CODE>ebncontrol</CODE>, <CODE>ndtpcontrol</CODE>, <CODE>ebhtcontrol</CODE> ���ޥ�ɤϡ�
-����Ū�ʰ�ʸ�����ץ����̾�ȳФ��䤹��Ĺ�����ץ����̾��ξ���򰷤�����
-���Ǥ��ޤ���
-Ĺ�����ץ����̾��ɽ���ˤϡ�<SAMP>`-'</SAMP> �ǤϤʤ� <SAMP>`--'</SAMP> ���Ѥ��ޤ���
-���ץ����̾����դ˷�ޤ��ϰ���ǡ�̾���θ�����ʬ���ά���뤳�Ȥ�
-�Ǥ��ޤ���
+<CODE>ebncontrol</CODE>, <CODE>ndtpcontrol</CODE>, <CODE>ebhtcontrol</CODE> コマンドは、
+伝統的な一文字オプション名と覚えやすい長いオプション名の両方を扱うこと
+ができます。
+長いオプション名を表すには、<SAMP>`-'</SAMP> ではなく <SAMP>`--'</SAMP> を用います。
+オプション名が一意に決まる範囲内で、名前の後方部分を省略することが
+できます。
 </P><P>
 
-<CODE>ebncontrol</CODE>, <CODE>ndtpcontrol</CODE>, <CODE>ebhtcontrol</CODE> �ϰʲ��˵󤲤�
-���ץ������᤹�뤳�Ȥ��Ǥ��ޤ���
+<CODE>ebncontrol</CODE>, <CODE>ndtpcontrol</CODE>, <CODE>ebhtcontrol</CODE> は以下に挙げた
+オプションを解釈することができます。
 </P><P>
 
 <DL COMPACT>
-<DT><CODE>-c <VAR>�ե�����</VAR></CODE>
-<DD><DT><CODE>--configuration-file <VAR>�ե�����</VAR></CODE>
-<DD>����ե��������ꤷ�ޤ���
-̵������Υե�����̾�ϡ��إ�ץ�å���������˵�����Ƥ��ޤ���
+<DT><CODE>-c <VAR>ファイル</VAR></CODE>
+<DD><DT><CODE>--configuration-file <VAR>ファイル</VAR></CODE>
+<DD>設定ファイルを指定します。
+無指定時のファイル名は、ヘルプメッセージの中に記されています。
 <P>
 
 <DT><CODE>-h</CODE>
 <DD><DT><CODE>--help</CODE>
-<DD>�إ�ץ�å�������ɸ����Ϥ˽��Ϥ��ơ���λ���ޤ���
+<DD>ヘルプメッセージを標準出力に出力して、終了します。
 <P>
 
 <DT><CODE>-v</CODE>
 <DD><DT><CODE>--version</CODE>
-<DD>�С�������ֹ��ɸ����Ϥ˽��Ϥ��ơ���λ���ޤ���
+<DD>バージョン番号を標準出力に出力して、終了します。
 </DL>
 <P>
 

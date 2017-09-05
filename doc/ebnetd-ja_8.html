@@ -35,26 +35,26 @@ Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H1> 8. <CODE>ebhttpd</CODE> �ε�ư </H1>
+<H1> 8. <CODE>ebhttpd</CODE> の起動 </H1>
 <!--docid::SEC39::-->
 <P>
 
-���ʤ��Υ����ƥ�Ǥ� <CODE>ebhttpd</CODE> ��ɬ�פȤ��ʤ��ʤ顢���ξϤ�
-�ɤ����Ф��Ʋ�������
+あなたのシステムでは <CODE>ebhttpd</CODE> を必要としないなら、この章は
+読み飛ばして下さい。
 </P><P>
 
-<CODE>ebhttpd</CODE> �⡢������ɥ�����Υǡ����Ȥ��Ƶ�ư����������
-<CODE>inted</CODE> �λҥץ������Ȥ��Ƶ�ư���������Ρ�2 �Ĥμ¹ԥ⡼�ɤ�
-���äƤ��ޤ���
-���꤬�ʤ���С�<CODE>ebhttpd</CODE> �ϥ�����ɥ�����Υǡ����Ȥ��Ƶ�ư���ޤ���
+<CODE>ebhttpd</CODE> も、スタンドアロンのデーモンとして起動するやり方と
+<CODE>inted</CODE> の子プロセスとして起動するやり方の、2 つの実行モードを
+持っています。
+指定がなければ、<CODE>ebhttpd</CODE> はスタンドアロンのデーモンとして起動します。
 </P><P>
 
 <BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_8.html#SEC40">8.1 <CODE>ebhttpd</CODE> �򥹥���ɥ�����ǵ�ư</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_8.html#SEC41">8.2 <CODE>ebhttpd</CODE> �� <CODE>inetd</CODE> ��ͳ�ǵ�ư</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_8.html#SEC42">8.3 <CODE>ebhttpd</CODE> �� <CODE>xinetd</CODE> ��ͳ�ǵ�ư</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_8.html#SEC43">8.4 <CODE>telnet</CODE> �ˤ�� <CODE>ebhttpd</CODE> �γ�ǧ</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_8.html#SEC44">8.5 <CODE>ebhttpd</CODE> �Υ��ץ����</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_8.html#SEC40">8.1 <CODE>ebhttpd</CODE> をスタンドアロンで起動</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_8.html#SEC41">8.2 <CODE>ebhttpd</CODE> を <CODE>inetd</CODE> 経由で起動</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_8.html#SEC42">8.3 <CODE>ebhttpd</CODE> を <CODE>xinetd</CODE> 経由で起動</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_8.html#SEC43">8.4 <CODE>telnet</CODE> による <CODE>ebhttpd</CODE> の確認</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_8.html#SEC44">8.5 <CODE>ebhttpd</CODE> のオプション</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
 </TABLE></BLOCKQUOTE>
 <P>
 
@@ -72,20 +72,20 @@ Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 8.1 <CODE>ebhttpd</CODE> �򥹥���ɥ�����ǵ�ư </H2>
+<H2> 8.1 <CODE>ebhttpd</CODE> をスタンドアロンで起動 </H2>
 <!--docid::SEC40::-->
 <P>
 
-<CODE>ebhttpd</CODE> �򥹥���ɥ�����Υǡ����Ȥ��Ƶ�ư����ˤϡ����Τ褦��
-���ޥ�ɤ�¹Ԥ��Ʋ������������ѡ��桼���θ��¤�ɬ�פ����Τ�ޤ���
+<CODE>ebhttpd</CODE> をスタンドアロンのデーモンとして起動するには、次のように
+コマンドを実行して下さい。スーパーユーザの権限が必要かも知れません。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% /usr/local/sbin/ebhttpd
 </pre></td></tr></table></P><P>
 
-EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�����Ѥ�
-���ޥ�ɤ��֤��ǥ��쥯�ȥ� (<CODE>sbindir</CODE>) �ΰ��֤��ѹ����Ƥ��ʤ���С�
-<CODE>ebhttpd</CODE> �� <TT>`/usr/local/sbin'</TT> �˥��󥹥ȡ��뤵��Ƥ��ޤ���
+EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、システム管理用の
+コマンドを置くディレクトリ (<CODE>sbindir</CODE>) の位置を変更していなければ、
+<CODE>ebhttpd</CODE> は <TT>`/usr/local/sbin'</TT> にインストールされています。
 </P><P>
 
 <A NAME="ebhttpd Child of inetd"></A>
@@ -102,50 +102,50 @@ EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�����Ѥ�
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 8.2 <CODE>ebhttpd</CODE> �� <CODE>inetd</CODE> ��ͳ�ǵ�ư </H2>
+<H2> 8.2 <CODE>ebhttpd</CODE> を <CODE>inetd</CODE> 経由で起動 </H2>
 <!--docid::SEC41::-->
 <P>
 
-<CODE>ebhttpd</CODE> �� <CODE>inetd</CODE> �λҥץ������Ȥ��Ƶ�ư�ˤϡ����μ�礬ɬ��
-�ˤʤ�ޤ���
-���Υ���ȥ�� <TT>`inetd.conf'</TT> �ե����� (����ξ�� <TT>`/etc/inetd.conf'</TT>)
-�˲ä��ޤ���
-<SAMP>`--inetd'</SAMP> (�ޤ��� <SAMP>`-i'</SAMP>) ���ץ�����­���Τ�˺��ʤ��褦�ˤ���
-��������
+<CODE>ebhttpd</CODE> を <CODE>inetd</CODE> の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを <TT>`inetd.conf'</TT> ファイル (大抵の場合 <TT>`/etc/inetd.conf'</TT>)
+に加えます。
+<SAMP>`--inetd'</SAMP> (または <SAMP>`-i'</SAMP>) オプションを足すのを忘れないようにして
+下さい。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>http  stream  tcp  nowait  root  /usr/local/sbin/ebhttpd ebhttpd --inetd
 </pre></td></tr></table></P><P>
 
-(��������EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�
-�����ѤΥ��ޥ�ɤ��֤��ǥ��쥯�ȥ� (<CODE>sbindir</CODE>) �ΰ��֤��ѹ����Ƥ��ʤ�
-�Ȳ��ꤷ�Ƥ��ޤ���)
+(ただし、EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (<CODE>sbindir</CODE>) の位置を変更していない
+と仮定しています。)
 </P><P>
 
-���Ԥ��Ƥ��� <CODE>inetd</CODE> �ץ������� PID ��õ���Ф��ޤ���
-BSD �ϤΥ����ƥ�Ǥϡ����Τ褦�ˤ��ޤ���
+走行している <CODE>inetd</CODE> プロセスの PID を探し出します。
+BSD 系のシステムでは、次のようにします。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% ps axuww | grep inetd
 </pre></td></tr></table></P><P>
 
-SYSV �ϤΥ����ƥ�ʤ顢���Τ褦�ˤ��ޤ���
+SYSV 系のシステムなら、次のようにします。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% ps -ef | grep inetd
 </pre></td></tr></table></P><P>
 
-(�ܤ����ϡ����ʤ��Υ����ƥ�Υޥ˥奢�������������)
+(詳しくは、あなたのシステムのマニュアルをご覧下さい。)
 <BR>
-<CODE>inetd</CODE> �����äƤ���ʤ�С����Τ褦�ʹԤ����Ĥ���Ϥ��Ǥ���
+<CODE>inetd</CODE> が走っているならば、次のような行が見つかるはずです。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 inetd
 </pre></td></tr></table></P><P>
 
-���Ĥ��ä��ʤ�С��ϥ󥰥��åץ����ʥ� (<CODE>SIGHUP</CODE>) �� <CODE>inetd</CODE>
-������ޤ���
-�����餯�������ѡ��桼���θ��¤�ɬ�פǤ���
+見つかったならば、ハングアップシグナル (<CODE>SIGHUP</CODE>) を <CODE>inetd</CODE>
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% kill -HUP 79
@@ -165,22 +165,22 @@ SYSV �ϤΥ����ƥ�ʤ顢���Τ褦�ˤ��ޤ���
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 8.3 <CODE>ebhttpd</CODE> �� <CODE>xinetd</CODE> ��ͳ�ǵ�ư </H2>
+<H2> 8.3 <CODE>ebhttpd</CODE> を <CODE>xinetd</CODE> 経由で起動 </H2>
 <!--docid::SEC42::-->
 <P>
 
-Linux �����ƥ�ˤϡ�����Ū�� <CODE>inetd</CODE> ������� <CODE>xinetd</CODE> ��
-���Ѥ��Ƥ����Τ⤢��ޤ���
-<CODE>xinetd</CODE> ������ե������ʸˡ�ϡ�����Ū�� <CODE>inetd</CODE> ������ե�����
-��ʸˡ�Ȥϰۤʤ�ޤ���
+Linux システムには、伝統的な <CODE>inetd</CODE> の代わりに <CODE>xinetd</CODE> を
+使用しているものもあります。
+<CODE>xinetd</CODE> の設定ファイルの文法は、伝統的な <CODE>inetd</CODE> の設定ファイル
+の文法とは異なります。
 </P><P>
 
-<CODE>ebhttpd</CODE> �� <CODE>xinetd</CODE> �λҥץ������Ȥ��Ƶ�ư�ˤϡ����μ�礬ɬ��
-�ˤʤ�ޤ���
-���Υ���ȥ������ե����� (����ξ�� <TT>`/etc/xinetd.d/http'</TT>) ��
-�ä��ޤ���
-<SAMP>`--inetd'</SAMP> (�ޤ��� <SAMP>`-i'</SAMP>) ���ץ�����­���Τ�˺��ʤ��褦�ˤ���
-��������
+<CODE>ebhttpd</CODE> を <CODE>xinetd</CODE> の子プロセスとして起動には、次の手順が必要
+になります。
+次のエントリを設定ファイル (大抵の場合 <TT>`/etc/xinetd.d/http'</TT>) に
+加えます。
+<SAMP>`--inetd'</SAMP> (または <SAMP>`-i'</SAMP>) オプションを足すのを忘れないようにして
+下さい。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre># default: off
@@ -197,27 +197,27 @@ service http
 }
 </pre></td></tr></table></P><P>
 
-(��������EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ������ƥ�
-�����ѤΥ��ޥ�ɤ��֤��ǥ��쥯�ȥ� (<CODE>sbindir</CODE>) �ΰ��֤��ѹ����Ƥ���
-���Ȳ��ꤷ�Ƥ��ޤ���)
+(ただし、EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、システム
+管理用のコマンドを置くディレクトリ (<CODE>sbindir</CODE>) の位置を変更していな
+いと仮定しています。)
 </P><P>
 
-���Ԥ��Ƥ��� <CODE>xinetd</CODE> �ץ������� PID ��õ���Ф��ޤ���
+走行している <CODE>xinetd</CODE> プロセスの PID を探し出します。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% ps axuww | grep xinetd
 </pre></td></tr></table></P><P>
 
 <BR>
-<CODE>xinetd</CODE> �����äƤ���ʤ�С����Τ褦�ʹԤ����Ĥ���Ϥ��Ǥ���
+<CODE>xinetd</CODE> が走っているならば、次のような行が見つかるはずです。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>root        79  0.0  1.1   224  340  ??  Is   10:04PM    0:00.29 xinetd
 </pre></td></tr></table></P><P>
 
-���Ĥ��ä��ʤ�С�USER2 �����ʥ� (<CODE>SIGUSR2</CODE>) �� <CODE>xinetd</CODE>
-������ޤ���
-�����餯�������ѡ��桼���θ��¤�ɬ�פǤ���
+見つかったならば、USER2 シグナル (<CODE>SIGUSR2</CODE>) を <CODE>xinetd</CODE>
+に送ります。
+おそらく、スーパーユーザの権限が必要です。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% kill -USR2 79
@@ -237,39 +237,39 @@ service http
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 8.4 <CODE>telnet</CODE> �ˤ�� <CODE>ebhttpd</CODE> �γ�ǧ </H2>
+<H2> 8.4 <CODE>telnet</CODE> による <CODE>ebhttpd</CODE> の確認 </H2>
 <!--docid::SEC43::-->
 <P>
 
-���åȥ��åפ����٤ƴ�λ�����顢<CODE>telnet</CODE> ���ޥ�ɤ��Ѥ��� 
-<CODE>ebhttpd</CODE> ����³���Ƥߤޤ��礦��
+セットアップがすべて完了したら、<CODE>telnet</CODE> コマンドを用いて 
+<CODE>ebhttpd</CODE> に接続してみましょう。
 </P><P>
 
-�ޤ������Τ褦�����Ϥ��ޤ���
-������Ǥϡ�localhost ��� <CODE>ebhttpd</CODE> ����³���Ƥ��ޤ���
+まず、次のように入力します。
+この例では、localhost 上の <CODE>ebhttpd</CODE> に接続しています。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>% telnet localhost http
 </pre></td></tr></table></P><P>
 
-<CODE>ebhttpd</CODE> ����³������դ���С����Τ褦�ʥ�å�������ɽ������ޤ���
+<CODE>ebhttpd</CODE> が接続を受け付ければ、次のようなメッセージが表示されます。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>Connected to localhost.
 Escape character is '^]'.
 </pre></td></tr></table></P><P>
 
-�����ǡ����Τ褦�˥ꥯ�����Ȥ����Ϥ��ޤ���
+ここで、次のようにリクエストを入力します。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>GET / HTTP/1.0
 
 </pre></td></tr></table></P><P>
 
-���Υꥯ�����Ȥ� 2 �Ԥ���ʤꡢ2 ���ܤ϶��ԤǤ��Τǡ����դ��Ʋ�������
+このリクエストは 2 行からなり、2 行目は空行ですので、注意して下さい。
 </P><P>
 
-<CODE>ebhttpd</CODE> �������ư���Ƥ���С����Τ褦�ʱ����������ޤ���
+<CODE>ebhttpd</CODE> が正常に動いていれば、次のような応答が得られます。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>HTTP/1.1 200 Ok
@@ -280,7 +280,7 @@ Content-Type: text/html; charset="euc-jp"
 &#60;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"&#62;
 &#60;html&#62;
 &#60;head&#62;
- (�ʲ�ά)
+ (以下略)
 </pre></td></tr></table></P><P>
 
 <A NAME="ebhttpd Options"></A>
@@ -297,13 +297,13 @@ Content-Type: text/html; charset="euc-jp"
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 8.5 <CODE>ebhttpd</CODE> �Υ��ץ���� </H2>
+<H2> 8.5 <CODE>ebhttpd</CODE> のオプション </H2>
 <!--docid::SEC44::-->
 <P>
 
-<CODE>ebhttpd</CODE> �Υ��ޥ�ɹԤλ�����ˡ�ϡ�<CODE>ebnetd</CODE> ��Ʊ���Ǥ���
-�ܤ����ϡ���<A HREF="ebnetd-ja_6.html#SEC32"><CODE>ebnetd</CODE> �Υ��ץ����</A>����򻲾� ��
-���Ȥ��Ʋ�������
+<CODE>ebhttpd</CODE> のコマンド行の指定方法は、<CODE>ebnetd</CODE> と同じです。
+詳しくは、「<A HREF="ebnetd-ja_6.html#SEC32"><CODE>ebnetd</CODE> のオプション</A>」節を参照 を
+参照して下さい。
 </P><P>
 
 <A NAME="Terminate and Restart"></A>

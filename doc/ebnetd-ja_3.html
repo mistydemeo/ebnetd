@@ -35,39 +35,39 @@ Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H1> 3. ����ե����� </H1>
+<H1> 3. 設定ファイル </H1>
 <!--docid::SEC12::-->
 <P>
 
-<CODE>ebnetd</CODE>, <CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE> ���ư�����뤿��ˤϡ��ޤ�
-����ե�������Խ�����ɬ�פ�����ޤ���
-�����Фϡ���ư������Ӻƻ�ư���ˤ��Υե�������ɤ߹��ߤޤ���
-���Υե���������Ƥˤ�äơ������Ф��͡��ʵ�ư�����ꤵ��ޤ���
-EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ��ޥ����ͭ��
-�ɤ߹������ѤΥǡ������֤��ǥ��쥯�ȥ� (<CODE>sysconfdir</CODE>) �ΰ��֤�
-�ѹ����Ƥ��ʤ���С�̵��������ɤ߹��ޤ������ե������
-<TT>`/usr/local/etc/ebnetd.conf'</TT> �ˤʤ�ޤ���
-����ե�����ΰ��֤ϡ����ޥ�ɥ饤�󥪥ץ���� <SAMP>`--configuration-file'</SAMP>
-(���뤤�� <SAMP>`-c'</SAMP>) ���Ѥ��뤳�Ȥ��ѹ�����ǽ�Ǥ�
-(��<A HREF="ebnetd-ja_6.html#SEC32"><CODE>ebnetd</CODE> �Υ��ץ����</A>����򻲾�)��
+<CODE>ebnetd</CODE>, <CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE> を始動させるためには、まず
+設定ファイルを編集する必要があります。
+サーバは、始動時および再始動時にこのファイルを読み込みます。
+このファイルの内容によって、サーバの様々な挙動が決定されます。
+EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、マシン固有の
+読み込み専用のデータを置くディレクトリ (<CODE>sysconfdir</CODE>) の位置を
+変更していなければ、無指定時に読み込まれる設定ファイルは
+<TT>`/usr/local/etc/ebnetd.conf'</TT> になります。
+設定ファイルの位置は、コマンドラインオプション <SAMP>`--configuration-file'</SAMP>
+(あるいは <SAMP>`-c'</SAMP>) を用いることで変更が可能です
+(「<A HREF="ebnetd-ja_6.html#SEC32"><CODE>ebnetd</CODE> のオプション</A>」節を参照)。
 </P><P>
 
-����ե��������Ǥϡ����ԡ�����Ӷ���ʳ��κǽ��ʸ�����ϥå��嵭�� 
-(<SAMP>`#'</SAMP>) �Ǥ���Ԥ�̵�뤵��ޤ���
-¾�ιԤϤ��٤ơ�<EM>ñ�Ȼؼ��� (single directive)</EM> ��
-<EM>ʣ��ؼ��� (group directive)</EM> �Τ����줫�Ǥʤ��ƤϤʤ�ޤ���
-ñ�Ȼؼ��Ҥ�ʣ��ؼ��Ҥϡ��ɤΤ褦�ʽ����������Ƥ⺹���٤�����ޤ���
+設定ファイルの中では、空行、および空白以外の最初の文字がハッシュ記号 
+(<SAMP>`#'</SAMP>) である行は無視されます。
+他の行はすべて、<EM>単独指示子 (single directive)</EM> か
+<EM>複合指示子 (group directive)</EM> のいずれかでなくてはなりません。
+単独指示子と複合指示子は、どのような順序で定義しても差し支えありません。
 </P><P>
 
-�ƹԤϡ�����ʸ����ޤ� 511 ʸ����ۤ��ƤϤʤ�ޤ���
+各行は、改行文字を含め 511 文字を越えてはなりません。
 </P><P>
 
 <BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_3.html#SEC13">3.1 ñ�Ȼؼ��Ҥΰ��̷�</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_3.html#SEC14">3.2 ñ�Ȼؼ��Ҥΰ���</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_3.html#SEC15">3.3 ʣ��ؼ��Ҥΰ��̷�</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_3.html#SEC16">3.4 <CODE>book</CODE> ʣ��ؼ���</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">ʣ��ؼ��Ҥΰ���</TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_3.html#SEC17">3.5 ����ե��������</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_3.html#SEC13">3.1 単独指示子の一般形</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_3.html#SEC14">3.2 単独指示子の一覧</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_3.html#SEC15">3.3 複合指示子の一般形</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_3.html#SEC16">3.4 <CODE>book</CODE> 複合指示子</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">複合指示子の一覧</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="ebnetd-ja_3.html#SEC17">3.5 設定ファイルの例</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
 </TABLE></BLOCKQUOTE>
 <P>
 
@@ -85,28 +85,28 @@ EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ��ޥ����ͭ��
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 3.1 ñ�Ȼؼ��Ҥΰ��̷� </H2>
+<H2> 3.1 単独指示子の一般形 </H2>
 <!--docid::SEC13::-->
 <P>
 
-ñ�Ȼؼ��ҤȤϡ�1 �ԤǴ��뤹��ؼ��ҤǤ���
-ñ�Ȼؼ��Ҥΰ��̷��ϼ����̤�Ǥ���
+単独指示子とは、1 行で完結する指示子です。
+単独指示子の一般形は次の通りです。
 </P><P>
 
-<TABLE><tr><td>&nbsp;</td><td class=example><pre><VAR>�ؼ��Ҥ�̾��</VAR>    <VAR>�ؼ��Ҥ���</VAR>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre><VAR>指示子の名前</VAR>    <VAR>指示子の値</VAR>
 </pre></td></tr></table></P><P>
 
-�ʲ�����Ǥϡ�<CODE>syslog-facility</CODE> ���ؼ��Ҥ�̾����<SAMP>`local0'</SAMP> ��
-�����ͤǤ���
+以下の例では、<CODE>syslog-facility</CODE> が指示子の名前、<SAMP>`local0'</SAMP> が
+その値です。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>syslog-facility    local0
 </pre></td></tr></table></P><P>
 
-�ؼ���̾����ʸ���Ⱦ�ʸ���϶��̤���ޤ��Τǡ�<SAMP>`syslog-facility'</SAMP>
-�� <SAMP>`Syslog-Facility'</SAMP> �Ƚ񤯤��ȤϤǤ��ޤ���
-�ؼ��Ҥ�̾�����ͤζ��ڤ�ˤϡ����򤫥��֤��Ѥ��ޤ���
-Ϣ³��������ȥ��֤�����Ƭ����ӹ����ˤ��ä���硢������̵�뤵��ޤ���
+指示子名の大文字と小文字は区別されますので、<SAMP>`syslog-facility'</SAMP>
+を <SAMP>`Syslog-Facility'</SAMP> と書くことはできません。
+指示子の名前と値の区切りには、空白かタブを用います。
+連続した空白とタブが、行頭および行末にあった場合、それらは無視されます。
 </P><P>
 
 <A NAME="Single Directive List"></A>
@@ -123,259 +123,259 @@ EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ��ޥ����ͭ��
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 3.2 ñ�Ȼؼ��Ҥΰ��� </H2>
+<H2> 3.2 単独指示子の一覧 </H2>
 <!--docid::SEC14::-->
 <P>
 
-ñ�Ȼؼ��Ҥˤϼ��Τ褦�ʤ�Τ�����ޤ���
+単独指示子には次のようなものがあります。
 </P><P>
 
 <DL COMPACT>
 <DT><CODE>ebnet-port</CODE>
-<DD><CODE>ebnet-port</CODE> �ؼ��ҤǤϡ�<CODE>ebnetd</CODE> ����ĥ��ݡ��Ȥ��ֹ�����
-���ޤ���
-�ؼ��Ҥ��ͤϡ�TCP �Υ����ӥ�̾ (��: <SAMP>`EBNET'</SAMP>) �����ݡ����ֹ� 
-(��: <SAMP>`22010'</SAMP>) �Ǥʤ��ƤϤ����ޤ���
-<CODE>ebnetd</CODE> �� <CODE>inetd</CODE> ��ͳ�ǵ�ư�������ϡ����λؼ��Ҥ�
-̵�뤵��ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵��������ͤ� <SAMP>`EBNET'</SAMP> �Ǥ���
+<DD><CODE>ebnet-port</CODE> 指示子では、<CODE>ebnetd</CODE> が見張るポートの番号を指定
+します。
+指示子の値は、TCP のサービス名 (例: <SAMP>`EBNET'</SAMP>) か、ポート番号 
+(例: <SAMP>`22010'</SAMP>) でなくてはいけません。
+<CODE>ebnetd</CODE> を <CODE>inetd</CODE> 経由で起動した場合は、この指示子は
+無視されます。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は <SAMP>`EBNET'</SAMP> です。
 <P>
 
-<CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE> �Ϥ��λؼ��Ҥ���̵�뤷�ޤ���
+<CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE> はこの指示子を常に無視します。
 </P><P>
 
 <DT><CODE>ndtp-port</CODE>
-<DD><CODE>ndtp-port</CODE> �ؼ��ҤǤϡ�<CODE>ndtpd</CODE> ����ĥ��ݡ��Ȥ��ֹ�����
-���ޤ���
-�ؼ��Ҥ��ͤϡ�TCP �Υ����ӥ�̾ (��: <SAMP>`NDTP'</SAMP>) �����ݡ����ֹ� 
-(��: <SAMP>`2010'</SAMP>) �Ǥʤ��ƤϤ����ޤ���
-<CODE>ebnetd</CODE> �� <CODE>inetd</CODE> ��ͳ�ǵ�ư�������ϡ����λؼ��Ҥ�
-̵�뤵��ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵��������ͤ� <SAMP>`NDTP'</SAMP> �Ǥ���
+<DD><CODE>ndtp-port</CODE> 指示子では、<CODE>ndtpd</CODE> が見張るポートの番号を指定
+します。
+指示子の値は、TCP のサービス名 (例: <SAMP>`NDTP'</SAMP>) か、ポート番号 
+(例: <SAMP>`2010'</SAMP>) でなくてはいけません。
+<CODE>ebnetd</CODE> を <CODE>inetd</CODE> 経由で起動した場合は、この指示子は
+無視されます。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は <SAMP>`NDTP'</SAMP> です。
 <P>
 
-<CODE>ebnetd</CODE>, <CODE>ebhttpd</CODE> �Ϥ��λؼ��Ҥ���̵�뤷�ޤ���
+<CODE>ebnetd</CODE>, <CODE>ebhttpd</CODE> はこの指示子を常に無視します。
 </P><P>
 
 <DT><CODE>http-port</CODE>
-<DD><CODE>http-port</CODE> �ؼ��ҤǤϡ�<CODE>ebhttpd</CODE> ����ĥ��ݡ��Ȥ��ֹ��
-���ꤷ�ޤ���
-�ؼ��Ҥ��ͤϡ�TCP �Υ����ӥ�̾ (��: <SAMP>`HTTP'</SAMP>) �����ݡ����ֹ� 
-(��: <SAMP>`80'</SAMP>) �Ǥʤ��ƤϤ����ޤ���
-<CODE>ebhttpd</CODE> �� <CODE>inetd</CODE> ��ͳ�ǵ�ư�������ϡ����λؼ��Ҥ�
-̵�뤵��ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵��������ͤ� <SAMP>`HTTP'</SAMP> �Ǥ���
+<DD><CODE>http-port</CODE> 指示子では、<CODE>ebhttpd</CODE> が見張るポートの番号を
+指定します。
+指示子の値は、TCP のサービス名 (例: <SAMP>`HTTP'</SAMP>) か、ポート番号 
+(例: <SAMP>`80'</SAMP>) でなくてはいけません。
+<CODE>ebhttpd</CODE> を <CODE>inetd</CODE> 経由で起動した場合は、この指示子は
+無視されます。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は <SAMP>`HTTP'</SAMP> です。
 <P>
 
-<CODE>ebnetd</CODE>, <CODE>ebhttpd</CODE> �Ϥ��λؼ��Ҥ���̵�뤷�ޤ���
+<CODE>ebnetd</CODE>, <CODE>ebhttpd</CODE> はこの指示子を常に無視します。
 </P><P>
 
 <DT><CODE>user</CODE>
-<DD><CODE>user</CODE> �ؼ��ҤǤϡ������Хץ������μ¸��桼������ꤷ�ޤ���
-�ؼ��Ҥ��ͤϡ��桼��̾ (��: <SAMP>`nobody'</SAMP>) �����桼�� ID (��: <SAMP>`65535'</SAMP>)
-�Ǥʤ��ƤϤ����ޤ���
-�̤Υ桼���˼¸��桼�����Ѥ�����ϡ������ѥ桼���ø���ͭ�������֤�
-�����Ф�ư���ʤ��ƤϤʤ�ޤ���
-�¸��桼�����ѹ��˼��Ԥ���ȡ������Ф����Ԥη�³����ǰ���ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-���λؼ��Ҥ�������ʤ��ä���硢�����Хץ������μ¸��桼�����Ѳ�
-���ޤ���
+<DD><CODE>user</CODE> 指示子では、サーバプロセスの実効ユーザを指定します。
+指示子の値は、ユーザ名 (例: <SAMP>`nobody'</SAMP>) か、ユーザ ID (例: <SAMP>`65535'</SAMP>)
+でなくてはいけません。
+別のユーザに実効ユーザを変える場合は、スーパユーザ特権を有した状態で
+サーバを起動しなくてはなりません。
+実効ユーザの変更に失敗すると、サーバは走行の継続を断念します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+この指示子を定義しなかった場合、サーバプロセスの実効ユーザは変化
+しません。
 <P>
 
-<SAMP>`ndtpuser'</SAMP> �Τ褦�ʥ��ߡ��Υ桼����������Ȥ��ĺ�äơ������
-���λؼ��Ҥǻ��ꤹ�뤳�Ȥ����ᤷ�ޤ���
+<SAMP>`ndtpuser'</SAMP> のようなダミーのユーザアカウントを一つ作って、それを
+この指示子で指定することをお薦めします。
 </P><P>
 
 <DT><CODE>group</CODE>
-<DD><CODE>group</CODE> �ؼ��ҤǤϡ������Хץ������μ¸����롼�פ���ꤷ�ޤ���
-�ؼ��Ҥ��ͤϡ��桼��̾ (��: <SAMP>`nogroup'</SAMP>) �������롼�� ID
-(��: <SAMP>`65534'</SAMP>) �Ǥʤ��ƤϤ����ޤ���
-�¸����롼�פ��ѹ��˼��Ԥ���ȡ������Ф����Ԥη�³����ǰ���ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�Ȥ�Ǥ��ޤ���
-���λؼ��Ҥ�������ʤ��ä���硢�����Хץ������μ¸����롼�פ��Ѳ�
-���ޤ���
+<DD><CODE>group</CODE> 指示子では、サーバプロセスの実効グループを指定します。
+指示子の値は、ユーザ名 (例: <SAMP>`nogroup'</SAMP>) か、グループ ID
+(例: <SAMP>`65534'</SAMP>) でなくてはいけません。
+実効グループの変更に失敗すると、サーバは走行の継続を断念します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することもできません。
+この指示子を定義しなかった場合、サーバプロセスの実効グループは変化
+しません。
 <P>
 
-<SAMP>`ndtpgrp'</SAMP> �Τ褦�ʥ��ߡ��Υ��롼�ץ�������Ȥ��ĺ�äơ������
-���λؼ��Ҥǻ��ꤹ�뤳�Ȥ����ᤷ�ޤ���
+<SAMP>`ndtpgrp'</SAMP> のようなダミーのグループアカウントを一つ作って、それを
+この指示子で指定することをお薦めします。
 </P><P>
 
 <DT><CODE>max-clients</CODE>
-<DD><CODE>max-clients</CODE> �ؼ��ҤǤϡ�Ʊ���˥����Ф���³�Ǥ��륯�饤����Ȥ�
-���ξ�¤���ꤷ�ޤ���
-�ؼ��Ҥ��ͤϡ�0 �ʾ�������Ǥʤ��ƤϤ����ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵��������ͤ� <SAMP>`1'</SAMP> �Ǥ���
-�ؼ��Ҥ��ͤ� 0 �����ꤹ��ȡ�̵���¤ˤʤ�ޤ���
+<DD><CODE>max-clients</CODE> 指示子では、同時にサーバに接続できるクライアントの
+数の上限を指定します。
+指示子の値は、0 以上の整数でなくてはいけません。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は <SAMP>`1'</SAMP> です。
+指示子の値を 0 に設定すると、無制限になります。
 <P>
 
 <DT><CODE>hosts</CODE>
-<DD><CODE>hosts</CODE> �ؼ��ҤǤϡ��ɤΥۥ��Ȥ������Ф���³�Ǥ����ɤΥۥ��Ȥ�
-��³�Ǥ��ʤ��Τ�����ꤷ�ޤ���
-�ؼ��Ҥ��ͤ� IP ���ɥ쥹���ۥ���̾��<VAR>���ɥ쥹/�ͥåȥޥ���</VAR> ��
-�����줫�Ǥ���
-�ä��ơ�ľ���˴�ò�� (<SAMP>`!'</SAMP>) ���դ��뤳�Ȥ��Ǥ��ޤ���
-�ؼ��Ҥ��ͤ���ò��ǻϤޤäƤ������ϡ������³�� IP ���ɥ쥹�ޤ���
-�ۥ���̾�˥ޥå�����ۥ��Ȥ������³�׵�ϵ��ݤ��ޤ���
-��ò�䤬�ʤ����ϡ��ؼ��Ҥ��ͤ˥ޥå�����ۥ��Ȥ������³�׵�ϵ���
-���ޤ���
+<DD><CODE>hosts</CODE> 指示子では、どのホストがサーバに接続でき、どのホストが
+接続できないのかを指定します。
+指示子の値は IP アドレス、ホスト名、<VAR>アドレス/ネットマスク</VAR> の
+いずれかです。
+加えて、直前に感嘆符 (<SAMP>`!'</SAMP>) を付けることができます。
+指示子の値が感嘆符で始まっていた場合は、それに続く IP アドレスまたは
+ホスト名にマッチするホストからの接続要求は拒否します。
+感嘆符がない場合は、指示子の値にマッチするホストからの接続要求は許可
+します。
 <P>
 
-<TABLE><tr><td>&nbsp;</td><td class=example><pre># `host.xxx.yyy.jp' �������³����Ĥ��롣
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># `host.xxx.yyy.jp' からの接続を許可する。
 hosts host.xxx.yyy.jp
 
-# `127.0.0.1' �������³����Ĥ��롣
+# `127.0.0.1' からの接続を許可する。
 hosts 127.0.0.1
 
-# `192.24.1.0/24'.�������³����ݤ��롣
+# `192.24.1.0/24'.からの接続を拒否する。
 hosts !192.24.1.0/24
 </pre></td></tr></table></P><P>
 
-�ۥ���̾�˸¤ꡢ�������ꥹ�� (<SAMP>`*'</SAMP>) �ȵ����� (<SAMP>`?'</SAMP>) ��Ȥ�
-���Ȥ��Ǥ��ޤ���
-�������ꥹ���ϡ���Ƭ�δ�ò��������Ǥ�դ� 0 ʸ���ʾ��ʸ����˥ޥå�
-���ޤ���
+ホスト名に限り、アスタリスク (<SAMP>`*'</SAMP>) と疑問符 (<SAMP>`?'</SAMP>) を使う
+ことができます。
+アスタリスクは、先頭の感嘆符を除いた任意の 0 文字以上の文字列にマッチ
+します。
 </P><P>
 
-<TABLE><tr><td>&nbsp;</td><td class=example><pre># `xxx.yyy.jp' �ɥᥤ��Υۥ��Ȥ������³����ݤ��롣
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># `xxx.yyy.jp' ドメインのホストからの接続を拒否する。
 hosts !*.xxx.yyy.jp
 
-# �ɤΥۥ��Ȥ������³����Ĥ��롣
+# どのホストからの接続も許可する。
 hosts *
 </pre></td></tr></table></P><P>
 
-������� <EM>̤�ΤΥۥ���̾</EM> ��ɽ���ޤ���
+疑問符は <EM>未知のホスト名</EM> を表します。
 </P><P>
 
-<TABLE><tr><td>&nbsp;</td><td class=example><pre># �ۥ���̾��ʬ����ʤ��ۥ��Ȥ������³����ݤ��롣
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># ホスト名が分からないホストからの接続を拒否する。
 hosts !?
 </pre></td></tr></table></P><P>
 
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ������٤Ǥ�������뤳�Ȥ���ǽ�Ǥ���
-����ե������ <CODE>hosts</CODE> �ؼ��Ҥ�̵���Ƥ⥨�顼�ˤϤʤ�ޤ��󤬡�
-�ɤΥ��饤����Ȥ⥵���Фˤϥ��������Ǥ��ʤ��ʤ�ޤ���
-������� <CODE>hosts</CODE> �ؼ��Ҥˤ�ޥå����ʤ��ۥ��Ȥ������³�׵�ϵ���
-����ޤ���
-ʣ���� <CODE>hosts</CODE> �˥ޥå�������ϡ�����ե��������Ƭ�˺Ǥ�ᤤ
-��Τ����Ѥ���ޤ���
+この指示子は必ずしも定義する必要はありません。
+また、何度でも定義することが可能です。
+設定ファイルに <CODE>hosts</CODE> 指示子が無くてもエラーにはなりませんが、
+どのクライアントもサーバにはアクセスできなくなります。
+いずれの <CODE>hosts</CODE> 指示子にもマッチしないホストからの接続要求は拒否
+されます。
+複数の <CODE>hosts</CODE> にマッチする場合は、設定ファイルの先頭に最も近い
+ものが採用されます。
 </P><P>
 
-�ʲ�����Ǥϡ�<SAMP>`sub1.xxx.yyy.jp'</SAMP> �ɥᥤ���°����ۥ��Ȥ����
-��³�׵�ϵ��ݤ��Ƥ��ޤ���������ʳ��� <SAMP>`xxx.yyy.jp'</SAMP> �ɥᥤ���
-°����ۥ��Ȥ������³�׵�ϵ��Ĥ��Ƥ��ޤ���
+以下の例では、<SAMP>`sub1.xxx.yyy.jp'</SAMP> ドメインに属するホストからの
+接続要求は拒否していますが、それ以外の <SAMP>`xxx.yyy.jp'</SAMP> ドメインに
+属するホストからの接続要求は許可しています。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>hosts !*.sub1.xxx.yyy.jp
 hosts *.xxx.yyy.jp
 </pre></td></tr></table></P><P>
 
-������Ǥϡ��ؼ��Ҥν���Ͻ��פǤ���
-�������ä����֤��Ƥ��ޤ��ȡ�<SAMP>`sub1.xxx.yyy.jp'</SAMP> ��ޤᡢ
-<SAMP>`xxx.yyy.jp'</SAMP> �ɥᥤ���°���뤹�٤ƤΥۥ��Ȥ������Ф���³�Ǥ���
-���ޤ��ޤ���
+この例では、指示子の順序は重要です。
+順序を引っくり返してしまうと、<SAMP>`sub1.xxx.yyy.jp'</SAMP> を含め、
+<SAMP>`xxx.yyy.jp'</SAMP> ドメインに属するすべてのホストがサーバに接続できて
+しまいます。
 </P><P>
 
-<TABLE><tr><td>&nbsp;</td><td class=example><pre># �ְ㤤!!!
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># 間違い!!!
 hosts *.xxx.yyy.jp
 hosts !*.sub1.xxx.yyy.jp
 </pre></td></tr></table></P><P>
 
-�ۥ���̾����Ӥ���ݡ������ФϾ�˥��饤����Ȥ������ۥ���̾�����
-���ޤ���
-�ۥ���̾�ϡ����饤����ȤΥ��ɥ쥹���� DNS �ʤɤ�̾�����Υ����ӥ�
-�����Ѥ��Ƽ������ޤ���
-��̾�ϻ��Ѥ���ޤ���Τǡ����դ��Ʋ�������
+ホスト名を比較する際、サーバは常にクライアントの正式ホスト名を使用
+します。
+ホスト名は、クライアントのアドレスから DNS などの名前解決のサービス
+を利用して取得します。
+別名は使用されませんので、注意して下さい。
 </P><P>
 
-IPv6 ���ɥ쥹����� <VAR>IPv6 ���ɥ쥹/�ͥåȥޥ���</VAR> �ѥ���������
-���뤳�Ȥ��ǽ�Ǥ���
-IPv6 �б���ǽ��ͭ���ˤ��ƥ���ѥ��뤵��Ƥ��ʤ������Ф� IPv4
-���饤����ȤȤ����̿��Ǥ��ޤ��󤬡�����ե�����˽񤫤줿 IPv6
-���ɥ쥹���᤹�뤳�ȤϤǤ��ޤ���
+IPv6 アドレスおよび <VAR>IPv6 アドレス/ネットマスク</VAR> パターンを指定
+することも可能です。
+IPv6 対応機能を有効にしてコンパイルされていないサーバは IPv4
+クライアントとしか通信できませんが、設定ファイルに書かれた IPv6
+アドレスを解釈することはできます。
 </P><P>
 
-<TABLE><tr><td>&nbsp;</td><td class=example><pre># `12ab:0:0:cd3::/60' �� `::1' �������³����Ĥ��롣
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># `12ab:0:0:cd3::/60' と `::1' からの接続を許可する。
 hosts ::1
 hosts 12ab:0:0:cd3::/60
 </pre></td></tr></table></P><P>
 
-<CODE>hosts</CODE> �ؼ��ҤǤϡ�IPv4 ���ɥ쥹 (�� <SAMP>`192.168.1.1'</SAMP>) �Ȥ���
-���б����� IPv4 �ͱ� IPv6 ���ɥ쥹 (�� <SAMP>`::ffff:192.168.1.1'</SAMP>) ��
-�����ˤʤ�ޤ���
-�ĤޤꡢIPv4 ���饤����� <SAMP>`192.168.1.1'</SAMP> �� <CODE>hosts</CODE> �ؼ���
-<SAMP>`::ffff:192.168.1.1'</SAMP> �˥ޥå�����IPv6 ���饤�����
-<SAMP>`::ffff:192.168.1.1'</SAMP> �� <CODE>hosts</CODE> �ؼ��� <SAMP>`192.168.1.1'</SAMP>
-�˥ޥå����ޤ���
+<CODE>hosts</CODE> 指示子では、IPv4 アドレス (例 <SAMP>`192.168.1.1'</SAMP>) とそれ
+に対応する IPv4 射影 IPv6 アドレス (例 <SAMP>`::ffff:192.168.1.1'</SAMP>) は
+等価になります。
+つまり、IPv4 クライアント <SAMP>`192.168.1.1'</SAMP> は <CODE>hosts</CODE> 指示子
+<SAMP>`::ffff:192.168.1.1'</SAMP> にマッチし、IPv6 クライアント
+<SAMP>`::ffff:192.168.1.1'</SAMP> は <CODE>hosts</CODE> 指示子 <SAMP>`192.168.1.1'</SAMP>
+にマッチします。
 </P><P>
 
 <DT><CODE>timeout</CODE>
-<DD><CODE>timeout</CODE> �ؼ��ҤǤϡ��򿮤����䤨�����饤����ȤȤ���³��
-�����Ф����Ǥ���ޤǤ��ÿ�����ꤷ�ޤ���
-�ؼ��Ҥ��ͤϡ�0 �ʾ�������Ǥʤ��ƤϤ����ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵��������ͤ� <SAMP>`900'</SAMP> (15ʬ) �Ǥ���
-�ؼ��Ҥ��ͤ� 0 �����ꤹ��ȡ������ڤ�ˤ�����ǤϹԤ��ޤ���
+<DD><CODE>timeout</CODE> 指示子では、交信が途絶えたクライアントとの接続を
+サーバが切断するまでの秒数を指定します。
+指示子の値は、0 以上の整数でなくてはいけません。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は <SAMP>`900'</SAMP> (15分) です。
+指示子の値を 0 に設定すると、時間切れによる切断は行いません。
 <P>
 
 <DT><CODE>work-path</CODE>
-<DD><CODE>work-path</CODE> �ؼ��ҤǤϡ������Фκ���ѥǥ��쥯�ȥ�
-�Υѥ�����ꤷ�ޤ� (��<A HREF="ebnetd-ja_5.html#SEC24">����ѥǥ��쥯�ȥ�</A>����򻲾�)��
-�ؼ��Ҥ��ͤϡ����Хѥ��Ǥʤ��ƤϤ����ޤ���
-�����ФϤ��Υǥ��쥯�ȥ�β��˺���ѤΥե�����򤤤��Ĥ��������ޤ���
-�ޤ����۾ｪλ�ˤ�äƥ����ե���������פ���Ȥ��ϡ����Υǥ��쥯�ȥ�
-�˺������ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ��ޥ����ͭ��
-�������줦��ǡ������֤��ǥ��쥯�ȥ� (<CODE>localstatedir</CODE>) ���ѹ�����
-���ʤ���С�̵��������ͤ� <TT>`/usr/local/var/ebnetd/'</TT> �ˤʤ�ޤ���
+<DD><CODE>work-path</CODE> 指示子では、サーバの作業用ディレクトリ
+のパスを指定します (「<A HREF="ebnetd-ja_5.html#SEC24">作業用ディレクトリ</A>」節を参照)。
+指示子の値は、絶対パスでなくてはいけません。
+サーバはこのディレクトリの下に作業用のファイルをいくつか作成します。
+また、異常終了によってコアファイルをダンプするときは、このディレクトリ
+に作成します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、マシン固有の
+更新されうるデータを置くディレクトリ (<CODE>localstatedir</CODE>) を変更して
+いなければ、無指定時の値は <TT>`/usr/local/var/ebnetd/'</TT> になります。
 <P>
 
 <DT><CODE>max-hits</CODE>
-<DD><CODE>max-hits</CODE> �ؼ��ҤǤϡ����θ����ǥ����Ф��֤��ҥåȿ��ξ�¤�
-���ꤷ�ޤ���
-�����Фϡ����λؼ��Ҥǻ��ꤵ�줿�ͤ�Ʊ�������Υҥåȿ��򸫤Ĥ�������
-�ǡ��������˸�������ߤ��ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵��������ͤ� <SAMP>`50'</SAMP> �Ǥ���
-�ؼ��Ҥ��ͤ� 0 �����ꤹ��ȡ�̵���¤ˤʤ�ޤ���
+<DD><CODE>max-hits</CODE> 指示子では、一回の検索でサーバが返すヒット数の上限を
+指定します。
+サーバは、この指示子で指定された値と同じだけのヒット数を見つけた時点
+で、ただちに検索を中止します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は <SAMP>`50'</SAMP> です。
+指示子の値を 0 に設定すると、無制限になります。
 <P>
 
-<CODE>ebnetd</CODE> �Ϥ��λؼ��Ҥ���̵�뤷�ޤ���
+<CODE>ebnetd</CODE> はこの指示子を常に無視します。
 </P><P>
 
 <DT><CODE>max-text-size</CODE>
-<DD><CODE>max-text-size</CODE> �ؼ��Ҥϡ������Ф����饤����Ȥؤα��� 1 ���
-�֤��ƥ����ȤΥХ��ȿ��ξ�¤���ꤷ�ޤ���
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵��������ͤ� <SAMP>`32768'</SAMP> �Ǥ���
-�ؼ��Ҥ��ͤ� 0 �����ꤹ��ȡ�̵���¤ˤʤ�ޤ���
+<DD><CODE>max-text-size</CODE> 指示子は、サーバがクライアントへの応答 1 回で
+返すテキストのバイト数の上限を指定します。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時の値は <SAMP>`32768'</SAMP> です。
+指示子の値を 0 に設定すると、無制限になります。
 <P>
 
-<CODE>ebnetd</CODE> �Ϥ��λؼ��Ҥ���̵�뤷�ޤ���
+<CODE>ebnetd</CODE> はこの指示子を常に無視します。
 </P><P>
 
 <DT><CODE>syslog-facility</CODE>
-<DD><CODE>syslog-facility</CODE> �ؼ��ҤǤϡ�syslog �Υե�����ƥ�����ꤷ�ޤ�
-(��: <SAMP>`daemon'</SAMP>, <SAMP>`local0'</SAMP> �ʤ�)��
-���λؼ��Ҥ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵������� <SAMP>`daemon'</SAMP> ���Ѥ��ޤ���
-�ޤ��������Ф�����ե�������ɤ߹��߽����ޤǤϡ�<SAMP>`daemon'</SAMP> ��
-�Ѥ����ޤ���
+<DD><CODE>syslog-facility</CODE> 指示子では、syslog のファシリティを指定します
+(例: <SAMP>`daemon'</SAMP>, <SAMP>`local0'</SAMP> など)。
+この指示子は必ずしも定義する必要はありません。
+また、2 度以上定義することはできません。
+無指定時は <SAMP>`daemon'</SAMP> を用います。
+また、サーバが設定ファイルを読み込み終わるまでは、<SAMP>`daemon'</SAMP> が
+用いられます。
 </DL>
 <P>
 
@@ -393,40 +393,40 @@ EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ��ޥ����ͭ��
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 3.3 ʣ��ؼ��Ҥΰ��̷� </H2>
+<H2> 3.3 複合指示子の一般形 </H2>
 <!--docid::SEC15::-->
 <P>
 
-ʣ��ؼ��� (�ؼ�̿��) �Ȥϡ����Ҥ�����ե��������ʣ���Ԥ��Ϥ�ؼ��ҤǤ���
-ʣ��ؼ��Ҥΰ��̷��ϼ����̤�Ǥ���
+複合指示子 (指示命令) とは、記述が設定ファイル内の複数行に渡る指示子です。
+複合指示子の一般形は次の通りです。
 </P><P>
 
-<TABLE><tr><td>&nbsp;</td><td class=example><pre>begin <VAR>ʣ��ؼ��Ҥ�̾��</VAR>
-    <VAR>���ؼ��Ҥ�̾��</VAR>    <VAR>���ؼ��Ҥ���</VAR>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>begin <VAR>複合指示子の名前</VAR>
+    <VAR>副指示子の名前</VAR>    <VAR>副指示子の値</VAR>
              : 
-             : (�����֤�)
+             : (繰り返し)
              : 
 end
 </pre></td></tr></table></P><P>
 
-������� <CODE>begin</CODE> �ϡ�ʣ��ؼ��Ҥγ��Ϥ�ɽ���ޤ���
-<CODE>begin</CODE> �ϸ���� <VAR>ʣ��ؼ��Ҥ�̾��</VAR> ������Ȥ��Ƽ��ޤ���
-<CODE>begin</CODE> �� <VAR>ʣ��ؼ��Ҥ�̾��</VAR> �϶��򤫥��֤Ƕ��ڤꡢξ���Ȥ�
-Ʊ���Ԥ�����֤��ޤ���
-������� <CODE>end</CODE> �ϡ�ʣ��ؼ��Ҥν�λ��ɽ���ޤ���
-<CODE>end</CODE> �ϡ�ñ�Ȥ� 1 �Ԥˤ����֤��ޤ���
+キーワード <CODE>begin</CODE> は、複合指示子の開始を表します。
+<CODE>begin</CODE> は後ろに <VAR>複合指示子の名前</VAR> を引数として取ります。
+<CODE>begin</CODE> と <VAR>複合指示子の名前</VAR> は空白かタブで区切り、両方とも
+同じ行の中に置きます。
+キーワード <CODE>end</CODE> は、複合指示子の終了を表します。
+<CODE>end</CODE> は、単独で 1 行にして置きます。
 </P><P>
 
-EBNETD �С������ 1.0 �Ǥϡ����ѤǤ���ʣ��ؼ��Ҥ�̾����
-<CODE>book</CODE> �����Ǥ���
-���줾��� <EM>���ؼ���</EM> �ϡ�<CODE>begin</CODE> �� <CODE>end</CODE> �ιԤδ֤�
-�֤��ޤ���
-���ؼ��Ҥ˴ؤ��뵭�Ҥΰ���Ū�ʵ�§�ϡ�ñ�Ȼؼ��Ҥ��Ѥ��ޤ���
-(���Ȥ��С�<VAR>���ؼ��Ҥ�̾��</VAR>�� <VAR>���ؼ��Ҥ���</VAR> �϶��򤫥��֤�
-���ڤ뤳�Ȥʤ�)��
+EBNETD バージョン 1.0 では、使用できる複合指示子の名前は
+<CODE>book</CODE> だけです。
+それぞれの <EM>副指示子</EM> は、<CODE>begin</CODE> と <CODE>end</CODE> の行の間に
+置きます。
+副指示子に関する記述の一般的な規則は、単独指示子と変わりません
+(たとえば、<VAR>副指示子の名前</VAR>と <VAR>副指示子の値</VAR> は空白かタブで
+区切ることなど)。
 </P><P>
 
-�ʲ��ϡ� <CODE>book</CODE> ʣ��ؼ��Ҥε�����Ǥ���
+以下は、 <CODE>book</CODE> 複合指示子の記述例です。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>begin book
@@ -452,94 +452,94 @@ end
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 3.4 <CODE>book</CODE> ʣ��ؼ��� </H2>
+<H2> 3.4 <CODE>book</CODE> 複合指示子 </H2>
 <!--docid::SEC16::-->
 <P>
 
-��Ĥ� <CODE>book</CODE> ʣ��ؼ��� �ϰ���� CD-ROM ���Ҥ��б����ޤ��Τǡ�
-CD-ROM ���Ұ�����Ȥˤ���ʣ��ؼ��Ҥ�������ʤ��ƤϤ����ޤ���
-<CODE>book</CODE> ʣ��ؼ��Ҥ����ؼ��ҤȤ��ơ�EBNETD ��ǧ�������Τϼ����̤�
-�Ǥ���
+一つの <CODE>book</CODE> 複合指示子 は一冊の CD-ROM 書籍に対応しますので、
+CD-ROM 書籍一冊ごとにこの複合指示子を定義しなくてはいけません。
+<CODE>book</CODE> 複合指示子の副指示子として、EBNETD が認識するものは次の通り
+です。
 </P><P>
 
 <DL COMPACT>
 <DT><CODE>name</CODE>
-<DD><CODE>name</CODE> ���ؼ��ҤǤϡ����ν��Ҥ�̾������ꤷ�ޤ���
-���ؼ��Ҥ��ͤ��Ѥ��뤳�Ȥ��Ǥ���Τϡ��Ѿ�ʸ�� (<SAMP>`a'</SAMP>..<SAMP>`z'</SAMP>)��
-���� (<SAMP>`0'</SAMP>..<SAMP>`9'</SAMP>)������ (<SAMP>`_'</SAMP>)���ϥ��ե� (<SAMP>`-'</SAMP>) �����ǡ�
-Ĺ���� 14 ʸ���ޤǤǤ���
-����̾���ϡ����Ҥ��̤��뤿��˻Ȥ��ޤ��Τǡ��ƽ��Ҥˤϰۤʤ�̾����
-�դ��ʤ��ƤϤ����ޤ���
-�������ؼ��Ҥϡ����줾��� <CODE>book</CODE> ʣ��ؼ��Ҥ�ɬ�ܤǤ���
-�ޤ���1 �Ĥ� <CODE>book</CODE> ʣ��ؼ��Ҥ� 2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
+<DD><CODE>name</CODE> 副指示子では、その書籍の名前を指定します。
+副指示子の値に用いることができるのは、英小文字 (<SAMP>`a'</SAMP>..<SAMP>`z'</SAMP>)、
+数字 (<SAMP>`0'</SAMP>..<SAMP>`9'</SAMP>)、下線 (<SAMP>`_'</SAMP>)、ハイフン (<SAMP>`-'</SAMP>) だけで、
+長さは 14 文字までです。
+この名前は、書籍を識別するために使いますので、各書籍には異なる名前を
+付けなくてはいけません。
+この副指示子は、それぞれの <CODE>book</CODE> 複合指示子に必須です。
+また、1 つの <CODE>book</CODE> 複合指示子で 2 度以上定義することはできません。
 <P>
 
 <DT><CODE>title</CODE>
-<DD><CODE>title</CODE> ���ؼ��ҤǤϡ����ν��Ҥ���̾����ꤷ�ޤ���
-���ؼ��Ҥ��ͤˤϡ�����ʸ���ȥʥ�ʸ�� (<SAMP>`\0'</SAMP>) �����Ǥ�դ�ʸ����
-�Ȥäƻ��ꤹ�뤳�Ȥ��Ǥ��ޤ�����Ĺ���� 80 �Х��ȤޤǤǤ���
-EUC (Extended Unix Code) ���Ѥ�������ܸ��ʸ������Ѳ�ǽ�Ǥ���
-���ؼ��Ҥ��ͤ���˶���䥿�֤��Ѥ��뤳�Ȥ��ǽ�ǡ�������¾��ʸ����
-Ʊ������ʸ���Ȥ��Ʋ�ᤵ��ޤ���
+<DD><CODE>title</CODE> 副指示子では、その書籍の題名を指定します。
+副指示子の値には、改行文字とナル文字 (<SAMP>`\0'</SAMP>) を除く任意の文字を
+使って指定することができますが、長さは 80 バイトまでです。
+EUC (Extended Unix Code) を用いれば日本語の文字も使用可能です。
+副指示子の値の中に空白やタブを用いることも可能で、これらは他の文字と
+同じく一文字として解釈されます。
 <P>
 
-�������ؼ��Ҥϡ����줾��� <CODE>book</CODE> ʣ��ؼ��Ҥ�ɬ�ܤǤ���
-�ޤ���1 �Ĥ� <CODE>book</CODE> ʣ��ؼ��Ҥ� 2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
+この副指示子は、それぞれの <CODE>book</CODE> 複合指示子に必須です。
+また、1 つの <CODE>book</CODE> 複合指示子で 2 度以上定義することはできません。
 </P><P>
 
 <DT><CODE>path</CODE>
-<DD><CODE>path</CODE> ���ؼ��ҤǤϡ����ν��Ҥ����Хѥ�����ꤷ�ޤ���
-�ѥ��Ϥ��ν��ҤΥȥåץǥ��쥯�ȥꡢ�Ĥޤ� <TT>`catalog'</TT> �ޤ���
-<TT>`catalogs'</TT> �ե������¸�ߤ���ǥ��쥯�ȥ��ؤ��Ƥ��ʤ��Ƥ�
-�����ޤ���
+<DD><CODE>path</CODE> 副指示子では、その書籍の絶対パスを指定します。
+パスはその書籍のトップディレクトリ、つまり <TT>`catalog'</TT> または
+<TT>`catalogs'</TT> ファイルの存在するディレクトリを指してしなくては
+いけません。
 <P>
 
-�������ؼ��Ҥϡ����줾��� <CODE>book</CODE> ʣ��ؼ��Ҥ�ɬ�ܤǤ���
-�ޤ���1 �Ĥ� <CODE>book</CODE> ʣ��ؼ��Ҥ� 2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
+この副指示子は、それぞれの <CODE>book</CODE> 複合指示子に必須です。
+また、1 つの <CODE>book</CODE> 複合指示子で 2 度以上定義することはできません。
 </P><P>
 
 <DT><CODE>appendix-path</CODE>
-<DD><CODE>appendix-path</CODE> ���ؼ��ҤǤϡ����ν��Ҥ��б����� appendix (��Ͽ) 
-�ѥå����������Хѥ�����ꤷ�ޤ���
-�ѥ��� appendix �ѥå������Υȥåץǥ��쥯�ȥꡢ�Ĥޤ� <TT>`catalog'</TT> 
-�ޤ��� <TT>`catalogs'</TT> �ե������¸�ߤ���ǥ��쥯�ȥ��ؤ��Ƥ��ʤ��Ƥ�
-�����ޤ���
+<DD><CODE>appendix-path</CODE> 副指示子では、その書籍に対応する appendix (付録) 
+パッケージの絶対パスを指定します。
+パスは appendix パッケージのトップディレクトリ、つまり <TT>`catalog'</TT> 
+または <TT>`catalogs'</TT> ファイルの存在するディレクトリを指してしなくては
+いけません。
 <P>
 
-�������ؼ��Ҥϡ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���1 �Ĥ� <CODE>book</CODE> ʣ��ؼ��Ҥ� 2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-���Ҥ�Ȥ���ǡ�appendix �ѥå�������ɬ�ܤǤϤ���ޤ��󤬡��ʤ��ȳ�����
-�����Բ�ǽ�ˤʤ뤿�ᡢ�ɤߤŤ餤�����Τ�ޤ���
+この副指示子は、必ずしも定義する必要はありません。
+また、1 つの <CODE>book</CODE> 複合指示子で 2 度以上定義することはできません。
+書籍を使う上で、appendix パッケージは必須ではありませんが、ないと外字が
+識別不可能になるため、読みづらいかも知れません。
 </P><P>
 
 <DT><CODE>max-clients</CODE>
-<DD><CODE>max-clients</CODE> ���ؼ��Ҥˤϡ����ν��Ҥ�Ʊ���ˤ����ĤΥ��饤����Ȥ�
-�Ȥ����Ȥ��Ǥ���Τ�����ꤷ�ޤ���
-���ؼ��Ҥ��ͤˤϡ�0 �ʾ����������ꤷ�ޤ���
-�������ؼ��Ҥϡ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���1 �Ĥ� <CODE>book</CODE> ʣ��ؼ��Ҥ� 2 �ٰʾ�������뤳�ȤϤǤ��ޤ���
-̵��������ͤ� <SAMP>`1'</SAMP> �Ǥ���
-0 ����ꤹ��ȡ�̵���¤ˤʤ�ޤ���
+<DD><CODE>max-clients</CODE> 副指示子には、この書籍を同時にいくつのクライアントが
+使うことができるのかを指定します。
+副指示子の値には、0 以上の整数を指定します。
+この副指示子は、必ずしも定義する必要はありません。
+また、1 つの <CODE>book</CODE> 複合指示子で 2 度以上定義することはできません。
+無指定時の値は <SAMP>`1'</SAMP> です。
+0 を指定すると、無制限になります。
 <P>
 
-<CODE>work-path</CODE> (��<A HREF="ebnetd-ja_5.html#SEC24">5.3 ����ѥǥ��쥯�ȥ�</A>����򻲾�) �˶��̤��ͤ򥻥åȤ��Ƥ����ȡ�
-���饤����Ȥο��� <CODE>ebnetd</CODE>, <CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE> �֤�
-��ͭ����ޤ���
-���Ȥ��С�����ִ֤ˤ�����Ҥ򥢥��������Ƥ��� <CODE>ebnetd</CODE> ���饤�����
-�� 2 �ġ�<CODE>ndtpd</CODE> ���饤����Ȥ� 3 �Ĥ��ä��Ȥ���ȡ������Ф�
-5 �ĤΥ��饤����Ȥ����Ҥ˥����������Ƥ����Τ�Ƚ�Ǥ��ޤ���
+<CODE>work-path</CODE> (「<A HREF="ebnetd-ja_5.html#SEC24">5.3 作業用ディレクトリ</A>」節を参照) に共通の値をセットしておくと、
+クライアントの数が <CODE>ebnetd</CODE>, <CODE>ndtpd</CODE>, <CODE>ebhttpd</CODE> 間で
+共有されます。
+たとえば、ある瞬間にある書籍をアクセスしている <CODE>ebnetd</CODE> クライアント
+が 2 つ、<CODE>ndtpd</CODE> クライアントが 3 つあったとすると、サーバは
+5 つのクライアントが書籍にアクセスしているものと判断します。
 </P><P>
 
 <DT><CODE>hosts</CODE>
-<DD><CODE>hosts</CODE> ���ؼ��Ҥˤϡ����ν��ҤˤɤΥۥ��Ȥ����������Ǥ��ơ��ɤ�
-�ۥ��Ȥ��Ǥ��ʤ��Τ�����ꤷ�ޤ���
-�������ؼ��Ҥϡ�ɬ�������������ɬ�פϤ���ޤ���
-�ޤ���1 �Ĥ� <CODE>book</CODE> ʣ��ؼ��Ҥǲ��٤Ǥ�������뤳�Ȥ���ǽ�Ǥ���
-<CODE>book</CODE> ʣ��ؼ��Ҥ� <CODE>hosts</CODE> ���ؼ��Ҥ�����ʤ��Ƥ⥨�顼�ˤ�
-�ʤ�ޤ��󤬡����ν��ҤϤɤΥ��饤����Ȥ���⥢�������Ǥ��ޤ���
+<DD><CODE>hosts</CODE> 副指示子には、この書籍にどのホストがアクセスできて、どの
+ホストができないのかを指定します。
+この副指示子は、必ずしも定義する必要はありません。
+また、1 つの <CODE>book</CODE> 複合指示子で何度でも定義することが可能です。
+<CODE>book</CODE> 複合指示子が <CODE>hosts</CODE> 副指示子を持たなくてもエラーには
+なりませんが、その書籍はどのクライアントからもアクセスできません。
 <P>
 
-�������ؼ��Ҥ�ɽ����ˡ�ϡ�ñ�Ȼؼ��Ҥ� <CODE>hosts</CODE> ��Ʊ���Ǥ���
+この副指示子の表記方法は、単独指示子の <CODE>hosts</CODE> と同じです。
 </DL>
 <P>
 
@@ -557,109 +557,109 @@ EUC (Extended Unix Code) ���Ѥ�������ܸ��ʸ������Ѳ�ǽ�Ǥ���
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
 <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="ebnetd-ja_abt.html#SEC_About"> ? </A>]</TD>
 </TR></TABLE>
-<H2> 3.5 ����ե�������� </H2>
+<H2> 3.5 設定ファイルの例 </H2>
 <!--docid::SEC17::-->
 <P>
 
-EBNETD �� <TT>`/usr/local'</TT> �ʲ��˥��󥹥ȡ��뤷�����ġ��ޥ����ͭ��
-�ɤ߹������ѤΥǡ������֤��ǥ��쥯�ȥ� (<CODE>sysconfdir</CODE>) �ΰ��֤��ѹ�
-���Ƥ��ʤ���С���������ե�����Υ���ץ��
-<TT>`/usr/local/etc/ebnetd.conf.sample'</TT> �˥��󥹥ȡ��뤵��Ƥ��ޤ���
+EBNETD を <TT>`/usr/local'</TT> 以下にインストールし、かつ、マシン固有の
+読み込み専用のデータを置くディレクトリ (<CODE>sysconfdir</CODE>) の位置を変更
+していなければ、この設定ファイルのサンプルは
+<TT>`/usr/local/etc/ebnetd.conf.sample'</TT> にインストールされています。
 </P><P>
 
 <TABLE><tr><td>&nbsp;</td><td class=example><pre>######################################################################
-# ebnetd/ndtpd/ebhttpd ������ե�����Υ���ץ�
-# (���Υե������ `ebnetd.conf' �˥��ԡ����ơ��Խ����Ʋ�����)
+# ebnetd/ndtpd/ebhttpd の設定ファイルのサンプル
+# (このファイルを `ebnetd.conf' にコピーして、編集して下さい)
 ######################################################################
 
-### `ebnetd' ����ĥ��ݡ����ֹ�
-### (̵����ξ��: ebnet)
+### `ebnetd' が見張るポート番号
+### (無指定の場合: ebnet)
 # ebnet-port	ebnet
 
-### `ndtpd' ����ĥ��ݡ����ֹ�
-### (̵����ξ��: ndtp)
+### `ndtpd' が見張るポート番号
+### (無指定の場合: ndtp)
 # ndtp-port	ndtp
 
-### `ebhttpd' ����ĥ��ݡ����ֹ�
-### (̵����ξ��: http)
+### `ebhttpd' が見張るポート番号
+### (無指定の場合: http)
 # http-port	http
 
-### �����ФΥץ������ν�ͭ�桼��
-### (̵����ξ��: �ʤ�)
+### サーバのプロセスの所有ユーザ
+### (無指定の場合: なし)
 user		ndtpuser
 
-### �����ФΥץ������Υ��롼��
-### (̵����ξ��: �ʤ�)
+### サーバのプロセスのグループ
+### (無指定の場合: なし)
 group		ndtpgrp
 
-### �����Ф�Ʊ������³�Ǥ��륯�饤����Ȥο�
-### (̵����ξ��: 1)
+### サーバに同時に接続できるクライアントの数
+### (無指定の場合: 1)
 # max-clients	1
 
-### �����Ф���³�Ǥ���ۥ��ȡ��Ǥ��ʤ��ۥ���
-### (̵����ξ��: �ʤ�)
+### サーバに接続できるホスト、できないホスト
+### (無指定の場合: なし)
 hosts		127.0.0.1
 hosts		::1
 hosts		!?
 hosts		host.your.domain
 
-### �����Ф��򿮤����䤨�����ͥ��������ڤ�ޤǤλ���
-### (̵����ξ��: 900)
+### サーバが交信の途絶えたコネクションを切るまでの時間
+### (無指定の場合: 900)
 # timeout		900
 
-### ����ѥǥ��쥯�ȥ�Υѥ�
-### �����Ф�ư�������ˡ����Υǥ��쥯�ȥ���ꡢ�����Хץ�������
-### �񤭹����褦�ˤ��Ƥ����Ʋ�������
-### (̵����ξ��: /usr/local/var/ebnetd)
+### 作業用ディレクトリのパス
+### サーバを起動する前に、このディレクトリを作り、サーバプロセスが
+### 書き込めるようにしておいて下さい。
+### (無指定の場合: /usr/local/var/ebnetd)
 # work-path	/usr/local/var/ebnetd
 
-### ���θ����ǡ������Ф��֤����ҥåȤ�������ȥ�κ���Ŀ�
-### (̵����ξ��: 50)
+### 一回の検索で、サーバが返す、ヒットしたエントリの最大個数
+### (無指定の場合: 50)
 # max-hits	50
 
-### ���饤����Ȥؤΰ��α����ǡ������Ф��֤��ƥ����Ȥκ��祵����
+### クライアントへの一回の応答で、サーバが返すテキストの最大サイズ
 ### (default: 32768)
 # max-text-size		32768
 
-### syslog �Υե�����ƥ�
-### (̵����ξ��: daemon)
+### syslog のファシリティ
+### (無指定の場合: daemon)
 syslog-facility	local0
 
 ###
-### ���ҤΥ���ȥ�
+### 書籍のエントリ
 ###
 begin book
-    ### ����̾
-    ### (ɬ��)
+    ### 書籍名
+    ### (必須)
     name		JITENBAN97
 
-    ### ���Ҥ���̾
-    ### (ɬ��)
+    ### 書籍の題名
+    ### (必須)
     title		Jitenban 97
 
-    ### ���ҤΥȥåץǥ��쥯�ȥ�
-    ### (ɬ��)
+    ### 書籍のトップディレクトリ
+    ### (必須)
     path		/cdrom
 
-    ### appendix (��Ͽ) �ѥå������Υȥåץǥ��쥯�ȥ�
-    ### (̵����ξ��: �ʤ�)
+    ### appendix (付録) パッケージのトップディレクトリ
+    ### (無指定の場合: なし)
     appendix-path	/usr/local/share/eb/appendix/jitenban97-2.1
 
-    ### Ʊ���˥��������Ǥ��륯�饤����Ȥο�
-    ### (̵����ξ��: 1)
+    ### 同時にアクセスできるクライアントの数
+    ### (無指定の場合: 1)
     max-clients		1
 
-    ### ���ν��Ҥ����ѤǤ���ۥ��ȡ��Ǥ��ʤ��ۥ���
-    ### (̵����ξ��: �ʤ�)
+    ### この書籍を利用できるホスト、できないホスト
+    ### (無指定の場合: なし)
     hosts		127.0.0.1
     hosts		::1
     hosts		!?
     hosts		host.your.domain
 end
 
-### �⤷��CD-ROM ���Ҥ�¾�ˤ⤢��ʤ顢`book' ʣ��ؼ��� (`begin book'
-### ���� `end' �δ֤ι�) ���ɲä��Ʋ�������`book' ʣ��ؼ��Ҥϡ�
-### ���Ұ�����ɬ�פǤ���
+### もし、CD-ROM 書籍が他にもあるなら、`book' 複合指示子 (`begin book'
+### から `end' の間の行) を追加して下さい。`book' 複合指示子は、
+### 書籍一冊毎に必要です。
 </pre></td></tr></table></P><P>
 
 <A NAME="Configuration Checker"></A>
