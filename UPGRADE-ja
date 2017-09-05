@@ -1,36 +1,36 @@
 
-		    $B%"%C%W%0%l!<%I$K4X$9$kCm0U;v9`(B
+		    アップグレードに関する注意事項
 
 ======================================================================
-<< $B0lHLE*$J%R%s%H(B >>
+<< 一般的なヒント >>
 
-* $B@_Dj%U%!%$%k$r%"%C%W%0%l!<%I$r(B `ebnugrade' $B$G(B
+* 設定ファイルをアップグレードを `ebnugrade' で
 
-$B@_Dj%U%!%$%k(B (ebnetd.conf, ndtpd.conf) $B$r4JC1$K%"%C%W%0%l!<%I$7$?$$$J(B
-$B$i!"(B`ebnupgrade' $B%3%^%s%I$r;H$$$^$7$g$&!#(Bebnupgrade $B$OA0$N%P!<%8%g%s$N(B
-EBNETD, NDTPD, ebHTTPD $B$N@_Dj%U%!%$%k$rFI$_9~$_!"K\%P!<%8%g%s$N(B EBNETD
-$B8~$1$N@_Dj%U%!%$%k$r@8@.$7$^$9!#(B
+設定ファイル (ebnetd.conf, ndtpd.conf) を簡単にアップグレードしたいな
+ら、`ebnupgrade' コマンドを使いましょう。ebnupgrade は前のバージョンの
+EBNETD, NDTPD, ebHTTPD の設定ファイルを読み込み、本バージョンの EBNETD
+向けの設定ファイルを生成します。
 
-ebnupgrade $B$O(B EBNETD $B$NI8=`$N@_Dj%U%!%$%k$rFI$_9~$_!"?7$7$$@_Dj$r(B
-`<$BI8=`$N@_Dj%U%!%$%k(B>.new' $B$H$$$&%U%!%$%k$K=PNO$7$^$9!#@_Dj%U%!%$%k$N(B
-$BCV$-49$($O<!$N0lO"$N%3%^%s%I$G9T$($^$9!#(B
+ebnupgrade は EBNETD の標準の設定ファイルを読み込み、新しい設定を
+`<標準の設定ファイル>.new' というファイルに出力します。設定ファイルの
+置き換えは次の一連のコマンドで行えます。
 
 	/usr/local/sbin/ebnupgrade
 	mv /usr/local/etc/ebnetd.conf /usr/local/etc/ebnetd.conf.orig
 	mv /usr/local/etc/ebnetd.conf.new /usr/local/etc/ebnetd.conf
 
-$B$?$@$7$3$l$O!"(BEBNETD $B$,(B /usr/local $B$K%$%s%9%H!<%k$5$l!"%7%9%F%`4IM}MQ(B
-$B$N%3%^%s%I$rCV$/%G%#%l%/%H%j(B (`sbindir') $B$*$h$S%^%7%s8GM-$NFI$_9~$_@l(B
-$BMQ$N%G!<%?$rCV$/%G%#%l%/%H%j(B (`sysconfdir') $B$N0LCV$,%$%s%9%H!<%k;~$KJQ(B
-$B99$5$l$F$$$J$$$H2>Dj$7$F$$$^$9!#(B
+ただしこれは、EBNETD が /usr/local にインストールされ、システム管理用
+のコマンドを置くディレクトリ (`sbindir') およびマシン固有の読み込み専
+用のデータを置くディレクトリ (`sysconfdir') の位置がインストール時に変
+更されていないと仮定しています。
 
-ebnupgrade $B$O@_Dj%U%!%$%k$r$I$N$h$&$K=$@5$7$?$N$+$K$D$$$F$bJs9p$7$^$9!#(B
-$BJs9pFbMF$OI8=`%(%i!<=PNO$K=PNO$5$l$^$9!#(B
+ebnupgrade は設定ファイルをどのように修正したのかについても報告します。
+報告内容は標準エラー出力に出力されます。
 
 	ebnetd.conf: 8: server-name' is obsoleted. (comment out)
 	ebnetd.conf: 38: ident-hosts' is obsoleted. (comment out)
 	ebnetd.conf: 42: ident-timeout' is obsoleted. (comment out)
 	ebnetd.conf: 89: netmask in `hosts' must be an integer. (fixed)
 
-`ebnupgrade --help' $B$G%3%^%s%I9T%*%W%7%g%s$N>pJs$,F@$i$l$^$9!#(B
+`ebnupgrade --help' でコマンド行オプションの情報が得られます。
 
