@@ -39,6 +39,10 @@
 #include <strings.h>
 #endif /* not STDC_HEADERS and not HAVE_STRING_H */
 
+#ifdef HAVE_STDLIB_H
+#include <stdlib.h>
+#endif
+
 #ifdef HAVE_FCNTL_H
 #include <fcntl.h>
 #else
